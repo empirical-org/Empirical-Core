@@ -1,5 +1,6 @@
-import { shallow } from 'enzyme';
 import * as React from 'react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { ExplanationSlide } from '../../../components/activitySlides/explanationSlide';
 
@@ -10,17 +11,17 @@ describe('ExplanationSlide Component', () => {
       header: 'Test Header',
       imageData: {
         imageAlt: 'test alt text',
-        imageUrl: 'test.com'
+        imageUrl: 'test.com',
       },
       isBeta: false,
       step: 1,
-      subtext: 'test subtext'
+      subtext: 'test subtext',
     },
-    onHandleClick: jest.fn()
-  }
-  let component = shallow(<ExplanationSlide {...mockProps} />);
+    onHandleClick: jest.fn(),
+  };
 
   it('should match snapshot', () => {
-    expect(component).toMatchSnapshot();
+    const { asFragment } = render(<ExplanationSlide {...mockProps} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

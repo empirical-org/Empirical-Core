@@ -14,13 +14,16 @@
   &:hover {
     text-decoration: none;
   }
+
   .top-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     .left {
       display: flex;
       align-items: center;
+      width: 100%;
       img {
         margin-right: 24px;
       }
@@ -44,6 +47,29 @@
       color: $quill-green;
     }
   }
+
+  .header-wrapper {
+    width: 100%;
+  }
+
+  .pre-header-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .pre-header {
+      color: $quill-grey-30;
+      line-height: normal;
+      margin-bottom: 8px;
+    }
+    .new-tag {
+      color: $quill-white;
+      border-radius: 5px;
+      background-color: $quill-gold;
+      padding: 4px 8px;
+    }
+  }
+
   .body {
     margin-top: 24px;
     .body-element {

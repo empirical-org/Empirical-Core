@@ -57,3 +57,10 @@ export const INACTIVE = 'inactive'
 export const DISABLED = 'disabled'
 export const DEFAULT = 'default'
 export const HOVER = 'hover'
+
+export const EXTRA_EXTRA_SMALL_ICON_BASE_SRC = `${process.env.CDN_URL}/images/icons/2xs`
+export const EXTRA_SMALL_ICON_BASE_SRC = `${process.env.CDN_URL}/images/icons/xs`
+export const SMALL_ICON_BASE_SRC = `${process.env.CDN_URL}/images/icons/s`
+export const SMALL_MEDIUM_ICON_BASE_SRC = `${process.env.CDN_URL}/images/icons/sm`
+export const LARGE_ICON_BASE_SRC = `${process.env.CDN_URL}/images/icons/l`
+export const EXTRA_LARGE_ICON_BASE_SRC = `${process.env.CDN_URL}/images/icons/xl`

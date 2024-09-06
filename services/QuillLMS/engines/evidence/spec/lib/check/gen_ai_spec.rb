@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Evidence::Check::GenAI, type: :service do
   let(:entry) { 'What is the capital of France?' }
   let(:prompt) { create(:evidence_prompt, text: 'Tell me about the Eiffel Tower.') }
-  let(:previous_feedback) { [{ 'feedback' => 'Previous feedback text' }] }
+  let(:previous_feedback) { [{ 'feedback' => 'Previous feedback text', 'entry' => 'it is good.' }] }
   let(:session_uid) { 'session-uid-1234' }
   let(:system_prompt) { 'You are a helpful assistant.' }
   let(:primary_response) { { 'feedback' => 'Sample feedback', 'optimal' => true } }
@@ -81,41 +81,33 @@ RSpec.describe Evidence::Check::GenAI, type: :service do
       end
     end
 
-    describe '#feedback_history' do
-      it 'returns the feedback history from previous feedback' do
-        expect(subject.send(:feedback_history)).to eq(['Previous feedback text'])
+    describe '#history' do
+      let(:expected_history) do
+        [
+          Evidence::GenAI::HistoryItem.new(user: 'it is good.', assistant: 'Previous feedback text')
+        ]
+      end
+
+      it 'returns the history from previous feedback' do
+        expect(subject.send(:history)).to eq(expected_history)
+      end
+
+      context 'empty history' do
+        let(:previous_feedback) { [] }
+
+        it { expect(subject.send(:history)).to eq([]) }
       end
     end
 
-    describe '#session_history' do
-      let(:session) { double('Session', feedback_history: feedback_history) }
-      let(:feedback_history) do
-        [
-          double('FeedbackHistory', id: 1, entry: 'History entry 1', feedback_text: 'History feedback 1'),
-          double('FeedbackHistory', id: 2, entry: 'History entry 2', feedback_text: 'History feedback 2')
-        ]
+    describe '#history_feedback_only' do
+      it 'returns the feedback history from previous feedback' do
+        expect(subject.send(:history_feedback_only)).to eq(['Previous feedback text'])
       end
 
-      before do
-        allow(Evidence.feedback_session_class).to receive(:find_by).with(activity_session_uid: session_uid).and_return(session)
-      end
+      context 'empty history' do
+        let(:previous_feedback) { [] }
 
-      it 'returns the correct history items' do
-        expected_history = [
-          Evidence::GenAI::HistoryItem.new(user: 'History entry 1', assistant: 'History feedback 1'),
-          Evidence::GenAI::HistoryItem.new(user: 'History entry 2', assistant: 'History feedback 2')
-        ]
-        expect(subject.send(:session_history)).to eq(expected_history)
-      end
-
-      context 'when session is not found' do
-        before do
-          allow(Evidence.feedback_session_class).to receive(:find_by).with(activity_session_uid: session_uid).and_return(nil)
-        end
-
-        it 'returns an empty array' do
-          expect(subject.send(:session_history)).to eq([])
-        end
+        it { expect(subject.send(:history_feedback_only)).to eq([]) }
       end
     end
   end

@@ -6,7 +6,7 @@ RSpec.describe Evidence::GenAI::RepeatedFeedback::PromptBuilder, type: :service 
   let(:prompt) { double('Prompt', text: 'Explain the causes of World War II.', first_passage: nil) }
   let(:history) { ['Feedback 1', 'Feedback 2'] }
   let(:template_content) { "Template with history:\n%<feedback_history>s" }
-  let(:expected_output) { "Template with history:\n- Feedback 1\n- Feedback 2" }
+  let(:expected_output) { "Template with history:\n1. Feedback 1\n2. Feedback 2" }
   let(:template_file_path) { Evidence::Engine.root.join("app/services/evidence/gen_ai/repeated_feedback/prompts/#{described_class::DEFAULT_TEMPLATE}") }
 
   before do
@@ -24,7 +24,7 @@ RSpec.describe Evidence::GenAI::RepeatedFeedback::PromptBuilder, type: :service 
   describe 'private methods' do
     describe '#template_variables' do
       it 'returns a hash with feedback_history' do
-        expected_variables = { feedback_history: "- Feedback 1\n- Feedback 2" }
+        expected_variables = { feedback_history: "1. Feedback 1\n2. Feedback 2" }
         expect(subject.send(:template_variables)).to eq(expected_variables)
       end
     end

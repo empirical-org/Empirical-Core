@@ -38,10 +38,10 @@
     "rendering"
   ],
   "dependencies": {
-    "braces": "^3.0.3",
     "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@rollup/plugin-replace": "^5.0.2",
     "@vitejs/plugin-react": "^3.1.0",
+    "braces": "^3.0.3",
     "foreman": "^3.0.1",
     "lazysizes": "^5.2.0-beta1",
     "postcss": "^8.4.21",
@@ -55,8 +55,10 @@
     "ws": "^8.17.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.46.0",
     "@types/enzyme": "^3.10.13",
     "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/node": "^22.2.0",
     "autoprefixer": "^10.4.13",
     "qs": "^6.9.0",
     "redux-test-utils": "^0.2.2",

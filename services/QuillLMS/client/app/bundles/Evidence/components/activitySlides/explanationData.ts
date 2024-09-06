@@ -1,14 +1,14 @@
 export const explanationData = {
   1: {
     buttonText: "Next",
-    header: "This activity is not graded",
+    header: "All writers revise",
     imageData: {
-      imageAlt: "An illustration of an A+ that is crossed out",
-      imageUrl: "images/evidence/no-grades.svg"
+      imageAlt: "An illustration of a pencil circled with a revision",
+      imageUrl: "images/evidence/revising-pencil.svg"
     },
     isBeta: false,
     step: 2,
-    subtext: "This is a safe space to practice your writing, so it won't be graded. Your teacher will see your revisions, but there are no scores or points."
+    subtext: "Your goal is to practice and improve your writing skills.<br /><br />We will provide you with a lot of feedback on your writing. You’ll be able to revise each sentence up to five times so that you can become a stronger writer."
   },
   2: {
     buttonText: "Next",
@@ -23,13 +23,13 @@ export const explanationData = {
   },
   3: {
     buttonText: "Start",
-    header: "All writers revise",
+    header: "Your teacher will see your score and writing",
     imageData: {
-      imageAlt: "An illustration of a pencil circled with a revision",
-      imageUrl: "images/evidence/revising-pencil.svg"
+      imageAlt: "An illustration of a report page with a magnifying glass over it",
+      imageUrl: "images/evidence/evidence-report.svg"
     },
     isBeta: false,
     step: 4,
-    subtext: "You'll be able to revise each sentence up to five times. We give you feedback because we want to help you write a stronger sentence."
-  }
+    subtext: "Once the activity is complete, both you and your teacher will see a report with your score and your responses for each prompt."
+  },
 }

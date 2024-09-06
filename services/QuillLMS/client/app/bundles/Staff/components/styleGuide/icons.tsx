@@ -9,12 +9,20 @@ const iconGroups = [
     icons: [
       { path: "book-empty.svg" },
       { path: "clipboard.svg" },
+      { path: "comment-document.svg" },
       { path: "diagnostic.svg" },
+      { path: "diamond-in-hand.svg" },
       { path: "evidence-handbook.svg" },
+      { path: "fountain-pen.svg" },
+      { path: "global-education.svg" },
+      { path: "lecture-hall.svg" },
       { path: "list.svg" },
+      { path: "research-books.svg" },
       { path: "retry-pencil.svg" },
+      { path: "search-document.svg" },
       { path: "search-empty.svg" },
-      { path: "success.svg" }
+      { path: "success.svg" },
+      { path: "time-in-hand.svg" }
     ]
   },
   {
@@ -24,12 +32,14 @@ const iconGroups = [
       { path: "activity-library.svg" },
       { path: "activity-packs.svg" },
       { path: "add-students.svg" },
+      { path: "ai.svg" },
       { path: "ap.svg" },
       { path: "archive.svg" },
       { path: "assign-activities.svg" },
       { path: "assigned-activities.svg" },
       { path: "business-building.svg" },
       { path: "diagnostics-all.svg" },
+      { path: "earth.svg" },
       { path: "email.svg" },
       { path: "globe.svg" },
       { path: "graduation-cap.svg" },
@@ -44,8 +54,10 @@ const iconGroups = [
       { path: "referral-gift.svg" },
       { path: "school-building.svg" },
       { path: "school-campus.svg" },
+      { path: "scroll.svg" },
       { path: "share-activity-pack.svg" },
       { path: "share-activity.svg" },
+      { path: "ship.svg" },
       { path: "springboard.svg" },
       { path: "student-accounts.svg" },
       { path: "student-pencil.svg" },
@@ -59,7 +71,9 @@ const iconGroups = [
     path: 'sm',
     title: 'SM (Small-Medium / 48x48)',
     icons: [
+      { path: "ai.svg" },
       { path: "bulb-alt.svg" },
+      { path: "globe.svg" },
       { path: "revise.svg" },
       { path: "success.svg" },
       { path: "tool-connect-bordered.svg" },
@@ -81,6 +95,7 @@ const iconGroups = [
       { path: "account-view.svg" },
       { path: "account.svg" },
       { path: "add-fill.svg" },
+      { path: "ai.svg" },
       { path: "archive.svg" },
       { path: "arrow-back.svg" },
       { path: "avatar.svg" },
@@ -215,10 +230,11 @@ const iconGroups = [
       { path: "check-circle.svg" },
       { path: "check-small.svg" },
       { path: "check-small-white.svg" },
-      { path: "dash-black.svg" },
-      { path: "dash-white.svg" },
+      { path: "chevron-left.svg" },
       { path: "clear-enabled.svg" },
       { path: "clear-enabled-black.svg" },
+      { path: "dash-black.svg" },
+      { path: "dash-white.svg" },
       { path: "description-ccss.svg" },
       { path: "description-concept.svg" },
       { path: "description-copyright.svg" },
@@ -299,6 +315,7 @@ const IconGallery = () => {
     <div id="icons">
       <h2 className="style-guide-h2">Icons</h2>
       <p>All paths follow: <code>{process.env.CDN_URL}/images/icons</code></p>
+      <p>If you need to change the color of an image for use in a design, rather than downloading a new version of the image, please use a <a href="https://codepen.io/sosuke/pen/Pjoqqp" rel="noopener noreferrer" target="_blank">CSS filter generator</a> to apply via CSS and make a mixin for that filter in the variables file if it doesn't already exist. See: <code>@mixin quill-green-filter</code></p>
       {iconGroups.map(iconGroup => (
         <IconDisplay groupPath={iconGroup.path} icons={iconGroup.icons} key={iconGroup.path} title={iconGroup.title} />
       ))}

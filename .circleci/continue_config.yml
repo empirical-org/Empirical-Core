@@ -45,7 +45,6 @@ jobs:
                 name: Bundle Install if cache isn't present.
                 command: |
                   cd services/QuillLMS
-                  gem install bundler:2.2.33
                   # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
                   bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
                   bundle check || bundle install --path vendor/bundle
@@ -84,7 +83,7 @@ jobs:
     parameters:
       <<: *should_run_params
     working_directory: ~/Empirical-Core
-    parallelism: 4
+    parallelism: 1
     docker:
       - image: cimg/ruby:3.2.2-node
         environment:
@@ -92,14 +91,12 @@ jobs:
           PG_USER: ubuntu
           RAILS_ENV: test
           RACK_ENV: test
-          SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub
           DEFAULT_URL: http://localhost:3000
       - image: pgvector/pgvector:pg15
         environment:
           POSTGRES_DB: quill_test_db
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: password
-      - image: selenium/standalone-chrome:4.11.0
     steps:
       - run:
           <<: *blank_required_step
@@ -157,16 +154,28 @@ jobs:
                   cd services/QuillLMS
                   bundle exec rake db:schema:load
                   bundle exec rake db:migrate
+                  bundle exec rake local_data:e2e_seed
                 environment:
                   DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
+            - run:
+                name: vite build
+                command: |
+                  cd services/QuillLMS && bin/vite build
+            - run:
+                name: Start services with Foreman
+                command: cd services/QuillLMS && bundle exec foreman start -f Procfile.ci
+                background: true
             - run:
                 name: Run tests
                 command: |
                   cd services/QuillLMS
-                  TESTFILES=$(circleci tests glob "spec/system/*_spec.rb" | circleci tests split)
-                  bin/rspec ${TESTFILES}
+                  sudo npx playwright install-deps
+                  npx playwright install
+                  CI=true npx playwright test
+                environment:
+                  DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
             - store_artifacts:
-                path: /home/circleci/Empirical-Core/services/QuillLMS/tmp/screenshots
+                path: /home/circleci/Empirical-Core/services/QuillLMS/test-results
   lms_big_query_build:
     parameters:
       <<: *should_run_params
@@ -205,7 +214,6 @@ jobs:
                 name: Bundle Install if cache isn't present.
                 command: |
                   cd services/QuillLMS
-                  gem install bundler:2.2.33
                   # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
                   bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
                   bundle check || bundle install --path vendor/bundle
@@ -350,7 +358,6 @@ jobs:
                 name: Bundle Install if cache isn't present.
                 command: |
                   cd services/QuillCMS
-                  gem install bundler:2.3.26
                   bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
                   bundle check || bundle install --path vendor/bundle
             - save_cache:
@@ -401,8 +408,8 @@ jobs:
             - checkout
             - restore_cache:
                 keys:
-                  - bundle-cache-evidence-v3-{{ checksum "services/QuillLMS/engines/evidence/Gemfile.lock" }}
-                  - bundle-cache-evidence-v3
+                  - bundle-cache-evidence-v4-{{ checksum "services/QuillLMS/engines/evidence/Gemfile.lock" }}
+                  - bundle-cache-evidence-v4
             - run:
                 name: Bundle Install if cache isn't present.
                 command: |
@@ -411,7 +418,7 @@ jobs:
                   bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
                   bundle check || bundle install --path vendor/bundle
             - save_cache:
-                key: bundle-cache-evidence-v3-{{ checksum "services/QuillLMS/engines/evidence/Gemfile.lock" }}
+                key: bundle-cache-evidence-v4-{{ checksum "services/QuillLMS/engines/evidence/Gemfile.lock" }}
                 paths:
                   - services/QuillLMS/engines/evidence/vendor/bundle
             - run:
@@ -514,6 +521,9 @@ parameters:
   lms-run-queries:
     type: boolean
     default: false
+  lms-run-integration:
+    type: boolean
+    default: false
   lms-run-evidence:
     type: boolean
     default: false
@@ -549,6 +559,9 @@ workflows:
           <<: *default_filter
       - lms_big_query_build:
           should-run: << pipeline.parameters.lms-run-queries >>
+          <<: *default_filter
+      - lms_integration_build:
+          should-run: << pipeline.parameters.lms-run-integration >>
           <<: *default_filter
       - evidence_rails_build:
           should-run: << pipeline.parameters.lms-run-evidence >>

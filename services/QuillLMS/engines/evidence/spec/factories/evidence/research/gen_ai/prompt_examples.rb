@@ -22,9 +22,9 @@ module Evidence
     module GenAI
       FactoryBot.define do
         factory :evidence_research_gen_ai_prompt_example, class: 'Evidence::Research::GenAI::PromptExample' do
-          student_response { 'This is the student response' }
+          sequence(:student_response) { |n| "This is the student response #{n}" }
           curriculum_assigned_status { TestExample::ASSIGNED_STATUSES.sample }
-          curriculum_proposed_feedback { 'This is the human feedback' }
+          sequence(:curriculum_proposed_feedback) { |n| "This is the human feedback #{n}" }
           dataset { association :evidence_research_gen_ai_dataset }
 
           trait(:optimal) { curriculum_assigned_status { HasAssignedStatus::OPTIMAL } }

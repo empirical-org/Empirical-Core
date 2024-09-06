@@ -5,6 +5,11 @@ export const PRE_AP_SLUG = 'pre-ap'
 export const AP_SLUG = 'ap'
 export const SPRING_BOARD_SLUG = 'springboard'
 
+export const SOCIAL_STUDIES_SLUG = 'social-studies'
+export const WORLD_HISTORY_1200_TO_PRESENT_SLUG = 'world-history-1200-to-present'
+export const INTERDISCIPLINARY_SCIENCE = 'interdisciplinary-science'
+export const BUILDING_AI_KNOWLEDGE_SLUG = 'building-ai-knowledge'
+
 export const UNIT_TEMPLATE_NAME = 'unitTemplateName'
 export const UNIT_TEMPLATE_ID = 'unitTemplateId'
 export const UNIT_NAME = 'unitName'
@@ -251,6 +256,11 @@ export const ACTIVITY_PACK_TYPES = [
     name: 'Language Skills',
     id: 'independent-practice',
     types: ['Language Skill Review', 'Language Skills for Writing Genres', 'Language Skills Themed Practice']
+  },
+  {
+    name: 'Proofreading',
+    id: 'proofreading',
+    types: [DAILY_PROOFREADING]
   },
   {
     name: 'Whole Class Lessons',

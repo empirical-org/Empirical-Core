@@ -50,48 +50,20 @@ export default class UnitTemplateMinis extends React.Component {
     return _.uniqBy(models, 'id');
   }
 
-  generateCategoryOptions(gradeLevel, selectedTypeId) {
-    const { data, } = this.props
-    const usedCategories = Object.values(data.displayedModels).map(dm => dm.unit_template_category.name)
-    const usedUniqueCategories = usedCategories.filter((v, i, a) => {
-      if(!v) { return }
-      return a.indexOf(v) === i
-    })
-    const sortedUsedCategories = usedUniqueCategories.sort((a,b) => (a && b) ? a.localeCompare(b) : (a < b) ? -1 : 1)
-    const categoryOrder = [ALL].concat(sortedUsedCategories)
-    return categoryOrder.map((name) => {
-      const category = data.categories.find(cat => cat.name === name)
-      if (category) {
-        category.label = category.name
-        return {
-          label: category.name,
-          value: category.id,
-          link: `${this.getIndexLink()}${this.generateQueryString(category, gradeLevel, selectedTypeId)}`
-        }
-      } else {
-        return {
-          label: name,
-          value: null,
-          link: `${this.getIndexLink()}${this.generateQueryString(category, gradeLevel, selectedTypeId)}`
-        }
-      }
-    })
-  }
-
-  generateGradeLevelOptions(currentCategory, selectedTypeId) {
+  generateGradeLevelOptions(selectedTypeId) {
     return [ALL].concat(GRADE_LEVEL_LABELS).map((level) => {
       if (level === ALL) {
         return {
           label: level,
           value: null,
-          link: `${this.getIndexLink()}${this.generateQueryString(currentCategory, null, selectedTypeId)}`
+          link: `${this.getIndexLink()}${this.generateQueryString(null, selectedTypeId)}`
         }
       }
 
       return {
         label: level,
         value: level,
-        link: `${this.getIndexLink()}${this.generateQueryString(currentCategory, level, selectedTypeId)}`
+        link: `${this.getIndexLink()}${this.generateQueryString(level, selectedTypeId)}`
       }
     })
   }
@@ -233,12 +205,8 @@ export default class UnitTemplateMinis extends React.Component {
     }
   }
 
-  generateQueryString(category, gradeLevel, typeId=null) {
+  generateQueryString(gradeLevel, typeId=null) {
     let qs = ''
-
-    if (category) {
-      qs = `?category=${category.label}`
-    }
 
     if (gradeLevel) {
       const gradeLevelQuery = `gradeLevel=${gradeLevel}`
@@ -259,11 +227,8 @@ export default class UnitTemplateMinis extends React.Component {
 
   renderFilterOptions() {
     const { onMobile, currentView } = this.state
-    const { types, selectedTypeId, data, selectCategory, selectGradeLevel, } = this.props
-    const categoryOptions = this.generateCategoryOptions(data.selectedGradeLevel, selectedTypeId)
-    const currentCategory = categoryOptions.find(cat => cat.value && cat.value === data.selectedCategoryId)
-
-    const gradeLevelOptions = this.generateGradeLevelOptions(currentCategory, selectedTypeId)
+    const { types, selectedTypeId, data, selectGradeLevel, } = this.props
+    const gradeLevelOptions = this.generateGradeLevelOptions(selectedTypeId)
     const currentGradeLevel = gradeLevelOptions.find(cat => cat.value && cat.value === data.selectedGradeLevel)
 
     const viewOptions = [GRID_VIEW_OPTION, LIST_VIEW_OPTION]
@@ -272,7 +237,7 @@ export default class UnitTemplateMinis extends React.Component {
 
     const typeOptions = types.map(type => {
       const { id, name, } = type
-      const qs = this.generateQueryString(currentCategory, data.selectedGradeLevel, id)
+      const qs = this.generateQueryString(data.selectedGradeLevel, id)
       return (
         <Link
           className={`focus-on-light ${selectedTypeId === id ? 'active' : ''}`}
@@ -284,7 +249,7 @@ export default class UnitTemplateMinis extends React.Component {
 
     const typeOptionsForDropdown = types.map(type => {
       const { id, name } = type;
-      const qs = this.generateQueryString(currentCategory, data.selectedGradeLevel, id)
+      const qs = this.generateQueryString(data.selectedGradeLevel, id)
       return {
         label: this.getLabelName(name),
         value: `${baseLink}${qs}`
@@ -295,7 +260,7 @@ export default class UnitTemplateMinis extends React.Component {
     const allPacksLink = (
       <Link
         className={`focus-on-light ${!selectedTypeId ? 'active' : null}`}
-        to={`${baseLink}${this.generateQueryString(currentCategory, data.selectedGradeLevel)}`}
+        to={`${baseLink}${this.generateQueryString(data.selectedGradeLevel)}`}
       >All Packs</Link>
     );
 
@@ -322,13 +287,6 @@ export default class UnitTemplateMinis extends React.Component {
             label="Grade level range"
             options={gradeLevelOptions}
             value={currentGradeLevel || gradeLevelOptions[0]}
-          />
-          <DropdownInput
-            className="category-dropdown"
-            handleChange={selectCategory}
-            label="Pack type"
-            options={categoryOptions}
-            value={currentCategory || categoryOptions[0]}
           />
           <DropdownInput
             className="category-dropdown view-options"

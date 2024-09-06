@@ -12,6 +12,7 @@
     background-color: $quill-white;
     width: 100%;
     max-width: 1200px;
+    margin-top: 24px;
     margin-bottom: 40px;
     border-radius: 6px;
     border: solid 1px $quill-grey-5;
@@ -90,27 +91,6 @@
 
     #celebration-vector {
       margin: 16px 0px 16px 0px;
-    }
-
-    #reminder-badge-section {
-      display: flex;
-      align-items: center;
-      width: 440px;
-      background-color: #e1f3f1;
-      margin: 32px 0px 26px 0px;
-      border-radius: 8px;
-      box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 8px 10px 1px rgba(0, 0, 0, 0.14);
-      transform: rotate(-2deg);
-      #reminder-text-section {
-        padding: 16px 0px;
-        .sub-header-subtext {
-          max-width: 352px;
-        }
-      }
-      #grade-badge {
-        margin: 0px 16px 0px 16px;
-        width: 48px;
-      }
     }
   }
 
@@ -216,16 +196,6 @@
 
 @media (max-width: 600px) {
   .post-activity-slide-container {
-    #information-section {
-      #reminder-badge-section {
-        width: 280px;
-        padding: 0px 16px;
-        margin: 0px 38px 24px 38px;
-        #grade-badge {
-          display: none;
-        }
-      }
-    }
     .responses-exemplars-container {
       .response-exemplars-section {
         .response-section, .exemplars-section {

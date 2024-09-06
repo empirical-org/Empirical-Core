@@ -229,7 +229,23 @@
     display: flex;
     align-items: center;
     height: auto;
+    &.active:not(:hover) {
+      .small-bar-chart-icon {
+        @include quill-green-filter;
+      }
+    }
   }
+
+  .small-bar-chart-icon {
+    @include quill-white-filter;
+    background-image: url("https://assets.quill.org/images/icons/s/bar-chart.svg");
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-left: 4px;
+  }
+
   a:not(.default) {
     background-color: rgba(255, 255, 255, 0.35);
     color: white;

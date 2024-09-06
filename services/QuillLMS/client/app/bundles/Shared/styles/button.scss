@@ -114,7 +114,7 @@
     background-color: $quill-white;
     border: 1px solid $quill-green-20;
     color: $quill-green;
-    font-weight: 500 !important;
+    font-weight: 600 !important;
     &.disabled {
       color: $quill-grey-30 !important;
       border: 1px solid $quill-grey-15 !important;
@@ -200,8 +200,15 @@
     min-width: 73px;
   }
   &.large {
-    @include display-xs;
+    @include display-s;
     height: 44px;
     min-width: 89px;
+    border-radius: 10px;
+  }
+  &.extra-large {
+    @include display-m;
+    height: 56px;
+    min-width: 122px;
+    border-radius: 12px;
   }
 }

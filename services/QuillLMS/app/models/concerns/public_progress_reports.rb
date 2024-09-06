@@ -135,6 +135,9 @@ module PublicProgressReports
       unit_id: unit_id
     )
 
+    activity = Activity.find_by(id: activity_id)
+
+    return [] unless activity
     return [] if !classroom_unit
 
     activity_sessions = ActivitySession
@@ -147,10 +150,9 @@ module PublicProgressReports
       )
       .order('activity_sessions.completed_at')
 
-    classification = Activity.find_by(id: activity_id).classification
     student = User.find_by(id: student_id)
 
-    activity_sessions.map { |activity_session| formatted_score_obj(activity_session, classification, student) }
+    activity_sessions.map { |activity_session| formatted_score_obj(activity_session, activity.classification, student) }
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
@@ -222,7 +224,7 @@ module PublicProgressReports
     formatted_concept_results = format_concept_results(activity_session, activity_session.concept_results)
     if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(classification.key)
       score = get_average_score(formatted_concept_results)
-    elsif [ActivityClassification::EVIDENCE_KEY].include?(classification.key)
+    elsif [ActivityClassification::EVIDENCE_KEY].include?(classification.key) && activity_session.percentage.nil? # handles previous state where evidence sessions didn't get scored
       score = nil
     else
       score = (activity_session.percentage * 100).round

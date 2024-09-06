@@ -1,31 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LandingPage component matches the snapshot 1`] = `
-<LandingPage>
+exports[`LandingPage component matches the snapshot when the content hub data is loading 1`] = `
+<DocumentFragment>
   <div
-    className="progress-reports-landing-page"
+    class="progress-reports-landing-page"
   >
-    <DemoOnboardingTour
-      pageKey="demo-onboarding-student-reports-landing-page"
-    >
-      <span />
-    </DemoOnboardingTour>
+    <span />
     <div
-      className="generic-mini-container"
+      class="generic-mini-container"
     >
       <div
-        className="header"
+        class="header"
       >
         <h1>
           Choose which type of report you’d like to see:
         </h1>
       </div>
       <div
-        className="generic-minis"
+        class="generic-minis"
       >
         <div
-          className="generic-mini"
-          key="Activity Summary Report"
+          class="generic-mini"
         >
           <a
             href="/teachers/classrooms/scorebook"
@@ -34,23 +29,20 @@ exports[`LandingPage component matches the snapshot 1`] = `
               Activity Summary Report
             </h3>
             <div
-              className="img-wrapper"
+              class="img-wrapper"
             >
               <img
                 alt=""
                 src="undefined/images/shared/visual_overview.svg"
               />
             </div>
-            <p
-              style={Object {}}
-            >
+            <p>
               Quickly see which activities your students have completed and the skills that were demonstrated.
             </p>
           </a>
         </div>
         <div
-          className="generic-mini"
-          key="Activity Analysis Report"
+          class="generic-mini"
         >
           <a
             href="/teachers/progress_reports/diagnostic_reports#/activity_packs"
@@ -59,24 +51,21 @@ exports[`LandingPage component matches the snapshot 1`] = `
               Activity Analysis Report
             </h3>
             <div
-              className="img-wrapper"
+              class="img-wrapper"
             >
               <img
                 alt=""
                 src="undefined/images/shared/activity_analysis.svg"
               />
             </div>
-            <p
-              style={Object {}}
-            >
+            <p>
               See how students responded to each question and get a clear analysis of the skills they demonstrated.
             </p>
           </a>
         </div>
         <div
-          className="generic-mini"
+          class="generic-mini"
           id="diagnostic-reports-card"
-          key="Diagnostics Report"
         >
           <a
             href="/teachers/progress_reports/diagnostic_reports/#/diagnostics"
@@ -85,23 +74,20 @@ exports[`LandingPage component matches the snapshot 1`] = `
               Diagnostics Report
             </h3>
             <div
-              className="img-wrapper"
+              class="img-wrapper"
             >
               <img
                 alt=""
                 src="undefined/images/shared/diagnostic.svg"
               />
             </div>
-            <p
-              style={Object {}}
-            >
+            <p>
               View diagnostic results and get a personalized learning plan with recommended activities.
             </p>
           </a>
         </div>
         <div
-          className="generic-mini"
-          key="Activity Scores Report"
+          class="generic-mini"
         >
           <a
             href="/teachers/progress_reports/activities_scores_by_classroom"
@@ -110,7 +96,7 @@ exports[`LandingPage component matches the snapshot 1`] = `
               Activity Scores Report
             </h3>
             <h4
-              className="premium"
+              class="premium"
             >
               <span>
                 Premium
@@ -121,23 +107,20 @@ exports[`LandingPage component matches the snapshot 1`] = `
               />
             </h4>
             <div
-              className="img-wrapper"
+              class="img-wrapper"
             >
               <img
                 alt=""
                 src="undefined/images/illustrations/activity-scores-illustration.svg"
               />
             </div>
-            <p
-              style={Object {}}
-            >
+            <p>
               View and download each student’s overall score and their individual scores per activity as a PDF or CSV.
             </p>
           </a>
         </div>
         <div
-          className="generic-mini"
-          key="Concepts Report"
+          class="generic-mini"
         >
           <a
             href="/teachers/progress_reports/concepts/students"
@@ -146,7 +129,7 @@ exports[`LandingPage component matches the snapshot 1`] = `
               Concepts Report
             </h3>
             <h4
-              className="premium"
+              class="premium"
             >
               <span>
                 Premium
@@ -157,23 +140,20 @@ exports[`LandingPage component matches the snapshot 1`] = `
               />
             </h4>
             <div
-              className="img-wrapper"
+              class="img-wrapper"
             >
               <img
                 alt=""
                 src="undefined/images/shared/concepts.svg"
               />
             </div>
-            <p
-              style={Object {}}
-            >
+            <p>
               View an overall summary of how your students are performing across all writing and grammar concepts.
             </p>
           </a>
         </div>
         <div
-          className="generic-mini"
-          key="Standards Report"
+          class="generic-mini"
         >
           <a
             href="/teachers/progress_reports/standards/classrooms"
@@ -182,7 +162,7 @@ exports[`LandingPage component matches the snapshot 1`] = `
               Standards Report
             </h3>
             <h4
-              className="premium"
+              class="premium"
             >
               <span>
                 Premium
@@ -193,23 +173,20 @@ exports[`LandingPage component matches the snapshot 1`] = `
               />
             </h4>
             <div
-              className="img-wrapper"
+              class="img-wrapper"
             >
               <img
                 alt=""
                 src="undefined/images/shared/common_core.svg"
               />
             </div>
-            <p
-              style={Object {}}
-            >
+            <p>
               View this report to see how your students are performing on specific National standards.
             </p>
           </a>
         </div>
         <div
-          className="generic-mini"
-          key="Data Export"
+          class="generic-mini"
         >
           <a
             href="/teachers/progress_reports/activity_sessions"
@@ -218,7 +195,7 @@ exports[`LandingPage component matches the snapshot 1`] = `
               Data Export
             </h3>
             <h4
-              className="premium"
+              class="premium"
             >
               <span>
                 Premium
@@ -229,7 +206,7 @@ exports[`LandingPage component matches the snapshot 1`] = `
               />
             </h4>
             <div
-              className="img-wrapper"
+              class="img-wrapper"
             >
               <img
                 alt=""
@@ -237,18 +214,685 @@ exports[`LandingPage component matches the snapshot 1`] = `
               />
             </div>
             <p
-              style={
-                Object {
-                  "marginTop": "-17px",
-                }
-              }
+              style="margin-top: -17px;"
             >
               You can export the data as a CSV file by filtering for the classrooms, activity packs, or students you would like to export and then pressing “Download Report.”
             </p>
           </a>
         </div>
       </div>
+      <div
+        class="header"
+      >
+        <h1>
+          Access curriculum-specific dashboards:
+        </h1>
+      </div>
+      <div
+        class="curriculum-minis"
+      >
+        <div
+          class="generic-mini"
+        >
+          <a
+            href="/assign/social-studies"
+          >
+            <span
+              class="new-tag"
+            >
+              NEW
+            </span>
+            <h3>
+              Social Studies Dashboard
+            </h3>
+            <div
+              class="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/illustrations/world-history-dashboard.svg"
+              />
+            </div>
+            <p />
+            <div
+              class="loading-spinner"
+            >
+              <div
+                class="spinner-container"
+              >
+                <img
+                  alt="Loading spinner"
+                  class="spinner"
+                  src="https://assets.quill.org/images/icons/loader_still.svg"
+                />
+              </div>
+            </div>
+            <p />
+          </a>
+        </div>
+        <div
+          class="generic-mini"
+        >
+          <a
+            href="/assign/interdisciplinary-science"
+          >
+            <span
+              class="new-tag"
+            >
+              NEW
+            </span>
+            <h3>
+              Interdisciplinary Science Dashboard
+            </h3>
+            <div
+              class="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/illustrations/ai-dashboard.svg"
+              />
+            </div>
+            <p />
+            <div
+              class="loading-spinner"
+            >
+              <div
+                class="spinner-container"
+              >
+                <img
+                  alt="Loading spinner"
+                  class="spinner"
+                  src="https://assets.quill.org/images/icons/loader_still.svg"
+                />
+              </div>
+            </div>
+            <p />
+          </a>
+        </div>
+      </div>
     </div>
   </div>
-</LandingPage>
+</DocumentFragment>
+`;
+
+exports[`LandingPage component matches the snapshot when the user has assigned both social studies and science content 1`] = `
+<DocumentFragment>
+  <div
+    class="progress-reports-landing-page"
+  >
+    <span />
+    <div
+      class="generic-mini-container"
+    >
+      <div
+        class="header"
+      >
+        <h1>
+          Choose which type of report you’d like to see:
+        </h1>
+      </div>
+      <div
+        class="generic-minis"
+      >
+        <div
+          class="generic-mini"
+        >
+          <a
+            href="/teachers/classrooms/scorebook"
+          >
+            <h3>
+              Activity Summary Report
+            </h3>
+            <div
+              class="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/shared/visual_overview.svg"
+              />
+            </div>
+            <p>
+              Quickly see which activities your students have completed and the skills that were demonstrated.
+            </p>
+          </a>
+        </div>
+        <div
+          class="generic-mini"
+        >
+          <a
+            href="/teachers/progress_reports/diagnostic_reports#/activity_packs"
+          >
+            <h3>
+              Activity Analysis Report
+            </h3>
+            <div
+              class="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/shared/activity_analysis.svg"
+              />
+            </div>
+            <p>
+              See how students responded to each question and get a clear analysis of the skills they demonstrated.
+            </p>
+          </a>
+        </div>
+        <div
+          class="generic-mini"
+          id="diagnostic-reports-card"
+        >
+          <a
+            href="/teachers/progress_reports/diagnostic_reports/#/diagnostics"
+          >
+            <h3>
+              Diagnostics Report
+            </h3>
+            <div
+              class="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/shared/diagnostic.svg"
+              />
+            </div>
+            <p>
+              View diagnostic results and get a personalized learning plan with recommended activities.
+            </p>
+          </a>
+        </div>
+        <div
+          class="generic-mini"
+        >
+          <a
+            href="/teachers/progress_reports/activities_scores_by_classroom"
+          >
+            <h3>
+              Activity Scores Report
+            </h3>
+            <h4
+              class="premium"
+            >
+              <span>
+                Premium
+              </span>
+              <img
+                alt=""
+                src="undefined/images/icons/yellow-diamond.svg"
+              />
+            </h4>
+            <div
+              class="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/illustrations/activity-scores-illustration.svg"
+              />
+            </div>
+            <p>
+              View and download each student’s overall score and their individual scores per activity as a PDF or CSV.
+            </p>
+          </a>
+        </div>
+        <div
+          class="generic-mini"
+        >
+          <a
+            href="/teachers/progress_reports/concepts/students"
+          >
+            <h3>
+              Concepts Report
+            </h3>
+            <h4
+              class="premium"
+            >
+              <span>
+                Premium
+              </span>
+              <img
+                alt=""
+                src="undefined/images/icons/yellow-diamond.svg"
+              />
+            </h4>
+            <div
+              class="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/shared/concepts.svg"
+              />
+            </div>
+            <p>
+              View an overall summary of how your students are performing across all writing and grammar concepts.
+            </p>
+          </a>
+        </div>
+        <div
+          class="generic-mini"
+        >
+          <a
+            href="/teachers/progress_reports/standards/classrooms"
+          >
+            <h3>
+              Standards Report
+            </h3>
+            <h4
+              class="premium"
+            >
+              <span>
+                Premium
+              </span>
+              <img
+                alt=""
+                src="undefined/images/icons/yellow-diamond.svg"
+              />
+            </h4>
+            <div
+              class="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/shared/common_core.svg"
+              />
+            </div>
+            <p>
+              View this report to see how your students are performing on specific National standards.
+            </p>
+          </a>
+        </div>
+        <div
+          class="generic-mini"
+        >
+          <a
+            href="/teachers/progress_reports/activity_sessions"
+          >
+            <h3>
+              Data Export
+            </h3>
+            <h4
+              class="premium"
+            >
+              <span>
+                Premium
+              </span>
+              <img
+                alt=""
+                src="undefined/images/icons/yellow-diamond.svg"
+              />
+            </h4>
+            <div
+              class="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/shared/list_overview.svg"
+              />
+            </div>
+            <p
+              style="margin-top: -17px;"
+            >
+              You can export the data as a CSV file by filtering for the classrooms, activity packs, or students you would like to export and then pressing “Download Report.”
+            </p>
+          </a>
+        </div>
+      </div>
+      <div
+        class="header"
+      >
+        <h1>
+          Access curriculum-specific dashboards:
+        </h1>
+      </div>
+      <div
+        class="curriculum-minis"
+      >
+        <div
+          class="generic-mini"
+        >
+          <a
+            href="/teachers/progress_reports/social-studies/world-history-1200-to-present"
+          >
+            <span
+              class="new-tag"
+            >
+              NEW
+            </span>
+            <h3>
+              Social Studies Dashboard
+            </h3>
+            <div
+              class="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/illustrations/world-history-dashboard.svg"
+              />
+            </div>
+            <p>
+              Your one-stop shop for assigning new social studies activities and tracking student progress.
+            </p>
+          </a>
+        </div>
+        <div
+          class="generic-mini"
+        >
+          <a
+            href="/teachers/progress_reports/interdisciplinary-science/building-ai-knowledge"
+          >
+            <span
+              class="new-tag"
+            >
+              NEW
+            </span>
+            <h3>
+              Interdisciplinary Science Dashboard
+            </h3>
+            <div
+              class="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/illustrations/ai-dashboard.svg"
+              />
+            </div>
+            <p>
+              Your one-stop shop for assigning new interdisciplinary science activities and tracking student progress.
+            </p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`LandingPage component matches the snapshot when the user has assigned neither social studies nor science content 1`] = `
+<DocumentFragment>
+  <div
+    class="progress-reports-landing-page"
+  >
+    <span />
+    <div
+      class="generic-mini-container"
+    >
+      <div
+        class="header"
+      >
+        <h1>
+          Choose which type of report you’d like to see:
+        </h1>
+      </div>
+      <div
+        class="generic-minis"
+      >
+        <div
+          class="generic-mini"
+        >
+          <a
+            href="/teachers/classrooms/scorebook"
+          >
+            <h3>
+              Activity Summary Report
+            </h3>
+            <div
+              class="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/shared/visual_overview.svg"
+              />
+            </div>
+            <p>
+              Quickly see which activities your students have completed and the skills that were demonstrated.
+            </p>
+          </a>
+        </div>
+        <div
+          class="generic-mini"
+        >
+          <a
+            href="/teachers/progress_reports/diagnostic_reports#/activity_packs"
+          >
+            <h3>
+              Activity Analysis Report
+            </h3>
+            <div
+              class="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/shared/activity_analysis.svg"
+              />
+            </div>
+            <p>
+              See how students responded to each question and get a clear analysis of the skills they demonstrated.
+            </p>
+          </a>
+        </div>
+        <div
+          class="generic-mini"
+          id="diagnostic-reports-card"
+        >
+          <a
+            href="/teachers/progress_reports/diagnostic_reports/#/diagnostics"
+          >
+            <h3>
+              Diagnostics Report
+            </h3>
+            <div
+              class="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/shared/diagnostic.svg"
+              />
+            </div>
+            <p>
+              View diagnostic results and get a personalized learning plan with recommended activities.
+            </p>
+          </a>
+        </div>
+        <div
+          class="generic-mini"
+        >
+          <a
+            href="/teachers/progress_reports/activities_scores_by_classroom"
+          >
+            <h3>
+              Activity Scores Report
+            </h3>
+            <h4
+              class="premium"
+            >
+              <span>
+                Premium
+              </span>
+              <img
+                alt=""
+                src="undefined/images/icons/yellow-diamond.svg"
+              />
+            </h4>
+            <div
+              class="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/illustrations/activity-scores-illustration.svg"
+              />
+            </div>
+            <p>
+              View and download each student’s overall score and their individual scores per activity as a PDF or CSV.
+            </p>
+          </a>
+        </div>
+        <div
+          class="generic-mini"
+        >
+          <a
+            href="/teachers/progress_reports/concepts/students"
+          >
+            <h3>
+              Concepts Report
+            </h3>
+            <h4
+              class="premium"
+            >
+              <span>
+                Premium
+              </span>
+              <img
+                alt=""
+                src="undefined/images/icons/yellow-diamond.svg"
+              />
+            </h4>
+            <div
+              class="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/shared/concepts.svg"
+              />
+            </div>
+            <p>
+              View an overall summary of how your students are performing across all writing and grammar concepts.
+            </p>
+          </a>
+        </div>
+        <div
+          class="generic-mini"
+        >
+          <a
+            href="/teachers/progress_reports/standards/classrooms"
+          >
+            <h3>
+              Standards Report
+            </h3>
+            <h4
+              class="premium"
+            >
+              <span>
+                Premium
+              </span>
+              <img
+                alt=""
+                src="undefined/images/icons/yellow-diamond.svg"
+              />
+            </h4>
+            <div
+              class="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/shared/common_core.svg"
+              />
+            </div>
+            <p>
+              View this report to see how your students are performing on specific National standards.
+            </p>
+          </a>
+        </div>
+        <div
+          class="generic-mini"
+        >
+          <a
+            href="/teachers/progress_reports/activity_sessions"
+          >
+            <h3>
+              Data Export
+            </h3>
+            <h4
+              class="premium"
+            >
+              <span>
+                Premium
+              </span>
+              <img
+                alt=""
+                src="undefined/images/icons/yellow-diamond.svg"
+              />
+            </h4>
+            <div
+              class="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/shared/list_overview.svg"
+              />
+            </div>
+            <p
+              style="margin-top: -17px;"
+            >
+              You can export the data as a CSV file by filtering for the classrooms, activity packs, or students you would like to export and then pressing “Download Report.”
+            </p>
+          </a>
+        </div>
+      </div>
+      <div
+        class="header"
+      >
+        <h1>
+          Access curriculum-specific dashboards:
+        </h1>
+      </div>
+      <div
+        class="curriculum-minis"
+      >
+        <div
+          class="generic-mini"
+        >
+          <a
+            href="/assign/social-studies"
+          >
+            <span
+              class="new-tag"
+            >
+              NEW
+            </span>
+            <h3>
+              Social Studies Dashboard
+            </h3>
+            <div
+              class="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/illustrations/world-history-dashboard.svg"
+              />
+            </div>
+            <p>
+              Explore Quill's Social Studies Activities. Once assigned, return here to assign additional activities and track student progress.
+            </p>
+          </a>
+        </div>
+        <div
+          class="generic-mini"
+        >
+          <a
+            href="/assign/interdisciplinary-science"
+          >
+            <span
+              class="new-tag"
+            >
+              NEW
+            </span>
+            <h3>
+              Interdisciplinary Science Dashboard
+            </h3>
+            <div
+              class="img-wrapper"
+            >
+              <img
+                alt=""
+                src="undefined/images/illustrations/ai-dashboard.svg"
+              />
+            </div>
+            <p>
+              Explore Quill's Interdisciplinary Science Activities. Once assigned, return here to assign additional activities and track student progress.
+            </p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;
