@@ -95,10 +95,12 @@
 
   .research-blocks {
     background-color: $quill-grey-1;
-    display: flex;
     padding: 80px 0px;
-    gap: 32px;
-    justify-content: center;
+    .container {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+    }
     .research-block {
       background-color: $quill-white;
       border-radius: 32px;
@@ -144,10 +146,8 @@
       gap: 24px;
       justify-content: center;
       display: flex;
-      flex-direction: row;
     }
     .reason {
-      flex: 1;
       max-width: 396px;
       img {
         @include quill-teal-filter;
@@ -156,7 +156,7 @@
         color: $quill-teal;
       }
       .tag-cloud {
-        min-height: 345px;
+        min-height: 350px;
         margin: 28px 0px;
       }
       .tag {
@@ -240,7 +240,7 @@
       padding-bottom: 80px;
       border-bottom: 1px solid $quill-grey-15;
     }
-    .reasons-container {
+    .reasons {
       display: flex;
       gap: 32px;
       margin-bottom: 80px;
@@ -312,9 +312,91 @@
     }
   }
 
-  // @media (max-width: 1300px) {
-  //   .connect-on-laptop {
-  //     display: none;
-  //   }
-  // }
+  @media (max-width: 1300px) {
+    .connect-on-laptop {
+      display: none;
+    }
+    .research-blocks {
+      position: relative;
+      margin-top: 80px;
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    .reasons {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 80px !important;
+    }
+    .reason p {
+      height: fit-content !important;
+      border-bottom: none !important;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .admin-dashboard {
+      .content, h2 {
+        margin-left: auto;
+        margin-right: auto;
+        width: calc(100% - 30px);
+      }
+      .content {
+        flex-direction: column-reverse;
+        gap: 40px;
+        .admin-bezel-img-wrapper {
+          max-width: 100% !important;
+          img {
+            width: 100%;
+          }
+        }
+        .text-side {
+          margin: 0px;
+          text-align: center;
+          min-width: 400px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 875px) {
+    header {
+      h1 {
+        font-size: 60px;
+      }
+      .pre-header {
+        font-size: 24px;
+      }
+    }
+    .research-blocks {
+      margin-top: 24px;
+    }
+  }
+
+  @media (max-width: 700px) {
+    header {
+      .video-section {
+        display: none;
+      }
+      padding-bottom: 40px;
+    }
+    .research-blocks {
+      margin-top: 0px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    header {
+      .buttons-wrapper {
+        flex-direction: column;
+      }
+    }
+    .admin-dashboard .content {
+      .text-side {
+        min-width: calc(100% - 30px);
+      }
+    }
+  }
 }
