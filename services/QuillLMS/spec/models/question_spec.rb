@@ -406,8 +406,8 @@ RSpec.describe Question, type: :model do
     end
 
     context 'a locale is passed in' do
-      let(:locale) { 'ch-zn' }
-      let(:options) { { locale: } }
+      let(:language) { 'chinese' }
+      let(:options) { { language: } }
 
       it 'should return translated_data(language:)' do
         expect(question).to receive(:translated_data).with(locale: Translatable::CHINESE_LOCALE).and_return({})
