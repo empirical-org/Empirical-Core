@@ -7,6 +7,8 @@ const FinalAttemptFeedback = ({latestAttempt, correctResponse}) => {
     <Feedback
       feedback={<p dangerouslySetInnerHTML={{ __html: finalAttemptFeedback }} />}
       feedbackType="incorrect-continue"
+      latestAttempt={latestAttempt}
+      correctResponse={correctResponse}
     />
   )
 };

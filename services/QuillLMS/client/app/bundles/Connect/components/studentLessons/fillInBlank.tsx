@@ -402,7 +402,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     const latestAttempt = getLatestAttempt(question.attempts);
 
     if (maxAttemptsSubmitted && !latestAttempt.response.optimal) {
-      console.log("🚀 ~ PlayFillInTheBlankQuestion ~ latestAttempt.response.text:", latestAttempt.response.text)
       return (
         <FinalAttemptFeedback
           correctResponse={this.correctResponse()}
