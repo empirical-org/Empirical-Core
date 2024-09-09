@@ -256,10 +256,10 @@ describe('Lesson Container functions', () => {
       answeredQuestions: [],
       unansweredQuestions: filteredQuestions.slice(3),
       currentQuestion: {
-        type: 'TL',
-        data: {
+        question: {
           key: 'test-key'
-        }
+        },
+        type: 'TL'
       }
     };
     container = shallow(<Lesson {...mockProps} />);

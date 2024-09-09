@@ -59,6 +59,7 @@ exports[`Lessons component matches the snapshot 1`] = `
           "hasreceiveddata": false,
           "states": Object {},
           "submittingnew": false,
+          "translated_questions": null,
         }
       }
       routing={
