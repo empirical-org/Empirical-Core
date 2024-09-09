@@ -14,16 +14,16 @@ class Api::V1::ActivityQuestionsController < ApplicationController
   private def cached_questions(activity)
     Rails.cache.fetch(cache_key(activity), expires_in: 1.hour) do
       activity.questions.each_with_object({}) do |question, hash|
-        hash[question.uid] = question.as_json(locale: permitted_params[:locale])
+        hash[question.uid] = question.as_json(language: permitted_params[:language])
       end
     end
   end
 
   private def cache_key(activity)
-    "activity_questions/#{activity.uid}/#{permitted_params[:locale]}"
+    "activity_questions/#{activity.uid}/#{permitted_params[:language]}"
   end
 
   private def permitted_params
-    params.permit(:activity_id, :locale)
+    params.permit(:activity_id, :language)
   end
 end

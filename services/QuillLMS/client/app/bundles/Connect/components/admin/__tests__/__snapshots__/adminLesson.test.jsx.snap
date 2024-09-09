@@ -275,6 +275,7 @@ exports[`adminLesson component should render with lessons sidebar and fill in bl
                               "hasreceiveddata": false,
                               "states": Object {},
                               "submittingnew": false,
+                              "translated_questions": null,
                             }
                           }
                           routing={
@@ -790,6 +791,7 @@ exports[`adminLesson component should render with lessons sidebar and question c
                               "hasreceiveddata": false,
                               "states": Object {},
                               "submittingnew": false,
+                              "translated_questions": null,
                             }
                           }
                           routing={
@@ -1027,6 +1029,7 @@ exports[`adminLesson component should render with lessons sidebar and question c
                           "hasreceiveddata": false,
                           "states": Object {},
                           "submittingnew": false,
+                          "translated_questions": null,
                         }
                       }
                       routing={
@@ -1326,6 +1329,7 @@ exports[`adminLesson component should render with lessons sidebar and sentence f
                               "hasreceiveddata": false,
                               "states": Object {},
                               "submittingnew": false,
+                              "translated_questions": null,
                             }
                           }
                           routing={
@@ -1854,6 +1858,7 @@ exports[`adminLesson component should render with lessons sidebar and title card
                               "hasreceiveddata": false,
                               "states": Object {},
                               "submittingnew": false,
+                              "translated_questions": null,
                             }
                           }
                           routing={
