@@ -5,10 +5,10 @@ const FinalAttemptFeedback = ({latestAttempt, correctResponse}) => {
   const finalAttemptFeedback = `<b>Good try!</b> Compare your response to the strong response, and then go on to the next question.<br><br><b>Your response</b><br>${latestAttempt}<br><br><b>A strong response</b><br>${correctResponse}`
   return (
     <Feedback
+      correctResponse={correctResponse}
       feedback={<p dangerouslySetInnerHTML={{ __html: finalAttemptFeedback }} />}
       feedbackType="incorrect-continue"
       latestAttempt={latestAttempt}
-      correctResponse={correctResponse}
     />
   )
 };
