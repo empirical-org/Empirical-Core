@@ -25,6 +25,10 @@
         "There is often more than one correct answer.": "A menudo hay más de una respuesta correcta.",
         "Remember to use correct spelling, capitalization, and punctuation!": "¡Recuerda usar la ortografía, la capitalización y la puntuación correctas!"
     },
+    "Quill Connect Completed": {
+        "header": "Has completado la lección.",
+        "message": "Sus resultados se están guardando ahora. Será redirigido automáticamente una vez que se hayan guardado."
+    },
     "ELL Starter Fill in the Blank": {
         "header": "Rellena el espacio en blanco",
         "text": "En esta sección, cada oración tendrá uno, dos o tres espacios en blanco. Rellenarás cada espacio en blanco con una de las palabras de la lista o lo dejarás en blanco si no se necesita ninguna palabra. Escribe las palabras que elijas en los cuadros. ¡Recuerda revisar tu ortografía! ¡Empecemos!"
@@ -132,6 +136,7 @@
         "Combine the sentences into one sentence. Use one of the joining words.": "Combine las oraciones en una sola oración. Use una de las palabras de enlace.",
         "Combine the sentences into one sentence.": "Combine las oraciones en una sola oración.",
         "Select a strong answer. There may be more than one.": "Seleccione una respuesta sólida. Puede haber más de una.",
-        "Good work! Here are the most popular strong answers:": "¡Buen trabajo! Aquí están las respuestas más populares y sólidas:"
+        "Good work! Here are the most popular strong answers:": "¡Buen trabajo! Aquí están las respuestas más populares y sólidas:",
+        "Keep going! Here are the most popular strong answers:": "¡Sigue adelante! Aquí están las respuestas más populares y sólidas:"
     }
 }

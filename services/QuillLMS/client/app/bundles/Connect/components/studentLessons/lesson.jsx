@@ -542,6 +542,8 @@ export class Lesson extends React.Component {
           previewMode={previewMode}
           saved={saved}
           saveToLMS={this.saveToLMS}
+          showTranslation={showTranslation}
+          translate={translate}
         />
       );
     } else if (availableLanguages && hasTranslationFlag() && !language) {
