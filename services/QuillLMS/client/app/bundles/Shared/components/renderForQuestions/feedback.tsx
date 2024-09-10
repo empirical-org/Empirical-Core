@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { stripHtml } from "string-strip-html";
+import ReactHtmlParser from 'react-html-parser'
 
 import {
   REVISE_MATCHED,
@@ -148,7 +148,7 @@ function translatedCMSResponseFeedback(latestAttempt, question) {
   const { cms_responses } = translation
   const id = response.id || response.parent_id
   const translatedResponse = cms_responses[`cms_responses.${id}`]
-  return stripHtml(translatedResponse).result
+  return translatedResponse ? ReactHtmlParser(translatedResponse) : null
 }
 
 function translatedIncorrectContinueFeedback(translate, latestAttempt, correctResponse) {
@@ -166,25 +166,23 @@ function translatedReviseMatchedFeedback(question, latestAttempt, translate) {
     const { translation } = question
     const { incorrectSequences } = translation
     const key = `incorrectSequences.${uid}`
-    return incorrectSequences[key] ? stripHtml(incorrectSequences[key]).result : null
+    return incorrectSequences[key] ? ReactHtmlParser(incorrectSequences[key]) : null
   }
   if (response?.isFocusPoint && question?.translation?.focusPoints) {
     const { uid } = response
     const { translation } = question
     const { focusPoints } = translation
     const key = `focusPoints.${uid}`
-    return focusPoints[key] ? stripHtml(focusPoints[key]).result : null
+    return focusPoints[key] ? ReactHtmlParser(focusPoints[key]) : null
   }
   if(response?.author) {
     const { author, feedback } = response
     if(author === "Quotation Mark Hint") {
       return(
         <span>
+          <br />
           <p>{translate('feedback^It looks like you might have used two apostrophes to make a quotation mark.')}</p>
-          <br />
           <p>{translate('feedback^Instead of hitting the apostrophe key twice to make a quotation mark, hold down the shift key and hit the apostrophe key once.')}</p>
-          <br />
-          <img alt="keyboard with double quote highlighted" src="https://quill-cdn.s3.amazonaws.com/images/illustrations/Illustration+-+Keyboard+(Chromebook).svg\" />
         </span>
       )
     }
@@ -229,7 +227,10 @@ const Feedback = ({
     } else if (feedbackType === REVISE_MATCHED) {
       value = translatedReviseMatchedFeedback(question, latestAttempt, translate)
     }
-    return value ? <p>{value}</p> : null
+    if(value && typeof value === 'string') {
+      value = <p>{value}</p>
+    }
+    return value
   }
   const translatedFeedback = getTranslatedFeedback(showTranslation, question, feedbackType)
   return(
@@ -238,7 +239,7 @@ const Feedback = ({
         <img alt={getIconAlt(feedbackType)} className={getIconClassName(feedbackType)} src={getFeedbackIcon(feedbackType)} />
         <div>
           {feedback}
-          {translatedFeedback}
+          {translatedFeedback ? <div className="translated-feedback">{translatedFeedback}</div> : null}
         </div>
       </div>
     </div>
