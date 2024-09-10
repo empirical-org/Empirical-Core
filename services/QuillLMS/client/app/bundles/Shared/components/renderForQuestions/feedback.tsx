@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { stripHtml } from "string-strip-html";
+
 import {
   REVISE_MATCHED,
   REVISE_UNMATCHED,
@@ -13,6 +14,7 @@ import {
   DEFAULT,
   DEFAULT_FILL_IN_BLANK
 } from '../../utils/constants';
+import C from '../../../Connect/constants';
 
 const icon = "https://assets.quill.org/images/icons/direction.svg"
 const revise = "https://assets.quill.org/images/icons/revise.svg"
@@ -20,6 +22,7 @@ const multiple = "https://assets.quill.org/images/icons/multiple-choice.svg"
 const success  = "https://assets.quill.org/images/icons/correct.svg"
 const arrow = "https://assets.quill.org/images/icons/continue.svg"
 const brownArrow = "https://assets.quill.org/images/icons/continue-brown.svg"
+const CONNECT_FILL_IN_BLANKS = "connect_fill_in_blanks"
 
 function getIconClassName(feedbackType: string): string {
   let returnVal;
@@ -139,6 +142,58 @@ interface FeedbackProps {
   translate?: (input: string) => string
 }
 
+function translatedCMSResponseFeedback(latestAttempt, question) {
+  const { response } = latestAttempt
+  const { translation } = question
+  const { cms_responses } = translation
+  const id = response.id || response.parent_id
+  const translatedResponse = cms_responses[`cms_responses.${id}`]
+  return stripHtml(translatedResponse).result
+}
+
+function translatedIncorrectContinueFeedback(translate, latestAttempt, correctResponse) {
+  const firstPhrase = translate('feedback^Good try!')
+  const secondPhrase = translate('feedback^Compare your response to the strong response, and then go on to the next question')
+  const thirdPhrase = translate('feedback^Your response:')
+  const fourthPhrase = translate('feedback^A strong response:')
+  return `<b>${firstPhrase}</b>${secondPhrase}<br><br><b>${thirdPhrase}</b><br>${latestAttempt}<br><br><b>${fourthPhrase}</b><br>${correctResponse}`
+}
+
+function translatedReviseMatchedFeedback(question, latestAttempt, translate) {
+  const { response } = latestAttempt
+  if (response?.isIncorrectSequence && question?.translation?.incorrectSequences) {
+    const { uid } = response
+    const { translation } = question
+    const { incorrectSequences } = translation
+    const key = `incorrectSequences.${uid}`
+    return incorrectSequences[key] ? stripHtml(incorrectSequences[key]).result : null
+  }
+  if (response?.isFocusPoint && question?.translation?.focusPoints) {
+    const { uid } = response
+    const { translation } = question
+    const { focusPoints } = translation
+    const key = `focusPoints.${uid}`
+    return focusPoints[key] ? stripHtml(focusPoints[key]).result : null
+  }
+  if(response?.author) {
+    const { author, feedback } = response
+    if(author === "Quotation Mark Hint") {
+      return(
+        <span>
+          <p>{translate('feedback^It looks like you might have used two apostrophes to make a quotation mark.')}</p>
+          <br />
+          <p>{translate('feedback^Instead of hitting the apostrophe key twice to make a quotation mark, hold down the shift key and hit the apostrophe key once.')}</p>
+          <br />
+          <img alt="keyboard with double quote highlighted" src="https://quill-cdn.s3.amazonaws.com/images/illustrations/Illustration+-+Keyboard+(Chromebook).svg\" />
+        </span>
+      )
+    }
+    if(C.ERROR_AUTHORS.includes(author)) {
+      return translate(`feedback^${feedback}`)
+    }
+  }
+}
+
 const Feedback = ({
   correctResponse,
   feedbackType,
@@ -153,7 +208,7 @@ const Feedback = ({
     if(!showTranslation) { return null }
     const showInstructions = feedbackType === INSTRUCTIONS || feedbackType === GET_QUESTION_INSTRUCTIONS
     const showOverride = feedbackType === OVERRIDE || feedbackType === REVISE_UNMATCHED || feedbackType === CONTINUE
-    const showCmsResponse = feedbackType === REVISE_MATCHED || feedbackType === CORRECT_MATCHED
+    const showCMSResponse = feedbackType === CORRECT_MATCHED || (feedbackType === REVISE_MATCHED && question?.question_type === CONNECT_FILL_IN_BLANKS)
     let value
     if (question?.translation?.instructions && showInstructions) {
       const { translation } = question
@@ -168,20 +223,13 @@ const Feedback = ({
     } else if (feedback && showOverride) {
       value = translate(`feedback^${feedback.props.children}`)
     } else if (feedbackType === INCORRECT_CONTINUE) {
-      const firstPhrase = translate('feedback^Good try!')
-      const secondPhrase = translate('feedback^Compare your response to the strong response, and then go on to the next question')
-      const thirdPhrase = translate('feedback^Your response:')
-      const fourthPhrase = translate('feedback^A strong response:')
-      value = `<b>${firstPhrase}</b>${secondPhrase}<br><br><b>${thirdPhrase}</b><br>${latestAttempt}<br><br><b>${fourthPhrase}</b><br>${correctResponse}`
-    } else if (question?.translation?.cms_responses && latestAttempt?.response && showCmsResponse) {
-      const { response } = latestAttempt
-      const { translation } = question
-      const { cms_responses } = translation
-      const id = response.id || response.parent_id
-      const translatedResponse = cms_responses[`cms_responses.${id}`]
-      value = stripHtml(translatedResponse).result
+      value = translatedIncorrectContinueFeedback(translate, latestAttempt, correctResponse)
+    } else if (showCMSResponse) {
+      value = translatedCMSResponseFeedback(latestAttempt, question)
+    } else if (feedbackType === REVISE_MATCHED) {
+      value = translatedReviseMatchedFeedback(question, latestAttempt, translate)
     }
-    return <p>{value}</p>
+    return value ? <p>{value}</p> : null
   }
   const translatedFeedback = getTranslatedFeedback(showTranslation, question, feedbackType)
   return(

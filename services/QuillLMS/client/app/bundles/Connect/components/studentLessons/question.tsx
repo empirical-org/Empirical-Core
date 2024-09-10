@@ -111,7 +111,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
 
   componentDidUpdate(prevProps) {
     const { question } = this.props;
-    if(prevProps.question !== question) {
+    if(prevProps.question.key !== question.key) {
       getMultipleChoiceResponseOptionsWithCallback(
         question.key,
         (data) => {

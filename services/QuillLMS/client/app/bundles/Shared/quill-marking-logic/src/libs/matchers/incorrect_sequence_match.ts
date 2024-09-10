@@ -31,6 +31,8 @@ export function incorrectSequenceChecker(responseString: string, incorrectSequen
 
 export function incorrectSequenceResponseBuilder(incorrectSequenceMatch:IncorrectSequence, responses:Array<Response>): PartialResponse {
   const res: PartialResponse = {
+    uid: incorrectSequenceMatch.uid,
+    isIncorrectSequence: true,
     feedback: incorrectSequenceMatch.feedback,
     author: incorrectSequenceMatch.name || 'Incorrect Sequence Hint',
     parent_id: getTopOptimalResponse(responses).id
