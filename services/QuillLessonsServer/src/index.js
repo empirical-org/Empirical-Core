@@ -3,10 +3,8 @@ import dotenv from 'dotenv';
 import r from 'rethinkdb';
 import socketio from 'socket.io';
 import redis from 'socket.io-redis';
-import fs from 'fs';
 import jwt from 'jsonwebtoken';
 import http from 'http';
-import path from 'path';
 
 import rethinkdbConfig from './config/rethinkdb';
 import { requestHandler } from './config/server';
@@ -37,7 +35,12 @@ const captureSentryMessage = (message) => {
 dotenv.config();
 
 const app = http.createServer(requestHandler);
-const io = socketio(app);
+
+const io = socketio(app, {
+  pingInterval: process.env.PING_INTERVAL || 25000,
+  pingTimeout: process.env.PING_TIMEOUT || 20000,
+});
+
 io.adapter(redis(process.env.REDISCLOUD_URL));
 const port = process.env.PORT;
 
