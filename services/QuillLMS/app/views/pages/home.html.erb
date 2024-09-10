@@ -4,8 +4,9 @@
 <% end %>
 <% @device = device %>
 <% @is_mobile = device == "mobile" %>
+<% background_image_url = asset_path("#{ENV['CDN_URL']}/images/homepage/#{@random_background}") %>
 
-<section class="q-hero bg-quillgreen flex-column space-between">
+<section class="q-hero flex-column space-between" style="<%= "background-image: url('#{background_image_url}');".html_safe %>">
   <%= render partial: 'application/header' %>
   <div class="q-hero-text header">
     <section class="header-section">
