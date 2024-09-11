@@ -16,11 +16,20 @@ export interface SessionState {
   error?: string;
   pending: boolean;
   language?: string;
+  translated_questions?: any;
 }
 
 type SessionAction = Action & { data: any, attempts: any, response: any, session: any }
 
-const initialState = {hasreceiveddata: false, answeredQuestions: [], unansweredQuestions: [], questionSet: [], currentQuestion: null, pending: true }
+const initialState = {
+  hasreceiveddata: false,
+  answeredQuestions: [],
+  unansweredQuestions: [],
+  questionSet: [],
+  currentQuestion: null,
+  pending: true,
+  translated_questions: null
+}
 
 export default (
   currentState: SessionState = initialState,
@@ -32,6 +41,10 @@ export default (
       return Object.assign({}, currentState, action.session, { pending: false, hasreceiveddata: true })
     case ActionTypes.RECEIVE_QUESTION_DATA:
       return Object.assign({}, currentState, { unansweredQuestions: action.data, hasreceiveddata: true, questionSet: action.data });
+    case ActionTypes.RECEIVE_TRANSLATED_QUESTIONS_DATA:
+      return Object.assign({}, currentState, {
+        translated_questions: action.data,
+      });
     case ActionTypes.NO_QUESTIONS_FOUND_FOR_SESSION:
       return Object.assign({}, currentState, { error: 'No questions found.'})
     case ActionTypes.GO_T0_NEXT_QUESTION:

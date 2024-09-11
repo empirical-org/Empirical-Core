@@ -46,6 +46,8 @@ interface QuestionProps {
   handleTogglePreviewMenu: () => void;
   language?: string;
   translate: (language: string) => string;
+  showTranslation: boolean;
+  translatedQuestions?: any;
 }
 
 interface QuestionState {
@@ -161,7 +163,15 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   currentQuestion = () => {
-    const { currentQuestion } = this.props
+    const { currentQuestion, showTranslation, translatedQuestions } = this.props
+    const { key } = currentQuestion
+    let translations
+    if(showTranslation && translatedQuestions) {
+      translations = translatedQuestions[key]
+    }
+    if(translations) {
+      return {...currentQuestion, translations}
+    }
     return currentQuestion;
   }
 
