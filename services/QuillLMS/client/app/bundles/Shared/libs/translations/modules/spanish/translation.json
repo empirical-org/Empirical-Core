@@ -25,6 +25,10 @@
         "There is often more than one correct answer.": "A menudo hay más de una respuesta correcta.",
         "Remember to use correct spelling, capitalization, and punctuation!": "¡Recuerda usar la ortografía, la capitalización y la puntuación correctas!"
     },
+    "Quill Connect Completed": {
+        "header": "Has completado la lección.",
+        "message": "Sus resultados se están guardando ahora. Será redirigido automáticamente una vez que se hayan guardado."
+    },
     "ELL Starter Fill in the Blank": {
         "header": "Rellena el espacio en blanco",
         "text": "En esta sección, cada oración tendrá uno, dos o tres espacios en blanco. Rellenarás cada espacio en blanco con una de las palabras de la lista o lo dejarás en blanco si no se necesita ninguna palabra. Escribe las palabras que elijas en los cuadros. ¡Recuerda revisar tu ortografía! ¡Empecemos!"
@@ -122,6 +126,51 @@
     },
     "feedback": {
         "blank": "Usa una de las opciones a continuación o déjalo en blanco.",
-        "no blank": "Usa una de las opciones a continuación."
+        "no blank": "Usa una de las opciones a continuación.",
+        "Choose one of the options provided. Make sure it is spelled correctly.": "Utiliza una de las opciones proporcionadas. Asegúrese de que esté escrita correctamente.",
+        "Nice try. Let’s try a multiple choice question.": "Buen intento. Probemos con una pregunta de opción múltiple.",
+        "Revise your work. Use the hint below as an example.": "Revise su trabajo. Use la pista a continuación como ejemplo.",
+        "Keep writing! Revise your sentence by changing the order of the ideas.": "Siga escribiendo. Revise su oración cambiando el orden de las ideas.",
+        "Fill in the blank with the correct option.": "Escribe la opción correcta en el espacio en blanco.",
+        "Combine the sentences into one sentence. Use the joining word.": "Combine las oraciones en una sola oración. Use la palabra de enlace.",
+        "Combine the sentences into one sentence. Use one of the joining words.": "Combine las oraciones en una sola oración. Use una de las palabras de enlace.",
+        "Combine the sentences into one sentence.": "Combine las oraciones en una sola oración.",
+        "Select a strong answer. There may be more than one.": "Seleccione una respuesta sólida. Puede haber más de una.",
+        "Good work! Here are the most popular strong answers:": "¡Buen trabajo! Aquí están las respuestas más populares y sólidas:",
+        "Keep going! Here are the most popular strong answers:": "¡Sigue adelante! Aquí están las respuestas más populares y sólidas:",
+        "Compare your response to the strong response, and then go on to the next question.": "Compara su respuesta con la respuesta sólida, y luego pasa a la siguiente pregunta.",
+        "Proofread your work. There may be a capitalization error.": "Revisa su trabajo. Puede haber un error de mayúsculas.",
+        "Proofread your sentence for correct capitalization.": "Revisa su oración para verificar la capitalización correcta.",
+        "There may be an error. How could you update the punctuation?": "Puede haber un error. ¿Cómo podría actualizar la puntuación?",
+        "There may be an error. How could you update the punctuation and capitalization?": "Puede haber un error. ¿Cómo podría actualizar la puntuación y la capitalización?",
+        "Try again. There may be a spelling mistake.": "Try again. There may be a spelling mistake.",
+        "Revise your work. Do you have all of the information from the prompt?": "Revisa su trabajo. ¿Tiene toda la información del enunciado?",
+        "Revise your work. How could your response be shorter and more concise?": "Revisa su trabajo. ¿Cómo podría hacer que su respuesta sea más corta y concisa?",
+        "Revise your work. You may have mixed up or misspelled a word.": "Revisa su trabajo. Puede que haya confundido o mal escrito una palabra.",
+        "Revise your work. You may have added an extra word.": "Revisa su trabajo. Puede que haya añadido una palabra extra.",
+        "Revise your work. You may have left out an important word.": "Revisa su trabajo. Puede que haya omitido una palabra importante.",
+        "There may be an error. You may have forgotten a space between two words.": "Puede haber un error. Puede que haya olvidado un espacio entre dos palabras.",
+        "Revise your work. You may have mixed up a word.": "Revisa su trabajo. Puede que haya confundido una palabra.",
+        "Proofread your work. Check your punctuation.": "Revisa su trabajo. Verifica su puntuación.",
+        "Proofread your work. Check your ending punctuation.": "Revisa su trabajo. Verifica la puntuación final.",
+        "Proofread your work. Check your punctuation and capitalization.": "Revisa su trabajo. Verifica la puntuación y las mayúsculas.",
+        "It looks like you might have used two apostrophes to make a quotation mark.": "Parece que podría haber usado dos apóstrofos para hacer una comilla.",
+        "Instead of hitting the apostrophe key twice to make a quotation mark, hold down the shift key and hit the apostrophe key once.": "En lugar de presionar la tecla de apóstrofo dos veces para hacer una comilla, mantén presionada la tecla de mayúsculas y presiona la tecla de apóstrofo una vez.",
+        "Proofread your work. Check your spelling.": "Revisa su trabajo. Verifica la ortografía.",
+        "Proofread your work. Check your capitalization.": "Revisa su trabajo. Verifica las mayúsculas.",
+        "Revise your work. You may have added one or two extra words.": "Revisa su trabajo. Puede que haya añadido una o dos palabras de más.",
+        "Revise your work. You may have left out one or two important words.": "Revisa su trabajo. Puede que haya omitido una o dos palabras importantes.",
+        "Check your spacing. You may have forgotten a space between two words.": "Verifica el espaciado. Puede que haya olvidado un espacio entre dos palabras.",
+        "Check your spacing. You may have added an extra space in the middle of a word.": "Verifica el espaciado. Puede que haya añadido un espacio extra en medio de una palabra.",
+        "Revise your work. Always put a space after a comma.": "Revisa su trabajo. Siempre pon un espacio después de una coma.",
+        "Proofread your sentence. You may have mixed up the order of some words.": "Revisa su oración. Puede que haya mezclado el orden de algunas palabras.",
+        "Proofread your work. Check your capitalization and spelling.": "Revisa su trabajo. Verifica las mayúsculas y la ortografía.",
+        "Proofread your work. Check your punctuation and spelling.": "Revisa su trabajo. Verifica la puntuación y la ortografía.",
+        "You may have added one or two extra words. Proofread your work, and check your spelling.": "Puede que haya añadido una o dos palabras de más. Revisa su trabajo y verifica la ortografía.",
+        "You may have left out one or two important words. Revise your work, and then check your spelling.": "Puede que haya omitido una o dos palabras importantes. Revisa su trabajo y luego verifica la ortografía.",
+        "Proofread your work. You may have forgotten a space between two words. Also check your spelling.": "Revisa su trabajo. Puede que haya olvidado un espacio entre dos palabras. También verifica la ortografía.",
+        "Good try!": "¡Buen intento!",
+        "Your response:": "Su respuesta:",
+        "A strong response:": "Una respuesta sólida:"
     }
 }
