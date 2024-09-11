@@ -288,6 +288,8 @@ module PublicProgressReports
     time > 60 ? '> 60' : time
   end
 
+  # Example:
+  # The boy _ the ball (Kick, Kicks, I) -> The boy _ the ball (kick, kicks, I)
   def format_direction(direction)
     direction.gsub(/\((.*?)\)/) do |match|
       match.gsub(/\b\w+\b/) do |word|
