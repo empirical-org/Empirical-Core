@@ -37,10 +37,10 @@ class PagesController < ApplicationController
     @number_of_students = $redis.get(NUMBER_OF_STUDENTS) || DEFAULT_NUMBER_OF_STUDENTS
 
     @background_images = [
-      "header_background_1.svg",
-      "header_background_2.svg",
-      "header_background_3.svg",
-      "header_background_4.svg"
+      'header_background_1.svg',
+      'header_background_2.svg',
+      'header_background_3.svg',
+      'header_background_4.svg'
     ]
     @random_background = @background_images.sample
 
