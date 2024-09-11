@@ -19,7 +19,7 @@
       </div>
     </footer>
   <% else %>
-    <%= render partial: 'application/premium_footer' unless request.path.include?('premium_hub') %>
+    <%= render partial: 'application/premium_footer' unless ['premium_hub', 'admins'].any? { |fragment| request.path.include?(fragment) } %>
     <footer class="<%=footer_class%>">
       <div class="footer-navigation">
         <%= render partial: 'pages/shared/list_of_links_with_header', locals: { header_text: "SCHOOLS & DISTRICTS", links_array: schools_and_districts_links } %>

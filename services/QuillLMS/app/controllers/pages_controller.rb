@@ -36,6 +36,14 @@ class PagesController < ApplicationController
     @number_of_sentences = $redis.get(NUMBER_OF_SENTENCES) || DEFAULT_NUMBER_OF_SENTENCES
     @number_of_students = $redis.get(NUMBER_OF_STUDENTS) || DEFAULT_NUMBER_OF_STUDENTS
 
+    @background_images = [
+      'header_background_1.svg',
+      'header_background_2.svg',
+      'header_background_3.svg',
+      'header_background_4.svg'
+    ]
+    @random_background = @background_images.sample
+
     if request.env['affiliate.tag']
       name = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.name
       flash.now[:info] = "<strong>#{name}</strong> invited you to help your students become better writers with Quill!" if name

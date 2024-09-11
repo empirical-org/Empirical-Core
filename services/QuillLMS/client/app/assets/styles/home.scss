@@ -289,13 +289,12 @@ $background-images-list: (diagnostic-pattern-magnifier connect-pattern-bullseye 
   background-position-y: -10px;
 }
 
-
 section.q-hero {
   width: 100%;
-  min-height: 780px;
-  background-image: url("https://assets.quill.org/images/homepage/header_background.svg");
-  background-position: center;
+  min-height: 870px;
+  background-position: top center;
   background-repeat: no-repeat;
+  background-color: #066051;
   .navbar {
     background-color: initial;
     .navbar-tooltip-trigger {
@@ -308,7 +307,7 @@ section.q-hero {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 200px;
+    margin-top: 80px;
     .q-h1 {
       margin-top: 0px;
       margin-bottom: 0px;
@@ -328,7 +327,7 @@ section.q-hero {
   .evidence-new-tag {
     position: relative;
     right: 16px;
-    margin-bottom: 48px !important;
+    top: -30px;
   }
   .buttons-wrapper {
     gap: 32px;
