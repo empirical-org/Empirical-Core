@@ -336,7 +336,8 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   renderConceptExplanation = () => {
-    const { conceptsFeedback, question } = this.props
+    const { conceptsFeedback, question, showTranslation } = this.props
+    console.log("🚀 ~ PlayLessonQuestion ~ conceptsFeedback:", conceptsFeedback)
     //TODO: update Response interface in quill-marking-logic to fix Boolean/boolean type checking
     const latestAttempt:{response: Response}|undefined = this.handleGetLatestAttempt();
 
@@ -353,7 +354,9 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
           return conceptsFeedback.data[c.conceptUID]
         })
         if (negativeConceptWithConceptFeedback) {
-          return <ConceptExplanation {...conceptsFeedback.data[negativeConceptWithConceptFeedback.conceptUID]} />
+          const key = negativeConceptWithConceptFeedback.conceptUID
+          const translatedData = showTranslation && conceptsFeedback?.translated_data ? conceptsFeedback.translated_data[key] : null
+          return <ConceptExplanation {...conceptsFeedback.data[key]} translatedExplanation={translatedData} />
         }
       } else if (latestAttempt.response.concept_results) {
         const negativeConcepts = this.getNegativeConceptResultsForResponse(latestAttempt.response.concept_results);
@@ -361,23 +364,29 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
           return conceptsFeedback.data[c.conceptUID]
         })
         if (negativeConceptWithConceptFeedback) {
-          return <ConceptExplanation {...conceptsFeedback.data[negativeConceptWithConceptFeedback.conceptUID]} />
+          const key = negativeConceptWithConceptFeedback.conceptUID
+          const translatedData = showTranslation && conceptsFeedback?.translated_data ? conceptsFeedback.translated_data[key] : null
+          return <ConceptExplanation {...conceptsFeedback.data[key]} translatedExplanation={translatedData} />
         }
       }
 
     } else {
       // we only want to show question-level concept feedback if the response is unmatched
       if (question && question.modelConceptUID) {
-        const dataF = conceptsFeedback.data[question.modelConceptUID];
+        const key = question.modelConceptUID
+        const dataF = conceptsFeedback.data[key];
+        const translatedData = showTranslation && conceptsFeedback?.translated_data ? conceptsFeedback.translated_data[key] : null
         if (dataF) {
-          return <ConceptExplanation {...dataF} />;
+          return <ConceptExplanation {...dataF} translatedExplanation={translatedData} />;
         }
       }
 
       if (question.conceptID) {
-        const data = conceptsFeedback.data[question.conceptID];
+        const key = question.conceptID
+        const data = conceptsFeedback.data[key];
+        const translatedData = showTranslation && conceptsFeedback?.translated_data ? conceptsFeedback.translated_data[key] : null
         if (data) {
-          return <ConceptExplanation {...data} />;
+          return <ConceptExplanation {...data} translatedExplanation={translatedData} />;
         }
       }
 

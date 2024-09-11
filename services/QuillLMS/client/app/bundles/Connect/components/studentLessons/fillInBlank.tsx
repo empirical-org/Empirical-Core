@@ -244,35 +244,43 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   }
 
   renderConceptExplanation = () => {
-    const { conceptsFeedback, question } = this.props
+    const { conceptsFeedback, question, showTranslation } = this.props
     // TODO: update Response interface in quill-marking-logic
     const latestAttempt: Attempt|undefined = getLatestAttempt(question.attempts);
     if (latestAttempt && latestAttempt.response && !latestAttempt.response.optimal ) {
       if (latestAttempt.response.conceptResults) {
         const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
         if (conceptID) {
-          const data = conceptsFeedback.data[conceptID.conceptUID];
+          const key = conceptID.conceptUID
+          const data = conceptsFeedback.data[key];
+          const translatedData = showTranslation && conceptsFeedback?.translated_data ? conceptsFeedback.translated_data[key] : null
           if (data) {
-            return <ConceptExplanation {...data} />;
+            return <ConceptExplanation {...data} translatedExplanation={translatedData} />;
           }
         }
       } else if (latestAttempt.response.concept_results) {
         const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
         if (conceptID) {
-          const data = conceptsFeedback.data[conceptID.conceptUID];
+          const key = conceptID.conceptUID
+          const data = conceptsFeedback.data[key];
+          const translatedData = showTranslation && conceptsFeedback?.translated_data ? conceptsFeedback.translated_data[key] : null
           if (data) {
-            return <ConceptExplanation {...data} />;
+            return <ConceptExplanation {...data} translatedExplanation={translatedData} />;
           }
         }
       } else if (question && question.modelConceptUID) {
-        const dataF = conceptsFeedback.data[question.modelConceptUID];
+        const key = question.modelConceptUID
+        const dataF = conceptsFeedback.data[key];
+        const translatedData = showTranslation && conceptsFeedback?.translated_data ? conceptsFeedback.translated_data[key] : null
         if (dataF) {
-          return <ConceptExplanation {...dataF} />;
+          return <ConceptExplanation {...dataF} translatedExplanation={translatedData} />;
         }
       } else if (question.conceptID) {
-        const data = conceptsFeedback.data[question.conceptID];
+        const key = question.conceptID
+        const data = conceptsFeedback.data[key];
+        const translatedData = showTranslation && conceptsFeedback?.translated_data ? conceptsFeedback.translated_data[key] : null
         if (data) {
-          return <ConceptExplanation {...data} />;
+          return <ConceptExplanation {...data} translatedExplanation={translatedData} />;
         }
       }
     }

@@ -548,7 +548,7 @@ export class Lesson extends React.Component {
           translate={translate}
         />
       );
-    } else if (availableLanguages && hasTranslationFlag() && !language) {
+    } else if (availableLanguages?.length > 1 && hasTranslationFlag() && !language) {
       component = (<LanguageSelectionPage
         dispatch={dispatch}
         handlePageLoaded={this.onLanguagePageLoad}
