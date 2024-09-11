@@ -152,7 +152,7 @@ class ClassroomUnit < ApplicationRecord
 
   private def assign_student_activity_sequences
     assigned_student_ids.each do |student_id|
-      StudentActivitySequences::HandleAssignment.run(id, student_id)
+      StudentActivitySequences::HandleAssignmentWorker.perform_async(id, student_id)
     end
   end
 end
