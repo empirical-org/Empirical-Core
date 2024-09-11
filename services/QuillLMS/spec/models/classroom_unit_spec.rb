@@ -36,6 +36,7 @@ describe ClassroomUnit, type: :model, redis: true do
   it { is_expected.to callback(:check_for_assign_on_join_and_update_students_array_if_true).before(:save) }
   it { is_expected.to callback(:hide_appropriate_activity_sessions).after(:save) }
   it { is_expected.to callback(:manage_user_pack_sequence_items).after(:save) }
+  it { is_expected.to callback(:assign_student_activity_sequences).after(:save) }
   it { is_expected.to callback(:save_user_pack_sequence_items).after(:save) }
 
   let!(:activity) { create(:activity) }
@@ -195,6 +196,30 @@ describe ClassroomUnit, type: :model, redis: true do
 
       it 'should not raise an error' do
         expect { classroom_unit.save }.to_not raise_error
+      end
+    end
+  end
+
+  describe '#assign_student_activity_sequences' do
+    subject { classroom_unit.update(assigned_student_ids: new_assigned_student_ids, assign_on_join: false) }
+
+    let(:new_assigned_student_ids) { assigned_student_ids }
+
+    it do
+      expect(StudentActivitySequences::HandleAssignment).to_not receive(:run)
+      subject
+    end
+
+    context 'assigned_student_ids changes' do
+      let(:new_assigned_student_ids) { create_list(:student, 2).pluck(:id) }
+      let(:call_count) { new_assigned_student_ids.length }
+
+      # ClassroomUnit has validation on it that prevents students from being assigned if they don't have ClassroomsStudents records for the classroom
+      before { new_assigned_student_ids.map { |student_id| create(:students_classrooms, classroom:, student_id:) } }
+
+      it do
+        expect(StudentActivitySequences::HandleAssignment).to receive(:run).exactly(call_count).times
+        subject
       end
     end
   end
