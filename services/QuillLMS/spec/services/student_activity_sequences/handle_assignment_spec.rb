@@ -21,7 +21,15 @@ module StudentActivitySequences
         .and change(StudentActivitySequenceActivity, :count).by(1)
     end
 
-    context 'multiple assignments for the pre diagnostic' do
+    context 'new pre-diagnostic assignment when an existing one already has a sequence' do
+      let!(:student_activity_sequence) { create(:student_activity_sequence, user: student, initial_activity: pre_diagnostic, initial_classroom_unit: pre_classroom_unit, classroom: pre_classroom_unit.classroom) }
+      let(:pre_unit2) { create(:unit, unit_template: pre_unit_template, activities: [pre_diagnostic]) }
+      let(:pre_classroom_unit2) { create(:classroom_unit, classroom:, unit: pre_unit2, assigned_student_ids: [student_id]) }
+      let(:classroom_unit) { pre_classroom_unit2 }
+
+      it do
+        expect { subject }.to change(StudentActivitySequence, :count).by(1)
+      end
     end
 
     context 'pre-diagnostic already recorded' do

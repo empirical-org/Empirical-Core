@@ -36,11 +36,15 @@ module StudentActivitySequences
     end
 
     private def fetch_student_activity_sequence
-      StudentActivitySequence.order(created_at: :desc)
-        .find_by(
-          classroom_id: classroom_unit.classroom_id,
-          initial_activity:,
-          user_id:)
+      query = StudentActivitySequence.order(created_at: :desc)
+
+      # Pre diagnostics are the start of a sequence, so only find "existing" ones if they're for the specific assignment
+      query = query.where(initial_classroom_unit_id: classroom_unit_id) if pre_diagnostic
+
+      query.find_by(
+        classroom_id: classroom_unit.classroom_id,
+        initial_activity:,
+        user_id:)
     end
 
     private def create_student_activity_sequence
