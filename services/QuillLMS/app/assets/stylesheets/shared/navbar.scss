@@ -887,9 +887,12 @@ nav.q-navbar-home {
         &:hover {
           background-color: $quill-green-5;
         }
-        &#premium-section {
+        &#premium-section, &#premium-pricing {
           h3, p {
             color: $quill-gold-dark;
+          }
+          img {
+            @include quill-gold-dark-filter;
           }
         }
         .image-container {
@@ -905,7 +908,7 @@ nav.q-navbar-home {
           .hover {
             display: none;
           }
-          #social-studies-img, #interdisciplinary-science-img {
+          #social-studies-img, #interdisciplinary-science-img, #for-administrators-img {
             @include quill-green-filter;
           }
         }

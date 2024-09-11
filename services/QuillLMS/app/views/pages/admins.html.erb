@@ -1,0 +1,178 @@
+<% for_administrators_img_base = "#{ENV['CDN_URL']}/images/pages/for_administrators" %>
+<% s_icon_img_base = "#{ENV['CDN_URL']}/images/icons/s" %>
+<% xl_icon_img_base = "#{ENV['CDN_URL']}/images/icons/xl" %>
+<% contained_check_img = "<img alt='checkmark' src='#{s_icon_img_base}/check-contained.svg'>".html_safe %>
+<% schools_and_districts_video_base = "#{ENV['CDN_URL']}/videos/schools_and_districts" %>
+<% @device = device %>
+
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<script src="https://player.vimeo.com/api/player.js"></script>
+
+<%= render partial: 'pages/shared/schools_and_districts_navbar', locals: { active_tab: NavigationHelper::FOR_ADMINISTRATORS } %>
+<div class="for-administrators-container">
+  <header>
+    <%= render_video_content(@device, 'desktop', "#{schools_and_districts_video_base}/header_background.mp4") %>
+    <%= render_video_content(@device, 'mobile', "#{schools_and_districts_video_base}/header_background.mp4") %>
+    <div class="container">
+      <p class="pre-header">How do you build stronger writers?</p>
+      <h1>Start with sentences</h1>
+      <p class="sub-header">Discover how Quill improves student writing in grades 4-12 by focusing on well-constructed, grammatical sentences.</p>
+      <div class="buttons-wrapper">
+        <a class="quill-button focus-on-dark outlined extra-large grey" href="/sign-up/admin" rel="noopener noreferrer" target="_blank">Join Quill Free</a>
+        <a class="quill-button focus-on-dark outlined extra-large grey" href="https://calendly.com/alex-quill/districtdemo" rel="noopener noreferrer" target="_blank">Meet With Us</a>
+      </div>
+    </div>
+  </header>
+  <section class="connect-on-laptop">
+    <img alt="Screenshot of a Quill Connect activity full-screen on a laptop" src=<%= "#{for_administrators_img_base}/connect_in_bezel.svg" %> >
+    <%= render_video_content(@device, 'desktop', "#{schools_and_districts_video_base}/connect_animation.mov") %>
+    <%= render_video_content(@device, 'mobile', "#{schools_and_districts_video_base}/connect_animation.mov") %>
+  </section>
+  <section class="research-blocks">
+    <div class="container">
+      <div class="research-block">
+        <img alt="" src=<%= "#{xl_icon_img_base}/search-document.svg" %> >
+        <h3>The Problem</h3>
+        <p>Students often don’t receive enough writing instruction.</p>
+        <p>73% of students are not proficient in basic writing.</p>
+        <a href="https://nces.ed.gov/programs/digest/d22/tables/dt22_224.60.asp" target="_blank" rel="noopener noreferrer">NAEP data</a>
+      </div>
+      <div class="research-block">
+        <img alt="" src=<%= "#{xl_icon_img_base}/global-education.svg" %> >
+        <h3>The Research</h3>
+        <p>Sentence combining improves writing quality and complexity.</p>
+        <p>More than a dozen research studies find significant impact.</p>
+        <a href="https://media.carnegie.org/filer_public/3c/f5/3cf58727-34f4-4140-a014-723a00ac56f7/ccny_report_2007_writing.pdf" target="_blank" rel="noopener noreferrer">Writing Next</a>
+      </div>
+      <div class="research-block">
+        <img alt="" src=<%= "#{xl_icon_img_base}/diamond-in-hand.svg" %> >
+        <h3>The Results</h3>
+        <p>Students had a “large gain” after four weeks of using Quill.</p>
+        <p>Students fully retained skills two months later.</p>
+        <a href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill.org_Research_Brief_-_Quill.org_Intervention_for_Paragraph_Revision_3092.pdf" target="_blank" rel="noopener noreferrer">College Board</a>
+      </div>
+    </div>
+  </section>
+  <section class="why-teachers-use-quill container">
+    <h2>Why teachers use Quill’s evidence-based writing tools</h2>
+    <div class="reasons">
+      <div class="reason">
+        <img alt="" src=<%= "#{xl_icon_img_base}/pencil.svg" %> >
+        <h3>Assess learning</h3>
+        <div class="tag-cloud">
+          <a class="tag" href="/activities/packs/636" target="_blank" rel="noopener noreferrer">Baseline Diagnostic</a>
+          <a class="tag" href="/activities/packs/638" target="_blank" rel="noopener noreferrer">Intermediate Diagnostic</a>
+          <a class="tag" href="/activities/packs/641" target="_blank" rel="noopener noreferrer">Advanced Diagnostic</a>
+          <a class="tag" href="/activities/packs/643" target="_blank" rel="noopener noreferrer">ELL Starter</a>
+          <a class="tag" href="/activities/packs/645" target="_blank" rel="noopener noreferrer">ELL Intermediate</a>
+          <a class="tag" href="/activities/packs/647" target="_blank" rel="noopener noreferrer">ELL Advanced</a>
+          <a class="tag" href="/activities/packs/194" target="_blank" rel="noopener noreferrer">Pre-AP</a>
+          <a class="tag" href="/activities/packs/253" target="_blank" rel="noopener noreferrer">Springboard</a>
+          <a class="tag" href="/activities/packs/193" target="_blank" rel="noopener noreferrer">AP</a>
+        </div>
+        <a class="quill-button focus-on-light teal contained extra-large" href="/activities/packs?type=diagnostic" target="_blank" rel="noopener noreferrer">Explore Diagnostics</a>
+      </div>
+      <div class="reason">
+        <img alt="" src=<%= "#{xl_icon_img_base}/research-books.svg" %> >
+        <h3>Build literacy skills</h3>
+        <div class="tag-cloud">
+          <a class="tag" href="/activities/packs/82" target="_blank" rel="noopener noreferrer">Capitalization</a>
+          <a class="tag" href="/activities/packs/73" target="_blank" rel="noopener noreferrer">Prepositions</a>
+          <a class="tag" href="/activities/packs/98" target="_blank" rel="noopener noreferrer">Commonly Confused Words</a>
+          <a class="tag" href="/grammar/#/play/sw/?anonymous=true&uid=u5e9k_QsDNfQZ1zCBdTnxw" target="_blank" rel="noopener noreferrer">Commas</a>
+          <a class="tag" href="/activities/packs/41" target="_blank" rel="noopener noreferrer">Adverbs</a>
+          <a class="tag" href="/activities/packs/39" target="_blank" rel="noopener noreferrer">Adjectives</a>
+          <a class="tag" href="/activities/packs/190" target="_blank" rel="noopener noreferrer">Pronouns</a>
+          <a class="tag" href="/activities/packs/93" target="_blank" rel="noopener noreferrer">Compound Sentences</a>
+          <a class="tag" href="/activities/packs/72" target="_blank" rel="noopener noreferrer">Articles</a>
+          <a class="tag" href="/grammar/#/play/sw/?anonymous=true&uid=-LJ_S0PIeTQ8xg5I46I6" target="_blank" rel="noopener noreferrer">Contractions</a>
+          <a class="tag" href="/activities/packs/310" target="_blank" rel="noopener noreferrer">Possessive Nouns</a>
+        </div>
+        <a class="quill-button focus-on-light teal contained extra-large" href="/activities/packs" target="_blank" rel="noopener noreferrer">Browse 900+ Activities</a>
+      </div>
+      <div class="reason">
+        <img alt="" src=<%= "#{xl_icon_img_base}/time-in-hand.svg" %> >
+        <h3>Save time</h3>
+        <div class="tag-cloud">
+          <a class="tag" href="/teacher-center/how-does-quill-address-learning-for-atrisk-below-grade-level-learners" target="_blank" rel="noopener noreferrer">Personalized learning journeys</a>
+          <a class="tag" href="/teacher-center/how-quill-gives-feedback" target="_blank" rel="noopener noreferrer">Instant, targeted feedback</a>
+          <a class="tag" href="/teacher-center/for-sean-martin-reading-for-evidence-is-like-multiplying-myself-by-thirty" target="_blank" rel="noopener noreferrer">Save hours on planning</a>
+          <a class="tag" href="/tools/lessons" target="_blank" rel="noopener noreferrer">Whole-class lessons</a>
+          <a class="tag" href="/activities/packs" target="_blank" rel="noopener noreferrer">10-15 minute activities</a>
+          <a class="tag" href="/teacher-center/topic/best-practices" target="_blank" rel="noopener noreferrer">& many more</a>
+        </div>
+        <a class="quill-button focus-on-light teal contained extra-large" href="/teacher-center" target="_blank" rel="noopener noreferrer">Visit Teacher Center</a>
+      </div>
+    </div>
+  </section>
+  <section class="admin-dashboard">
+    <h2>Access your administrator dashboard with a free Quill account</h2>
+    <div class="content">
+      <div class="text-side">
+        <div class="free-usage">
+          <h4>Free usage reports show you:</h4>
+          <p><%= contained_check_img %>Teachers & students using Quill</p>
+          <p><%= contained_check_img %>Number of sentences written</p>
+          <p><%= contained_check_img %>Total learning hours</p>
+        </div>
+        <div class="sso">
+          <h4>Single sign-on integrations give you:</h4>
+          <p><%= contained_check_img %>One-click access</p>
+          <p><%= contained_check_img %>Secure authentication</p>
+        </div>
+        <div class="sso-providers">
+          <p><img src=<%= "#{s_icon_img_base}/google-classroom-color.svg" %>>Google Classroom</p>
+          <p><img src=<%= "#{s_icon_img_base}/clever-color.svg" %>>Clever</p>
+          <p><img src=<%= "#{s_icon_img_base}/canvas-color.svg" %>>Canvas*</p>
+          <span>*Premium integration</span>
+        </div>
+        <a class="quill-button focus-on-light green contained extra-large" href="/sign-up/admin" target="_blank" rel="noopener noreferrer">Create Admin Account</a>
+      </div>
+      <div class="admin-bezel-img-wrapper">
+        <img alt="Screenshot of the Quill Administrator dashboard full-screen on a laptop" src=<%= "#{for_administrators_img_base}/dashboard_in_bezel.svg" %> >
+      </div>
+    </div>
+  </section>
+  <section class="reasons-to-upgrade">
+    <div class="container">
+      <h2>Upgrade to Quill Premium to improve writing across your district</h2>
+      <p class="subheader">In addition to 16 diagnostics and 900+ writing activities, Quill Premium includes school- and district-level reporting to monitor progress, teacher PD on writing pedagogy, and tech integrations
+  for ease of implementation.</p>
+      <div class="reasons">
+        <div class="reason">
+          <img alt="" src=<%= "#{xl_icon_img_base}/fountain-pen.svg" %> >
+          <h3>Boost student writing</h3>
+          <p>Students at Premium schools write <b>~200 sentences per year</b>.</p>
+          <p>Equivalent to 10 pages</p>
+        </div>
+        <div class="reason">
+          <img alt="" src=<%= "#{xl_icon_img_base}/time-in-hand.svg" %> >
+          <h3>Save teachers time</h3>
+          <p>Teachers save <b>~100 hours</b> each year on grading.</p>
+          <p>Equivalent to ~9,000 sentences per teacher</p>
+        </div>
+        <div class="reason">
+          <img alt="" src=<%= "#{xl_icon_img_base}/lecture-hall.svg" %> >
+          <h3>Amplify instruction</h3>
+          <p>Quill schools provide students with <b>~580 extra hours</b> of writing instruction a year.</p>
+          <p>12,000 schools use Quill.</p>
+        </div>
+      </div>
+      <a class="quill-button focus-on-light contained extra-large gold" href="/premium" target="_blank" rel="noopener noreferrer">Explore Premium</a>
+    </div>
+  </section>
+  <section class="vimeo-section">
+    <div class="iframe-wrapper">
+      <iframe src="https://player.vimeo.com/video/952067322?h=1ebd9bddca&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Quill"></iframe>
+    </div>
+  </section>
+  <section class="calendly-section">
+    <div class="container">
+      <h2>Join the 12,000 schools that trust Quill each year</h2>
+      <p>Ready to boost your district’s student writing outcomes? Book a time with our partnerships team for a customized demo.</p>
+      <div class="calendly-inline-widget" data-url="https://calendly.com/alex-quill/virtualchat?primary_color=027360" style="min-width:320px;height:700px;"></div>
+      <p class="quote">"With a district-wide implementation in ELA, we saw our grammar and writing scores exceed the average on state testing.”</p>
+      <p class="attribution">K. Savage, Grainger County School District, TN</p>
+    </div>
+  </section>
+</div>

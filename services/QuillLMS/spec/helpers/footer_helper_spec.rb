@@ -3,18 +3,16 @@
 require 'rails_helper'
 
 describe FooterHelper do
-  describe '#teacher_dashboard_links' do
-    let(:teacher_dashboard_links) {
+  describe '#schools_and_districts_links' do
+    let(:schools_and_districts_links) {
       [
-        { href: '/assign', label: 'Assign Activities' },
-        { href: '/teachers/classrooms', label: 'Manage Classes' },
-        { href: '/teachers/classrooms/activity_planner', label: 'Manage Activities' },
-        { href: '/teachers/progress_reports/landing_page', label: 'View Reports' }
+        { href: '/admins', label: 'For Administrators' },
+        { href: '/premium', label: 'Premium Pricing' }
       ]
     }
 
     it 'should return the expected values' do
-      expect(helper.teacher_dashboard_links).to eq teacher_dashboard_links
+      expect(helper.schools_and_districts_links).to eq schools_and_districts_links
     end
   end
 
