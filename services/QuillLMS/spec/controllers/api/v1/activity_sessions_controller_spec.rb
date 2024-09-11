@@ -102,6 +102,11 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         end
       end
 
+      it 'updates StudentActivitySequenceActivities' do
+        expect(StudentActivitySequences::HandleCompletionWorker).to receive(:perform_async).with(activity_session.id)
+        put :update, params: { id: activity_session.uid, completed_at: DateTime.current }, as: :json
+      end
+
       it 'saves the concept tag relationship (ID) in the result' do
         Sidekiq::Testing.inline! do
           put :update, params: { id: activity_session.uid, concept_results: concept_results_frontend_json }, as: :json

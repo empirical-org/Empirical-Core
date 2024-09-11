@@ -19,6 +19,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     elsif @activity_session.update(activity_session_params)
       status = :ok
       message = 'Activity Session Updated'
+      handle_student_activity_sequence_activity_completion
       handle_concept_results
       send_teacher_notifications
       ActiveActivitySession.find_by_uid(@activity_session.uid)&.destroy if @activity_session.completed_at
@@ -42,6 +43,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     @activity_session.user = current_user if current_user
 
     if @activity_session.save
+      handle_student_activity_sequence_activity_completion if @activity_session.completed_at
       handle_concept_results if @concept_results
       @status = :success
       @message = 'Activity Session Created'
@@ -77,6 +79,12 @@ class Api::V1::ActivitySessionsController < Api::ApiController
         },
         serializer: ActivitySessionSerializer
     end
+  end
+
+  private def handle_student_activity_sequence_activity_completion
+    return unless @activity_session.completed_at
+
+    StudentActivitySequences::HandleCompletionWorker.perform_async(@activity_session.id)
   end
 
   private def handle_concept_results
