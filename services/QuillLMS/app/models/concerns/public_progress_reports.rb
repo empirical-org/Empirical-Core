@@ -288,13 +288,21 @@ module PublicProgressReports
     time > 60 ? '> 60' : time
   end
 
+  def format_direction(direction)
+    direction.gsub(/\((.*?)\)/) do |match|
+      match.gsub(/\b\w+\b/) do |word|
+        word == 'I' ? word : word.downcase
+      end
+    end
+  end
+
   # rubocop:disable Metrics/CyclomaticComplexity
   def format_concept_results(activity_session, concept_results)
     concept_results.group_by { |cr| cr.question_number }.map { |_key, cr|
       # if we don't sort them, we can't rely on the first result being the first attemptNum
       # however, it would be more efficient to make them a hash with attempt numbers as keys
       cr.sort! { |x, y| (x.attempt_number || 0) <=> (y.attempt_number || 0) }
-      directfirst = cr.first.concept_result_directions&.text || cr.first.concept_result_instructions&.text || ''
+      directfirst = format_direction(cr.first.concept_result_directions&.text || cr.first.concept_result_instructions&.text || '')
       prompt_text = cr.first.concept_result_prompt&.text
       score = get_score_for_question(cr)
       question_uid = cr.first.extra_metadata&.dig('question_uid')

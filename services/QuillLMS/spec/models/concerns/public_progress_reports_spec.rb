@@ -282,6 +282,23 @@ describe PublicProgressReports, type: :model do
     end
   end
 
+  describe '#format_direction' do
+    it 'should return empty string when input is empty string' do
+      result = FakeReports.new.format_direction('')
+      expect(result).to eq ''
+    end
+
+    it 'should downcase example words in parentheses' do
+      result = FakeReports.new.format_direction('Lorem ispum. (Kicks, Kick)')
+      expect(result).to eq 'Lorem ispum. (kicks, kick)'
+    end
+
+    it 'should upcase the pronoun <I> when in parentheses' do
+      result = FakeReports.new.format_direction('Lorem ispum. (I, Mine, I)')
+      expect(result).to eq 'Lorem ispum. (I, mine, I)'
+    end
+  end
+
   describe '#generic_questions_for_report' do
     let!(:question1) { create(:question) }
     let!(:question2) { create(:question) }
