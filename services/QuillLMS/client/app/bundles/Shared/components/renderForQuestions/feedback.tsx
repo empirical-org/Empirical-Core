@@ -192,6 +192,13 @@ function translatedReviseMatchedFeedback(question, latestAttempt, translate) {
   }
 }
 
+function renderFeedback(feedback) {
+  if (feedback && typeof feedback === 'string') {
+    feedback = <p>{feedback}</p>
+  }
+  return feedback
+}
+
 const Feedback = ({
   correctResponse,
   feedbackType,
@@ -204,42 +211,55 @@ const Feedback = ({
 
   function getTranslatedFeedback(showTranslation, question, feedbackType) {
     if(!showTranslation) { return null }
+
     const showInstructions = feedbackType === INSTRUCTIONS || feedbackType === GET_QUESTION_INSTRUCTIONS
     const showOverride = feedbackType === OVERRIDE || feedbackType === REVISE_UNMATCHED || feedbackType === CONTINUE
     const showCMSResponse = feedbackType === CORRECT_MATCHED || (feedbackType === REVISE_MATCHED && question?.question_type === CONNECT_FILL_IN_BLANKS)
-    let value
+
     if (question?.translation?.instructions && showInstructions) {
       const { translation } = question
       const { instructions } = translation
-      value = instructions
-    } else if(feedbackType === DEFAULT_FILL_IN_BLANK) {
-      value = translate('feedback^Fill in the blank with the correct option.')
-    } else if(feedbackType === DEFAULT_WITH_CUES) {
-      value = question?.cues?.length === 1 ? translate('feedback^Combine the sentences into one sentence. Use the joining word.') : translate('feedback^Combine the sentences into one sentence. Use one of the joining words.')
-    } else if(feedbackType === DEFAULT) {
-      value = translate('feedback^Combine the sentences into one sentence. Use one of the joining words.')
-    } else if (feedback && showOverride) {
-      value = translate(`feedback^${feedback.props.children}`)
-    } else if (feedbackType === INCORRECT_CONTINUE) {
-      value = translatedIncorrectContinueFeedback(translate, latestAttempt, correctResponse)
-    } else if (showCMSResponse) {
-      value = translatedCMSResponseFeedback(latestAttempt, question)
-    } else if (feedbackType === REVISE_MATCHED) {
-      value = translatedReviseMatchedFeedback(question, latestAttempt, translate)
+      return renderFeedback(instructions)
     }
-    if(value && typeof value === 'string') {
-      value = <p>{value}</p>
+    if(feedbackType === DEFAULT_FILL_IN_BLANK) {
+      const value = translate('feedback^Fill in the blank with the correct option.')
+      return renderFeedback(value)
     }
-    return value
+    if(feedbackType === DEFAULT_WITH_CUES) {
+      const value = question?.cues?.length === 1 ? translate('feedback^Combine the sentences into one sentence. Use the joining word.') : translate('feedback^Combine the sentences into one sentence. Use one of the joining words.')
+      return renderFeedback(value)
+    }
+    if(feedbackType === DEFAULT) {
+      const value = translate('feedback^Combine the sentences into one sentence. Use one of the joining words.')
+      return renderFeedback(value)
+    }
+    if (feedback && showOverride) {
+      const value = translate(`feedback^${feedback.props.children}`)
+      return renderFeedback(value)
+    }
+    if (feedbackType === INCORRECT_CONTINUE) {
+      const value = translatedIncorrectContinueFeedback(translate, latestAttempt, correctResponse)
+      return renderFeedback(value)
+    }
+    if (showCMSResponse) {
+      const value = translatedCMSResponseFeedback(latestAttempt, question)
+      return renderFeedback(value)
+    }
+    if (feedbackType === REVISE_MATCHED) {
+      const value = translatedReviseMatchedFeedback(question, latestAttempt, translate)
+      return renderFeedback(value)
+    }
   }
+
   const translatedFeedback = getTranslatedFeedback(showTranslation, question, feedbackType)
+
   return(
     <div aria-live="assertive" className={getCSSClasses(feedbackType)} role="status">
       <div className='feedback-row student-feedback-inner-container'>
         <img alt={getIconAlt(feedbackType)} className={getIconClassName(feedbackType)} src={getFeedbackIcon(feedbackType)} />
         <div>
           {feedback}
-          {translatedFeedback ? <div className="translated-feedback">{translatedFeedback}</div> : null}
+          {!!translatedFeedback && <div className="translated-feedback">{translatedFeedback}</div>}
         </div>
       </div>
     </div>
