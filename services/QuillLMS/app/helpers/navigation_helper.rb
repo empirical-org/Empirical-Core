@@ -14,6 +14,7 @@ module NavigationHelper
   ASSIGN_ACTIVITIES = 'Assign Activities'
   EXPLORE_CURRICULUM = 'Explore Curriculum'
   HOME = 'Home'
+  SCHOOLS_AND_DISTRICTS = 'Schools & Districts'
   LEARNING_TOOLS = 'Learning Tools'
   LOG_IN = 'Log In'
   LOG_OUT = 'Log Out'
@@ -40,6 +41,8 @@ module NavigationHelper
   ARCHIVED_CLASSES = 'Archived Classes'
   DATA_EXPORT = 'Data Export'
   DIAGNOSTICS = 'Diagnostics'
+  FOR_ADMINISTRATORS = 'For Administrators'
+  PREMIUM_PRICING = 'Premium Pricing'
   CONCEPTS = 'Concepts'
   MY_SUBSCRIPTIONS = 'My Subscriptions'
   STANDARDS = 'Standards'
@@ -50,6 +53,7 @@ module NavigationHelper
   ABOUT_US_TAB = { name: ABOUT_US, url: '/about' }
   ASSIGN_ACTIVITIES_TAB = { name: ASSIGN_ACTIVITIES, url: '/assign' }
   EXPLORE_CURRICULUM_TAB = { name: EXPLORE_CURRICULUM, url: '/activities/packs' }
+  SCHOOLS_AND_DISTRICTS_TAB = { name: SCHOOLS_AND_DISTRICTS, url: '/admins', id: 'schools-and-districts' }
   LEARNING_TOOLS_TAB = { name: LEARNING_TOOLS, url: '/tools/connect', id: 'learning-tools' }
   LOGIN_TAB = { name: LOG_IN, url: '/session/new' }
   LOGOUT_TAB = { name: LOG_OUT, url: '/session', id: 'logout-tab' }
@@ -64,10 +68,11 @@ module NavigationHelper
   ADMIN_ACCESS_TAB = { name: ADMIN_ACCESS, url: '/admin_access' }
   DIAGNOSTICS_TAB = { name: DIAGNOSTICS, url: '/teachers/progress_reports/diagnostic_reports/#/diagnostics', id: 'mobile-diagnostics-tab' }
 
-  UNAUTHED_USER_TABS = [LEARNING_TOOLS_TAB, EXPLORE_CURRICULUM_TAB, TEACHER_CENTER_TAB, ABOUT_US_TAB, LOGIN_TAB, SIGN_UP_TAB]
-  STUDENT_TABS = [LEARNING_TOOLS_TAB, STUDENT_CENTER_TAB, QUILL_SUPPORT_TAB, LOGOUT_TAB]
+  UNAUTHED_USER_TABS = [SCHOOLS_AND_DISTRICTS_TAB, LEARNING_TOOLS_TAB, EXPLORE_CURRICULUM_TAB, TEACHER_CENTER_TAB, ABOUT_US_TAB, LOGIN_TAB, SIGN_UP_TAB]
+  STUDENT_TABS = [SCHOOLS_AND_DISTRICTS_TAB, LEARNING_TOOLS_TAB, STUDENT_CENTER_TAB, QUILL_SUPPORT_TAB, LOGOUT_TAB]
 
   ACTIVE_TAB_PATHS = {
+    SCHOOLS_AND_DISTRICTS => ['admins', 'premium'],
     LEARNING_TOOLS => ['tools'],
     ABOUT_US => ['about', 'announcements', 'mission', 'impact', 'press', 'team', 'pathways', 'careers', 'contact'],
     EXPLORE_CURRICULUM => ['activities/', 'ap', 'preap', 'springboard'],
@@ -189,7 +194,7 @@ module NavigationHelper
   end
 
   def common_authed_user_tabs
-    @common_authed_user_tabs ||= [LEARNING_TOOLS_TAB, TEACHER_CENTER_TAB, QUILL_SUPPORT_TAB, my_account_tab, LOGOUT_TAB]
+    @common_authed_user_tabs ||= [SCHOOLS_AND_DISTRICTS_TAB, LEARNING_TOOLS_TAB, TEACHER_CENTER_TAB, QUILL_SUPPORT_TAB, my_account_tab, LOGOUT_TAB]
   end
 
   def home_page_active?

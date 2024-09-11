@@ -64,6 +64,18 @@ describe LoginPdf do
     end
   end
 
+  describe '#render_password_for_student' do
+    context 'student authenticated by last name' do
+      let(:hyphenated_surname_student) { create(:student, :with_generated_password, name: 'Laszlo Moholy-Nagy') }
+      let(:classroom) { create(:classroom, students: [hyphenated_surname_student]) }
+
+      it 'should return the name in the case format persisted in the database' do
+        result = LoginPdf.new(classroom).render_password_for_student(hyphenated_surname_student)
+        expect(result).to eq 'Moholy-Nagy'
+      end
+    end
+  end
+
   describe 'student name is not whitespace delineable' do
     let(:students) { [create(:student, name: 'betty'), create(:student)] }
     let(:classroom) { create(:classroom, students: students) }

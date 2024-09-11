@@ -1,7 +1,8 @@
 .focus-on-dark {
   &:focus {
-    outline: dashed 2px $quill-white;
+    outline: dashed 2px $quill-white !important;
     outline-offset: 6px;
+    text-decoration: inherit;
   }
 }
 
@@ -9,6 +10,7 @@
   &:focus {
     outline: dashed 2px $quill-green;
     outline-offset: 6px;
+    text-decoration: inherit;
   }
 }
 

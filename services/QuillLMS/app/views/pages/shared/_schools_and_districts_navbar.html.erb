@@ -1,0 +1,15 @@
+<% tabs = [
+  {
+    id: NavigationHelper::FOR_ADMINISTRATORS,
+    name: NavigationHelper::FOR_ADMINISTRATORS,
+    url: '/admins'
+  },
+  {
+    id: NavigationHelper::PREMIUM_PRICING,
+    name: NavigationHelper::PREMIUM_PRICING,
+    url: '/premium'
+  }
+] %>
+
+<%= render partial: "pages/shared/sub_navbar", locals: { tabs: tabs, active_tab: active_tab } %>
+<%= render partial: 'pages/shared/mobile_sub_navbar', locals: { tabs: tabs, active_tab: active_tab } %>

@@ -21,7 +21,9 @@ SecureHeaders::Configuration.default do |config|
       'https://*.amazonaws.com',
       'https://*.loom.com',
       'https://*.salesmate.io',
-      'https://td.doubleclick.net/'
+      'https://td.doubleclick.net/',
+      'https://calendly.com',
+      'https://*.vimeo.com'
     ],
 
     object_src: %w['none'],                                       # addresses <embed>, <object>, and <applet>
@@ -63,7 +65,9 @@ SecureHeaders::Configuration.default do |config|
       'https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js',
       'https://*.salesmate.io',
       'https://*.googletagmanager.com',
-      'https://code.jquery.com'
+      'https://code.jquery.com',
+      'https://*.calendly.com',
+      'https://*.vimeo.com'
     ],
 
     font_src: [

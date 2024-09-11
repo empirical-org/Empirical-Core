@@ -1,0 +1,21 @@
+<div id="schools-and-districts" class="navbar-tooltip-trigger <%= active_tab == NavigationHelper::SCHOOLS_AND_DISTRICTS ? 'active' : '' %>" tabindex="0">
+  <span>Schools & Districts</span>
+  <div class="navbar-tooltip">
+    <%= render 'navbar/tooltip_link',
+      text: 'For Administrators',
+      subtext: 'Create district-wide success',
+      image_src: 'https://assets.quill.org/images/icons/s/school.svg',
+      image_id: 'for-administrators-img',
+      element_id: 'for-administrators',
+      link: '/admins'
+    %>
+    <%= render 'navbar/tooltip_link',
+      text: 'Premium Pricing',
+      subtext: 'Go Premium to improve writing across your district',
+      image_src: 'https://assets.quill.org/images/icons/s/premium-diamond.svg',
+      image_id: 'premium-pricing-img',
+      element_id: 'premium-pricing',
+      link: '/premium'
+    %>
+  </div>
+</div>
