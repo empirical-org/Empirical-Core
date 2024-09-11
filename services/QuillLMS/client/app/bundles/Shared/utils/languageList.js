@@ -96,3 +96,23 @@ export const defaultLanguageOptions = {
     label: 'درى'
   },
 }
+
+export const languageToLocale = {
+  [ENGLISH]: 'en',
+  [CHINESE]: 'zh-cn',
+  [HINDI]: 'hi',
+  [SPANISH]: 'es-la',
+  [FRENCH]: 'fr',
+  [ARABIC]: 'ar',
+  [RUSSIAN]: 'ru',
+  [PORTUGUESE]: 'pt-br',
+  [URDU]: 'ur',
+  [GERMAN]: 'de',
+  [JAPANESE]: 'ja',
+  [KOREAN]: 'ko',
+  [VIETNAMESE]: 'vi',
+  [THAI]: 'th',
+  [UKRAINIAN]: 'uk',
+  [TAGALOG]: 'tl',
+  [DARI]: 'prs'
+}

@@ -30,6 +30,7 @@ import {
 import { clearData, loadData, nextQuestion, resumePreviousSession, setCurrentQuestion, submitResponse, updateCurrentQuestion } from '../../actions.js';
 import SessionActions from '../../actions/sessions.js';
 import LessonActions from '../../actions/lessons';
+import ConceptsFeedbackActions from '../../actions/concepts-feedback.ts'
 import {
   answeredQuestionCount,
   getProgressPercent,
@@ -135,6 +136,7 @@ export class Lesson extends React.Component {
       }
       if (lessonLoaded && playLesson?.language && playLesson.language !== prevProps?.playLesson?.language) {
         dispatch(LessonActions.loadTranslatedQuestions(lessonID, playLesson.language))
+        dispatch(ConceptsFeedbackActions.loadTranslatedConceptsFeedback(playLesson.language))
       }
     }
   }

@@ -6,7 +6,8 @@ const initialState = {
     hasreceiveddata: false,
     submittingnew: false,
     states: {}, // this will store per quote id if we're reading, editing or awaiting DB response
-    data: {} // this will contain firebase data
+    data: {}, // this will contain firebase data
+    translated_data: null
   }
 }
 
@@ -17,6 +18,10 @@ export default function(currentstate,action){
       return Object.assign({},currentstate,{
         hasreceiveddata: true,
         data: action.data
+      });
+    case C.RECEIVE_TRANSLATED_CONCEPTS_FEEDBACK_DATA:
+      return Object.assign({},currentstate,{
+        translated_data: action.data
       });
     case C.RECEIVE_CONCEPT_FEEDBACK_DATA:
       return Object.assign({}, currentstate, {
