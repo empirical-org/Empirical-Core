@@ -78,6 +78,7 @@ exports[`Concept component should render Concept 1`] = `
           "hasreceiveddata": false,
           "states": Object {},
           "submittingnew": false,
+          "translated_questions": null,
         }
       }
       routing={

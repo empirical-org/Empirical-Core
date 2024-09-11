@@ -29,6 +29,7 @@ import {
 } from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, resumePreviousSession, setCurrentQuestion, submitResponse, updateCurrentQuestion } from '../../actions.js';
 import SessionActions from '../../actions/sessions.js';
+import LessonActions from '../../actions/lessons';
 import {
   answeredQuestionCount,
   getProgressPercent,
@@ -132,6 +133,9 @@ export class Lesson extends React.Component {
       if(previewMode && questionToPreview && playLesson && playLesson.questionSet && isLastQuestion && this.getNextPreviewQuestion(questionToPreview)) {
         this.toggleIsLastQuestion();
       }
+      if (lessonLoaded && playLesson?.language && playLesson.language !== prevProps?.playLesson?.language) {
+        dispatch(LessonActions.loadTranslatedQuestions(lessonID, playLesson.language))
+      }
     }
   }
 
@@ -210,8 +214,15 @@ export class Lesson extends React.Component {
   }
 
   getQuestion = () => {
-    const { playLesson } = this.props;
-    const { question } = playLesson.currentQuestion;
+    const { playLesson, questions } = this.props;
+    const { translated_questions } = questions
+    const { currentQuestion, language } = playLesson
+    const { question } = currentQuestion;
+    const { key } = question
+    if (translated_questions && language && language !== ENGLISH) {
+      const question_translation = translated_questions[key]
+      return { ...question, translation: question_translation };
+    }
     return question;
   }
 
