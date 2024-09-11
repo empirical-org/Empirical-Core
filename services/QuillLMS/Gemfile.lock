@@ -301,8 +301,6 @@ GEM
     geocoder (1.8.3)
       base64 (>= 0.1.0)
       csv (>= 3.0.0)
-    get_process_mem (0.2.7)
-      ffi (~> 1.0)
     global (1.1.0)
       activesupport (>= 2.0)
     globalid (1.2.1)
@@ -572,9 +570,6 @@ GEM
     public_suffix (6.0.1)
     puma (5.6.8)
       nio4r (~> 2.0)
-    puma_worker_killer (0.3.1)
-      get_process_mem (~> 0.2)
-      puma (>= 2.7)
     pusher (2.0.3)
       httpclient (~> 2.8)
       multi_json (~> 1.15)
@@ -968,7 +963,6 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   puma (~> 5.6.8)
-  puma_worker_killer (~> 0.3)
   pusher (~> 2.0.3)
   rack-affiliates (= 0.4.0)
   rack-attack (~> 6.3)
