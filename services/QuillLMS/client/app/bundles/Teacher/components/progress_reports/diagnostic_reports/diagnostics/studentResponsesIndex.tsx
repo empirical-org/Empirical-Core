@@ -263,11 +263,11 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
     if(!total_correct_questions_count && total_correct_questions_count !== 0) { return NOT_AVAILABLE }
 
     if (total_pre_correct_questions_count) {
-      const countOfPreSkillsProficienct = skill_groups.filter(skillGroup => skillGroup.pre_test_proficiency === PROFICIENCY).length
-      const countOfSkillsToPractice = skill_groups.length - countOfPreSkillsProficienct
+      const countOfPreSkillsProficient = skill_groups.filter(skillGroup => skillGroup.pre_test_proficiency === PROFICIENCY).length
+      const countOfSkillsToPractice = skill_groups.length - countOfPreSkillsProficient
       return (
         <div className="skills-correct-element">
-          <p>{countOfPreSkillsProficienct} of {skill_groups.length} {pluralize(countOfSkillsProficient, "Skill", "Skills")}</p>
+          <p>{countOfPreSkillsProficient} of {skill_groups.length} {pluralize(countOfPreSkillsProficient, "Skill", "Skills")}</p>
           {!!countOfSkillsToPractice && <p>({countOfSkillsToPractice} {pluralize({countOfSkillsToPractice}, "Skill", "Skills")} to Practice)</p>}
         </div>
       )
