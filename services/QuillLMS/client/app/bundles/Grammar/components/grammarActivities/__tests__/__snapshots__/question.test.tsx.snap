@@ -266,13 +266,15 @@ Sentences flow easily when all the actions in a list have the same ending. This 
                 className="info"
                 src="https://assets.quill.org/images/icons/direction.svg"
               />
-              <p
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "Rewrite the sentence so that it has proper parallel structure.",
+              <div>
+                <p
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Rewrite the sentence so that it has proper parallel structure.",
+                    }
                   }
-                }
-              />
+                />
+              </div>
             </div>
           </div>
         </Feedback>

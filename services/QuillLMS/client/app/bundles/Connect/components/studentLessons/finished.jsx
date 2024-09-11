@@ -50,20 +50,26 @@ export default class extends React.Component {
     );
   };
 
+  renderCompletedMessage = () => {
+    const { showTranslation, translate } = this.props
+    const translatedHeader = showTranslation ? <h1>{translate('Quill Connect Completed^header')}</h1> : null
+    const translatedMessage = showTranslation ? <p>{translate('Quill Connect Completed^message')}</p> : null
+    return (
+      <div className="landing-page">
+        <h1>You've completed the lesson</h1>
+        {translatedHeader}
+        <p>Your results are being saved now. You'll be redirected automatically once they are saved.</p>
+        {translatedMessage}
+        <Spinner />
+      </div>
+    );
+  }
+
   render() {
     if (this.props.error) {
       return this.renderErrorState();
     } else {
-      return (
-        <div className="landing-page">
-          <h1>You've completed the lesson</h1>
-          <p>
-            Your results are being saved now.
-            You'll be redirected automatically once they are saved.
-          </p>
-          <Spinner />
-        </div>
-      );
+      return this.renderCompletedMessage();
     }
   }
 }
