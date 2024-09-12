@@ -185,6 +185,9 @@
     }
     .admin-bezel-img-wrapper {
       max-width: calc(100vw - 480px);
+      img {
+        max-height: 711px;
+      }
     }
     .text-side {
       margin: 0px 64px 0px 200px;
