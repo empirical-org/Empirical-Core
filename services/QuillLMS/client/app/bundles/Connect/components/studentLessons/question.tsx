@@ -337,7 +337,6 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
 
   renderConceptExplanation = () => {
     const { conceptsFeedback, question, showTranslation } = this.props
-    console.log("🚀 ~ PlayLessonQuestion ~ conceptsFeedback:", conceptsFeedback)
     //TODO: update Response interface in quill-marking-logic to fix Boolean/boolean type checking
     const latestAttempt:{response: Response}|undefined = this.handleGetLatestAttempt();
 
