@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateStudentActivitySequenceActivity < ActiveRecord::Migration[7.0]
   def change
     create_table :student_activity_sequence_activities do |t|

@@ -5,7 +5,7 @@ module StudentActivitySequences
     class MissingSequenceActivityError < StandardError; end
 
     attr_reader :activity_session_id
-  
+
     def initialize(activity_session_id)
       @activity_session_id = activity_session_id
     end
@@ -15,7 +15,8 @@ module StudentActivitySequences
 
       student_activity_sequence_activity.update(
         activity_session_id:,
-        completed_at:)
+        completed_at:
+      )
     end
 
     private def activity = activity_session.activity
@@ -33,7 +34,8 @@ module StudentActivitySequences
           classroom_unit:,
           student_activity_sequence: {
             user:
-          })
+          }
+        )
     end
   end
 end

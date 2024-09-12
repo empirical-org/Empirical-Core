@@ -15,7 +15,7 @@ module StudentActivitySequences
     let(:pre_unit) { create(:unit, unit_template: pre_unit_template, activities: [pre_diagnostic]) }
     let(:pre_classroom_unit) { create(:classroom_unit, classroom:, unit: pre_unit, assigned_student_ids: [student_id]) }
     let(:classroom_unit) { pre_classroom_unit }
- 
+
     it do
       expect { subject }.to change(StudentActivitySequence, :count).by(1)
         .and change(StudentActivitySequenceActivity, :count).by(1)
