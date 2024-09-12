@@ -145,7 +145,8 @@ class GenAITasks < Thor
     results = []
     # Pull a random sample, but use the same seed so examples are consistent.
     test_subset = test_set.sample(limit.to_i, random: Random.new(1))
-
+    highlight_matches = []
+    similarities = []
     test_subset.each do |feedback_set|
       prompt = Evidence::Prompt.find(feedback_set.prompt_id)
       system_prompt = Evidence::GenAI::SecondaryFeedback::PromptBuilder.run(prompt:)
@@ -155,6 +156,11 @@ class GenAITasks < Thor
       llm_highlight = prompt.distinct_automl_highlight_arrays[highlight_key - 1]
 
       highlight_match = feedback_set.highlights == llm_highlight
+      highlight_matches << highlight_match
+
+      print highlight_match ? '.' : 'F'
+      similarity = cosine_similarity(feedback_set.secondary, response[KEY_SECONDARY_FEEDBACK])
+      similarities << similarity
 
       results << [
         prompt.id,
@@ -163,16 +169,23 @@ class GenAITasks < Thor
         feedback_set.primary,
         response[KEY_SECONDARY_FEEDBACK],
         feedback_set.secondary,
+        similarity,
         highlight_match,
         llm_highlight.join('|'),
         feedback_set.highlights.join('|')
       ]
     end
+    puts ''
 
     CSV.open(secondary_output_file(limit), 'wb') do |csv|
-      csv << ['Prompt ID', 'Stem', 'Sample Response', 'Original Feedback', 'LLM Secondary', 'Curriculum Secondary', 'Highlight Match', 'LLM Highlight', 'Curriculum Highlight']
+      csv << ['Prompt ID', 'Stem', 'Sample Response', 'Original Feedback', 'LLM Secondary', 'Curriculum Secondary', 'Secondary Similarity' 'Highlight Match', 'LLM Highlight', 'Curriculum Highlight']
       results.each { |result| csv << result }
     end
+    highlight_match_count = highlight_matches.count(true)
+    highlight_total = highlight_matches.count
+
+    puts "Highlight Matches: #{highlight_match_count} / #{highlight_total}: #{(100 * highlight_match_count / highlight_total.to_f).round(2)}"
+    puts "Similarities: #{similarities.average}"
   end
 
   # bundle exec thor gen_a_i_tasks:generate_secondary_data_files
@@ -312,9 +325,9 @@ class GenAITasks < Thor
     3.times { print_line }
 
     train_set.each do |data|
-      entry = Evidence::HTMLTagRemover.run(data.original)
-      different = Evidence::HTMLTagRemover.run(data.different)
-      similar = Evidence::HTMLTagRemover.run(data.paraphrase)
+      entry = strip_tags(data.original)
+      different = strip_tags(data.different)
+      similar = strip_tags(data.paraphrase)
 
       nonrepeat = { entry:, list: "1. #{different}", repeat_feedback: false }
       repeat = { entry:, list: "1. #{similar}", repeat_feedback: true }
@@ -433,12 +446,18 @@ class GenAITasks < Thor
     private def repeated_feedback?(feedback, history, temperature)
       system_prompt = Evidence::GenAI::RepeatedFeedback::PromptBuilder.run(prompt: nil, history:)
 
-      llm_response = repeat_api.run(system_prompt:, entry: Evidence::HTMLTagRemover.run(feedback.chomp), model: repeat_model, temperature:)
+      llm_response = repeat_api.run(system_prompt:, entry: strip_tags(feedback), model: repeat_model, temperature:)
 
       puts llm_response
 
       !!llm_response[Evidence::GenAI::RepeatedFeedback::Checker::KEY_REPEAT]
     end
+
+    private def cosine_similarity(text1, text2) = embeddings(text1).cosine_similarity(embeddings(text2))
+
+    private def embeddings(text) = Evidence::OpenAI::EmbeddingFetcher.run(input: strip_tags(text))
+
+    private def strip_tags(text) = Evidence::HTMLTagRemover.run(text.chomp)
 
     private def paraphrase(entry)
       result = Evidence::OpenAI::Chat.run(
