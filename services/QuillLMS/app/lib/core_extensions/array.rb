@@ -17,5 +17,20 @@ module CoreExtensions
 
       (dup[mid] + dup[mid - 1]) / 2.0
     end
+
+    def average
+      return 0 if empty?
+      sum.to_f / size
+    end
+
+    def dot_product(other_array) = zip(other_array).map { |a, b| a * b }.sum
+    def magnitude = Math.sqrt(self.map { |x| x**2 }.sum)
+
+    # Method to calculate cosine similarity between two arrays
+    def cosine_similarity(other_array)
+      self.dot_product(other_array) / (self.magnitude * other_array.magnitude)
+    end
+
+    def cosine_distance(other_array) = 1 - cosine_similarity(other_array)
   end
 end
