@@ -277,19 +277,22 @@
     function handleSelectAll(selectAllCheckboxId, tableId) {
       const selectAllCheckbox = document.getElementById(selectAllCheckboxId);
       const table = document.getElementById(tableId);
-      selectAllCheckbox.addEventListener('change', function() {
-        const checkboxes = table.querySelectorAll('tbody input[type="checkbox"]');
-        checkboxes.forEach(checkbox => {
-          checkbox.checked = selectAllCheckbox.checked;
-        });
-      });
 
-      table.querySelector('tbody').addEventListener('change', function(event) {
-        if (event.target.type === 'checkbox') {
+      if (selectAllCheckbox && table && table.querySelector('tbody tr')) {
+        selectAllCheckbox.addEventListener('change', function() {
           const checkboxes = table.querySelectorAll('tbody input[type="checkbox"]');
-          selectAllCheckbox.checked = Array.from(checkboxes).every(checkbox => checkbox.checked);
-        }
-      });
+          checkboxes.forEach(checkbox => {
+            checkbox.checked = selectAllCheckbox.checked;
+          });
+        });
+
+        table.querySelector('tbody').addEventListener('change', function(event) {
+          if (event.target.type === 'checkbox') {
+            const checkboxes = table.querySelectorAll('tbody input[type="checkbox"]');
+            selectAllCheckbox.checked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+          }
+        });
+      }
     }
 
     function handleRandomize(randomizeButtonId, tableId, selectAllCheckboxId) {
@@ -297,18 +300,21 @@
       const table = document.getElementById(tableId);
       const selectAllCheckbox = document.getElementById(selectAllCheckboxId);
 
-      randomizeButton.addEventListener('click', function() {
-        const checkboxes = Array.from(table.querySelectorAll('tbody input[type="checkbox"]'));
-        const randomCount = Math.floor(Math.random() * checkboxes.length) + 1;
-        checkboxes.forEach(checkbox => checkbox.checked = false);
-        for (let i = 0; i < randomCount; i++) {
-          const randomIndex = Math.floor(Math.random() * checkboxes.length);
-          checkboxes[randomIndex].checked = true;
-          checkboxes.splice(randomIndex, 1);
-        }
+      if (randomizeButton && table && table.querySelector('tbody tr')) {
+        randomizeButton.addEventListener('click', function() {
+          const checkboxes = Array.from(table.querySelectorAll('tbody input[type="checkbox"]'));
+          const randomCount = Math.floor(Math.random() * checkboxes.length) + 1;
+          checkboxes.forEach(checkbox => checkbox.checked = false);
 
-        selectAllCheckbox.checked = false;
-      });
+          for (let i = 0; i < randomCount; i++) {
+            const randomIndex = Math.floor(Math.random() * checkboxes.length);
+            checkboxes[randomIndex].checked = true;
+            checkboxes.splice(randomIndex, 1);
+          }
+
+          if (selectAllCheckbox) { selectAllCheckbox.checked = false }
+        });
+      }
     }
 
     handleSelectAll('select-all-suboptimal-guidelines', 'suboptimal-guidelines-table');
@@ -324,3 +330,4 @@
     handleRandomize('randomize-suboptimal-examples', 'suboptimal-examples-table', 'select-all-suboptimal-examples');
   });
 </script>
+
