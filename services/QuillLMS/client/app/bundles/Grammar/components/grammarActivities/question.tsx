@@ -14,13 +14,15 @@ import {
   hashToCollection,
   FinalAttemptFeedback,
   ALLOWED_ATTEMPTS,
-  ENGLISH
+  ENGLISH,
+  INSTRUCTIONS,
+  CORRECT_MATCHED,
+  REVISE_MATCHED
 } from '../../../Shared/index';
 import * as responseActions from '../../actions/responses';
 import { setCurrentQuestion } from '../../actions/session';
 import { GrammarActivity } from '../../interfaces/grammarActivities';
 import { Question } from '../../interfaces/questions';
-import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces';
 
 const UNANSWERED = 'unanswered'
 const CORRECTLY_ANSWERED = 'correctly answered'
@@ -165,12 +167,12 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   currentQuestion = () => {
     const { currentQuestion, showTranslation, translatedQuestions } = this.props
     const { key } = currentQuestion
-    let translations
+    let translation
     if(showTranslation && translatedQuestions) {
-      translations = translatedQuestions[key]
+      translation = translatedQuestions[key]
     }
-    if(translations) {
-      return {...currentQuestion, translations}
+    if(translation) {
+      return {...currentQuestion, translation}
     }
     return currentQuestion;
   }
@@ -421,20 +423,52 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   renderFeedbackSection(): JSX.Element | undefined {
-    const { response } = this.state
+    const { showTranslation, translate } = this.props
     const question = this.currentQuestion()
     const latestAttempt: Response | undefined = this.handleGetLatestAttempt(question.attempts)
-
-    if (!latestAttempt) { return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: this.currentQuestion().instructions }} />} feedbackType="instructions" />}
-
+    // this is how Connect latestAttempts are structured so we need to match for this shared Feedback component
+    const attemptToPass = { response: latestAttempt }
+    if (!latestAttempt) {
+      return(
+        <Feedback
+          feedback={<p dangerouslySetInnerHTML={{ __html: question.instructions }} />}
+          feedbackType={INSTRUCTIONS}
+          question={question}
+          showTranslation={showTranslation}
+        />
+      )
+    }
     if (latestAttempt && latestAttempt.optimal) {
-      return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: latestAttempt.feedback }} />} feedbackType="correct-matched" />
+      return(
+        <Feedback
+          feedback={<p dangerouslySetInnerHTML={{ __html: latestAttempt.feedback }} />}
+          feedbackType={CORRECT_MATCHED}
+          latestAttempt={attemptToPass}
+          question={question}
+          showTranslation={showTranslation}
+        />
+      )
     }
-
     if (question.attempts && question.attempts.length === ALLOWED_ATTEMPTS) {
-      return <FinalAttemptFeedback correctResponse={this.correctResponse()} latestAttempt={response} />;
+      return(
+        <FinalAttemptFeedback
+          correctResponse={this.correctResponse()}
+          latestAttempt={latestAttempt?.text}
+          translate={translate}
+          showTranslation={showTranslation}
+        />
+      )
     }
-    return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: latestAttempt && latestAttempt.feedback ? latestAttempt.feedback : '' }} />} feedbackType="revise-matched" />
+    return(
+      <Feedback
+        feedback={<p dangerouslySetInnerHTML={{ __html: latestAttempt?.feedback ? latestAttempt.feedback : '' }} />}
+        feedbackType={REVISE_MATCHED}
+        latestAttempt={attemptToPass}
+        question={question}
+        showTranslation={showTranslation}
+        translate={translate}
+      />
+    )
   }
 
   renderConceptExplanation = (): JSX.Element | void => {

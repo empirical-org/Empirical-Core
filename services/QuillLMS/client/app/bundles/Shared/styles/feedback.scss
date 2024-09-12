@@ -13,6 +13,9 @@
   }
   .translated-feedback {
     margin-top: 8px;
+    .incorrect-continue {
+      padding-top: 8px;
+    }
   }
   &.admin-feedback-row {
     margin-top: 5px;

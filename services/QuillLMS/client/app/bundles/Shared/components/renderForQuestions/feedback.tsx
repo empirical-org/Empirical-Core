@@ -153,10 +153,10 @@ function translatedCMSResponseFeedback(latestAttempt, question) {
 
 function translatedIncorrectContinueFeedback(translate, latestAttempt, correctResponse) {
   const firstPhrase = translate('feedback^Good try!')
-  const secondPhrase = translate('feedback^Compare your response to the strong response, and then go on to the next question')
+  const secondPhrase = translate('feedback^Compare your response to the strong response, and then go on to the next question.')
   const thirdPhrase = translate('feedback^Your response:')
   const fourthPhrase = translate('feedback^A strong response:')
-  return `<b>${firstPhrase}</b>${secondPhrase}<br><br><b>${thirdPhrase}</b><br>${latestAttempt}<br><br><b>${fourthPhrase}</b><br>${correctResponse}`
+  return ReactHtmlParser(`<p class="incorrect-continue"><b>${firstPhrase}</b>${secondPhrase}<br><br><b>${thirdPhrase}</b><br>${latestAttempt}<br><br><b>${fourthPhrase}</b><br>${correctResponse}</p>`)
 }
 
 function translatedReviseMatchedFeedback(question, latestAttempt, translate) {
