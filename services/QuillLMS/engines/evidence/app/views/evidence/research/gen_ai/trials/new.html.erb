@@ -18,8 +18,7 @@
     <label>LLM:</label>
     <%= link_to 'new', new_research_gen_ai_llm_path, class: 'new-link', target: '_blank' %>
     <br>
-
-    <%= f.collection_select :llm_id, @llms, :id, :to_s, { required: true } %>
+    <%= f.collection_select :llm_id, @llms, :id, :to_s, include_blank: false %>
   </div>
 
   <div class="field-spacing">
@@ -27,7 +26,7 @@
     <%= link_to 'new', new_research_gen_ai_llm_prompt_template_path, class: 'new-link', target: '_blank' %>
     <br>
 
-    <%= f.collection_select :llm_prompt_template_id, @llm_prompt_templates, :id, :to_s, { required: true } %>
+    <%= f.collection_select :llm_prompt_template_id, @llm_prompt_templates, :id, :to_s, include_blank: false %>
   </div>
 
   <div class="field-spacing">
@@ -35,7 +34,7 @@
     <%= link_to 'new', new_research_gen_ai_auto_chain_of_thought_path, class: 'new-link', target: '_blank' %>
     <br>
 
-    <%= f.collection_select :g_eval_id, @g_evals, :id, :to_s, { required: true } %>
+    <%= f.collection_select :g_eval_id, @g_evals, :id, :to_s, include_blank: false %>
   </div>
 
   <div class="field-spacing">
