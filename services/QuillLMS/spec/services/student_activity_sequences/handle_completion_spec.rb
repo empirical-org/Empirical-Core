@@ -19,7 +19,7 @@ module StudentActivitySequences
       let(:student_activity_sequence_activity) { create(:student_activity_sequence_activity, student_activity_sequence:, activity:, classroom_unit:) }
 
       it { expect { subject }.to change { student_activity_sequence_activity.reload.activity_session_id }.from(nil).to(activity_session_id) }
-      it { expect { subject }.to change { student_activity_sequence_activity.reload.completed_at }.from(nil).to(activity_session.completed_at) }
+      it { expect { subject }.to change { student_activity_sequence_activity.reload.completed_at }.from(nil).to(activity_session.reload.completed_at) }
     end
   end
 end
