@@ -635,24 +635,14 @@ module Teacher
   end
 
   def ids_and_names_of_affiliated_units
-    RawSqlRunner.execute(
-      <<-SQL
-        SELECT DISTINCT
-          units.id,
-          units.name
-        FROM classrooms_teachers
-        JOIN classrooms_teachers AS all_affiliated_classrooms
-          ON all_affiliated_classrooms.classroom_id = classrooms_teachers.classroom_id
-        JOIN classrooms
-          ON classrooms.id = all_affiliated_classrooms.classroom_id
-          AND classrooms.visible = TRUE
-        JOIN units
-          ON all_affiliated_classrooms.user_id = units.user_id
-          AND units.visible = TRUE
-        WHERE classrooms_teachers.user_id = #{id}
-        ORDER BY units.name ASC
-      SQL
-    ).to_a
+    Unit
+      .select('units.id, units.name')
+      .joins(classroom_units: { classroom: :classrooms_teachers })
+      .where(classrooms: { visible: true })
+      .where(classrooms_teachers: { user_id: id })
+      .where(visible: true)
+      .order(:name)
+      .as_json
   end
 
   def referral_code
