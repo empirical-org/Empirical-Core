@@ -6,10 +6,13 @@ module Evidence
       include Evidence::OpenAI::Concerns::Api
 
       ENDPOINT = '/embeddings'
+      # Dimension and model are coupled: https://platform.openai.com/docs/guides/embeddings
+      DEFAULT_DIMENSION = 1536
+      DEFAULT_MODEL = 'text-embedding-3-small'
 
       attr_reader :dimension, :input, :model
 
-      def initialize(dimension:, input:, model:)
+      def initialize(input:, dimension: DEFAULT_DIMENSION, model: DEFAULT_MODEL)
         @dimension = dimension
         @input = input
         @model = model
