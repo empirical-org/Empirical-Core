@@ -39,9 +39,11 @@
   },
   "overrides": {
     "@babel/traverse": ">=7.23.2",
+    "braces": ">= 3.0.3",
     "minimist": ">= 1.2.6",
     "socket.io-parser": "^3.3.3",
     "json-schema": "^0.4.0",
-    "@grpc/grpc-js": "1.1.8"
+    "@grpc/grpc-js": "1.1.8",
+    "ws": "7.5.10"
   }
 }
