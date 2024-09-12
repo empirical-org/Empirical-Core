@@ -39,6 +39,15 @@ const app = http.createServer(requestHandler);
 const io = socketio(app, {
   pingInterval: process.env.PING_INTERVAL || 25000,
   pingTimeout: process.env.PING_TIMEOUT || 20000,
+  cookie: {
+    name: "main",
+    httpOnly: false,
+    path: "/anything"
+  },
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST']
+  }
 });
 
 io.adapter(redis(process.env.REDISCLOUD_URL));
