@@ -50,32 +50,34 @@
       Optimal Guidelines
       <%= link_to 'new', new_research_gen_ai_stem_vault_guideline_path(@dataset.stem_vault), class: 'new-link', target: '_blank' %>
     </h3>
-    <div>
-      <button type="button" id="randomize-optimal-guidelines">Randomize</button>
-    </div>
-    <table id="optimal-guidelines-table">
-      <thead>
-        <tr>
-          <th class="select-column">
-            Select
-            <input type="checkbox" id="select-all-optimal-guidelines" />
-          </th>
-          <th>Guideline</th>
-          <th class="created-column">Created</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @optimal_guidelines.each do |guideline| %>
+    <% if !@optimal_guidelines.empty? %>
+      <div>
+        <button type="button" id="randomize-optimal-guidelines">Randomize</button>
+      </div>
+      <table id="optimal-guidelines-table">
+        <thead>
           <tr>
-            <td>
-              <%= f.check_box :guideline_ids, { multiple: true }, guideline.id, nil %>
-            </td>
-            <td><%= guideline.text %></td>
-            <td><%= guideline.created_at.strftime('%m/%d/%Y') %></td>
+            <th class="select-column">
+              Select
+              <input type="checkbox" id="select-all-optimal-guidelines" />
+            </th>
+            <th>Guideline</th>
+            <th class="created-column">Created</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @optimal_guidelines.each do |guideline| %>
+            <tr>
+              <td>
+                <%= f.check_box :guideline_ids, { multiple: true }, guideline.id, nil %>
+              </td>
+              <td><%= guideline.text %></td>
+              <td><%= guideline.created_at.strftime('%m/%d/%Y') %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 
   <br>
@@ -84,32 +86,34 @@
       Sub-Optimal Guidelines
       <%= link_to 'new', new_research_gen_ai_stem_vault_guideline_path(@dataset.stem_vault), class: 'new-link', target: '_blank' %>
     </h3>
-    <div>
-      <button type="button" id="randomize-suboptimal-guidelines">Randomize</button>
-    </div>
-    <table id="suboptimal-guidelines-table">
-      <thead>
-        <tr>
-          <th class="select-column">
-            Select
-            <input type="checkbox" id="select-all-suboptimal-guidelines" />
-          </th>
-          <th>Guideline</th>
-          <th class="created-column">Created</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @suboptimal_guidelines.each do |guideline| %>
+    <% if !@suboptimal_guidelines.empty? %>
+      <div>
+        <button type="button" id="randomize-suboptimal-guidelines">Randomize</button>
+      </div>
+      <table id="suboptimal-guidelines-table">
+        <thead>
           <tr>
-            <td>
-              <%= f.check_box :guideline_ids, { multiple: true }, guideline.id, nil %>
-            </td>
-            <td><%= guideline.text %></td>
-            <td><%= guideline.created_at.strftime('%m/%d/%Y') %></td>
+            <th class="select-column">
+              Select
+              <input type="checkbox" id="select-all-suboptimal-guidelines" />
+            </th>
+            <th>Guideline</th>
+            <th class="created-column">Created</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @suboptimal_guidelines.each do |guideline| %>
+            <tr>
+              <td>
+                <%= f.check_box :guideline_ids, { multiple: true }, guideline.id, nil %>
+              </td>
+              <td><%= guideline.text %></td>
+              <td><%= guideline.created_at.strftime('%m/%d/%Y') %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 
   <br>
@@ -118,34 +122,37 @@
       Optimal Examples
       <%= link_to 'new', new_research_gen_ai_dataset_prompt_example_path(@dataset), class: 'new-link', target: '_blank' %>
     </h3>
-    <div>
-      <button type="button" id="randomize-optimal-examples">Randomize</button>
-    </div>
-    <table id="optimal-examples-table">
-      <thead>
-        <tr>
-          <th class="select-column">
-            Select
-            <input type="checkbox" id="select-all-optimal-examples" />
-          </th>
-          <th>Response</th>
-          <th>Feedback</th>
-          <th class="created-column">Created</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @prompt_examples.optimal.sort_by(&:student_response).each do |prompt_example| %>
+
+    <% if !@prompt_examples.optimal.empty? %>
+      <div>
+        <button type="button" id="randomize-optimal-examples">Randomize</button>
+      </div>
+      <table id="optimal-examples-table">
+        <thead>
           <tr>
-            <td>
-              <%= f.check_box :prompt_example_ids, { multiple: true }, prompt_example.id, nil %>
-            </td>
-            <td><%= prompt_example.student_response %></td>
-            <td><%= prompt_example.feedback %></td>
-            <td><%= prompt_example.created_at.strftime('%m/%d/%Y') %></td>
+            <th class="select-column">
+              Select
+              <input type="checkbox" id="select-all-optimal-examples" />
+            </th>
+            <th>Response</th>
+            <th>Feedback</th>
+            <th class="created-column">Created</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @prompt_examples.optimal.sort_by(&:student_response).each do |prompt_example| %>
+            <tr>
+              <td>
+                <%= f.check_box :prompt_example_ids, { multiple: true }, prompt_example.id, nil %>
+              </td>
+              <td><%= prompt_example.student_response %></td>
+              <td><%= prompt_example.feedback %></td>
+              <td><%= prompt_example.created_at.strftime('%m/%d/%Y') %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 
   <br>
@@ -155,34 +162,37 @@
       Sub-optimal Responses with Feedback
       <%= link_to 'new', new_research_gen_ai_dataset_prompt_example_path(@dataset), class: 'new-link', target: '_blank' %>
     </h3>
-    <div>
-      <button type="button" id="randomize-suboptimal-examples">Randomize</button>
-    </div>
-    <table id="suboptimal-examples-table">
-      <thead>
-        <tr>
-          <th class="select-column">
-            Select
-            <input type="checkbox" id="select-all-suboptimal-examples" />
-          </th>
-          <th>Response</th>
-          <th>Feedback</th>
-          <th class="created-column">Created</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @prompt_examples.suboptimal.sort_by(&:student_response).each do |prompt_example| %>
+
+    <% if !@prompt_examples.suboptimal.empty? %>
+      <div>
+        <button type="button" id="randomize-suboptimal-examples">Randomize</button>
+      </div>
+      <table id="suboptimal-examples-table">
+        <thead>
           <tr>
-            <td>
-              <%= f.check_box :prompt_example_ids, { multiple: true }, prompt_example.id, nil %>
-            </td>
-            <td><%= prompt_example.student_response %></td>
-            <td><%= prompt_example.feedback %></td>
-            <td><%= prompt_example.created_at.strftime('%m/%d/%Y') %></td>
+            <th class="select-column">
+              Select
+              <input type="checkbox" id="select-all-suboptimal-examples" />
+            </th>
+            <th>Response</th>
+            <th>Feedback</th>
+            <th class="created-column">Created</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @prompt_examples.suboptimal.sort_by(&:student_response).each do |prompt_example| %>
+            <tr>
+              <td>
+                <%= f.check_box :prompt_example_ids, { multiple: true }, prompt_example.id, nil %>
+              </td>
+              <td><%= prompt_example.student_response %></td>
+              <td><%= prompt_example.feedback %></td>
+              <td><%= prompt_example.created_at.strftime('%m/%d/%Y') %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 
   <div class="actions">
