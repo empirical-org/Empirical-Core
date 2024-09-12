@@ -16,7 +16,7 @@ module StudentActivitySequences
     end
 
     private def assign_activities_to_sequence
-      activities.each do |activity|
+      activities.map do |activity|
         StudentActivitySequenceActivity.find_or_create_by(activity:,
           classroom_unit:,
           student_activity_sequence:)
