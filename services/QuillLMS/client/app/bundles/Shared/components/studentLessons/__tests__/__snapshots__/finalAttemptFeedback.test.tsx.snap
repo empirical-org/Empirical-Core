@@ -15,26 +15,28 @@ exports[`FinalAttemptFeedback it should render 1`] = `
         class="info"
         src="https://assets.quill.org/images/icons/continue-brown.svg"
       />
-      <p>
-        <b>
-          Good try!
-        </b>
-         Compare your response to the strong response, and then go on to the next question.
-        <br />
-        <br />
-        <b>
-          Your response
-        </b>
-        <br />
-        This is my latest wrong response.
-        <br />
-        <br />
-        <b>
-          A strong response
-        </b>
-        <br />
-        This is the correct response.
-      </p>
+      <div>
+        <p>
+          <b>
+            Good try!
+          </b>
+           Compare your response to the strong response, and then go on to the next question.
+          <br />
+          <br />
+          <b>
+            Your response
+          </b>
+          <br />
+          This is my latest wrong response.
+          <br />
+          <br />
+          <b>
+            A strong response
+          </b>
+          <br />
+          This is the correct response.
+        </p>
+      </div>
     </div>
   </div>
 </DocumentFragment>

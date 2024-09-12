@@ -444,6 +444,7 @@ exports[`adminContainer component should render with lessons sidebar when url co
                                           "hasreceiveddata": false,
                                           "states": Object {},
                                           "submittingnew": false,
+                                          "translated_questions": null,
                                         }
                                       }
                                       routing={
@@ -681,6 +682,7 @@ exports[`adminContainer component should render with lessons sidebar when url co
                                       "hasreceiveddata": false,
                                       "states": Object {},
                                       "submittingnew": false,
+                                      "translated_questions": null,
                                     }
                                   }
                                   routing={
@@ -1439,6 +1441,7 @@ exports[`adminContainer component should render with main sidebar when url does 
                           "hasreceiveddata": false,
                           "states": Object {},
                           "submittingnew": false,
+                          "translated_questions": null,
                         }
                       }
                       routing={

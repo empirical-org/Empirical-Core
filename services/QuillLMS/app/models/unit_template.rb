@@ -31,7 +31,7 @@ class UnitTemplate < ApplicationRecord
   has_many :partner_contents, dependent: :destroy, as: :content
   has_many :recommendations, dependent: :destroy
   has_many :diagnostics_recommended_by, :through => :recommendations, :source => :activity
-  serialize :grades, Array
+  serialize :grades, type: Array
 
   validates :flag,
     inclusion: { in: Flags::FLAGS },

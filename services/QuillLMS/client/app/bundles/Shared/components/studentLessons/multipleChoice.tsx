@@ -11,7 +11,7 @@ const renderOptions = (next, answers) => {
   return <div className="lesson-multiple-choice">{components}</div>
 }
 
-const MultipleChoice = ({ prompt, answers, next, }) => (
+const MultipleChoice = ({ prompt, answers, next, showTranslation, translate }) => (
   <section className="student-container">
     <div className="content multiple-choice-content">
       {prompt}
@@ -19,6 +19,8 @@ const MultipleChoice = ({ prompt, answers, next, }) => (
         feedback={<p>Select a strong answer. There may be more than one.</p>}
         feedbackType="override"
         key="multiple-choice"
+        showTranslation={showTranslation}
+        translate={translate}
       />
       {renderOptions(next, answers)}
     </div>

@@ -1,6 +1,2 @@
-<% if (current_user&.teacher?) %>
-  <%= render 'teachers/shared/scorebook_tabs' %>
-<% else %>
-  <%= render partial: 'pages/shared/teacher_center_navbar', locals: { active_tab: TeacherCenterHelper::PREMIUM} %>
-<% end %>
+<%= render partial: 'pages/shared/schools_and_districts_navbar', locals: { active_tab: NavigationHelper::PREMIUM_PRICING } %>
 <%= render 'pages/shared/premium_main' %>

@@ -6,7 +6,7 @@ ruby File.read('.ruby-version').chomp
 
 # CORE DEPS
 gem 'puma', '~> 5.6.8'
-gem 'rails', '7.0.6'
+gem 'rails', '7.1.3.4'
 
 # EARLY TO APPLY TO OTHER GEMS
 gem 'dotenv-rails', '~> 2.6'
@@ -57,8 +57,9 @@ gem 'cgi', '~> 0.3.6'
 gem 'configs'
 gem 'faker'
 gem 'faraday_middleware'
-gem 'global'
+gem 'global', '~> 1.1'
 gem 'google-apis-classroom_v1', '~> 0.27.0'
+gem 'google-cloud-ai_platform-v1', '0.32.0'
 gem 'google-cloud-bigquery', '~> 1.43.0'
 gem 'grover'
 gem 'haversine'
@@ -132,8 +133,9 @@ gem 'uglifier', require: false
 # MIDDLEWARE
 gem 'rack-affiliates', '= 0.4.0'
 gem 'rack-cache', '~> 1.6.1', require: 'rack/cache'
-gem 'rack-cors', require: 'rack/cors'
+gem 'rack-cors', '= 1.0.6', require: 'rack/cors'
 gem 'rack-host-redirect'
+gem 'sprockets', '= 3.7.2'
 
 # DEPLOYMENT
 gem 'rack-heartbeat'
@@ -144,9 +146,6 @@ gem 'sentry-sidekiq'
 # INTEGRATIONS
 gem 'commonlit-clever-ruby'
 gem 'gengo', '~> 0.2.1'
-
-# Memory profiling
-gem 'puma_worker_killer'
 
 # temp for migrations
 gem 'paperclip'
@@ -193,14 +192,10 @@ group :test, :development do
   gem 'rspec-rails', '~> 6.0.4'
   gem 'rspec-redis_helper'
   gem 'rspec-retry'
-  gem 'rubocop'
-  gem 'rubocop-rails'
-  gem 'rubocop-rspec'
+  gem 'rubocop', '= 1.64.1'
+  gem 'rubocop-rails', '= 2.25.0'
+  gem 'rubocop-rspec', '= 2.25.0'
   gem 'timecop', '~> 0.9.8'
-end
-
-group :test, :development, :cypress do
-  gem 'cypress-on-rails', '~> 1.0'
 end
 
 group :test do

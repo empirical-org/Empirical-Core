@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 module FooterHelper
-  def teacher_dashboard_links
+  def schools_and_districts_links
     [
-      { href: '/assign', label: 'Assign Activities' },
-      { href: '/teachers/classrooms', label: 'Manage Classes' },
-      { href: '/teachers/classrooms/activity_planner', label: 'Manage Activities' },
-      { href: '/teachers/progress_reports/landing_page', label: 'View Reports' }
+      { href: '/admins', label: 'For Administrators' },
+      { href: '/premium', label: 'Premium Pricing' }
     ]
   end
 

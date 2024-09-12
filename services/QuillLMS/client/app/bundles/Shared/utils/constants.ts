@@ -64,3 +64,15 @@ export const SMALL_ICON_BASE_SRC = `${process.env.CDN_URL}/images/icons/s`
 export const SMALL_MEDIUM_ICON_BASE_SRC = `${process.env.CDN_URL}/images/icons/sm`
 export const LARGE_ICON_BASE_SRC = `${process.env.CDN_URL}/images/icons/l`
 export const EXTRA_LARGE_ICON_BASE_SRC = `${process.env.CDN_URL}/images/icons/xl`
+
+// Connect feedback types
+export const REVISE_UNMATCHED = 'revise-unmatched'
+export const REVISE_MATCHED = 'revise-matched'
+export const CORRECT_MATCHED = 'correct-matched'
+export const OVERRIDE = 'override'
+export const INCORRECT_CONTINUE = 'incorrect-continue'
+export const CONTINUE = 'continue'
+export const INSTRUCTIONS = 'instructions'
+export const GET_QUESTION_INSTRUCTIONS = 'getQuestion-instructions'
+export const DEFAULT_WITH_CUES = 'default-with-cues'
+export const DEFAULT_FILL_IN_BLANK = 'default-fill-in-blank'

@@ -268,6 +268,8 @@ describe NavigationHelper do
   describe '#determine_active_tab' do
     context 'primary navigation' do
       it 'should return "Learning Tools" for relevant paths' do
+        expect(helper.determine_active_tab('admins')).to eq(NavigationHelper::SCHOOLS_AND_DISTRICTS)
+        expect(helper.determine_active_tab('premium')).to eq(NavigationHelper::SCHOOLS_AND_DISTRICTS)
         expect(helper.determine_active_tab('tools')).to eq(NavigationHelper::LEARNING_TOOLS)
         expect(helper.determine_active_tab('tools/connect')).to eq(NavigationHelper::LEARNING_TOOLS)
         expect(helper.determine_active_tab('about')).to eq(NavigationHelper::ABOUT_US)
@@ -347,16 +349,11 @@ describe NavigationHelper do
         expect(helper.determine_active_tab('teachers/classrooms/archived')).to eq(NavigationHelper::MANAGE_CLASSES)
       end
 
-      it 'should return "Teacher Premium" for Teacher Premium path' do
-        expect(helper.determine_active_tab('teacher_premium')).to eq(NavigationHelper::TEACHER_PREMIUM)
-      end
-
-      it 'should return "Premium Hub" for Premium Hub path' do
-        expect(helper.determine_active_tab('premium_hub')).to eq(NavigationHelper::PREMIUM_HUB)
-      end
-
-      it 'should return "Premium" for Premium path' do
-        expect(helper.determine_active_tab('premium')).to eq(NavigationHelper::PREMIUM)
+      it 'should return "Schools & Districts" for teacher_premium and admins path' do
+        expect(helper.determine_active_tab('teacher_premium')).to eq(NavigationHelper::SCHOOLS_AND_DISTRICTS)
+        expect(helper.determine_active_tab('admins')).to eq(NavigationHelper::SCHOOLS_AND_DISTRICTS)
+        expect(helper.determine_active_tab('premium_hub')).to eq(NavigationHelper::SCHOOLS_AND_DISTRICTS)
+        expect(helper.determine_active_tab('premium')).to eq(NavigationHelper::SCHOOLS_AND_DISTRICTS)
       end
 
       it 'should return "Quill Academy" for Quill Academy path' do

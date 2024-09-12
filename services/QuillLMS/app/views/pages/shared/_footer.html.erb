@@ -19,10 +19,10 @@
       </div>
     </footer>
   <% else %>
-    <%= render partial: 'application/premium_footer' unless request.path.include?('premium_hub') %>
+    <%= render partial: 'application/premium_footer' unless ['premium_hub', 'admins'].any? { |fragment| request.path.include?(fragment) } %>
     <footer class="<%=footer_class%>">
       <div class="footer-navigation">
-        <%= render partial: 'pages/shared/list_of_links_with_header', locals: { header_text: "TEACHER DASHBOARD", links_array: teacher_dashboard_links } if current_user %>
+        <%= render partial: 'pages/shared/list_of_links_with_header', locals: { header_text: "SCHOOLS & DISTRICTS", links_array: schools_and_districts_links } %>
         <%= render partial: 'pages/shared/list_of_links_with_header', locals: { header_text: "LEARNING TOOLS", links_array: learning_tools_links } %>
         <%= render partial: 'pages/shared/list_of_links_with_header', locals: { header_text: "EXPLORE ACTIVITIES", links_array: explore_activities_links } if current_user %>
         <%= render partial: 'pages/shared/list_of_links_with_header', locals: { header_text: "EXPLORE CURRICULUM", links_array: explore_curriculum_links } if !current_user %>

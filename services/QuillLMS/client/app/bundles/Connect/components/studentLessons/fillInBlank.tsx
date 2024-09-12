@@ -395,7 +395,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   }
 
   renderFeedback = () => {
-    const { previewMode, question } = this.props;
+    const { previewMode, question, showTranslation, translate } = this.props;
     const { responses, inputErrors } = this.state
 
     const maxAttemptsSubmitted = question.attempts && question.attempts.length === ALLOWED_ATTEMPTS;
@@ -416,17 +416,23 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
         <Feedback
           feedback={feedback}
           feedbackType="revise-unmatched"
+          latestAttempt={latestAttempt}
+          showTranslation={showTranslation}
+          translate={translate}
         />
       )
     }
 
     return (
       <FeedbackContainer
+        latestAttempt={latestAttempt}
         previewMode={previewMode}
         question={question}
         renderFeedbackStatements={this.renderFeedbackStatements}
         responses={responses}
         sentence={this.getInstructionText()}
+        showTranslation={showTranslation}
+        translate={translate}
       />
     )
   }

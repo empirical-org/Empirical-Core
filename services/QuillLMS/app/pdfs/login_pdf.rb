@@ -159,7 +159,7 @@ class LoginPdf < Prawn::Document
     if student.clever_id.present? || student.signed_up_with_google?
       render_text 'Default Password:', 10
     else
-      render_text 'Password: (First letter is <b>Capitalized</b>)', 10
+      render_text 'Password: (Case sensitive)', 10
     end
   end
 
@@ -169,7 +169,7 @@ class LoginPdf < Prawn::Document
     elsif student.signed_up_with_google?
       'N/A (Log in with Google)'
     elsif student.authenticate(student.last_name)
-      student.last_name.capitalize.to_s
+      student.last_name
     else
       'N/A (Custom Password)'
     end

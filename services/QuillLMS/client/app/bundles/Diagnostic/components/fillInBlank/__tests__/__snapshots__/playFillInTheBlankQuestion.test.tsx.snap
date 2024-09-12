@@ -71,15 +71,17 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                   className="info"
                   src="https://assets.quill.org/images/icons/direction.svg"
                 />
-                <p
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "Rewrite the sentence. Fill in the blank with one of these articles: a, an, the. If no article is needed, remove the blank.
+                <div>
+                  <p
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "Rewrite the sentence. Fill in the blank with one of these articles: a, an, the. If no article is needed, remove the blank.
 <br/><br/>
 Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se necesita ninguna palabra, quite el espacio en blanco.",
+                      }
                     }
-                  }
-                />
+                  />
+                </div>
               </div>
             </div>
           </Feedback>

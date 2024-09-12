@@ -4,8 +4,9 @@
 <% end %>
 <% @device = device %>
 <% @is_mobile = device == "mobile" %>
+<% background_image_url = asset_path("#{ENV['CDN_URL']}/images/homepage/#{@random_background}") %>
 
-<section class="q-hero bg-quillgreen flex-column space-between">
+<section class="q-hero flex-column space-between" style="<%= "background-image: url('#{background_image_url}');".html_safe %>">
   <%= render partial: 'application/header' %>
   <div class="q-hero-text header">
     <section class="header-section">
@@ -13,11 +14,10 @@
       <p class="evidence-new-tag">NEW</p>
     </section>
     <p class="text-white main-text">Quill.org, a non-profit, provides free literacy activities that build reading comprehension, writing, and language skills for elementary, middle, and high school students.</p>
-    <a class="q-button cta-button cta-home  bg-white" href="/sign-up/student">Student</a>
-    <a class="q-button cta-button cta-home  bg-white" href="/sign-up/teacher">Teacher</a>
-    <a class="q-button cta-button cta-home  bg-white" href="/administrator">Administrator</a>
-    <a class="q-button cta-button cta-home  bg-white" href="/sign-up/teacher">Guardian</a>
-    <p class="text-white" id="mission"><strong>Writing Across the Curriculum:</strong> Quill's nonprofit mission is to now build both ﻿reading and writing skills through free, OER content across the curriculum.  Over the coming years, we will be building a library of free ELA, social studies, and science activities that engage students in deeper thinking through writing prompts that provide immediate feedback.</p>
+    <div class="buttons-wrapper">
+      <a class="quill-button outlined grey" href="/account/new"><span>Sign Up, Free Forever</span><span class="subtext">For teachers & students</span></a>
+      <a class="quill-button outlined grey" href="/admins"><span>Bring Quill to Your District</span><span class="subtext">For instructional leaders</span></a>
+    </div>
   </div>
   <div class="q-hero-footer">
     <p class="text-white">

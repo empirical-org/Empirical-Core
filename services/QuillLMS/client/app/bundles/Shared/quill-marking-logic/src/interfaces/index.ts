@@ -45,6 +45,8 @@ export interface PartialResponse {
   updated_at?: string,
   weak?: Boolean|null,
   errorType?: string,
+  isFocusPoint?: boolean,
+  isIncorrectSequence?: boolean
 }
 
 
@@ -73,6 +75,7 @@ export interface IncorrectSequence {
   caseInsensitive?: boolean|null,
   name?: string,
   order?: number
+  uid?: string
 }
 
 export interface FeedbackObject {

@@ -282,6 +282,7 @@ export const renderQuestions = ({
 
 function transformNode(node, _index) {
   if (node.type === 'tag') {
+    if (node.name === 'br') { return ''; }
     if (node.name === 'strong' || node.name === 'em') { node.name = 'i'; }
     if (node.name === 'mark') { node.name = 'span' }
 

@@ -809,6 +809,7 @@ EmpiricalGrammar::Application.routes.draw do
     stats
     team
     premium
+    admins
     media_kit
     play
     news

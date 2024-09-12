@@ -1,0 +1,406 @@
+.for-administrators-container {
+
+  section {
+    border-bottom: none;
+    padding: 0px;
+  }
+
+  h2 {
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 36px */
+    text-align: center;
+  }
+
+  h3 {
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 29px; /* 90.625% */
+    margin-top: 32px;
+    text-align: center;
+  }
+
+  header {
+    background-color: $quill-green;
+    position: relative;
+    max-height: 714px;
+    height: fit-content;
+    color: $quill-white;
+    .video-section {
+      position: absolute;
+      width: 100%;
+      max-height: 714px;
+      overflow: hidden;
+      video {
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+    .container {
+      z-index: 1;
+      position: relative;
+      text-align: center;
+      padding-top: 96px;
+    }
+    .pre-header {
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 100%; /* 32px */
+    }
+    h1 {
+      font-size: 80px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 100%;
+      margin: 8px 0px 24px;
+    }
+    .sub-header {
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 34px;
+      color: $quill-white;
+      max-width: 650px;
+      margin-bottom: 48px;
+    }
+    .buttons-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+  }
+
+  .connect-on-laptop {
+    position: relative;
+    margin: 80px 0px;
+    height: 748px;
+    .video-section, img {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 100vw;
+    }
+    .video-section, video {
+      max-width: 1000px;
+      width: 100%;
+    }
+    video {
+      margin-top: 25px;
+    }
+  }
+
+  .research-blocks {
+    background-color: $quill-grey-1;
+    padding: 80px 0px;
+    .container {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+    }
+    .research-block {
+      background-color: $quill-white;
+      border-radius: 32px;
+      border: 1px solid $quill-grey-15;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 380px;
+      flex: 1;
+      text-align: center;
+      img {
+        @include quill-green-filter;
+      }
+      h3 {
+        color: $quill-green;
+        padding: 32px 0px;
+      }
+      p {
+        margin-bottom: 32px;
+        font-size: 20px;
+        line-height: normal;
+      }
+      p:first-of-type {
+        font-weight: 700;
+      }
+      p:last-of-type {
+        color: $quill-grey-90;
+        max-width: 305px;
+      }
+      a {
+        line-height: normal;
+        text-decoration-line: underline;
+      }
+    }
+  }
+
+  .why-teachers-use-quill {
+    padding: 80px 0px;
+    text-align: center;
+    .reasons {
+      margin-top: 80px;
+      gap: 24px;
+      justify-content: center;
+      display: flex;
+    }
+    .reason {
+      max-width: 396px;
+      img {
+        @include quill-teal-filter;
+      }
+      h3 {
+        color: $quill-teal;
+      }
+      .tag-cloud {
+        min-height: 280px;
+        margin: 28px 0px;
+      }
+      .tag {
+        margin: 4px;
+        display: inline-block;
+        border-radius: 16px;
+        border: 1px solid $quill-grey-10;
+        padding: 12px;
+        font-size: 17px;
+        font-style: normal;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .admin-dashboard {
+    padding: 80px 0px;
+    background-color: $quill-grey-1;
+    overflow: hidden;
+    h2 {
+      margin-bottom: 80px;
+    }
+    .content {
+      display: flex;
+      justify-content: center;
+    }
+    .admin-bezel-img-wrapper {
+      max-width: calc(100vw - 480px);
+      img {
+        max-height: 711px;
+      }
+    }
+    .text-side {
+      margin: 0px 64px 0px 200px;
+      min-width: 400px;
+      h4, p {
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 100%; /* 24px */
+        margin-bottom: 32px;
+      }
+      p {
+        color: $quill-green;
+        img {
+          margin-right: 16px;
+        }
+      }
+      .sso {
+        margin-top: 64px;
+        border-bottom: 1px solid $quill-grey-20;
+      }
+      .sso-providers {
+        margin: 32px 0px 64px;
+        p {
+          font-size: 20px;
+          color: $quill-grey-50;
+          margin-bottom: 16px;
+        }
+        span {
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 100%; /* 16px */
+        }
+      }
+    }
+  }
+
+  .reasons-to-upgrade {
+    padding: 80px 0px;
+    .container {
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+    }
+    .subheader {
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 120%; /* 28.8px */
+      margin: 32px 0px 80px;
+      text-align: center;
+      padding-bottom: 80px;
+      border-bottom: 1px solid $quill-grey-15;
+    }
+    .reasons {
+      display: flex;
+      gap: 32px;
+      margin-bottom: 80px;
+    }
+    .reason {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      img {
+        @include quill-gold-dark-filter;
+      }
+      h3 {
+        color: $quill-gold-dark;
+      }
+      p {
+        margin-top: 32px;
+        font-size: 24px;
+      }
+      p:first-of-type {
+        line-height: 140%; /* 33.6px */
+        height: 134px;
+        border-bottom: 1px solid $quill-grey-15;
+      }
+      p:last-of-type {
+        font-style: italic;
+        line-height: normal;
+        color: $quill-grey-70;
+      }
+    }
+    .quill-button {
+      width: fit-content;
+      margin: auto;
+    }
+  }
+
+  .vimeo-section {
+    .iframe-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background-color: $quill-black;
+      max-height: 675px;
+    }
+  }
+
+  .calendly-section {
+    padding: 80px 0px 200px;
+    .container {
+      text-align: center;
+    }
+    p {
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 120%; /* 28.8px */
+      margin: 32px 0px 20px;
+    }
+    .quote {
+      font-style: italic;
+      max-width: 705px;
+      text-align: center;
+      margin: auto;
+      margin-bottom: 16px;
+    }
+    .attribution {
+      font-size: 16px;
+      margin-top: 16px;
+    }
+  }
+
+  @media (max-width: 1300px) {
+    .connect-on-laptop {
+      display: none;
+    }
+    .research-blocks {
+      position: relative;
+      margin-top: 80px;
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    .reasons {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 80px !important;
+    }
+    .reason p {
+      height: fit-content !important;
+      border-bottom: none !important;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .admin-dashboard {
+      .content, h2 {
+        margin-left: auto;
+        margin-right: auto;
+        width: calc(100% - 30px);
+      }
+      .content {
+        flex-direction: column-reverse;
+        gap: 40px;
+        .admin-bezel-img-wrapper {
+          max-width: 100% !important;
+          img {
+            width: 100%;
+          }
+        }
+        .text-side {
+          margin: 0px;
+          text-align: center;
+          min-width: 400px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 875px) {
+    header {
+      h1 {
+        font-size: 60px;
+      }
+      .pre-header {
+        font-size: 24px;
+      }
+    }
+    .research-blocks {
+      margin-top: 24px;
+    }
+  }
+
+  @media (max-width: 700px) {
+    header {
+      .video-section {
+        display: none;
+      }
+      padding-bottom: 40px;
+    }
+    .research-blocks {
+      margin-top: 0px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    header {
+      .buttons-wrapper {
+        flex-direction: column;
+      }
+    }
+    .admin-dashboard .content {
+      .text-side {
+        min-width: calc(100% - 30px);
+      }
+    }
+  }
+}
