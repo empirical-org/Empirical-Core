@@ -34,7 +34,6 @@ class StatusesController < ApplicationController
     render plain: 'OK'
   end
 
-
   def sidekiq_critical_external_latency
     queues = Sidekiq::Queue.all
     latency_hash = queues.to_h { |q| [q.name, q.latency] }
