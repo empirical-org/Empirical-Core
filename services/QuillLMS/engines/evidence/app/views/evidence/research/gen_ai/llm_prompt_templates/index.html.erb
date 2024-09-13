@@ -23,7 +23,7 @@
           <td><%= llm_prompt_template.name %></td>
           <td><%= llm_prompt_template.num_trials %></td>
           <td><%= date_helper(llm_prompt_template.created_at) %></td>
-          <td><%= llm_prompt_template.name %></td>
+          <td><%= llm_prompt_template.notes %></td>
           <td><%= link_to "View", llm_prompt_template %> / <%= link_to "Edit", [:edit, llm_prompt_template] %></td>
         </tr>
       <% end %>
