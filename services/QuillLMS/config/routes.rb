@@ -965,7 +965,7 @@ EmpiricalGrammar::Application.routes.draw do
   # Uptime status
   resource :status, only: [] do
     collection do
-      get :index, :database, :database_write, :database_follower, :redis_cache, :redis_queue, :sidekiq_queue_latency, :sidekiq_queue_length, :sidekiq_critical_external_latency, :sidekiq_low_latency
+      get :index, :database, :database_write, :database_follower, :redis_cache, :redis_queue, :sidekiq_queue_length, :sidekiq_critical_external_latency, :sidekiq_low_latency
       post :deployment_notification
     end
   end
