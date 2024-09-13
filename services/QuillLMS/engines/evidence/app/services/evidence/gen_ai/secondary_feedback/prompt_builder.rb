@@ -20,9 +20,6 @@ module Evidence
         private def default_template = DEFAULT_TEMPLATE
         private def template_folder = TEMPLATE_FOLDER
 
-        # private def primary_secondary_examples = feedback_data_json.join("\n")
-        # private def feedback_data_json = feedback_data.map { |f| {original_feedback: strip_tags(f.primary), secondary_feedback: strip_tags(f.secondary)}.to_json }
-
         private def primary_secondary_examples = markdown_table_rows(feedback_data_tuples)
         private def feedback_data_tuples = feedback_data.map { |f| [f.primary, f.secondary] }
 
