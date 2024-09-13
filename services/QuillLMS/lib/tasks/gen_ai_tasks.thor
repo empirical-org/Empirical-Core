@@ -138,7 +138,6 @@ class GenAITasks < Thor
 
   SecondaryTestRow = Data.define(:description, :api, :model, :temperature, :prompt_text, :template, :sample_size, :similarity_score, :highlight_score, :highlight_percent)
 
-
   # bundle exec thor gen_a_i_tasks:secondary_feedback_test 2
   desc "secondary_feedback_test 'because' 5", 'Create a csv of the prompt test optimal and suboptimals with supporting info.'
   def secondary_feedback_test(description, limit = 2, temperature = 0)
@@ -181,7 +180,7 @@ class GenAITasks < Thor
     puts ''
 
     CSV.open(secondary_output_file(limit), 'wb') do |csv|
-      csv << ['Prompt ID', 'Stem', 'Sample Response', 'Original Feedback', 'LLM Secondary', 'Curriculum Secondary', 'Secondary Similarity' 'Highlight Match', 'LLM Highlight', 'Curriculum Highlight']
+      csv << ['Prompt ID', 'Stem', 'Sample Response', 'Original Feedback', 'LLM Secondary', 'Curriculum Secondary', 'Secondary Similarity', 'Highlight Match', 'LLM Highlight', 'Curriculum Highlight']
       results.each { |result| csv << result }
     end
     highlight_match_count = highlight_matches.count(true)
@@ -205,7 +204,7 @@ class GenAITasks < Thor
       sample_size: test_subset.size,
       highlight_score:,
       highlight_percent:,
-      similarity_score:,
+      similarity_score:
     )
     # append results to test file
     CSV.open(secondary_test_runs_file, 'a') do |csv|
