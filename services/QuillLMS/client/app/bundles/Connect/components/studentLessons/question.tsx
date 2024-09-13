@@ -3,7 +3,6 @@ import * as React from 'react';
 import * as _ from 'underscore';
 
 import {
-  ConceptExplanation,
   MultipleChoice,
   SentenceFragments,
   getLatestAttempt,
@@ -24,6 +23,7 @@ import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
+import { renderExplanation } from '../../libs/translationFunctions';
 
 const RenderSentenceFragments = SentenceFragments
 
@@ -354,8 +354,8 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
         })
         if (negativeConceptWithConceptFeedback) {
           const key = negativeConceptWithConceptFeedback.conceptUID
-          const translatedData = showTranslation && conceptsFeedback?.translated_data ? conceptsFeedback.translated_data[key] : null
-          return <ConceptExplanation {...conceptsFeedback.data[key]} translatedExplanation={translatedData} />
+          const data = conceptsFeedback.data[key]
+          return renderExplanation({ data, key, conceptsFeedback, showTranslation });
         }
       } else if (latestAttempt.response.concept_results) {
         const negativeConcepts = this.getNegativeConceptResultsForResponse(latestAttempt.response.concept_results);
@@ -364,8 +364,8 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
         })
         if (negativeConceptWithConceptFeedback) {
           const key = negativeConceptWithConceptFeedback.conceptUID
-          const translatedData = showTranslation && conceptsFeedback?.translated_data ? conceptsFeedback.translated_data[key] : null
-          return <ConceptExplanation {...conceptsFeedback.data[key]} translatedExplanation={translatedData} />
+          const data = conceptsFeedback.data[key]
+          return renderExplanation({ data, key, conceptsFeedback, showTranslation });
         }
       }
 
@@ -373,22 +373,15 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
       // we only want to show question-level concept feedback if the response is unmatched
       if (question && question.modelConceptUID) {
         const key = question.modelConceptUID
-        const dataF = conceptsFeedback.data[key];
-        const translatedData = showTranslation && conceptsFeedback?.translated_data ? conceptsFeedback.translated_data[key] : null
-        if (dataF) {
-          return <ConceptExplanation {...dataF} translatedExplanation={translatedData} />;
-        }
+        const data = conceptsFeedback.data[key]
+        return renderExplanation({ data, key, conceptsFeedback, showTranslation });
       }
 
       if (question.conceptID) {
         const key = question.conceptID
         const data = conceptsFeedback.data[key];
-        const translatedData = showTranslation && conceptsFeedback?.translated_data ? conceptsFeedback.translated_data[key] : null
-        if (data) {
-          return <ConceptExplanation {...data} translatedExplanation={translatedData} />;
-        }
+        return renderExplanation({ data, key, conceptsFeedback, showTranslation });
       }
-
     }
   }
 

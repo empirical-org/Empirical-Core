@@ -5,7 +5,6 @@ import * as _ from 'underscore';
 
 import { checkFillInTheBlankQuestion, } from '../../../Shared/quill-marking-logic/src/main'
 import {
-  ConceptExplanation,
   Feedback,
   Prompt,
   fillInBlankInputLabel,
@@ -23,6 +22,7 @@ import Cues from '../renderForQuestions/cues.jsx';
 import FeedbackContainer from '../renderForQuestions/feedback';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
+import { renderExplanation } from '../../libs/translationFunctions';
 
 const styles = {
   container: {
@@ -247,42 +247,31 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     const { conceptsFeedback, question, showTranslation } = this.props
     // TODO: update Response interface in quill-marking-logic
     const latestAttempt: Attempt|undefined = getLatestAttempt(question.attempts);
-    if (latestAttempt && latestAttempt.response && !latestAttempt.response.optimal ) {
-      if (latestAttempt.response.conceptResults) {
-        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
-        if (conceptID) {
-          const key = conceptID.conceptUID
-          const data = conceptsFeedback.data[key];
-          const translatedData = showTranslation && conceptsFeedback?.translated_data ? conceptsFeedback.translated_data[key] : null
-          if (data) {
-            return <ConceptExplanation {...data} translatedExplanation={translatedData} />;
-          }
-        }
-      } else if (latestAttempt.response.concept_results) {
-        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
-        if (conceptID) {
-          const key = conceptID.conceptUID
-          const data = conceptsFeedback.data[key];
-          const translatedData = showTranslation && conceptsFeedback?.translated_data ? conceptsFeedback.translated_data[key] : null
-          if (data) {
-            return <ConceptExplanation {...data} translatedExplanation={translatedData} />;
-          }
-        }
-      } else if (question && question.modelConceptUID) {
-        const key = question.modelConceptUID
-        const dataF = conceptsFeedback.data[key];
-        const translatedData = showTranslation && conceptsFeedback?.translated_data ? conceptsFeedback.translated_data[key] : null
-        if (dataF) {
-          return <ConceptExplanation {...dataF} translatedExplanation={translatedData} />;
-        }
-      } else if (question.conceptID) {
-        const key = question.conceptID
+
+    if(!latestAttempt?.response || latestAttempt?.response?.optimal) { return }
+
+    if (latestAttempt.response.conceptResults) {
+      const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
+      if (conceptID) {
+        const key = conceptID.conceptUID
         const data = conceptsFeedback.data[key];
-        const translatedData = showTranslation && conceptsFeedback?.translated_data ? conceptsFeedback.translated_data[key] : null
-        if (data) {
-          return <ConceptExplanation {...data} translatedExplanation={translatedData} />;
-        }
+        return renderExplanation({ data, key, conceptsFeedback, showTranslation });
       }
+    } else if (latestAttempt.response.concept_results) {
+      const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
+      if (conceptID) {
+        const key = conceptID.conceptUID
+        const data = conceptsFeedback.data[key];
+        return renderExplanation({ data, key, conceptsFeedback, showTranslation });
+      }
+    } else if (question && question.modelConceptUID) {
+      const key = question.modelConceptUID
+      const data = conceptsFeedback.data[key];
+      return renderExplanation({ data, key, conceptsFeedback, showTranslation });
+    } else if (question.conceptID) {
+      const key = question.conceptID
+      const data = conceptsFeedback.data[key];
+      return renderExplanation({ data, key, conceptsFeedback, showTranslation });
     }
   }
 
