@@ -28,7 +28,11 @@ module CoreExtensions
 
     # Method to calculate cosine similarity between two arrays
     def cosine_similarity(other_array)
-      self.dot_product(other_array) / (self.magnitude * other_array.magnitude)
+      mag = magnitude
+      mag_other = other_array.magnitude
+
+      return 0 if mag == 0 || mag_other == 0
+      dot_product(other_array) / (mag * mag_other)
     end
 
     def cosine_distance(other_array) = 1 - cosine_similarity(other_array)
