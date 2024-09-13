@@ -19,7 +19,7 @@ Available Highlights:
 
 Steps
 1. Rewrite the user's entry as 'secondary feedback'
-2. Choose an appropriate feedback that applies to the feedback from the list (only return the number)
+2. Choose an appropriate highlight that applies to the feedback from the list (only return the number)
 
 Return A JSON response with two keys: 'secondary_feedback' and 'highlight'. Here is an example:
 ```

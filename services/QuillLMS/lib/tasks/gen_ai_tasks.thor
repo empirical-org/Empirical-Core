@@ -136,9 +136,12 @@ class GenAITasks < Thor
     end
   end
 
+  SecondaryTestRow = Data.define(:description, :api, :model, :temperature, :prompt_text, :template, :sample_size, :similarity_score, :highlight_score, :highlight_percent)
+
+
   # bundle exec thor gen_a_i_tasks:secondary_feedback_test 2
   desc "secondary_feedback_test 'because' 5", 'Create a csv of the prompt test optimal and suboptimals with supporting info.'
-  def secondary_feedback_test(limit = 2)
+  def secondary_feedback_test(description, limit = 2, temperature = 0)
     test_file = Evidence::GenAI::SecondaryFeedback::DataFetcher::FILE_TEST
     test_set = Evidence::GenAI::SecondaryFeedback::DataFetcher.run(file: test_file)
 
@@ -153,7 +156,7 @@ class GenAITasks < Thor
 
       response = secondary_api.run(system_prompt:, entry: feedback_set.primary, model: secondary_model)
       highlight_key = response[KEY_HIGHLIGHT] || 99
-      llm_highlight = prompt.distinct_automl_highlight_arrays[highlight_key - 1]
+      llm_highlight = prompt.distinct_automl_highlight_arrays[highlight_key - 1] || []
 
       highlight_match = feedback_set.highlights == llm_highlight
       highlight_matches << highlight_match
@@ -184,8 +187,30 @@ class GenAITasks < Thor
     highlight_match_count = highlight_matches.count(true)
     highlight_total = highlight_matches.count
 
-    puts "Highlight Matches: #{highlight_match_count} / #{highlight_total}: #{(100 * highlight_match_count / highlight_total.to_f).round(2)}"
-    puts "Similarities: #{similarities.average}"
+    highlight_score = "#{highlight_match_count}/#{highlight_total}"
+    highlight_percent = (100 * highlight_match_count / highlight_total.to_f).round(2)
+    similarity_score = similarities.average
+
+    puts "Highlight Matches: #{highlight_score}: #{highlight_percent}"
+    puts "Similarity Score: #{similarity_score}"
+
+    example_prompt = Evidence::Prompt.find(test_subset.first.prompt_id)
+    result_row = SecondaryTestRow.new(
+      description:,
+      api: secondary_api,
+      model: secondary_model,
+      temperature:,
+      prompt_text: secondary_template_text(example_prompt),
+      template: secondary_template,
+      sample_size: test_subset.size,
+      highlight_score:,
+      highlight_percent:,
+      similarity_score:,
+    )
+    # append results to test file
+    CSV.open(secondary_test_runs_file, 'a') do |csv|
+      csv << result_row.deconstruct
+    end
   end
 
   # bundle exec thor gen_a_i_tasks:generate_secondary_data_files
@@ -440,6 +465,9 @@ class GenAITasks < Thor
     private def repeat_model = repeat_api::SMALL_MODEL
     private def secondary_model = secondary_api::SMALL_MODEL
 
+    private def secondary_template_text(prompt) = Evidence::GenAI::SecondaryFeedback::PromptBuilder.new(prompt:).send(:template)
+    private def secondary_template = Evidence::GenAI::SecondaryFeedback::PromptBuilder.new(prompt: nil).template_file
+
     private def repeat_template_text = Evidence::GenAI::RepeatedFeedback::PromptBuilder.new(prompt: nil).send(:template)
     private def repeat_template = Evidence::GenAI::RepeatedFeedback::PromptBuilder.new(prompt: nil).template_file
 
@@ -477,6 +505,7 @@ class GenAITasks < Thor
     end
 
     private def repeat_test_runs_file = Evidence::Engine.root.join('app/services/evidence/gen_ai/repeated_feedback/results/test_runs.csv')
+    private def secondary_test_runs_file = Evidence::Engine.root.join('app/services/evidence/gen_ai/secondary_feedback/results/test_runs.csv')
 
     private def repeated_output_file(limit)
       "#{GEN_AI_OUTPUT_FOLDER}repeated_feedback_#{limit}_#{Time.now.to_i}.csv"
