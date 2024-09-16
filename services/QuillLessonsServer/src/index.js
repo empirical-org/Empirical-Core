@@ -46,7 +46,7 @@ const io = socketio(app, {
     path: "/anything"
   },
   cors: {
-    origin: ['https://pkong.quill.org', 'https://quill.org'],
+    origin: true,
     methods: ['GET', 'POST'],
     credentials: true
   }
