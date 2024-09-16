@@ -2,11 +2,12 @@
 
 module StudentActivitySequences
   class HandleAssignment < ApplicationService
-    attr_reader :classroom_unit_id, :student_id
+    attr_reader :classroom_unit_id, :student_id, :backfill
 
-    def initialize(classroom_unit_id, student_id)
+    def initialize(classroom_unit_id, student_id, backfill = false)
       @classroom_unit_id = classroom_unit_id
       @student_id = student_id
+      @backfill = backfill
     end
 
     def run
@@ -52,12 +53,21 @@ module StudentActivitySequences
       # Do not create new sequences unless we're processing a pre diagnostic assignment
       return unless pre_diagnostic
 
-      StudentActivitySequence.create(
+      create_with = {
         classroom_id: classroom_unit.classroom_id,
         initial_activity: pre_diagnostic,
         initial_classroom_unit_id: classroom_unit_id,
         user_id:
-      )
+      }
+
+      if backfill
+        create_with = create_with.merge({
+          created_at: classroom_unit.updated_at,
+          updated_at: classroom_unit.updated_at
+        })
+      end
+
+      StudentActivitySequence.create(**create_with)
     end
   end
 end

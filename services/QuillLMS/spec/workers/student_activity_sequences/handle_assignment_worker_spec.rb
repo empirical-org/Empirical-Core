@@ -10,8 +10,17 @@ module StudentActivitySequences
     let(:student_id) { 2 }
 
     it do
-      expect(HandleAssignment).to receive(:run).with(classroom_unit_id, student_id)
+      expect(HandleAssignment).to receive(:run).with(classroom_unit_id, student_id, false)
       subject
+    end
+
+    context 'with backfill' do
+       subject { described_class.new.perform(classroom_unit_id, student_id, true) }
+
+       it do
+         expect(HandleAssignment).to receive(:run).with(classroom_unit_id, student_id, true)
+         subject
+       end
     end
   end
 end

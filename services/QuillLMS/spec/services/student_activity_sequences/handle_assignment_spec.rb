@@ -21,6 +21,15 @@ module StudentActivitySequences
         .and change(StudentActivitySequenceActivity, :count).by(1)
     end
 
+    context 'when running a backfill' do
+      subject { described_class.run(classroom_unit_id, student_id, true) }
+
+      before { subject }
+ 
+      it { expect(StudentActivitySequence.first.created_at).to eq(classroom_unit.updated_at) }
+      it { expect(StudentActivitySequence.first.updated_at).to eq(classroom_unit.updated_at) }
+    end
+
     context 'new pre-diagnostic assignment when an existing one already has a sequence' do
       let!(:student_activity_sequence) { create(:student_activity_sequence, user: student, initial_activity: pre_diagnostic, initial_classroom_unit: pre_classroom_unit, classroom: pre_classroom_unit.classroom) }
       let(:pre_unit2) { create(:unit, unit_template: pre_unit_template, activities: [pre_diagnostic]) }
