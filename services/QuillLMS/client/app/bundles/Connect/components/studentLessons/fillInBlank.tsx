@@ -5,7 +5,6 @@ import * as _ from 'underscore';
 
 import { checkFillInTheBlankQuestion, } from '../../../Shared/quill-marking-logic/src/main'
 import {
-  ConceptExplanation,
   Feedback,
   Prompt,
   fillInBlankInputLabel,
@@ -23,6 +22,7 @@ import Cues from '../renderForQuestions/cues.jsx';
 import FeedbackContainer from '../renderForQuestions/feedback';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
+import { renderExplanation } from '../../libs/translationFunctions';
 
 const styles = {
   container: {
@@ -244,37 +244,34 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   }
 
   renderConceptExplanation = () => {
-    const { conceptsFeedback, question } = this.props
+    const { conceptsFeedback, question, showTranslation } = this.props
     // TODO: update Response interface in quill-marking-logic
     const latestAttempt: Attempt|undefined = getLatestAttempt(question.attempts);
-    if (latestAttempt && latestAttempt.response && !latestAttempt.response.optimal ) {
-      if (latestAttempt.response.conceptResults) {
-        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
-        if (conceptID) {
-          const data = conceptsFeedback.data[conceptID.conceptUID];
-          if (data) {
-            return <ConceptExplanation {...data} />;
-          }
-        }
-      } else if (latestAttempt.response.concept_results) {
-        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
-        if (conceptID) {
-          const data = conceptsFeedback.data[conceptID.conceptUID];
-          if (data) {
-            return <ConceptExplanation {...data} />;
-          }
-        }
-      } else if (question && question.modelConceptUID) {
-        const dataF = conceptsFeedback.data[question.modelConceptUID];
-        if (dataF) {
-          return <ConceptExplanation {...dataF} />;
-        }
-      } else if (question.conceptID) {
-        const data = conceptsFeedback.data[question.conceptID];
-        if (data) {
-          return <ConceptExplanation {...data} />;
-        }
+
+    if(!latestAttempt?.response || latestAttempt?.response?.optimal) { return }
+
+    if (latestAttempt.response.conceptResults) {
+      const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
+      if (conceptID) {
+        const key = conceptID.conceptUID
+        const data = conceptsFeedback.data[key];
+        return renderExplanation({ data, key, conceptsFeedback, showTranslation });
       }
+    } else if (latestAttempt.response.concept_results) {
+      const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
+      if (conceptID) {
+        const key = conceptID.conceptUID
+        const data = conceptsFeedback.data[key];
+        return renderExplanation({ data, key, conceptsFeedback, showTranslation });
+      }
+    } else if (question && question.modelConceptUID) {
+      const key = question.modelConceptUID
+      const data = conceptsFeedback.data[key];
+      return renderExplanation({ data, key, conceptsFeedback, showTranslation });
+    } else if (question.conceptID) {
+      const key = question.conceptID
+      const data = conceptsFeedback.data[key];
+      return renderExplanation({ data, key, conceptsFeedback, showTranslation });
     }
   }
 

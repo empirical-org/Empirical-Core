@@ -292,6 +292,6 @@ export {
   DEFAULT_FILL_IN_BLANK
 } from './utils/constants'
 
-export { ENGLISH, defaultLanguages } from './utils/languageList'
+export { ENGLISH, defaultLanguages, languageToLocale } from './utils/languageList'
 
 export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'

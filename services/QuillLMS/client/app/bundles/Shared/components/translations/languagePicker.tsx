@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { DropdownInput } from '../../index';
+import { DropdownInput, titleCase } from '../../index';
 import { defaultLanguageOptions, defaultLanguages } from "../../utils/languageList";
 
 interface LanguagePickerProps {
@@ -10,8 +10,9 @@ interface LanguagePickerProps {
 }
 
 const LanguagePicker = ({ language, updateLanguage, languageOptions }: LanguagePickerProps) => {
+  const capitalizedLanguageOptions = languageOptions ? languageOptions.map(option => ({ value: option.value, label: titleCase(option.label) })) : null
   const options = (): Array<{value: string, label: string}> =>
-    languageOptions ?? defaultLanguages.map(language => ({
+    capitalizedLanguageOptions ?? defaultLanguages.map(language => ({
       value: language,
       label: defaultLanguageOptions[language].label
     }));
