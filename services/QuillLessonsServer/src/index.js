@@ -40,11 +40,6 @@ const io = socketio(app, {
   pingInterval: process.env.PING_INTERVAL || 25000,
   pingTimeout: process.env.PING_TIMEOUT || 20000,
   allowEIO3: true,
-  cookie: {
-    name: "main",
-    httpOnly: false,
-    path: "/anything"
-  },
   cors: {
     origin: true,
     methods: ['GET', 'POST'],
