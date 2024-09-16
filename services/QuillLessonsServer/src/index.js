@@ -39,6 +39,12 @@ const app = http.createServer(requestHandler);
 const io = socketio(app, {
   pingInterval: process.env.PING_INTERVAL || 25000,
   pingTimeout: process.env.PING_TIMEOUT || 20000,
+  allowEIO3: true,
+  cors: {
+    origin: true,
+    methods: ['GET', 'POST'],
+    credentials: true
+  }
 });
 
 io.adapter(redis(process.env.REDISCLOUD_URL));
@@ -59,7 +65,6 @@ import {
   clearAllSubmissions,
   saveSelectedStudentSubmission,
   updateStudentSubmissionOrder,
-  removeSelectedSubmissionOrder,
   removeSelectedStudentSubmission,
   setMode,
   setModel,
@@ -102,7 +107,6 @@ import {
   addScriptItem,
   deleteEditionSlide,
   addSlide,
-  updateEditionQuestions,
   createNewEdition,
   publishEdition,
   archiveEdition,

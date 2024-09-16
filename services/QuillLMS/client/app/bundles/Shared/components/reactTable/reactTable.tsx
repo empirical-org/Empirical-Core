@@ -34,7 +34,7 @@ export const NumberFilterInput = ({ handleChange, label, column }: NumberFilterI
         aria-label={label}
         onChange={e => handleChange(column.id, e.target.value)}
         placeholder={`0-5, >1, <1`}
-        style={{width: '100px', marginRight: '0.5rem'}}
+        style={{ width: '100px', marginRight: '0.5rem' }}
         type="text"
         value={column.filterValue || ''}
       />
@@ -70,7 +70,7 @@ interface ReactTableProps {
   defaultPageSize?: number,
   disableSortBy?: boolean,
   currentPage?: number,
-  defaultSorted?: string | {id: string, desc: boolean }[],
+  defaultSorted?: string | { id: string, desc: boolean }[],
   onSortedChange?: (sortBy: string) => void,
   onPageChange?: (pageIndex: number) => void,
   onFiltersChange?: (filters: []) => void,

@@ -23,7 +23,7 @@
   <% if @dataset.whole? %>
     <h2>
       Data Subsets
-      <button id="toggle-subsets" class="toggle-button">+</button>
+      <button id="toggle-subsets" class="toggle-button">></button>
     </h2>
 
     <div id="subsets-content" class="expandable-content" style="display: none;">
@@ -160,10 +160,10 @@
     toggleButton.addEventListener('click', function() {
       if (subsetsContent.style.display === 'none') {
         subsetsContent.style.display = 'block';
-        toggleButton.textContent = '-';
+        toggleButton.textContent = '<';
       } else {
         subsetsContent.style.display = 'none';
-        toggleButton.textContent = '+';
+        toggleButton.textContent = '>';
       }
     });
   }
