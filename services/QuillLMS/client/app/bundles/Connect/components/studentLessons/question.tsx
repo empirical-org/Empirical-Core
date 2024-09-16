@@ -3,7 +3,6 @@ import * as React from 'react';
 import * as _ from 'underscore';
 
 import {
-  ConceptExplanation,
   MultipleChoice,
   SentenceFragments,
   getLatestAttempt,
@@ -24,6 +23,7 @@ import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
+import { renderExplanation } from '../../libs/translationFunctions';
 
 const RenderSentenceFragments = SentenceFragments
 
@@ -336,7 +336,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   renderConceptExplanation = () => {
-    const { conceptsFeedback, question } = this.props
+    const { conceptsFeedback, question, showTranslation } = this.props
     //TODO: update Response interface in quill-marking-logic to fix Boolean/boolean type checking
     const latestAttempt:{response: Response}|undefined = this.handleGetLatestAttempt();
 
@@ -353,7 +353,9 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
           return conceptsFeedback.data[c.conceptUID]
         })
         if (negativeConceptWithConceptFeedback) {
-          return <ConceptExplanation {...conceptsFeedback.data[negativeConceptWithConceptFeedback.conceptUID]} />
+          const key = negativeConceptWithConceptFeedback.conceptUID
+          const data = conceptsFeedback.data[key]
+          return renderExplanation({ data, key, conceptsFeedback, showTranslation });
         }
       } else if (latestAttempt.response.concept_results) {
         const negativeConcepts = this.getNegativeConceptResultsForResponse(latestAttempt.response.concept_results);
@@ -361,26 +363,25 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
           return conceptsFeedback.data[c.conceptUID]
         })
         if (negativeConceptWithConceptFeedback) {
-          return <ConceptExplanation {...conceptsFeedback.data[negativeConceptWithConceptFeedback.conceptUID]} />
+          const key = negativeConceptWithConceptFeedback.conceptUID
+          const data = conceptsFeedback.data[key]
+          return renderExplanation({ data, key, conceptsFeedback, showTranslation });
         }
       }
 
     } else {
       // we only want to show question-level concept feedback if the response is unmatched
       if (question && question.modelConceptUID) {
-        const dataF = conceptsFeedback.data[question.modelConceptUID];
-        if (dataF) {
-          return <ConceptExplanation {...dataF} />;
-        }
+        const key = question.modelConceptUID
+        const data = conceptsFeedback.data[key]
+        return renderExplanation({ data, key, conceptsFeedback, showTranslation });
       }
 
       if (question.conceptID) {
-        const data = conceptsFeedback.data[question.conceptID];
-        if (data) {
-          return <ConceptExplanation {...data} />;
-        }
+        const key = question.conceptID
+        const data = conceptsFeedback.data[key];
+        return renderExplanation({ data, key, conceptsFeedback, showTranslation });
       }
-
     }
   }
 
