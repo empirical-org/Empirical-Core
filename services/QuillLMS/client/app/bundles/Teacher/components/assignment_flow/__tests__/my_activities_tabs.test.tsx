@@ -1,5 +1,5 @@
 import * as React from "react";
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 import { render } from "@testing-library/react";
 
 import { MyActivitiesTabs } from '../my_activities_tabs'

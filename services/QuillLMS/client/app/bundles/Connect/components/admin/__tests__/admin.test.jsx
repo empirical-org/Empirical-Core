@@ -1,7 +1,7 @@
 import { mount } from 'enzyme';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 import 'whatwg-fetch';
 import createStore from '../../../utils/configureStore';
 import Question from '../../questions/question';
