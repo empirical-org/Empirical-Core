@@ -65,7 +65,12 @@ module Translatable
 
   def create_translation_mappings_with_text(translatable_text:, field_name: default_translatable_field)
     return unless translatable_text.is_a?(String) && translatable_text.present?
-    return unless translation_mappings.where(field_name:).empty?
+    return unless translation_mappings.joins(:english_text)
+      .where(field_name:)
+      .where(english_text: {text: translatable_text})
+      .empty?
+
+    clean_deprecated_translations(translatable_text:, field_name:)
 
     english_text = EnglishText.find_or_create_by(text: translatable_text)
     translation_mappings.create(english_text:, field_name:)
@@ -121,5 +126,12 @@ module Translatable
 
   private def translatable_text
     data[default_translatable_field]
+  end
+
+  private def clean_deprecated_translations(translatable_text:, field_name:)
+    translation_mappings.joins(:english_text)
+      .where(field_name:)
+      .where.not(english_text: {text: translatable_text})
+      .destroy_all
   end
 end
