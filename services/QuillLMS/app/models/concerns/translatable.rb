@@ -67,7 +67,7 @@ module Translatable
     return unless translatable_text.is_a?(String) && translatable_text.present?
     return unless translation_mappings.joins(:english_text)
       .where(field_name:)
-      .where(english_text: {text: translatable_text})
+      .where(english_text: { text: translatable_text })
       .empty?
 
     clean_deprecated_translations(translatable_text:, field_name:)
@@ -131,7 +131,7 @@ module Translatable
   private def clean_deprecated_translations(translatable_text:, field_name:)
     translation_mappings.joins(:english_text)
       .where(field_name:)
-      .where.not(english_text: {text: translatable_text})
+      .where.not(english_text: { text: translatable_text })
       .destroy_all
   end
 end
