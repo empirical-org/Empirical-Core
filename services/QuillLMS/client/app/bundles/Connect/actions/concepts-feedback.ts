@@ -17,6 +17,13 @@ const actions = {
       });
     };
   },
+  loadTranslatedConceptsFeedback(language) {
+    return function (dispatch, getState) {
+      ConceptFeedbackApi.getAll(language).then((data) => {
+        dispatch({ type: C.RECEIVE_TRANSLATED_CONCEPTS_FEEDBACK_DATA, data: data, });
+      });
+    };
+  },
   loadConceptFeedback(uid) {
     return function (dispatch, getState) {
       ConceptFeedbackApi.get(uid).then((data) => {

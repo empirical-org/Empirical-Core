@@ -147,9 +147,6 @@ gem 'sentry-sidekiq'
 gem 'commonlit-clever-ruby'
 gem 'gengo', '~> 0.2.1'
 
-# Memory profiling
-gem 'puma_worker_killer', '~> 0.3'
-
 # temp for migrations
 gem 'paperclip'
 

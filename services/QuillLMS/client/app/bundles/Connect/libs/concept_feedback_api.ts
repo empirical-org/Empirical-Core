@@ -1,4 +1,5 @@
 import { requestDelete, requestGet, requestPost, requestPut } from '../../../modules/request/index';
+import { languageToLocale } from '../../Shared';
 import { ConceptFeedback, ConceptFeedbackCollection } from '../interfaces/concept_feedback';
 
 const CONNECT_TYPE = 'connect'
@@ -6,8 +7,9 @@ const CONNECT_TYPE = 'connect'
 const conceptFeedbackApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/activity_type/${CONNECT_TYPE}/concept_feedback`;
 
 class ConceptFeedbackApi {
-  static getAll(): Promise<ConceptFeedbackCollection> {
-    return requestGet(`${conceptFeedbackApiBaseUrl}.json`, null, (error) => {throw(error)});
+  static getAll(language?: string): Promise<ConceptFeedbackCollection> {
+    const language_string = language ? `/translations/${languageToLocale[language]}` : ''
+    return requestGet(`${conceptFeedbackApiBaseUrl}${language_string}.json`, null, (error) => {throw(error)});
   }
 
   static get(uid: string): Promise<ConceptFeedback> {

@@ -18,8 +18,7 @@
     <label>LLM:</label>
     <%= link_to 'new', new_research_gen_ai_llm_path, class: 'new-link', target: '_blank' %>
     <br>
-
-    <%= f.collection_select :llm_id, @llms, :id, :to_s, { required: true } %>
+    <%= f.collection_select :llm_id, @llms, :id, :to_s, include_blank: false %>
   </div>
 
   <div class="field-spacing">
@@ -27,7 +26,7 @@
     <%= link_to 'new', new_research_gen_ai_llm_prompt_template_path, class: 'new-link', target: '_blank' %>
     <br>
 
-    <%= f.collection_select :llm_prompt_template_id, @llm_prompt_templates, :id, :to_s, { required: true } %>
+    <%= f.collection_select :llm_prompt_template_id, @llm_prompt_templates, :id, :to_s, include_blank: false %>
   </div>
 
   <div class="field-spacing">
@@ -35,7 +34,7 @@
     <%= link_to 'new', new_research_gen_ai_auto_chain_of_thought_path, class: 'new-link', target: '_blank' %>
     <br>
 
-    <%= f.collection_select :g_eval_id, @g_evals, :id, :to_s, { required: true } %>
+    <%= f.collection_select :g_eval_id, @g_evals, :id, :to_s, include_blank: false %>
   </div>
 
   <div class="field-spacing">
@@ -51,32 +50,34 @@
       Optimal Guidelines
       <%= link_to 'new', new_research_gen_ai_stem_vault_guideline_path(@dataset.stem_vault), class: 'new-link', target: '_blank' %>
     </h3>
-    <div>
-      <button type="button" id="randomize-optimal-guidelines">Randomize</button>
-    </div>
-    <table id="optimal-guidelines-table">
-      <thead>
-        <tr>
-          <th class="select-column">
-            Select
-            <input type="checkbox" id="select-all-optimal-guidelines" />
-          </th>
-          <th>Guideline</th>
-          <th class="created-column">Created</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @optimal_guidelines.each do |guideline| %>
+    <% if !@optimal_guidelines.empty? %>
+      <div>
+        <button type="button" id="randomize-optimal-guidelines">Randomize</button>
+      </div>
+      <table id="optimal-guidelines-table">
+        <thead>
           <tr>
-            <td>
-              <%= f.check_box :guideline_ids, { multiple: true }, guideline.id, nil %>
-            </td>
-            <td><%= guideline.text %></td>
-            <td><%= guideline.created_at.strftime('%m/%d/%Y') %></td>
+            <th class="select-column">
+              Select
+              <input type="checkbox" id="select-all-optimal-guidelines" />
+            </th>
+            <th>Guideline</th>
+            <th class="created-column">Created</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @optimal_guidelines.each do |guideline| %>
+            <tr>
+              <td>
+                <%= f.check_box :guideline_ids, { multiple: true }, guideline.id, nil %>
+              </td>
+              <td><%= guideline.text %></td>
+              <td><%= guideline.created_at.strftime('%m/%d/%Y') %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 
   <br>
@@ -85,32 +86,34 @@
       Sub-Optimal Guidelines
       <%= link_to 'new', new_research_gen_ai_stem_vault_guideline_path(@dataset.stem_vault), class: 'new-link', target: '_blank' %>
     </h3>
-    <div>
-      <button type="button" id="randomize-suboptimal-guidelines">Randomize</button>
-    </div>
-    <table id="suboptimal-guidelines-table">
-      <thead>
-        <tr>
-          <th class="select-column">
-            Select
-            <input type="checkbox" id="select-all-suboptimal-guidelines" />
-          </th>
-          <th>Guideline</th>
-          <th class="created-column">Created</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @suboptimal_guidelines.each do |guideline| %>
+    <% if !@suboptimal_guidelines.empty? %>
+      <div>
+        <button type="button" id="randomize-suboptimal-guidelines">Randomize</button>
+      </div>
+      <table id="suboptimal-guidelines-table">
+        <thead>
           <tr>
-            <td>
-              <%= f.check_box :guideline_ids, { multiple: true }, guideline.id, nil %>
-            </td>
-            <td><%= guideline.text %></td>
-            <td><%= guideline.created_at.strftime('%m/%d/%Y') %></td>
+            <th class="select-column">
+              Select
+              <input type="checkbox" id="select-all-suboptimal-guidelines" />
+            </th>
+            <th>Guideline</th>
+            <th class="created-column">Created</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @suboptimal_guidelines.each do |guideline| %>
+            <tr>
+              <td>
+                <%= f.check_box :guideline_ids, { multiple: true }, guideline.id, nil %>
+              </td>
+              <td><%= guideline.text %></td>
+              <td><%= guideline.created_at.strftime('%m/%d/%Y') %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 
   <br>
@@ -119,34 +122,37 @@
       Optimal Examples
       <%= link_to 'new', new_research_gen_ai_dataset_prompt_example_path(@dataset), class: 'new-link', target: '_blank' %>
     </h3>
-    <div>
-      <button type="button" id="randomize-optimal-examples">Randomize</button>
-    </div>
-    <table id="optimal-examples-table">
-      <thead>
-        <tr>
-          <th class="select-column">
-            Select
-            <input type="checkbox" id="select-all-optimal-examples" />
-          </th>
-          <th>Response</th>
-          <th>Feedback</th>
-          <th class="created-column">Created</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @prompt_examples.optimal.sort_by(&:student_response).each do |prompt_example| %>
+
+    <% if !@prompt_examples.optimal.empty? %>
+      <div>
+        <button type="button" id="randomize-optimal-examples">Randomize</button>
+      </div>
+      <table id="optimal-examples-table">
+        <thead>
           <tr>
-            <td>
-              <%= f.check_box :prompt_example_ids, { multiple: true }, prompt_example.id, nil %>
-            </td>
-            <td><%= prompt_example.student_response %></td>
-            <td><%= prompt_example.feedback %></td>
-            <td><%= prompt_example.created_at.strftime('%m/%d/%Y') %></td>
+            <th class="select-column">
+              Select
+              <input type="checkbox" id="select-all-optimal-examples" />
+            </th>
+            <th>Response</th>
+            <th>Feedback</th>
+            <th class="created-column">Created</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @prompt_examples.optimal.sort_by(&:student_response).each do |prompt_example| %>
+            <tr>
+              <td>
+                <%= f.check_box :prompt_example_ids, { multiple: true }, prompt_example.id, nil %>
+              </td>
+              <td><%= prompt_example.student_response %></td>
+              <td><%= prompt_example.feedback %></td>
+              <td><%= prompt_example.created_at.strftime('%m/%d/%Y') %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 
   <br>
@@ -156,34 +162,37 @@
       Sub-optimal Responses with Feedback
       <%= link_to 'new', new_research_gen_ai_dataset_prompt_example_path(@dataset), class: 'new-link', target: '_blank' %>
     </h3>
-    <div>
-      <button type="button" id="randomize-suboptimal-examples">Randomize</button>
-    </div>
-    <table id="suboptimal-examples-table">
-      <thead>
-        <tr>
-          <th class="select-column">
-            Select
-            <input type="checkbox" id="select-all-suboptimal-examples" />
-          </th>
-          <th>Response</th>
-          <th>Feedback</th>
-          <th class="created-column">Created</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @prompt_examples.suboptimal.sort_by(&:student_response).each do |prompt_example| %>
+
+    <% if !@prompt_examples.suboptimal.empty? %>
+      <div>
+        <button type="button" id="randomize-suboptimal-examples">Randomize</button>
+      </div>
+      <table id="suboptimal-examples-table">
+        <thead>
           <tr>
-            <td>
-              <%= f.check_box :prompt_example_ids, { multiple: true }, prompt_example.id, nil %>
-            </td>
-            <td><%= prompt_example.student_response %></td>
-            <td><%= prompt_example.feedback %></td>
-            <td><%= prompt_example.created_at.strftime('%m/%d/%Y') %></td>
+            <th class="select-column">
+              Select
+              <input type="checkbox" id="select-all-suboptimal-examples" />
+            </th>
+            <th>Response</th>
+            <th>Feedback</th>
+            <th class="created-column">Created</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @prompt_examples.suboptimal.sort_by(&:student_response).each do |prompt_example| %>
+            <tr>
+              <td>
+                <%= f.check_box :prompt_example_ids, { multiple: true }, prompt_example.id, nil %>
+              </td>
+              <td><%= prompt_example.student_response %></td>
+              <td><%= prompt_example.feedback %></td>
+              <td><%= prompt_example.created_at.strftime('%m/%d/%Y') %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 
   <div class="actions">
@@ -268,19 +277,22 @@
     function handleSelectAll(selectAllCheckboxId, tableId) {
       const selectAllCheckbox = document.getElementById(selectAllCheckboxId);
       const table = document.getElementById(tableId);
-      selectAllCheckbox.addEventListener('change', function() {
-        const checkboxes = table.querySelectorAll('tbody input[type="checkbox"]');
-        checkboxes.forEach(checkbox => {
-          checkbox.checked = selectAllCheckbox.checked;
-        });
-      });
 
-      table.querySelector('tbody').addEventListener('change', function(event) {
-        if (event.target.type === 'checkbox') {
+      if (selectAllCheckbox && table && table.querySelector('tbody tr')) {
+        selectAllCheckbox.addEventListener('change', function() {
           const checkboxes = table.querySelectorAll('tbody input[type="checkbox"]');
-          selectAllCheckbox.checked = Array.from(checkboxes).every(checkbox => checkbox.checked);
-        }
-      });
+          checkboxes.forEach(checkbox => {
+            checkbox.checked = selectAllCheckbox.checked;
+          });
+        });
+
+        table.querySelector('tbody').addEventListener('change', function(event) {
+          if (event.target.type === 'checkbox') {
+            const checkboxes = table.querySelectorAll('tbody input[type="checkbox"]');
+            selectAllCheckbox.checked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+          }
+        });
+      }
     }
 
     function handleRandomize(randomizeButtonId, tableId, selectAllCheckboxId) {
@@ -288,18 +300,21 @@
       const table = document.getElementById(tableId);
       const selectAllCheckbox = document.getElementById(selectAllCheckboxId);
 
-      randomizeButton.addEventListener('click', function() {
-        const checkboxes = Array.from(table.querySelectorAll('tbody input[type="checkbox"]'));
-        const randomCount = Math.floor(Math.random() * checkboxes.length) + 1;
-        checkboxes.forEach(checkbox => checkbox.checked = false);
-        for (let i = 0; i < randomCount; i++) {
-          const randomIndex = Math.floor(Math.random() * checkboxes.length);
-          checkboxes[randomIndex].checked = true;
-          checkboxes.splice(randomIndex, 1);
-        }
+      if (randomizeButton && table && table.querySelector('tbody tr')) {
+        randomizeButton.addEventListener('click', function() {
+          const checkboxes = Array.from(table.querySelectorAll('tbody input[type="checkbox"]'));
+          const randomCount = Math.floor(Math.random() * checkboxes.length) + 1;
+          checkboxes.forEach(checkbox => checkbox.checked = false);
 
-        selectAllCheckbox.checked = false;
-      });
+          for (let i = 0; i < randomCount; i++) {
+            const randomIndex = Math.floor(Math.random() * checkboxes.length);
+            checkboxes[randomIndex].checked = true;
+            checkboxes.splice(randomIndex, 1);
+          }
+
+          if (selectAllCheckbox) { selectAllCheckbox.checked = false }
+        });
+      }
     }
 
     handleSelectAll('select-all-suboptimal-guidelines', 'suboptimal-guidelines-table');
@@ -315,3 +330,4 @@
     handleRandomize('randomize-suboptimal-examples', 'suboptimal-examples-table', 'select-all-suboptimal-examples');
   });
 </script>
+
