@@ -74,7 +74,7 @@ RSpec.describe Translatable do
 
           before { translatable_object.update(data: { 'test_text' => new_english_text }) }
 
-          it { expect { subject }.to change { translatable_object.reload.translation_mappings } }
+          it { expect { subject }.to change { translatable_object.reload.translation_mappings.pluck(:id) } }
 
           it do
             expect { subject }.to change { translatable_object.reload.english_texts.map(&:text) }
