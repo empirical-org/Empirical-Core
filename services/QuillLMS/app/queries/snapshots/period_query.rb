@@ -4,7 +4,7 @@ module Snapshots
   class PeriodQuery < ::QuillBigQuery::Query
     attr_reader :timeframe_start, :timeframe_end, :school_ids, :grades, :teacher_ids, :classroom_ids, :user
 
-    def initialize(timeframe_start:, timeframe_end:, school_ids:, grades: nil, teacher_ids: nil, classroom_ids: nil, user: nil, **options) # rubocop:disable Metrics/ParameterLists
+    def initialize(timeframe_start:, timeframe_end:, school_ids:, grades: nil, teacher_ids: nil, classroom_ids: nil, user: nil, **) # rubocop:disable Metrics/ParameterLists
       @timeframe_start = timeframe_start
       @timeframe_end = timeframe_end
       @school_ids = school_ids
@@ -13,7 +13,7 @@ module Snapshots
       @classroom_ids = classroom_ids
       @user = user
 
-      super(**options)
+      super(**)
     end
 
     def from_and_join_clauses

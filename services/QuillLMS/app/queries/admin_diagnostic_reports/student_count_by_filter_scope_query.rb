@@ -8,7 +8,7 @@ module AdminDiagnosticReports
 
     DIAGNOSTIC_ORDER_BY_ID = DiagnosticAggregateQuery::DIAGNOSTIC_ORDER_BY_ID
 
-    def initialize(timeframe_start:, timeframe_end:, diagnostic_id:, school_ids:, grades: nil, teacher_ids: nil, classroom_ids: nil, user: nil, **options) # rubocop:disable Metrics/ParameterLists
+    def initialize(timeframe_start:, timeframe_end:, diagnostic_id:, school_ids:, grades: nil, teacher_ids: nil, classroom_ids: nil, user: nil, **) # rubocop:disable Metrics/ParameterLists
       raise InvalidDiagnosticIdError, "#{diagnostic_id} is not a valid diagnostic_id value." unless DIAGNOSTIC_ORDER_BY_ID.include?(diagnostic_id.to_i)
 
       @timeframe_start = timeframe_start
@@ -20,7 +20,7 @@ module AdminDiagnosticReports
       @user = user
       @diagnostic_id = diagnostic_id
 
-      super(**options)
+      super(**)
     end
 
     def materialized_views = [filter_view, performance_view]

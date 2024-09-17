@@ -9,8 +9,8 @@ module Evidence
     # but "render json: @something" does not work (without .to_json) it calls .to_json methods in the parent app's models)
     # this ensures that .to_json is always called, else tests will pass in the engine
     # but functionality will be broken in the main app.
-    def render(options, *args)
-      super(ensure_json_format_for(options), *args)
+    def render(options, *)
+      super(ensure_json_format_for(options), *)
     end
 
     private def ensure_json_format_for(options)
