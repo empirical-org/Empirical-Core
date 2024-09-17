@@ -67,24 +67,24 @@ class EgFormBuilder < CMS::FormBuilder
     field :boolean, *_apply_default_options(args, label_first: false)
   end
 
-  def string(*args, **_options)
-    field :string, *args
+  def string(*, **_options)
+    field(:string, *)
   end
 
-  def search(*args, **_options)
-    field :search, *args
+  def search(*, **_options)
+    field(:search, *)
   end
 
-  def text(*args, **_options)
-    field :text, *args
+  def text(*, **_options)
+    field(:text, *)
   end
 
-  def email(*args, **_options)
-    field :email, *args
+  def email(*, **_options)
+    field(:email, *)
   end
 
-  def password(*args, **options)
-    field :password, *args, **options
+  def password(*, **)
+    field(:password, *, **)
   end
 
   def hidden(*args, **_options)
