@@ -71,6 +71,10 @@ module StudentActivitySequences
             expect { subject }.to change { student_activity_sequence2.reload.student_activity_sequence_activities.count }.by(1)
               .and not_change { student_activity_sequence.reload.student_activity_sequence_activities.count }
           end
+
+          context 'multiple pre-diagnostic assignments occur spread out over time'  do
+
+          end
         end
 
         context 'recommended activity already recorded' do
