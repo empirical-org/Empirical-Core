@@ -8,12 +8,12 @@ module AdminDiagnosticReports
 
     AGGREGATE_COLUMN = :skill_group_name
 
-    def initialize(diagnostic_id:, **options)
+    def initialize(diagnostic_id:, **)
       raise InvalidDiagnosticIdError, "#{diagnostic_id} is not a valid diagnostic_id value." unless DIAGNOSTIC_ORDER_BY_ID.include?(diagnostic_id.to_i)
 
       @diagnostic_id = diagnostic_id
 
-      super(**options)
+      super(**)
     end
 
     def specific_select_clause
