@@ -23,7 +23,8 @@ RSpec.describe Translatable do
     end
   end
 
-  let(:translatable_object) { translatable_class.create(data: { 'test_text' => 'Test text to translate' }) }
+  let(:english_text) { 'Test text to translate' }
+  let(:translatable_object) { translatable_class.create(data: { 'test_text' => english_text }) }
 
   before do
     stub_const('TranslatableTestModel', translatable_class)
@@ -66,6 +67,20 @@ RSpec.describe Translatable do
 
         it 'does not create a new english text' do
           expect { subject }.not_to change(EnglishText, :count)
+        end
+
+        context 'when a translation mapping already exists, but it was generated for a different text' do
+          let(:new_english_text) { 'This is the updated text' }
+
+          before { translatable_object.update(data: { 'test_text' => new_english_text }) }
+
+          it { expect { subject }.to change { translatable_object.reload.translation_mappings.pluck(:id) } }
+
+          it do
+            expect { subject }.to change { translatable_object.reload.english_texts.map(&:text) }
+              .from([english_text])
+              .to([new_english_text])
+          end
         end
       end
     end
