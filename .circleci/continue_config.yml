@@ -89,8 +89,8 @@ jobs:
         environment:
           PG_DB: quill_test_db
           PG_USER: ubuntu
-          RAILS_ENV: test
-          RACK_ENV: test
+          RAILS_ENV: staging
+          RACK_ENV: staging
           DEFAULT_URL: http://localhost:3000
       - image: pgvector/pgvector:pg15
         environment:
@@ -159,7 +159,7 @@ jobs:
                   DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
             - run:
                 name: debug
-                command: cd services/QuillLMS ; bundle exec rails runner 'puts Rails.env; User.all.pluck(:name)'
+                command: cd services/QuillLMS ; bundle exec rails runner 'puts Rails.env; puts User.all.pluck(:name)'
             - run:
                 name: vite build
                 command: |
