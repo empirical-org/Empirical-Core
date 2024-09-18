@@ -72,8 +72,13 @@ module StudentActivitySequences
               .and not_change { student_activity_sequence.reload.student_activity_sequence_activities.count }
           end
 
-          context 'multiple pre-diagnostic assignments occur spread out over time'  do
+          context 'classroom_unit updated_at occurs before second activity_sequence'  do
+            #let(:pre_classroom_unit) { create(:classroom_unit, classroom:, unit: pre_unit, assigned_student_ids: [student_id], updated_at: student_activity_sequence2.created_at - 1.hour) }
 
+            it do
+              expect { subject }.to change { student_activity_sequence.reload.student_activity_sequence_activities.count }.by(1)
+                .and not_change { student_activity_sequence2.reload.student_activity_sequence_activities.count }
+            end
           end
         end
 
