@@ -206,7 +206,7 @@ describe ClassroomUnit, type: :model, redis: true do
     let(:new_assigned_student_ids) { assigned_student_ids }
 
     it do
-      expect(StudentActivitySequences::HandleAssignmentWorker).to_not receive(:perform_async)
+      expect(StudentLearningSequences::HandleAssignmentWorker).to_not receive(:perform_async)
       subject
     end
 
@@ -218,7 +218,7 @@ describe ClassroomUnit, type: :model, redis: true do
       before { new_assigned_student_ids.map { |student_id| create(:students_classrooms, classroom:, student_id:) } }
 
       it do
-        expect(StudentActivitySequences::HandleAssignmentWorker).to receive(:perform_async).exactly(call_count).times
+        expect(StudentLearningSequences::HandleAssignmentWorker).to receive(:perform_async).exactly(call_count).times
         subject
       end
     end
