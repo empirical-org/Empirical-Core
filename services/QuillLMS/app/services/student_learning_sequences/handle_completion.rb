@@ -2,8 +2,6 @@
 
 module StudentLearningSequences
   class HandleCompletion < ApplicationService
-    class MissingSequenceActivityError < StandardError; end
-
     attr_reader :activity_session_id
 
     def initialize(activity_session_id)
@@ -11,9 +9,6 @@ module StudentLearningSequences
     end
 
     def run
-      # TODO: Remove the early return and start using the raise call again after we backfill these records
-      #raise missing_sequence_activity_error unless student_learning_sequence_activity
-      # Temporarily early return instead of raising an error until we run the data backfill
       return unless student_learning_sequence_activity
 
       student_learning_sequence_activity.update(
