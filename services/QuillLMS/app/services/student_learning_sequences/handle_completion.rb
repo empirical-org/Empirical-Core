@@ -2,8 +2,6 @@
 
 module StudentLearningSequences
   class HandleCompletion < ApplicationService
-    class MissingSequenceActivityError < StandardError; end
-
     attr_reader :activity_session_id
 
     def initialize(activity_session_id)
@@ -11,7 +9,7 @@ module StudentLearningSequences
     end
 
     def run
-      raise missing_sequence_activity_error unless student_learning_sequence_activity
+      return unless student_learning_sequence_activity
 
       student_learning_sequence_activity.update(
         activity_session_id:,
