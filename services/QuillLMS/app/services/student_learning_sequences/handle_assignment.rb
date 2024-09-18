@@ -36,12 +36,11 @@ module StudentLearningSequences
                                      create_student_learning_sequence
     end
 
-
     private def fetch_initial_classroom_units
       return ClassroomUnit.where(id: classroom_unit_id) if pre_diagnostic
 
-      ClassroomUnit.joins(unit: {unit_template: :activities})
-        .where(unit: {unit_template: {activities: initial_activity}})
+      ClassroomUnit.joins(unit: { unit_template: :activities })
+        .where(unit: { unit_template: { activities: initial_activity } })
     end
 
     private def fetch_student_learning_sequence
@@ -49,7 +48,8 @@ module StudentLearningSequences
         .find_by(
           initial_classroom_unit: initial_classroom_units,
           initial_activity:,
-          user_id:)
+          user_id:
+        )
     end
 
     private def create_student_learning_sequence
