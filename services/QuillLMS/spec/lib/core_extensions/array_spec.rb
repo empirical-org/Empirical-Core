@@ -59,6 +59,10 @@ describe CoreExtensions::Array do
     it 'calculates the dot product of two arrays' do
       expect([1, 2, 3].dot_product([4, 5, 6])).to eq(32)
     end
+
+    it 'should raise an error for arrays with different sizes' do
+      expect { [1].dot_product([1, 2]) }.to raise_error(Array::SizeMismatchError)
+    end
   end
 
   describe '#magnitude' do
@@ -83,6 +87,10 @@ describe CoreExtensions::Array do
     it 'returns 0 when one of the vectors is a zero vector' do
       expect([0, 0, 0].cosine_similarity([1, 2, 3])).to eq(0)
     end
+
+    it 'should raise an error for arrays with different sizes' do
+      expect { [1].cosine_similarity([1, 2]) }.to raise_error(Array::SizeMismatchError)
+    end
   end
 
   describe '#cosine_distance' do
@@ -92,6 +100,10 @@ describe CoreExtensions::Array do
 
     it 'returns 1 when the two arrays are orthogonal' do
       expect([1, 0].cosine_distance([0, 1])).to eq(1.0)
+    end
+
+    it 'should raise an error for arrays with different sizes' do
+      expect { [1].cosine_distance([1, 2]) }.to raise_error(Array::SizeMismatchError)
     end
   end
 end

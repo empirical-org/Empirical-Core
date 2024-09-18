@@ -2,6 +2,8 @@
 
 module CoreExtensions
   module Array
+    class SizeMismatchError < StandardError; end
+
     # return middle element of sorted array
     # for even-sized non-number arrays, return larger of middle two
     # for even-sized number arrays, return average of middle two
@@ -24,11 +26,17 @@ module CoreExtensions
       sum.to_f / size
     end
 
-    def dot_product(other_array) = zip(other_array).map { |a, b| a * b }.sum
+    def dot_product(other_array)
+      ensure_same_size(other_array)
+
+      zip(other_array).map { |a, b| a * b }.sum
+    end
+
     def magnitude = Math.sqrt(map { |x| x**2 }.sum)
 
-    # Method to calculate cosine similarity between two arrays
     def cosine_similarity(other_array)
+      ensure_same_size(other_array)
+
       mag = magnitude
       mag_other = other_array.magnitude
 
@@ -38,5 +46,9 @@ module CoreExtensions
     end
 
     def cosine_distance(other_array) = 1 - cosine_similarity(other_array)
+
+    private def ensure_same_size(other_array)
+      raise SizeMismatchError if size != other_array.size
+    end
   end
 end
