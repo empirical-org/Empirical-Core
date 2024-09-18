@@ -39,8 +39,8 @@ describe("<QuestionComponent />", () => {
     checkAnswer={() => {}}
     concepts={{}}
     conceptsFeedback={conceptsFeedback}
-    question={currentQuestion}
     goToNextQuestion={() => {}}
+    question={currentQuestion}
     unansweredQuestions={session.unansweredQuestions}
   />)
 
@@ -79,8 +79,8 @@ describe("<QuestionComponent />", () => {
         checkAnswer={() => {}}
         concepts={{}}
         conceptsFeedback={conceptsFeedback}
-        question={currentQuestion}
         goToNextQuestion={() => {}}
+        question={currentQuestion}
         unansweredQuestions={session.unansweredQuestions}
       />)
       const textArea = untypedInWrapper.find(ContentEditable)
@@ -100,8 +100,8 @@ describe("<QuestionComponent />", () => {
         checkAnswer={() => {}}
         concepts={{}}
         conceptsFeedback={conceptsFeedback}
-        question={currentQuestion}
         goToNextQuestion={() => {}}
+        question={currentQuestion}
         unansweredQuestions={session.unansweredQuestions}
       />)
       const typedText = 'Hello'
@@ -132,8 +132,8 @@ describe("<QuestionComponent />", () => {
         checkAnswer={() => {}}
         concepts={{}}
         conceptsFeedback={conceptsFeedback}
-        question={currentQuestionWithOneIncorrectAttempt}
         goToNextQuestion={() => {}}
+        question={currentQuestionWithOneIncorrectAttempt}
         unansweredQuestions={session.unansweredQuestions}
       />)
 
@@ -155,8 +155,8 @@ describe("<QuestionComponent />", () => {
         checkAnswer={() => {}}
         concepts={{}}
         conceptsFeedback={conceptsFeedback}
-        question={currentQuestionWithFiveIncorrectAttempts}
         goToNextQuestion={() => {}}
+        question={currentQuestionWithFiveIncorrectAttempts}
         unansweredQuestions={session.unansweredQuestions}
       />)
 
@@ -178,8 +178,8 @@ describe("<QuestionComponent />", () => {
         checkAnswer={() => {}}
         concepts={{}}
         conceptsFeedback={conceptsFeedback}
-        question={currentQuestionWithOneCorrectAttempt}
         goToNextQuestion={() => {}}
+        question={currentQuestionWithOneCorrectAttempt}
         unansweredQuestions={session.unansweredQuestions}
       />)
 

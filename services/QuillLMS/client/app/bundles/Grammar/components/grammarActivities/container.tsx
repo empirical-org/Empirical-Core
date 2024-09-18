@@ -385,8 +385,8 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
               questions={questions}
               questionSet={session.questionSet}
               showTranslation={showTranslation}
-              translatedQuestions={session?.translated_questions}
               translate={translate}
+              translatedQuestions={session?.translated_questions}
               unansweredQuestions={session.unansweredQuestions}
             />
           )

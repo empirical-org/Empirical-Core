@@ -442,8 +442,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         <FinalAttemptFeedback
           correctResponse={this.correctResponse()}
           latestAttempt={latestAttempt?.text}
-          translate={translate}
           showTranslation={showTranslation}
+          translate={translate}
         />
       )
     }
