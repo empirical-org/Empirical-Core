@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
 
-test.skip('has visible footer', async ({ page }) => {
-  await page.goto('/');
+test('has visible footer', async ({ page }) => {
+  await page.goto('/session/new');
 
-  await expect(page.locator('footer')).toBeVisible();
+  await expect(page.locator('p.sign-up-link')).toBeVisible();
 });
 
 function filterAndLogRequest(request, regex) {
@@ -43,13 +43,13 @@ test('@login form submission with valid credentials', async ({ page }) => {
 
   // await page.mouse.wheel(0,200)
 
-
+  await page.screenshot({ path: 'test-results/login-pre-click.png', fullPage: true });
 
   await expect( async () => {
     await page.locator('#log-in').click({force: true});
     await page.waitForURL('/teachers/classrooms/dashboard')
   }).toPass()
 
-  await page.screenshot({ path: 'test-results/playwright_login.png', fullPage: true });
+
 
 });
