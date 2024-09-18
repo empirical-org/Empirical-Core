@@ -447,6 +447,72 @@ class GenAITasks < Thor
     end
   end
 
+  LabeledData = Data.define(:entry,:label)
+
+  # bundle exec thor gen_a_i_tasks:generate_labeled_data_files
+  desc 'generate_labeled_data_files', 'Create a csv for example data.'
+  def generate_labeled_data_files
+    csv_data = CSV.read("#{labeled_folder}coral_reefs_because_all.csv", headers: true)
+
+    train_data = csv_data
+      .select {|row| row['type'] == 'prompt'}
+      .map {|row| LabeledData.new(entry: row['entry'], label: row['label'])}
+
+    test_data = csv_data
+      .select {|row| row['type'] == 'test'}
+      .map {|row| LabeledData.new(entry: row['entry'], label: row['label'])}
+
+
+    CSV.open("#{labeled_folder}train.csv", 'wb') do |csv|
+      csv << LabeledData.members.map(&:to_s)
+      train_data.each { |data| csv << data.deconstruct }
+    end
+
+    CSV.open("#{labeled_folder}test.csv", 'wb') do |csv|
+      csv << LabeledData.members.map(&:to_s)
+      test_data.each { |data| csv << data.deconstruct }
+    end
+  end
+
+  LabelResult = Data.define(:entry, :label, :llm_label, :matches)
+
+  # bundle exec thor gen_a_i_tasks:label_feedback_test 'initial test' 2
+  desc 'label_feedback_test description limit', 'Test a number or entries from the test.csv file'
+  def label_feedback_test(description, limit = 150, temperature = 0)
+
+    test_data = Evidence::GenAI::LabelFeedback::DataFetcher.run('test.csv')
+      .sample(limit.to_i, random: Random.new(1))
+
+    label_api = Evidence::Gemini::Chat
+    system_prompt = label_prompt
+
+    results = []
+
+    test_data.each do |data|
+      entry = data.entry
+      label = data.label
+      response = label_api.run(system_prompt:, entry:)
+
+      llm_label = response['label']
+
+      matches = label == llm_label
+      result = LabelResult.new(entry:, label:, llm_label:, matches:)
+
+      puts "#{label} ||| #{llm_label} ||| #{matches}"
+
+      results << result
+    end
+
+    CSV.open(label_output_file(limit), 'wb') do |csv|
+      csv << LabelResult.members.map(&:to_s)
+      results.each { |data| csv << data.deconstruct }
+    end
+
+    correct_count = results.count{ |result| result.matches }
+
+    puts "Correct: #{correct_count} / #{results.size}: #{correct_count / results.size.to_f}"
+  end
+
   # put helper methods in this block
   no_commands do
     KEY_OPTIMAL = 'optimal'
@@ -464,6 +530,7 @@ class GenAITasks < Thor
     private def repeat_model = repeat_api::SMALL_MODEL
     private def secondary_model = secondary_api::SMALL_MODEL
 
+    private def label_prompt = Evidence::GenAI::LabelFeedback::PromptBuilder.run(prompt: nil)
     private def secondary_template_text(prompt) = Evidence::GenAI::SecondaryFeedback::PromptBuilder.new(prompt:).send(:template)
     private def secondary_template = Evidence::GenAI::SecondaryFeedback::PromptBuilder.new(prompt: nil).template_file
 
@@ -510,8 +577,16 @@ class GenAITasks < Thor
       "#{GEN_AI_OUTPUT_FOLDER}repeated_feedback_#{limit}_#{Time.now.to_i}.csv"
     end
 
+    private def label_output_file(limit)
+      "#{GEN_AI_OUTPUT_FOLDER}label_feedback_#{limit}_#{Time.now.to_i}.csv"
+    end
+
     def repeated_folder
       Evidence::Engine.root.join('app/services/evidence/gen_ai/repeated_feedback/data/')
+    end
+
+    def labeled_folder
+      Evidence::Engine.root.join('app/services/evidence/gen_ai/label_feedback/data/')
     end
 
     private def output_file(conjunction, limit)
