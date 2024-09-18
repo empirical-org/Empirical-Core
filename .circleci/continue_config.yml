@@ -159,7 +159,7 @@ jobs:
                   DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
             - run:
                 name: debug
-                command: cd services/QuillLMS ; bundle exec rails runner 'User.all.pluck(:name)'
+                command: cd services/QuillLMS ; bundle exec rails runner 'puts Rails.env; User.all.pluck(:name)'
             - run:
                 name: vite build
                 command: |
