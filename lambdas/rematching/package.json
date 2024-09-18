@@ -11,6 +11,6 @@
   "dependencies": {
     "lodash": "^4.17.21",
     "request": "^2.88.0",
-    "vite": "^4.2.1"
+    "vite": "^4.5.5"
   }
 }
