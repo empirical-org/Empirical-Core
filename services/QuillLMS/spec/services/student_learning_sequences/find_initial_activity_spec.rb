@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 module StudentLearningSequences
-  describe FindStartActivity do
+  describe FindInitialActivity do
     subject { described_class.run(activity_id, classroom_unit_id) }
 
     let(:activity_id) { activity.id }

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module StudentLearningSequences
-  class FindStartActivity < ApplicationService
+  class FindInitialActivity < ApplicationService
     attr_reader :activity_id, :classroom_unit_id
 
     def initialize(activity_id, classroom_unit_id)

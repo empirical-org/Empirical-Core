@@ -102,8 +102,8 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         end
       end
 
-      it 'updates StudentActivitySequenceActivities' do
-        expect(StudentActivitySequences::HandleCompletionWorker).to receive(:perform_async).with(activity_session.id)
+      it 'updates StudentLearningSequenceActivities' do
+        expect(StudentLearningSequences::HandleCompletionWorker).to receive(:perform_async).with(activity_session.id)
         put :update, params: { id: activity_session.uid, completed_at: DateTime.current }, as: :json
       end
 

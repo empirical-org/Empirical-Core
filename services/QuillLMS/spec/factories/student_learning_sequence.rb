@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :student_learning_sequence do
     association :initial_activity, factory: :pre_diagnostic_activity
     association :initial_classroom_unit, factory: :classroom_unit
-    association :user
+    user
   end
 end

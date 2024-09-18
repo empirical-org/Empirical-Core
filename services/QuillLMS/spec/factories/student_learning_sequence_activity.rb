@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :student_learning_sequence_activity do
-    association :activity
-    association :classroom_unit
-    association :student_learning_sequence
+    activity
+    classroom_unit
+    student_learning_sequence
   end
 end

@@ -25,7 +25,7 @@ module StudentLearningSequences
 
     private def activities = classroom_unit.unit_activities.map(&:activity)
     private def classroom_unit = @classroom_unit ||= ClassroomUnit.find(classroom_unit_id)
-    private def initial_activity = @initial_activity ||= FindStartActivity.run(activities&.first&.id, classroom_unit_id)
+    private def initial_activity = @initial_activity ||= FindInitialActivity.run(activities&.first&.id, classroom_unit_id)
     private def initial_classroom_units = @initial_classroom_units ||= fetch_initial_classroom_units
     private def pre_diagnostic = @pre_diagnostic ||= activities.find { |a| !a.follow_up_activity_id.nil? }
     private def student = @student ||= User.find(student_id)
