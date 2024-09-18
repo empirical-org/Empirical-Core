@@ -190,6 +190,9 @@ function translatedReviseMatchedFeedback(question, latestAttempt, translate) {
       return translate(`feedback^${feedback}`)
     }
   }
+  if(response) {
+    return <p>{translatedCMSResponseFeedback(latestAttempt, question)}</p>
+  }
 }
 
 function renderFeedback(feedback) {
@@ -251,7 +254,12 @@ const Feedback = ({
     }
   }
 
-  const translatedFeedback = getTranslatedFeedback(showTranslation, question, feedbackType)
+  function renderFeedbackElement() {
+    const translatedFeedback = getTranslatedFeedback(showTranslation, question, feedbackType)
+    if(!translatedFeedback) { return }
+    return <div className="translated-feedback">{translatedFeedback}</div>
+  }
+
 
   return(
     <div aria-live="assertive" className={getCSSClasses(feedbackType)} role="status">
@@ -259,7 +267,7 @@ const Feedback = ({
         <img alt={getIconAlt(feedbackType)} className={getIconClassName(feedbackType)} src={getFeedbackIcon(feedbackType)} />
         <div>
           {feedback}
-          {!!translatedFeedback && <div className="translated-feedback">{translatedFeedback}</div>}
+          {renderFeedbackElement()}
         </div>
       </div>
     </div>

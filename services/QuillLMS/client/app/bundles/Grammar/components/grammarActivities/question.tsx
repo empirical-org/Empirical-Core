@@ -17,7 +17,8 @@ import {
   ENGLISH,
   INSTRUCTIONS,
   CORRECT_MATCHED,
-  REVISE_MATCHED
+  REVISE_MATCHED,
+  renderExplanation
 } from '../../../Shared/index';
 import * as responseActions from '../../actions/responses';
 import { setCurrentQuestion } from '../../actions/session';
@@ -458,39 +459,35 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     )
   }
 
-  renderConceptExplanation = (): JSX.Element | void => {
-    const { conceptsFeedback, question } = this.props
-    const latestAttempt: Response | undefined = this.handleGetLatestAttempt(question.attempts);
-    if (latestAttempt && !latestAttempt.optimal) {
-      if (latestAttempt.conceptResults) {
-        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.conceptResults);
-        if (conceptID) {
-          const data = conceptsFeedback.data[conceptID.conceptUID];
-          if (data) {
-            return <ConceptExplanation {...data} />;
-          }
-        }
-        // pretty sure it is only conceptResults now, but trying to avoid further issues
-      } else if (latestAttempt.concept_results) {
-        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.concept_results);
-        if (conceptID) {
-          const data = conceptsFeedback.data[conceptID.conceptUID];
-          if (data) {
-            return <ConceptExplanation {...data} />;
-          }
-        }
 
-      } else if (question && question.modelConceptUID) {
-        const dataF = conceptsFeedback.data[question.modelConceptUID];
-        if (dataF) {
-          return <ConceptExplanation {...dataF} />;
-        }
-      } else if (question.concept_uid) {
-        const data = conceptsFeedback.data[question.concept_uid];
-        if (data) {
-          return <ConceptExplanation {...data} />;
-        }
+  renderConceptExplanation = (): JSX.Element | void => {
+    const { conceptsFeedback, question, showTranslation } = this.props
+    const latestAttempt: Response | undefined = this.handleGetLatestAttempt(question.attempts);
+    if(!latestAttempt || latestAttempt.optimal) { return }
+    if (latestAttempt.conceptResults) {
+      const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.conceptResults);
+      if (conceptID) {
+        const key = conceptID.conceptUID
+        const data = conceptsFeedback.data[key];
+        return renderExplanation({ data, key, conceptsFeedback, showTranslation })
       }
+      // pretty sure it is only conceptResults now, but trying to avoid further issues
+    } else if (latestAttempt.concept_results) {
+      const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.concept_results);
+      if (conceptID) {
+        const key = conceptID.conceptUID
+        const data = conceptsFeedback.data[key];
+        return renderExplanation({ data, key, conceptsFeedback, showTranslation })
+      }
+
+    } else if (question && question.modelConceptUID) {
+      const key = question.modelConceptUID
+      const data = conceptsFeedback.data[key];
+      return renderExplanation({ data, key, conceptsFeedback, showTranslation })
+    } else if (question.concept_uid) {
+      const key = question.concept_uid
+      const data = conceptsFeedback.data[key];
+      return renderExplanation({ data, key, conceptsFeedback, showTranslation })
     }
   }
 

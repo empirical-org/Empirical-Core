@@ -154,7 +154,8 @@ export {
   renderSaveAndExitButton,
   hasTranslationFlag,
   showTranslations,
-  pluralize
+  pluralize,
+  renderExplanation
 } from './libs/index'
 
 export {

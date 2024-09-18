@@ -24,7 +24,7 @@ import {
   roundValuesToSeconds,
 } from '../../../Shared/index';
 import { startListeningToConcepts } from '../../actions/concepts';
-import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback';
+import { startListeningToConceptsFeedback, loadTranslatedConceptsFeedback } from '../../actions/conceptsFeedback';
 import { getActivity } from "../../actions/grammarActivities";
 import { startListeningToQuestions } from '../../actions/questions';
 import {
@@ -172,6 +172,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     }
     if (hasreceiveddata && grammarActivities.currentActivity && session.hasreceiveddata && !session.pending && !session.error && language && language !== ENGLISH && !session.translated_questions) {
       dispatch(loadTranslatedQuestions(activityUID, language))
+      dispatch(loadTranslatedConceptsFeedback(language))
     }
   }
 
