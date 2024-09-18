@@ -39,7 +39,7 @@ describe("<QuestionComponent />", () => {
     checkAnswer={() => {}}
     concepts={{}}
     conceptsFeedback={conceptsFeedback}
-    currentQuestion={currentQuestion}
+    question={currentQuestion}
     goToNextQuestion={() => {}}
     unansweredQuestions={session.unansweredQuestions}
   />)
@@ -79,7 +79,7 @@ describe("<QuestionComponent />", () => {
         checkAnswer={() => {}}
         concepts={{}}
         conceptsFeedback={conceptsFeedback}
-        currentQuestion={currentQuestion}
+        question={currentQuestion}
         goToNextQuestion={() => {}}
         unansweredQuestions={session.unansweredQuestions}
       />)
@@ -100,7 +100,7 @@ describe("<QuestionComponent />", () => {
         checkAnswer={() => {}}
         concepts={{}}
         conceptsFeedback={conceptsFeedback}
-        currentQuestion={currentQuestion}
+        question={currentQuestion}
         goToNextQuestion={() => {}}
         unansweredQuestions={session.unansweredQuestions}
       />)
@@ -132,7 +132,7 @@ describe("<QuestionComponent />", () => {
         checkAnswer={() => {}}
         concepts={{}}
         conceptsFeedback={conceptsFeedback}
-        currentQuestion={currentQuestionWithOneIncorrectAttempt}
+        question={currentQuestionWithOneIncorrectAttempt}
         goToNextQuestion={() => {}}
         unansweredQuestions={session.unansweredQuestions}
       />)
@@ -155,7 +155,7 @@ describe("<QuestionComponent />", () => {
         checkAnswer={() => {}}
         concepts={{}}
         conceptsFeedback={conceptsFeedback}
-        currentQuestion={currentQuestionWithFiveIncorrectAttempts}
+        question={currentQuestionWithFiveIncorrectAttempts}
         goToNextQuestion={() => {}}
         unansweredQuestions={session.unansweredQuestions}
       />)
@@ -178,7 +178,7 @@ describe("<QuestionComponent />", () => {
         checkAnswer={() => {}}
         concepts={{}}
         conceptsFeedback={conceptsFeedback}
-        currentQuestion={currentQuestionWithOneCorrectAttempt}
+        question={currentQuestionWithOneCorrectAttempt}
         goToNextQuestion={() => {}}
         unansweredQuestions={session.unansweredQuestions}
       />)

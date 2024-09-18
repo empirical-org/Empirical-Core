@@ -374,7 +374,6 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
               checkAnswer={this.checkAnswer}
               concepts={concepts}
               conceptsFeedback={conceptsFeedback}
-              question={this.getCurrentQuestion(showTranslation)}
               dispatch={dispatch}
               goToNextQuestion={this.goToNextQuestion}
               handleTogglePreviewMenu={handleTogglePreviewMenu}
@@ -382,6 +381,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
               isOnMobile={isOnMobile}
               language={language}
               previewMode={previewMode}
+              question={this.getCurrentQuestion(showTranslation)}
               questions={questions}
               questionSet={session.questionSet}
               showTranslation={showTranslation}
