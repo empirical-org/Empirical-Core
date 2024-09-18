@@ -338,6 +338,21 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       dispatch(goToNextQuestion())
     }
 
+    getCurrentQuestion = (showTranslation) => {
+      const { session } = this.props
+      if(!session?.currentQuestion) { return null }
+      const { currentQuestion, translated_questions } = session
+      const { key } = currentQuestion
+      let translation
+      if (showTranslation && translated_questions) {
+        translation = translated_questions[key]
+      }
+      if (translation) {
+        return { ...currentQuestion, translation }
+      }
+      return currentQuestion;
+    }
+
     render(): JSX.Element {
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
       const { showTurkCode, saving, } = this.state
@@ -358,7 +373,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
               checkAnswer={this.checkAnswer}
               concepts={concepts}
               conceptsFeedback={conceptsFeedback}
-              currentQuestion={session.currentQuestion}
+              question={this.getCurrentQuestion(showTranslation)}
               dispatch={dispatch}
               goToNextQuestion={this.goToNextQuestion}
               handleTogglePreviewMenu={handleTogglePreviewMenu}
