@@ -20,7 +20,7 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
   end
   let(:subscription) { create(:subscription, account_type: Subscription::SCHOOL_PAID) }
   let!(:post_diagnostic_activity) { create(:diagnostic_activity) }
-  let!(:pre_diagnostic_activity) { create(:diagnostic_activity, follow_up_activity_id: post_diagnostic_activity.id) }
+  let!(:pre_diagnostic_activity) { create(:diagnostic_activity, id: Activity::PRE_TEST_DIAGNOSTIC_IDS[0], follow_up_activity_id: post_diagnostic_activity.id) }
 
   before do
     create(:evidence)
@@ -40,7 +40,9 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
     year = School.school_year_start(1.year.ago).year
     VitallyIntegration::CacheVitallySchoolData.set(school.id, year, previous_year_data.to_json)
     stub_const('VitallySharedFunctions::PRE_DIAGNOSTIC_IDS', [pre_diagnostic_activity.id])
+    stub_const('VitallySharedFunctions::LIVE_PRE_DIAGNOSTIC_IDS', [pre_diagnostic_activity.id])
     stub_const('VitallySharedFunctions::POST_DIAGNOSTIC_IDS', [post_diagnostic_activity.id])
+    stub_const('VitallySharedFunctions::LIVE_POST_DIAGNOSTIC_IDS', [post_diagnostic_activity.id])
     create(:activity_classification, key: ActivityClassification::DIAGNOSTIC_KEY)
   end
 

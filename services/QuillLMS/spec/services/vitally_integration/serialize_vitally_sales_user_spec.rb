@@ -49,7 +49,9 @@ describe VitallyIntegration::SerializeVitallySalesUser do
     year = School.school_year_start(1.year.ago).year
     VitallyIntegration::CacheVitallyTeacherData.set(teacher.id, year, previous_year_data.to_json)
     stub_const('VitallySharedFunctions::POST_DIAGNOSTIC_IDS', [post_diagnostic_activity.id])
+    stub_const('VitallySharedFunctions::LIVE_POST_DIAGNOSTIC_IDS', [post_diagnostic_activity.id])
     stub_const('VitallySharedFunctions::PRE_DIAGNOSTIC_IDS', [pre_diagnostic_activity.id])
+    stub_const('VitallySharedFunctions::LIVE_PRE_DIAGNOSTIC_IDS', [pre_diagnostic_activity.id])
     create(:activity_classification, key: ActivityClassification::DIAGNOSTIC_KEY)
   end
 
