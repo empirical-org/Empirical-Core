@@ -89,9 +89,8 @@ jobs:
         environment:
           PG_DB: quill_test_db
           PG_USER: ubuntu
-          RAILS_ENV: staging
-          RACK_ENV: staging
-          DEFAULT_URL: http://localhost:3000
+          RAILS_ENV: test
+          RACK_ENV: test
       - image: pgvector/pgvector:pg15
         environment:
           POSTGRES_DB: quill_test_db
