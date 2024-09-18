@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-module StudentActivitySequences
+module StudentLearningSequences
   describe HandleAssignment do
     subject { described_class.run(classroom_unit_id, student_id) }
 
@@ -17,28 +17,28 @@ module StudentActivitySequences
     let(:classroom_unit) { pre_classroom_unit }
 
     it do
-      expect { subject }.to change(StudentActivitySequence, :count).by(1)
-        .and change(StudentActivitySequenceActivity, :count).by(1)
+      expect { subject }.to change(StudentLearningSequence, :count).by(1)
+        .and change(StudentLearningSequenceActivity, :count).by(1)
     end
 
     context 'new pre-diagnostic assignment when an existing one already has a sequence' do
-      let!(:student_activity_sequence) { create(:student_activity_sequence, user: student, initial_activity: pre_diagnostic, initial_classroom_unit: pre_classroom_unit, classroom: pre_classroom_unit.classroom) }
+      let!(:student_learning_sequence) { create(:student_learning_sequence, user: student, initial_activity: pre_diagnostic, initial_classroom_unit: pre_classroom_unit) }
       let(:pre_unit2) { create(:unit, unit_template: pre_unit_template, activities: [pre_diagnostic]) }
       let(:pre_classroom_unit2) { create(:classroom_unit, classroom:, unit: pre_unit2, assigned_student_ids: [student_id]) }
       let(:classroom_unit) { pre_classroom_unit2 }
 
       it do
-        expect { subject }.to change(StudentActivitySequence, :count).by(1)
+        expect { subject }.to change(StudentLearningSequence, :count).by(1)
       end
     end
 
     context 'pre-diagnostic already recorded' do
-      let(:student_activity_sequence) { create(:student_activity_sequence, user: student, initial_activity: pre_diagnostic, initial_classroom_unit: pre_classroom_unit, classroom: pre_classroom_unit.classroom) }
-      let!(:student_activity_sequence_activity) { create(:student_activity_sequence_activity, student_activity_sequence:, activity: pre_diagnostic, classroom_unit: pre_classroom_unit) }
+      let(:student_learning_sequence) { create(:student_learning_sequence, user: student, initial_activity: pre_diagnostic, initial_classroom_unit: pre_classroom_unit) }
+      let!(:student_learning_sequence_activity) { create(:student_learning_sequence_activity, student_learning_sequence:, activity: pre_diagnostic, classroom_unit: pre_classroom_unit) }
 
       it do
-        expect { subject }.to not_change(StudentActivitySequence, :count)
-          .and not_change(StudentActivitySequenceActivity, :count)
+        expect { subject }.to not_change(StudentLearningSequence, :count)
+          .and not_change(StudentLearningSequenceActivity, :count)
       end
 
       context 'handle assigning recommended activities' do
@@ -49,36 +49,36 @@ module StudentActivitySequences
         let!(:recommendation) { create(:recommendation, activity: pre_diagnostic, unit_template:) }
 
         it do
-          expect { subject }.to not_change(StudentActivitySequence, :count)
-            .and change(StudentActivitySequenceActivity, :count).by(1)
+          expect { subject }.to not_change(StudentLearningSequence, :count)
+            .and change(StudentLearningSequenceActivity, :count).by(1)
         end
 
         context 'multiple pre-diagnostic assignments recorded' do
           let(:pre_unit2) { create(:unit, unit_template: pre_unit_template, activities: [pre_diagnostic]) }
           let(:pre_classroom_unit2) { create(:classroom_unit, classroom:, unit: pre_unit2, assigned_student_ids: [student_id]) }
-          let!(:student_activity_sequence2) { create(:student_activity_sequence, user: student, initial_activity: pre_diagnostic, initial_classroom_unit: pre_classroom_unit2, classroom:, created_at: student_activity_sequence.created_at + 1.day) }
+          let!(:student_learning_sequence2) { create(:student_learning_sequence, user: student, initial_activity: pre_diagnostic, initial_classroom_unit: pre_classroom_unit2, created_at: student_learning_sequence.created_at + 1.day) }
 
           it do
-            expect { subject }.to change { student_activity_sequence2.reload.student_activity_sequence_activities.count }.by(1)
-              .and not_change { student_activity_sequence.reload.student_activity_sequence_activities.count }
+            expect { subject }.to change { student_learning_sequence2.reload.student_learning_sequence_activities.count }.by(1)
+              .and not_change { student_learning_sequence.reload.student_learning_sequence_activities.count }
           end
         end
 
         context 'recommended activity already recorded' do
-          let!(:recommended_sequence_activity) { create(:student_activity_sequence_activity, student_activity_sequence:, activity: recommended_activity, classroom_unit:) }
+          let!(:recommended_sequence_activity) { create(:student_learning_sequence_activity, student_learning_sequence:, activity: recommended_activity, classroom_unit:) }
 
           it do
-            expect { subject }.to not_change(StudentActivitySequence, :count)
-              .and not_change(StudentActivitySequenceActivity, :count)
+            expect { subject }.to not_change(StudentLearningSequence, :count)
+              .and not_change(StudentLearningSequenceActivity, :count)
           end
         end
 
         context 'with no pre-diagnostic in sequence' do
-          let(:student_activity_sequence_activity) { nil }
+          let(:student_learning_sequence_activity) { nil }
 
           it do
-            expect { subject }.to not_change(StudentActivitySequence, :count)
-              .and not_change(StudentActivitySequenceActivity, :count)
+            expect { subject }.to not_change(StudentLearningSequence, :count)
+              .and not_change(StudentLearningSequenceActivity, :count)
           end
         end
       end
@@ -91,25 +91,25 @@ module StudentActivitySequences
         let(:classroom_unit) { create(:classroom_unit, classroom:, unit: post_unit, assigned_student_ids: [student_id]) }
 
         it do
-          expect { subject }.to not_change(StudentActivitySequence, :count)
-            .and change(StudentActivitySequenceActivity, :count).by(1)
+          expect { subject }.to not_change(StudentLearningSequence, :count)
+            .and change(StudentLearningSequenceActivity, :count).by(1)
         end
 
         context 'post-diagnostic activity already recorded' do
-          let!(:post_sequence_activity) { create(:student_activity_sequence_activity, student_activity_sequence:, activity: post_diagnostic, classroom_unit:) }
+          let!(:post_sequence_activity) { create(:student_learning_sequence_activity, student_learning_sequence:, activity: post_diagnostic, classroom_unit:) }
 
           it do
-            expect { subject }.to not_change(StudentActivitySequence, :count)
-              .and not_change(StudentActivitySequenceActivity, :count)
+            expect { subject }.to not_change(StudentLearningSequence, :count)
+              .and not_change(StudentLearningSequenceActivity, :count)
           end
         end
 
         context 'with no pre-diagnostic in sequence' do
-          let(:student_activity_sequence_activity) { nil }
+          let(:student_learning_sequence_activity) { nil }
 
           it do
-            expect { subject }.to not_change(StudentActivitySequence, :count)
-              .and not_change(StudentActivitySequenceActivity, :count)
+            expect { subject }.to not_change(StudentLearningSequence, :count)
+              .and not_change(StudentLearningSequenceActivity, :count)
           end
         end
       end

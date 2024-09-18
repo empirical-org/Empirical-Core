@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-module StudentActivitySequences
+module StudentLearningSequences
   describe HandleCompletionWorker do
     subject { described_class.new.perform(activity_session_id) }
 

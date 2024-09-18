@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: student_activity_sequence_activities
+# Table name: student_learning_sequence_activities
 #
 #  id                           :bigint           not null, primary key
 #  completed_at                 :datetime
@@ -11,14 +11,14 @@
 #  activity_id                  :integer          not null
 #  activity_session_id          :integer
 #  classroom_unit_id            :integer          not null
-#  student_activity_sequence_id :integer          not null
+#  student_learning_sequence_id :integer          not null
 #
-class StudentActivitySequenceActivity < ApplicationRecord
+class StudentLearningSequenceActivity < ApplicationRecord
   belongs_to :activity
   belongs_to :classroom_unit
-  belongs_to :student_activity_sequence
+  belongs_to :student_learning_sequence
 
   validates :activity_id, presence: true
   validates :classroom_unit_id, presence: true
-  validates :student_activity_sequence_id, presence: true
+  validates :student_learning_sequence_id, presence: true
 end

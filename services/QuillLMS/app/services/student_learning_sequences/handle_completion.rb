@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module StudentActivitySequences
+module StudentLearningSequences
   class HandleCompletion < ApplicationService
     class MissingSequenceActivityError < StandardError; end
 
@@ -11,9 +11,9 @@ module StudentActivitySequences
     end
 
     def run
-      raise missing_sequence_activity_error unless student_activity_sequence_activity
+      raise missing_sequence_activity_error unless student_learning_sequence_activity
 
-      student_activity_sequence_activity.update(
+      student_learning_sequence_activity.update(
         activity_session_id:,
         completed_at:
       )
@@ -24,15 +24,15 @@ module StudentActivitySequences
     private def user = activity_session.user
     private def classroom_unit = activity_session.classroom_unit
     private def completed_at = activity_session.completed_at
-    private def missing_sequence_activity_error = MissingSequenceActivityError.new("Could not find StudentActivitySequenceActivity record to update for ActivitySession #{activity_session_id}")
+    private def missing_sequence_activity_error = MissingSequenceActivityError.new("Could not find StudentLearningSequenceActivity record to update for ActivitySession #{activity_session_id}")
 
-    private def student_activity_sequence_activity
-      @student_activity_sequence_activity ||= StudentActivitySequenceActivity
-        .joins(:student_activity_sequence)
+    private def student_learning_sequence_activity
+      @student_learning_sequence_activity ||= StudentLearningSequenceActivity
+        .joins(:student_learning_sequence)
         .find_by(
           activity:,
           classroom_unit:,
-          student_activity_sequence: {
+          student_learning_sequence: {
             user:
           }
         )

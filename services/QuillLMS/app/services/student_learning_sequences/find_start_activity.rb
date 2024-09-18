@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module StudentActivitySequences
+module StudentLearningSequences
   class FindStartActivity < ApplicationService
     attr_reader :activity_id, :classroom_unit_id
 

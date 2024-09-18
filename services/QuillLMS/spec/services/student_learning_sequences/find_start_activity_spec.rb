@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-module StudentActivitySequences
+module StudentLearningSequences
   describe FindStartActivity do
     subject { described_class.run(activity_id, classroom_unit_id) }
 

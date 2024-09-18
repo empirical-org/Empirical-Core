@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: student_activity_sequence_activities
+# Table name: student_learning_sequence_activities
 #
 #  id                           :bigint           not null, primary key
 #  completed_at                 :datetime
@@ -11,18 +11,18 @@
 #  activity_id                  :integer          not null
 #  activity_session_id          :integer
 #  classroom_unit_id            :integer          not null
-#  student_activity_sequence_id :integer          not null
+#  student_learning_sequence_id :integer          not null
 #
 require 'rails_helper'
 
-RSpec.describe StudentActivitySequenceActivity, type: :model do
-  it { expect(create(:student_activity_sequence_activity)).to be_valid }
+RSpec.describe StudentLearningSequenceActivity, type: :model do
+  it { expect(create(:student_learning_sequence_activity)).to be_valid }
 
-  it { should belong_to(:student_activity_sequence) }
+  it { should belong_to(:student_learning_sequence) }
   it { should belong_to(:classroom_unit) }
   it { should belong_to(:activity) }
 
-  it { should validate_presence_of(:student_activity_sequence_id) }
+  it { should validate_presence_of(:student_learning_sequence_id) }
   it { should validate_presence_of(:classroom_unit_id) }
   it { should validate_presence_of(:activity_id) }
 end

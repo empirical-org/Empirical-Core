@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module StudentActivitySequences
+module StudentLearningSequences
   class HandleAssignmentWorker
     include Sidekiq::Worker
 

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-module StudentActivitySequences
+module StudentLearningSequences
   describe HandleAssignmentWorker do
     subject { described_class.new.perform(classroom_unit_id, student_id) }
 
