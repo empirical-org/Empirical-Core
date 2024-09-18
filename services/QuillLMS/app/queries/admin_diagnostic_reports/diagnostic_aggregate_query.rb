@@ -31,12 +31,12 @@ module AdminDiagnosticReports
       1432  # SpringBoard Writing Skills Survey
     ]
 
-    def initialize(aggregation:, **options)
+    def initialize(aggregation:, **)
       raise InvalidAggregationError, "#{aggregation} is not a valid aggregation value." unless valid_aggregation_options.include?(aggregation)
 
       @additional_aggregation = aggregation
 
-      super(**options)
+      super(**)
     end
 
     def run

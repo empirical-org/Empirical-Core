@@ -19,9 +19,13 @@
       margin-right: 8px;
     }
   }
-  .concept-explanation-description, .concept-explanation-translation {
+  .concept-explanation-description {
     padding-left: 33px;
     margin-bottom: 16px;
+    &.translated {
+      border-top: 1px solid white;
+      padding-top: 16px;
+    }
   }
 
   .concept-explanation-see-write {

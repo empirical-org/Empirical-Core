@@ -6,13 +6,13 @@ module AdminDiagnosticReports
 
     attr_reader :diagnostic_id, :limited
 
-    def initialize(diagnostic_id:, limited: true, **options)
+    def initialize(diagnostic_id:, limited: true, **)
       raise InvalidDiagnosticIdError, "#{diagnostic_id} is not a valid diagnostic_id value." unless DIAGNOSTIC_ORDER_BY_ID.include?(diagnostic_id.to_i)
 
       @diagnostic_id = diagnostic_id
       @limited = limited
 
-      super(aggregation: 'student', **options)
+      super(aggregation: 'student', **)
     end
 
     def materialized_views = [recommendation_count_rollup_view, active_user_names_view]

@@ -8,13 +8,13 @@ module Staff
       run_query
     end
 
-    def initialize(activity_id:, conjunction:, start_date: nil, end_date: nil, activity_version: nil, **options)
+    def initialize(activity_id:, conjunction:, start_date: nil, end_date: nil, activity_version: nil, **)
       @activity_id = activity_id
       @conjunction = conjunction
       @start_date = start_date
       @end_date = end_date
       @activity_version = activity_version
-      super(**options)
+      super(**)
     end
 
     def select_clause
