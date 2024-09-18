@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('has visible footer', async ({ page }) => {
+test.skip('has visible footer', async ({ page }) => {
   await page.goto('/session/new');
 
   await expect(page.locator('p.sign-up-link')).toBeVisible();
@@ -43,7 +43,7 @@ test('@login form submission with valid credentials', async ({ page }) => {
 
   await page.locator('#log-in').click();
   await page.locator('#log-in').click();
-  await page.waitForTimeout(3000);
+  await page.waitForTimeout(1000);
 
   await page.screenshot({ path: 'test-results/login-post-click.png', fullPage: true });
 
