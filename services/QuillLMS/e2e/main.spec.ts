@@ -41,9 +41,9 @@ test('@login form submission with valid credentials', async ({ page }) => {
 
   await page.screenshot({ path: 'test-results/login-pre-click.png', fullPage: true });
 
-  await page.locator('#log-in').click();
-  await page.locator('#log-in').click();
-  await page.waitForTimeout(1000);
+  //await page.locator('#log-in').click();
+  await page.locator('#log-in').dispatchEvent('click');
+
 
   await page.screenshot({ path: 'test-results/login-post-click.png', fullPage: true });
 
