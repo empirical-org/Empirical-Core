@@ -11,7 +11,10 @@ module StudentLearningSequences
     end
 
     def run
-      raise missing_sequence_activity_error unless student_learning_sequence_activity
+      # TODO: Remove the early return and start using the raise call again after we backfill these records
+      #raise missing_sequence_activity_error unless student_learning_sequence_activity
+      # Temporarily early return instead of raising an error until we run the data backfill
+      return unless student_learning_sequence_activity
 
       student_learning_sequence_activity.update(
         activity_session_id:,

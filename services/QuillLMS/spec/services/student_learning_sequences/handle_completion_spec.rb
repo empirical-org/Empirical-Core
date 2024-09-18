@@ -13,7 +13,8 @@ module StudentLearningSequences
     let(:activity) { activity_session.activity }
     let(:classroom_unit) { activity_session.classroom_unit }
 
-    it { expect { subject }.to raise_error(described_class::MissingSequenceActivityError) }
+    # TODO: Re-enable this after we update the raise code in the service post-backfill
+    #it { expect { subject }.to raise_error(described_class::MissingSequenceActivityError) }
 
     context 'item was assigned to the sequence previously' do
       let(:student_learning_sequence_activity) { create(:student_learning_sequence_activity, student_learning_sequence:, activity:, classroom_unit:) }
