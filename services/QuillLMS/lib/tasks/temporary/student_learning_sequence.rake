@@ -4,19 +4,19 @@ namespace :student_learning_sequence do
   task :backfill_pre_diagnostic_assignment => [:environment] do
     include StudentLearningSequenceBackfill
 
-    backfill_classroom_units(classroom_units.where.not(units: {activities: {follow_up_activity_id: nil}}))
+    backfill_classroom_units(classroom_units.where.not(unit: {activities: {follow_up_activity_id: nil}}))
   end
 
   task :backfill_recommendation_assignment => [:environment] do
     include StudentLearningSequenceBackfill
 
-    backfill_classroom_units(classroom_units.joins(units: {unit_template: :recommendations}))
+    backfill_classroom_units(classroom_units.joins(unit: {unit_template: :recommendations}))
   end
 
   task :backfill_post_diagnostic_assignment => [:environment] do
     include StudentLearningSequenceBackfill
 
-    backfill_classroom_units(classroom_units.where(units: {activities: {id: post_diagnostic_activity_ids}}))
+    backfill_classroom_units(classroom_units.where(unit: {activities: {id: post_diagnostic_activity_ids}}))
   end
 
   task :backfill_pre_diagnostic_completion=> [:environment] do
@@ -45,7 +45,7 @@ namespace :student_learning_sequence do
 
   module StudentLearningSequenceBackfill
     def activities = Activity.where(id: [pre_diagnostic_activity_ids] + [post_diagnostic_activity_ids] + [recommendation_activity_ids])
-    def classroom_units = ClassroomUnit.joins(units: :activities).select(:id)
+    def classroom_units = ClassroomUnit.joins(unit: :activities).select(:id)
     def pre_diagnostics = Activity.where.not(follow_up_activity_id: nil)
     def pre_diagnostic_activity_ids = pre_diagnostics.pluck(:id)
     def post_diagnostic_activity_ids = pre_diagnostics.pluck(:follow_up_activity_id)
