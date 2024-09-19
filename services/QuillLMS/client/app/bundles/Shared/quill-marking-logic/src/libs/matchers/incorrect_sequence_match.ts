@@ -3,7 +3,6 @@ import {stringNormalize} from 'quill-string-normalizer'
 
 import {getTopOptimalResponse} from '../sharedResponseFunctions'
 import {Response, IncorrectSequence, PartialResponse} from '../../interfaces'
-import {conceptResultTemplate} from '../helpers/concept_result_template'
 import { generateRegexMatchList, } from '../generateRegexMatchList'
 
 export function incorrectSequenceMatchHelper(responseString:string, incorrectSequenceParticle:string, caseInsensitive:boolean):boolean {
@@ -31,7 +30,8 @@ export function incorrectSequenceChecker(responseString: string, incorrectSequen
 
 export function incorrectSequenceResponseBuilder(incorrectSequenceMatch:IncorrectSequence, responses:Array<Response>): PartialResponse {
   const res: PartialResponse = {
-    uid: incorrectSequenceMatch.uid,
+    // TODO: figure out why some have UIDs and others have keys
+    uid: incorrectSequenceMatch.uid || incorrectSequenceMatch.key,
     isIncorrectSequence: true,
     feedback: incorrectSequenceMatch.feedback,
     author: incorrectSequenceMatch.name || 'Incorrect Sequence Hint',

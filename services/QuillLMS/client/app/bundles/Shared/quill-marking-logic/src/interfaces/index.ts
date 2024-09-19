@@ -75,7 +75,8 @@ export interface IncorrectSequence {
   caseInsensitive?: boolean|null,
   name?: string,
   order?: number
-  uid?: string
+  uid?: string,
+  key?: string
 }
 
 export interface FeedbackObject {
