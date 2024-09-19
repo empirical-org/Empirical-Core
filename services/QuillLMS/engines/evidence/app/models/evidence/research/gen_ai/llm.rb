@@ -21,14 +21,12 @@ module Evidence
         DEFAULT_TEMPERATURE = 1.0
 
         GOOGLE_VERSIONS = [
-          GEMINI_1_5_PRO_LATEST = 'gemini-1.5-pro-latest',
           GEMINI_1_5_FLASH_LATEST = 'gemini-1.5-flash-latest'
         ].freeze
 
         OPEN_AI_VERSIONS = [
-          GPT_4_TURBO_2024_04_09 = 'gpt-4-turbo-2024-04-09',
-          GPT_4_O = 'gpt-4o'
-        ]
+          GPT_4_O = 'gpt-4o-2024-08-06'
+        ].freeze
 
         validates :vendor, presence: true
         validates :version, presence: true
