@@ -59,7 +59,7 @@
                 <li>Temperature: <%= trial.temperature %></li>
               </ul>
             </div>
-            <%= render 'confusion_matrix', matrix: trial.confusion_matrix %>
+            <%= render 'confusion_matrix', matrix: trial.confusion_matrix, labels: trial.labels %>
           </th>
         <% end %>
       </tr>

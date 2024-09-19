@@ -4,25 +4,23 @@ module Evidence
   module Research
     module GenAI
       class ConfusionMatrixBuilder < ApplicationService
-        attr_reader :llm_examples
+        attr_reader :llm_examples, :labels
 
-        OPTIMAL = 0
-        SUBOPTIMAL = 1
-
-        def initialize(llm_examples)
+        def initialize(llm_examples:, labels:)
           @llm_examples = llm_examples
+          @labels = labels
         end
 
-        # results is a 2x2 matrix where
-        # rows represent the ground truth (optimal or suboptimal),
-        # columns represent the model prediction (optimal or suboptimal),
         def run
-          [[0, 0], [0, 0]].tap do |matrix|
+          Array.new(labels.size) { Array.new(labels.size, 0) }.tap do |matrix|
             llm_examples.each do |llm_example|
-              row = llm_example.test_optimal? ? OPTIMAL : SUBOPTIMAL
-              column = llm_example.optimal? ? OPTIMAL : SUBOPTIMAL
+              predicted_label = llm_example.llm_feedback
+              true_label = llm_example.test_example.curriculum_proposed_feedback
 
-              matrix[row][column] += 1
+              predicted_index = labels.index(predicted_label)
+              true_index = labels.index(true_label)
+
+              matrix[true_index][predicted_index] += 1 if predicted_index && true_index
             end
           end
         end

@@ -18,9 +18,9 @@ module Evidence
         end
 
         def llm_example_match_color(llm_example)
-          return LIGHT_GREEN if llm_example.optimal_or_suboptimal_match?
-          return LIGHT_RED if llm_example.optimal?
-          return DARK_RED if llm_example.suboptimal?
+          return LIGHT_GREEN if llm_example.llm_feedback == llm_example.test_example.curriculum_proposed_feedback
+          return DARK_RED if llm_example.optimal?
+          return LIGHT_RED if llm_example.suboptimal?
         end
 
         def percent_accuracy(numerator, denominator)

@@ -12,6 +12,7 @@ module Evidence
 
         # The order of these methods is important
         FEEDBACK_METHODS = %i[
+          label
           feedback
           properties_feedback
           properties_feedback_value
@@ -55,6 +56,7 @@ module Evidence
         end
 
         private def feedback = data['feedback']
+        private def label = data['label']
 
         private def properties_feedback = data.dig('properties', 'feedback')
 

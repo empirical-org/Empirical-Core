@@ -1,54 +1,110 @@
-<% if matrix %>
-  <% optimal_correct_count = matrix[0][0] %>
-  <% optimal_incorrect_count = matrix[0][1] %>
-  <% suboptimal_correct_count = matrix[1][1] %>
-  <% suboptimal_incorrect_count = matrix[1][0] %>
-  <% optimal_count = optimal_correct_count + optimal_incorrect_count %>
-  <% suboptimal_count = suboptimal_correct_count + suboptimal_incorrect_count %>
-
-  <table style="table-layout: fixed; border-collapse: collapse; border: 1px solid black;">
-    <tr class='light-gray' style='text-align: center'>
-      <td style="text-align: center"></td>
-      <td class='llm-optimal' style="text-align: center">LLM Optimal</td>
-      <td class='llm-suboptimal' style="text-align: center">LLM Sub-Optimal</td>
-      <td style="text-align: center">Total</td>
-      <td class='accuracy' style="text-align: center;">Accuracy</td>
-    </tr>
-    <tr>
-      <td class='white curriculum-optimal' style="text-align: center;">Curriculum Optimal</td>
-      <td class='light-green' style="text-align: center;"><%= optimal_correct_count %></td>
-      <td class='dark-red' style="text-align: center;"><%= optimal_incorrect_count %></td>
-      <td class='white' style="text-align: center;"><%= optimal_count %></td>
-      <td class='white' style="text-align: center;">
-        <% if optimal_count.zero? %>
-          0%
-        <% else %>
-          <%= (100.0 * optimal_correct_count / optimal_count).round.to_s + '%' %>
+<div id="confusionMatrixContainer">
+  <div style="text-align: right; margin-bottom: 10px;">
+    <span>Display percentages</span>
+    <label class="switch">
+      <input type="checkbox" id="displayToggle">
+      <span class="slider round"></span>
+    </label>
+  </div>
+  <% if matrix && labels %>
+    <table id="confusionMatrix" style="table-layout: fixed; border-collapse: collapse; border: 1px solid black;">
+      <tr class='light-gray' style='text-align: center'>
+        <th style="text-align: center">True label</th>
+        <% labels.each do |label| %>
+          <th class='predicted-label' style="text-align: center; font-size: 0.7em;">
+            <%= label %>
+          </th>
         <% end %>
-      </td>
-    </tr>
+        <th style="text-align: center">Total</th>
+      </tr>
+      <% labels.each_with_index do |true_label, i| %>
+        <% row_sum = matrix[i].sum %>
+        <tr>
+          <td class='white true-label' style="text-align: center; font-size: 0.65em;">
+            <%= true_label %>
+          </td>
+          <% labels.each_with_index do |pred_label, j| %>
+            <td class='<%= i == j ? "light-green" : "light-red" %>' style="text-align: center;">
+              <span class="count"><%= matrix[i][j] %></span>
+              <span class="percent" style="display: none;">
+                <%= row_sum.zero? ? "0%" : "#{(100.0 * matrix[i][j] / row_sum).round}%" %>
+              </span>
+            </td>
+          <% end %>
+          <td class='white' style="text-align: center;"><%= row_sum %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>
 
-    <tr>
-      <td class='white curriculum-suboptimal' style="text-align: center;">Curriculum Sub-Optimal</td>
-      <td class='light-red' style="text-align: center;"><%= suboptimal_incorrect_count %></td>
-      <td class='green' style="text-align: center;"><%= suboptimal_correct_count %></td>
-      <td class='white' style="text-align: center;"><%= suboptimal_count %></td>
-      <td class='white' style="text-align: center;">
-        <% if suboptimal_count.zero? %>
-          0%
-        <% else %>
-          <%= (100.0 * suboptimal_correct_count / suboptimal_count).round.to_s + '%' %>
-        <% end %>
-      </td>
-    </tr>
-  </table>
-  <div style="clear: both;"></div>
+<style>
+  .predicted-label { font-size: 0.7em; }
+  .true-label { font-size: 0.65em; }
 
-  <style>
-    .accuracy { font-size: 0.8em; }
-    .llm-optimal { font-size: 0.7em; }
-    .llm-suboptimal { font-size: 0.7em; }
-    .curriculum-optimal { font-size: 0.65em; }
-    .curriculum-suboptimal { font-size: 0.65em; }
-  </style>
-<% end %>
+  /* Switch styles */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    vertical-align: middle;
+    margin-left: 10px;
+  }
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+  }
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+  }
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+  .slider.round {
+    border-radius: 34px;
+  }
+  .slider.round:before {
+    border-radius: 50%;
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const toggle = document.getElementById('displayToggle');
+  const table = document.getElementById('confusionMatrix');
+
+  toggle.addEventListener('change', function() {
+    const showPercent = this.checked;
+    table.querySelectorAll('td').forEach(td => {
+      const countSpan = td.querySelector('.count');
+      const percentSpan = td.querySelector('.percent');
+      if (countSpan && percentSpan) {
+        countSpan.style.display = showPercent ? 'none' : '';
+        percentSpan.style.display = showPercent ? '' : 'none';
+      }
+    });
+  });
+});
+</script>

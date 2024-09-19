@@ -19,7 +19,7 @@ module Evidence
   module Research
     module GenAI
       class LLMPrompt < ApplicationRecord
-        FEEDBACK_JSON_SCHEMA = { 'optimal': 'boolean', 'feedback': 'string' }.to_json
+        FEEDBACK_JSON_SCHEMA = { 'label': 'string' }.to_json
 
         belongs_to :llm_prompt_template
 

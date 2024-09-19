@@ -51,10 +51,6 @@
         <% if @histogram %>
           <%= render 'histogram', histogram: @histogram %>
         <% end %>
-
-        <div style="width: 500px">
-          <%= render 'confusion_matrix', matrix: @trial.confusion_matrix %>
-        </div>
       <% end %>
     <% elsif @trial.failed? %>
       <p>The trial had some errors.</p>
@@ -64,11 +60,18 @@
 
 <hr>
 
+<% if @trial.completed? %>
+  <div>
+    <%= render 'confusion_matrix', matrix: @trial.confusion_matrix, labels: @trial.labels %>
+  </div>
+<% end %>
+
 <div>
   <% if @trial.api_call_times %>
     <table>
       <thead>
         <tr>
+          <th>#</th>
           <th class='match-column'>Match</th>
           <% if @trial.g_evals %>
             <% @g_evals.each do |g_eval| %>
@@ -83,6 +86,7 @@
       <tbody>
         <% @trial.llm_examples.each.with_index do |llm_example, index| %>
           <tr>
+            <td><%= index + 1 %></td>
             <% background_color = llm_example_match_color(llm_example) %>
             <td class=<%= background_color %>></td>
             <% if @trial.g_evals %>
