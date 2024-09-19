@@ -21,11 +21,11 @@ module Evidence
         private def label_examples = markdown_table_rows(label_example_data)
 
         private def label_example_data
-          DataFetcher.run
+          DataFetcher.run('train.csv')
             .sample(EXAMPLES_LIMIT, random: Random.new(1))
-            .map {|data| [data.entry, data.label]}
+            .sort_by(&:entry)
+            .map {|data| [data.entry, data.label_transformed]}
         end
-
       end
     end
   end

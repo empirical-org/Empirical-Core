@@ -447,31 +447,15 @@ class GenAITasks < Thor
     end
   end
 
-  LabeledData = Data.define(:entry,:label)
-
-  # bundle exec thor gen_a_i_tasks:generate_labeled_data_files
-  desc 'generate_labeled_data_files', 'Create a csv for example data.'
+  # bundle exec thor gen_a_i_tasks:generate_labeled_data_files_flat
+  desc 'generate_labeled_data_files_flat', 'Create a csv for example data.'
   def generate_labeled_data_files
     csv_data = CSV.read("#{labeled_folder}coral_reefs_because_all.csv", headers: true)
 
-    train_data = csv_data
-      .select {|row| row['type'] == 'prompt'}
-      .map {|row| LabeledData.new(entry: row['entry'], label: row['label'])}
+    label_transform = proc {|label| label.starts_with?("Optimal") ? "Optimal" : label}
 
-    test_data = csv_data
-      .select {|row| row['type'] == 'test'}
-      .map {|row| LabeledData.new(entry: row['entry'], label: row['label'])}
-
-
-    CSV.open("#{labeled_folder}train.csv", 'wb') do |csv|
-      csv << LabeledData.members.map(&:to_s)
-      train_data.each { |data| csv << data.deconstruct }
-    end
-
-    CSV.open("#{labeled_folder}test.csv", 'wb') do |csv|
-      csv << LabeledData.members.map(&:to_s)
-      test_data.each { |data| csv << data.deconstruct }
-    end
+    create_label_file(csv_data, 'prompt', 'train', label_transform)
+    create_label_file(csv_data, 'test', 'test', label_transform)
   end
 
   LabelResult = Data.define(:entry, :label, :llm_label, :matches)
@@ -490,7 +474,7 @@ class GenAITasks < Thor
 
     test_data.each do |data|
       entry = data.entry
-      label = data.label
+      label = data.label_transformed
       response = label_api.run(system_prompt:, entry:)
 
       llm_label = response['label']
@@ -545,6 +529,27 @@ class GenAITasks < Thor
       puts llm_response
 
       !!llm_response[Evidence::GenAI::RepeatedFeedback::Checker::KEY_REPEAT]
+    end
+
+    LabeledData = Data.define(:entry, :label, :label_transformed)
+
+    private def create_label_file(data, type, name, label_transform)
+      CSV.open("#{labeled_folder}#{name}.csv", 'wb') do |csv|
+        csv << LabeledData.members.map(&:to_s)
+        labeled_data_from_csv(data, type, label_transform).each { |data| csv << data.deconstruct }
+      end
+    end
+
+    private def labeled_data_from_csv(data, type, label_transform)
+      data
+        .select {|row| row['type'] == type}
+        .map do |row|
+          LabeledData.new(
+            entry: row['entry'],
+            label: row['label'],
+            label_transformed: label_transform.call(row['label'])
+          )
+        end
     end
 
     private def cosine_similarity(text1, text2) = embeddings(text1).cosine_similarity(embeddings(text2))

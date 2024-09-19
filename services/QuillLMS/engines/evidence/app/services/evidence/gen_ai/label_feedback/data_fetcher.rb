@@ -4,7 +4,7 @@ module Evidence
   module GenAI
     module LabelFeedback
       class DataFetcher < ApplicationService
-        LabeledData = Data.define(:entry, :label)
+        LabeledData = Data.define(:entry, :label, :label_transformed)
 
         DEFAULT_FILE = 'train.csv'
         CSV_FILE_PATH = "#{Evidence::Engine.root}/app/services/evidence/gen_ai/label_feedback/data/%<file>s"
@@ -20,7 +20,13 @@ module Evidence
         private def csv_data = CSV.read(file_path, headers: true)
         private def file_path = format(CSV_FILE_PATH, file:)
 
-        private def data_from_row(row) = LabeledData.new(entry: row['entry'], label: row['label'])
+        private def data_from_row(row)
+          LabeledData.new(
+            entry: row['entry'],
+            label: row['label'],
+            label_transformed: row['label_transformed']
+          )
+        end
       end
     end
   end
