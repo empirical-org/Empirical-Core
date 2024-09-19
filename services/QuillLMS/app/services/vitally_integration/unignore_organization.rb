@@ -2,7 +2,7 @@
 
 module VitallyIntegration
   class UnignoreOrganization < ApplicationService
-    attr_reader :api, :district_id
+    attr_reader :district_id
 
     def initialize(district_id)
       @district_id = district_id
