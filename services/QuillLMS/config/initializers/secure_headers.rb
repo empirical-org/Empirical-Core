@@ -132,6 +132,7 @@ SecureHeaders::Configuration.default do |config|
       'wss://*.quill.org',
       'https://*.satismeter.com',
       'http://localhost:8080/',
+      'http://localhost:3000',
       'http://localhost:3200',
       'http://localhost:3100',
       'wss://localhost:3200',
