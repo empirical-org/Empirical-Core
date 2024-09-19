@@ -22,6 +22,7 @@ function filterAndLogResponse(response, regex) {
 
 test('@login form submission with valid credentials', async ({ page }) => {
   page.on('request', request => filterAndLogRequest(request, 'login_through_ajax'));
+  page.on('console', msg => console.log(msg.text()));
   //page.on('response', response => filterAndLogResponse(response, 'localhost|quill'));
 
   await page.goto('/session/new');
@@ -41,7 +42,7 @@ test('@login form submission with valid credentials', async ({ page }) => {
 
   await page.screenshot({ path: 'test-results/login-pre-click.png', fullPage: true });
 
-  await page.locator('div.account-container div.login-form').click()
+  //await page.locator('div.account-container div.login-form').click()
   await page.locator('div.account-container.text-center div.login-form input#log-in').click();
   // await page.locator('#log-in').dispatchEvent('click');
 
