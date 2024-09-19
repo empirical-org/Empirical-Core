@@ -5,12 +5,13 @@ module Evidence
     class PromptBuilder < ApplicationService
       PIPE = '|'
 
-      attr_reader :prompt, :history, :template_file
+      attr_reader :prompt, :history, :template_file, :entry
 
-      def initialize(prompt:, history: [], template_file: nil)
+      def initialize(prompt:, history: [], template_file: nil, entry: nil)
         @prompt = prompt
         @history = history
         @template_file = template_file || default_template
+        @entry = entry
       end
 
       def run = template % template_variables

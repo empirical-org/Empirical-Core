@@ -447,8 +447,8 @@ class GenAITasks < Thor
     end
   end
 
-  # bundle exec thor gen_a_i_tasks:generate_labeled_data_files_flat
-  desc 'generate_labeled_data_files_flat', 'Create a csv for example data.'
+  # bundle exec thor gen_a_i_tasks:generate_labeled_data_files
+  desc 'generate_labeled_data_files', 'Create a csv for example data.'
   def generate_labeled_data_files
     csv_data = CSV.read("#{labeled_folder}coral_reefs_because_all.csv", headers: true)
 
@@ -468,7 +468,8 @@ class GenAITasks < Thor
       .sample(limit.to_i, random: Random.new(1))
 
     label_api = Evidence::Gemini::Chat
-    system_prompt = label_prompt
+    prompt = Evidence::Prompt.find 673
+    system_prompt = Evidence::GenAI::LabelFeedback::PromptBuilder.run(prompt:)
 
     results = []
 
@@ -497,6 +498,70 @@ class GenAITasks < Thor
     puts "Correct: #{correct_count} / #{results.size}: #{correct_count / results.size.to_f}"
   end
 
+  # bundle exec thor gen_a_i_tasks:rag_label_feedback_test 'initial test' 2
+  desc 'rag_label_feedback_test description limit', 'Test a number or entries from the test.csv file'
+  def rag_label_feedback_test(description, limit = 150, temperature = 0)
+    require 'neighbor'
+    test_data = Evidence::GenAI::LabelFeedback::DataFetcher.run('test.csv')
+      .sample(limit.to_i, random: Random.new(1))
+
+    label_api = Evidence::Gemini::Chat
+
+    results = []
+
+    prompt = Evidence::Prompt.find 673
+
+    test_data.each do |data|
+      entry = data.entry
+      label = data.label_transformed
+
+      system_prompt = Evidence::GenAI::LabelFeedback::PromptBuilder.run(prompt:, entry:)
+
+      response = label_api.run(system_prompt:, entry:)
+
+      llm_label = response['label']
+
+      matches = label == llm_label
+      result = LabelResult.new(entry:, label:, llm_label:, matches:)
+
+      puts "#{label} ||| #{llm_label} ||| #{matches}"
+
+      results << result
+    end
+
+    CSV.open(label_output_file(limit), 'wb') do |csv|
+      csv << LabelResult.members.map(&:to_s)
+      results.each { |data| csv << data.deconstruct }
+    end
+
+    correct_count = results.count{ |result| result.matches }
+
+    puts "Correct: #{correct_count} / #{results.size}: #{correct_count / results.size.to_f}"
+  end
+
+  # bundle exec thor gen_a_i_tasks:store_labeled_embeddings
+  desc 'store_labeled_embeddings 673', 'populate the DB with embeddings for data'
+  def store_labeled_embeddings(prompt_id)
+    train_data = Evidence::GenAI::LabelFeedback::DataFetcher.run
+    placeholder_feedback = 'placeholder feedback'
+
+    train_data.each.with_index do |label_data, index|
+      puts index
+      response_text = label_data.entry
+
+      next if Evidence::PromptResponse.where(response_text:, prompt_id:).exists?
+
+      prompt_response = Evidence::PromptResponse.new(response_text:, prompt_id:)
+
+      feedback = Evidence::PromptResponseFeedback.create(
+        feedback: placeholder_feedback,
+        label: label_data.label,
+        label_transformed: label_data.label_transformed,
+        prompt_response:,
+      )
+    end
+  end
+
   # put helper methods in this block
   no_commands do
     KEY_OPTIMAL = 'optimal'
@@ -514,7 +579,6 @@ class GenAITasks < Thor
     private def repeat_model = repeat_api::SMALL_MODEL
     private def secondary_model = secondary_api::SMALL_MODEL
 
-    private def label_prompt = Evidence::GenAI::LabelFeedback::PromptBuilder.run(prompt: nil)
     private def secondary_template_text(prompt) = Evidence::GenAI::SecondaryFeedback::PromptBuilder.new(prompt:).send(:template)
     private def secondary_template = Evidence::GenAI::SecondaryFeedback::PromptBuilder.new(prompt: nil).template_file
 
