@@ -54,7 +54,8 @@ RSpec.describe Evidence::GenAI::SecondaryFeedback::PromptBuilder do
       expect(result).to eq({
         highlight_texts: 'Highlight texts',
         primary_secondary_examples: 'Primary and secondary examples',
-        plagiarism_text: 'Plagiarism text'
+        plagiarism_text: 'Plagiarism text',
+        stem: prompt.text
       })
     end
   end

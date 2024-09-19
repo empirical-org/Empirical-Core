@@ -36,7 +36,7 @@ describe ClassroomUnit, type: :model, redis: true do
   it { is_expected.to callback(:check_for_assign_on_join_and_update_students_array_if_true).before(:save) }
   it { is_expected.to callback(:hide_appropriate_activity_sessions).after(:save) }
   it { is_expected.to callback(:manage_user_pack_sequence_items).after(:save) }
-  it { is_expected.to callback(:assign_student_activity_sequences).after(:save) }
+  it { is_expected.to callback(:assign_student_learning_sequences).after(:save) }
   it { is_expected.to callback(:save_user_pack_sequence_items).after(:save) }
 
   let!(:activity) { create(:activity) }
@@ -200,13 +200,13 @@ describe ClassroomUnit, type: :model, redis: true do
     end
   end
 
-  describe '#assign_student_activity_sequences' do
+  describe '#assign_student_learning_sequences' do
     subject { classroom_unit.update(assigned_student_ids: new_assigned_student_ids, assign_on_join: false) }
 
     let(:new_assigned_student_ids) { assigned_student_ids }
 
     it do
-      expect(StudentActivitySequences::HandleAssignmentWorker).to_not receive(:perform_async)
+      expect(StudentLearningSequences::HandleAssignmentWorker).to_not receive(:perform_async)
       subject
     end
 
@@ -218,7 +218,7 @@ describe ClassroomUnit, type: :model, redis: true do
       before { new_assigned_student_ids.map { |student_id| create(:students_classrooms, classroom:, student_id:) } }
 
       it do
-        expect(StudentActivitySequences::HandleAssignmentWorker).to receive(:perform_async).exactly(call_count).times
+        expect(StudentLearningSequences::HandleAssignmentWorker).to receive(:perform_async).exactly(call_count).times
         subject
       end
     end

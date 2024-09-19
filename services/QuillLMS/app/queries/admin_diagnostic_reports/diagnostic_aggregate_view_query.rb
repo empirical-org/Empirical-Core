@@ -10,7 +10,7 @@ module AdminDiagnosticReports
     AGGREGATION_OPTIONS = DiagnosticAggregateQuery::AGGREGATION_OPTIONS
     DIAGNOSTIC_ORDER_BY_ID = DiagnosticAggregateQuery::DIAGNOSTIC_ORDER_BY_ID
 
-    def initialize(timeframe_start:, timeframe_end:, school_ids:, aggregation:, grades: nil, teacher_ids: nil, classroom_ids: nil, user: nil, **options) # rubocop:disable Metrics/ParameterLists
+    def initialize(timeframe_start:, timeframe_end:, school_ids:, aggregation:, grades: nil, teacher_ids: nil, classroom_ids: nil, user: nil, **) # rubocop:disable Metrics/ParameterLists
       raise InvalidAggregationError, "#{aggregation} is not a valid aggregation value." unless valid_aggregation_options.include?(aggregation)
 
       @timeframe_start = timeframe_start
@@ -22,7 +22,7 @@ module AdminDiagnosticReports
       @user = user
       @additional_aggregation = aggregation
 
-      super(**options)
+      super(**)
     end
 
     def materialized_views = [filter_view, performance_view]
