@@ -17,5 +17,7 @@ module Evidence
 
     validates :feedback, presence: true
     validates :prompt_response, presence: true
+
+    store_accessor :metadata, :label_transformed, :label
   end
 end

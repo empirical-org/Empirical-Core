@@ -31,6 +31,23 @@ module Evidence
 
     before_validation :set_embedding
 
+    delegate :label, :label_transformed, to: :prompt_response_feedback
+
+    def self.fetch_embedding(text) = Evidence::OpenAI::EmbeddingFetcher.run(input: text)
+
+    def self.closest_prompt_texts(prompt_id, response_text, limit = 10)
+      # TODO: replace this line with etch_embedding(response_text)
+      # For testing efficiency, I stored embeddings on a different prompt
+      embedding = find_by(prompt_id: 16, response_text:)
+
+      embedding
+        .nearest_neighbors(:embedding, distance: DISTANCE_METRIC)
+        .includes(:prompt_response_feedback)
+        .where(prompt_id: prompt_id)
+        .limit(limit)
+        .map {|r| [r.response_text, r.label_transformed]}
+    end
+
     def closest_prompt_response
       nearest_neighbors(:embedding, distance: DISTANCE_METRIC)
         .where(prompt_id:)
@@ -46,7 +63,7 @@ module Evidence
     private def set_embedding
       return if response_text.blank? || embedding.present?
 
-      self.embedding = Evidence::OpenAI::EmbeddingFetcher.run(dimension: DIMENSION, input: response_text, model: MODEL)
+      self.embedding = self.class.fetch_embedding(response_text)
     end
   end
 end
