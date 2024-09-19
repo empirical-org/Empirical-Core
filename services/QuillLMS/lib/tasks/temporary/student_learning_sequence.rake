@@ -4,33 +4,43 @@ namespace :student_learning_sequence do
   task :backfill_pre_diagnostic_assignment => [:environment] do
     include StudentLearningSequenceBackfill
 
-    pre_diagnostic_classroom_units = classroom_units.where.not(units: {activities: {follow_up_activity_id: nil}})
-
-    backfill_classroom_units(pre_diagnostic_classroom_units)
+    backfill_classroom_units(classroom_units.where.not(units: {activities: {follow_up_activity_id: nil}}))
   end
 
   task :backfill_recommendation_assignment => [:environment] do
     include StudentLearningSequenceBackfill
 
-    recommendations_classroom_units = classroom_units.joins(units: {unit_template: :recommendations})
-
-    backfill_classroom_units(recommendations_classroom_units)
+    backfill_classroom_units(classroom_units.joins(units: {unit_template: :recommendations}))
   end
 
   task :backfill_post_diagnostic_assignment => [:environment] do
     include StudentLearningSequenceBackfill
 
-    post_diagnostic_classroom_units = classroom_units.where(units: {activities: {id: post_diagnostic_activity_ids}})
-
-    backfill_classroom_units(pre_diagnostic_classroom_units)
+    backfill_classroom_units(classroom_units.where(units: {activities: {id: post_diagnostic_activity_ids}}))
   end
 
   task :backfill_pre_diagnostic_completion=> [:environment] do
     include StudentLearningSequenceBackfill
 
-    post_diagnostic_classroom_units = classroom_units.where(units: {activities: {id: post_diagnostic_activity_ids}})
+    backfill_activity_sessions(ActivitySession.where.not(completed_at: nil)
+      .where(activity_id: pre_diagnostic_activity_ids)
+    )
+  end
 
-    backfill_classroom_units(pre_diagnostic_classroom_units)
+  task :backfill_recommendation_completion => [:environment] do
+    include StudentLearningSequenceBackfill
+
+    backfill_activity_sessions(ActivitySession.where.not(completed_at: nil)
+      .where(activity_id: recommendation_activity_ids)
+    )
+  end
+
+  task :backfill_post_diagnostic_completion => [:environment] do
+    include StudentLearningSequenceBackfill
+
+    backfill_activity_sessions(ActivitySession.where.not(completed_at: nil)
+      .where(activity_id: post_diagnostic_activity_ids)
+    )
   end
 
   module StudentLearningSequenceBackfill
