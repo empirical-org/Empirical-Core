@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-namespace :student_activity_sequence do
+namespace :student_learning_sequence do
   task :backfill_pre_diagnostic_assignment => [:environment] do
-    include StudentActivitySequenceBackfill
+    include StudentLearningSequenceBackfill
 
     pre_diagnostic_classroom_units = classroom_units.where.not(units: {activities: {follow_up_activity_id: nil}})
 
@@ -10,7 +10,7 @@ namespace :student_activity_sequence do
   end
 
   task :backfill_recommendation_assignment => [:environment] do
-    include StudentActivitySequenceBackfill
+    include StudentLearningSequenceBackfill
 
     recommendations_classroom_units = classroom_units.joins(units: {unit_template: :recommendations})
 
@@ -18,7 +18,7 @@ namespace :student_activity_sequence do
   end
 
   task :backfill_post_diagnostic_assignment => [:environment] do
-    include StudentActivitySequenceBackfill
+    include StudentLearningSequenceBackfill
 
     post_diagnostic_classroom_units = classroom_units.where(units: {activities: {id: post_diagnostic_activity_ids}})
 
@@ -26,14 +26,14 @@ namespace :student_activity_sequence do
   end
 
   task :backfill_pre_diagnostic_completion=> [:environment] do
-    include StudentActivitySequenceBackfill
+    include StudentLearningSequenceBackfill
 
     post_diagnostic_classroom_units = classroom_units.where(units: {activities: {id: post_diagnostic_activity_ids}})
 
     backfill_classroom_units(pre_diagnostic_classroom_units)
   end
 
-  module StudentActivitySequenceBackfill
+  module StudentLearningSequenceBackfill
     def activities = Activity.where(id: [pre_diagnostic_activity_ids] + [post_diagnostic_activity_ids] + [recommendation_activity_ids])
     def classroom_units = ClassroomUnit.joins(units: :activities).select(:id)
     def pre_diagnostics = Activity.where.not(follow_up_activity_id: nil)
@@ -42,7 +42,7 @@ namespace :student_activity_sequence do
 
     def backfill_activity_sessions(activity_sessions)
       activity_sessions.each do |activity_session|
-        StudentActivitySequences::HandleCompletionWorker.perform_async(activity_session.id)
+        StudentLearningSequences::HandleCompletionWorker.perform_async(activity_session.id)
       end
     end
 
@@ -50,7 +50,7 @@ namespace :student_activity_sequence do
       classroom_units.each do |classroom_unit|
         classroom_unit_id = classroom_unit.id
         classroom_unit.assigned_student_ids.each do |student_id|
-          StudentActivitySequences::HandleAssignmentWorker.perform_async(classroom_unit_id, student_id, true)
+          StudentLearningSequences::HandleAssignmentWorker.perform_async(classroom_unit_id, student_id, true)
         end
       end
     end
