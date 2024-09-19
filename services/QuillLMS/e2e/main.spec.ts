@@ -21,8 +21,8 @@ function filterAndLogResponse(response, regex) {
 }
 
 test('@login form submission with valid credentials', async ({ page }) => {
-  page.on('request', request => filterAndLogRequest(request, 'localhost|quill'));
-  page.on('response', response => filterAndLogResponse(response, 'localhost|quill'));
+  page.on('request', request => filterAndLogRequest(request, 'login_through_ajax'));
+  //page.on('response', response => filterAndLogResponse(response, 'localhost|quill'));
 
   await page.goto('/session/new');
   await page.waitForLoadState('networkidle');
