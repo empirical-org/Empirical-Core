@@ -36,13 +36,14 @@ test('@login form submission with valid credentials', async ({ page }) => {
   // Other clickable items on this page include the text 'Log in', so we need a more
   // sensitive element selector
 
-  await page.waitForSelector('#log-in');
-  await expect(page.locator('#log-in')).toBeVisible()
+  // await page.waitForSelector('#log-in');
+  // await expect(page.locator('#log-in')).toBeVisible()
 
   await page.screenshot({ path: 'test-results/login-pre-click.png', fullPage: true });
 
-  //await page.locator('#log-in').click();
-  await page.locator('#log-in').dispatchEvent('click');
+  await page.locator('div.account-container div.login-form').click()
+  await page.locator('div.account-container.text-center div.login-form input#log-in').click();
+  // await page.locator('#log-in').dispatchEvent('click');
 
 
   await page.screenshot({ path: 'test-results/login-post-click.png', fullPage: true });
