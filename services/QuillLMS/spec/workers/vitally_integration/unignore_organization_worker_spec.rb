@@ -14,4 +14,3 @@ module VitallyIntegration
     end
   end
 end
-
