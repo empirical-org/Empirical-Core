@@ -11,8 +11,9 @@ class QuestionApi {
     return requestGet(`${questionApiBaseUrl}.json?question_type=${questionType}`, null, (error) => {throw(error)});
   }
 
-  static getAllForActivity(activityUID: string): Promise<Array<Question>> {
-    return requestGet(`${activityApiBaseUrl}/${activityUID}/questions.json`, null, (error) => {throw(error)});
+  static getAllForActivity(activityUID: string, language?: string): Promise<Array<Question>> {
+    const language_string = language ? `?language=${language}` : ''
+    return requestGet(`${activityApiBaseUrl}/${activityUID}/questions.json${language_string}`, null, (error) => { throw (error) });
   }
 
   static get(uid: string): Promise<Question> {

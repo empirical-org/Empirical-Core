@@ -6,7 +6,8 @@ import {
   MultipleChoice,
   SentenceFragments,
   getLatestAttempt,
-  hashToCollection
+  hashToCollection,
+  renderExplanation
 } from '../../../Shared/index';
 import { submitResponse } from '../../actions.js';
 import {
@@ -23,7 +24,6 @@ import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import { renderExplanation } from '../../libs/translationFunctions';
 
 const RenderSentenceFragments = SentenceFragments
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ENGLISH } from '../../utils/languageList'
-import { defaultLanguages } from '../..';
+import { ConceptExplanation, defaultLanguages } from '../..';
 
 export const getlanguageOptions = (translations) => ([
   { value: ENGLISH, label: ENGLISH },
@@ -35,4 +35,14 @@ export const hasTranslationFlag = (): boolean => {
 
 export const showTranslations = (language, languageOptions): boolean => {
   return hasTranslationFlag() && !!languageOptions && !!language && Object.keys(languageOptions).length > 1;
+};
+
+const getTranslatedConceptsFeedbackData = (key, conceptsFeedback, showTranslation) => {
+  return showTranslation && conceptsFeedback?.translated_data ? conceptsFeedback.translated_data[key] : null
+}
+
+export const renderExplanation = ({ data, key, conceptsFeedback, showTranslation }) => {
+  if (!data) return null;
+  const translatedData = getTranslatedConceptsFeedbackData(key, conceptsFeedback, showTranslation);
+  return <ConceptExplanation {...data} translatedExplanation={translatedData} />;
 };

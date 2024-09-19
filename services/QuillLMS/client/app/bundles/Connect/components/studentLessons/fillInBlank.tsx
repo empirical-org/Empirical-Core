@@ -13,7 +13,8 @@ import {
   getLatestAttempt,
   hashToCollection,
   FinalAttemptFeedback,
-  ALLOWED_ATTEMPTS
+  ALLOWED_ATTEMPTS,
+  renderExplanation
 } from '../../../Shared/index';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import { FillInBlankQuestion } from '../../interfaces/questions';
@@ -22,7 +23,6 @@ import Cues from '../renderForQuestions/cues.jsx';
 import FeedbackContainer from '../renderForQuestions/feedback';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import { renderExplanation } from '../../libs/translationFunctions';
 
 const styles = {
   container: {

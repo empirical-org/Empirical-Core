@@ -16,6 +16,14 @@ export const loadConceptsFeedback = () => {
   };
 }
 
+export const loadTranslatedConceptsFeedback = (language) => {
+  return function (dispatch, getState) {
+    ConceptFeedbackApi.getAll(language).then((data) => {
+      dispatch({ type: ActionTypes.RECEIVE_TRANSLATED_CONCEPTS_FEEDBACK_DATA, data: data, });
+    });
+  };
+}
+
 export const startConceptsFeedbackEdit = (cid: string) => {
   return { type: ActionTypes.START_CONCEPTS_FEEDBACK_EDIT, cid, };
 }
