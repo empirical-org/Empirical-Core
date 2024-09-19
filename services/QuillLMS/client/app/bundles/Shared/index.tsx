@@ -152,7 +152,6 @@ export {
   formatAnswerStringForReport,
   getlanguageOptions,
   renderSaveAndExitButton,
-  hasTranslationFlag,
   showTranslations,
   pluralize,
   renderExplanation

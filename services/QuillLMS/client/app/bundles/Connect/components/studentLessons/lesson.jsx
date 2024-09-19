@@ -24,7 +24,6 @@ import {
   Spinner,
   TeacherPreviewMenuButton,
   VISIBILITYCHANGE,
-  hasTranslationFlag,
   roundValuesToSeconds,
 } from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, resumePreviousSession, setCurrentQuestion, submitResponse, updateCurrentQuestion } from '../../actions.js';
@@ -548,7 +547,7 @@ export class Lesson extends React.Component {
           translate={translate}
         />
       );
-    } else if (availableLanguages?.length > 1 && hasTranslationFlag() && !language) {
+    } else if (availableLanguages?.length > 1 && !language) {
       component = (<LanguageSelectionPage
         dispatch={dispatch}
         handlePageLoaded={this.onLanguagePageLoad}
