@@ -22,6 +22,9 @@ export default defineConfig(({command, mode}) => {
   const quillCmsUrl = process.env.QUILL_CMS || 'http://localhost:3100';
 
   return {
+    build: {
+      sourcemap: true
+    },
     //customLogger: logger, // ready to activate later, if we want.
     resolve: {
       alias: {
