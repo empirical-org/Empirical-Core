@@ -30,3 +30,11 @@ module Evidence
     end
   end
 end
+
+evaluation_metrics.confidence_metrics_entry.each do |entry|
+  puts "Confidence Threshold: #{entry.confidence_threshold}"
+  puts "Precision: #{entry.precision}"
+  puts "Recall: #{entry.recall}"
+  puts "F1 Score: #{entry.f1_score}"
+  puts '-' * 30
+end

@@ -17,7 +17,7 @@ module Evidence
         @project = project
       end
 
-      private def service_client
+      def service_client
         self.class::SERVICE_CLIENT_CLASS.new do |config|
           config.credentials = self.class.credentials(project)
 
