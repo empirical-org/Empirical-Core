@@ -1,11 +1,5 @@
 import { test, expect } from '@playwright/test';
 
-test.skip('has visible footer', async ({ page }) => {
-  await page.goto('/session/new');
-
-  await expect(page.locator('p.sign-up-link')).toBeVisible();
-});
-
 function filterAndLogRequest(request, regex) {
   const re = new RegExp(regex);
   if (request.url().match(re)) {
@@ -19,6 +13,12 @@ function filterAndLogResponse(response, regex) {
     console.log('<<', response.status(), response.url())
   }
 }
+
+test('has visible footer', async ({ page }) => {
+  await page.goto('/session/new');
+
+  await expect(page.locator('p.sign-up-link')).toBeVisible();
+});
 
 test('@login form submission with valid credentials', async ({ page }) => {
   page.on('request', request => filterAndLogRequest(request, 'login_through_ajax'));
@@ -34,23 +34,10 @@ test('@login form submission with valid credentials', async ({ page }) => {
 
   await expect(page.locator('.password-wrapper #password')).toBeVisible();
   await page.locator('.password-wrapper #password').fill('password');
-  // Other clickable items on this page include the text 'Log in', so we need a more
-  // sensitive element selector
 
-  // await page.waitForSelector('#log-in');
-  // await expect(page.locator('#log-in')).toBeVisible()
-
-  await page.screenshot({ path: 'test-results/login-pre-click.png', fullPage: true });
-
-  //await page.locator('div.account-container div.login-form').click()
   await page.locator('div.account-container.text-center div.login-form input#log-in').click();
-  // await page.locator('#log-in').dispatchEvent('click');
-
 
   await page.screenshot({ path: 'test-results/login-post-click.png', fullPage: true });
 
   await page.waitForURL('/teachers/classrooms/dashboard')
-
-
-
 });

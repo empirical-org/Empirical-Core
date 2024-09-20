@@ -157,9 +157,6 @@ jobs:
                 environment:
                   DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
             - run:
-                name: debug
-                command: cd services/QuillLMS ; bundle exec rails runner 'puts Rails.env; puts User.all.pluck(:name)'
-            - run:
                 name: vite build
                 command: |
                   cd services/QuillLMS && bin/vite build
@@ -525,7 +522,7 @@ parameters:
     default: false
   lms-run-integration:
     type: boolean
-    default: true
+    default: false
   lms-run-evidence:
     type: boolean
     default: false
