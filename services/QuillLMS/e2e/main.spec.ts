@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test';
 
+/* eslint-disable no-console */
+
 function filterAndLogRequest(request, regex) {
   const re = new RegExp(regex);
   if (request.url().match(re)) {
