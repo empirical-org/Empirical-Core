@@ -17,7 +17,7 @@ export default defineConfig(({command, mode}) => {
   const pusherCluster = process.env.PUSHER_CLUSTER;
   const defaultUrl = process.env.DEFAULT_URL || 'http://localhost:5000'
   const cdnUrl = process.env.CDN_URL || 'https://assets.quill.org'
-  const grammarUrl = process.env.QUILL_GRAMMAR_URL || 'http://localhost:3000/grammar/#';
+  const grammarUrl = process.env.QUILL_GRAMMAR_URL || 'http://localhost:5000/grammar/#';
   const lessonsWebsocketsUrl = process.env.LESSONS_WEBSOCKETS_URL || 'http://localhost:3200';
   const quillCmsUrl = process.env.QUILL_CMS || 'http://localhost:3100';
 
