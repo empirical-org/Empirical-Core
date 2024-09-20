@@ -39,7 +39,7 @@ EmpiricalGrammar::Application.configure do
   config.action_mailer.default_url_options = { :host => 'test.yourhost.com' }
 
   config.log_level = :debug
-  config.logger = Logger.new(STDOUT)
+  config.logger = Logger.new($stdout)
 
   # Used for zeitwerk
   config.eager_load = ENV['CI'].present?
