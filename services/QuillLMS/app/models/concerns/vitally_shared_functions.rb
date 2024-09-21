@@ -6,9 +6,8 @@ module VitallySharedFunctions
   attr_reader :vitally_entity, :school_year_start, :school_year_end
 
   PRE_DIAGNOSTIC_IDS = Activity.where(activity_classification_id: ActivityClassification.diagnostic&.id).where.not(follow_up_activity: nil).pluck(:id)
-  LIVE_PRE_DIAGNOSTIC_IDS = Activity.where(id: Activity::PRE_TEST_DIAGNOSTIC_IDS).pluck(:id)
   POST_DIAGNOSTIC_IDS = Activity.where(id: PRE_DIAGNOSTIC_IDS).pluck(:follow_up_activity_id)
-  LIVE_POST_DIAGNOSTIC_IDS = Activity.where(id: LIVE_PRE_DIAGNOSTIC_IDS).pluck(:follow_up_activity_id)
+  LIVE_POST_DIAGNOSTIC_IDS = Activity.where(id: Activity::PRE_TEST_DIAGNOSTIC_IDS).pluck(:follow_up_activity_id)
 
   def activities_per_student(active_students, activities_finished)
     return 0 unless active_students.nonzero?
@@ -31,7 +30,7 @@ module VitallySharedFunctions
   end
 
   def filter_live_pre_diagnostic(activities)
-    activities.select { |r| LIVE_PRE_DIAGNOSTIC_IDS.include?(r.id) }
+    activities.select { |r| Activity::PRE_TEST_DIAGNOSTIC_IDS.include?(r.id) }
   end
 
   def filter_pre_diagnostic(activities)
@@ -103,7 +102,7 @@ module VitallySharedFunctions
   end
 
   def live_pre_diagnostics_completed
-    activities_finished_query.where(activity: { id: LIVE_PRE_DIAGNOSTIC_IDS })
+    activities_finished_query.where(activity: { id: Activity::PRE_TEST_DIAGNOSTIC_IDS })
   end
 
   def post_diagnostics_completed

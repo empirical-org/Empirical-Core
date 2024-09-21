@@ -51,7 +51,7 @@ describe VitallyIntegration::SerializeVitallySalesUser do
     stub_const('VitallySharedFunctions::POST_DIAGNOSTIC_IDS', [post_diagnostic_activity.id])
     stub_const('VitallySharedFunctions::LIVE_POST_DIAGNOSTIC_IDS', [post_diagnostic_activity.id])
     stub_const('VitallySharedFunctions::PRE_DIAGNOSTIC_IDS', [pre_diagnostic_activity.id])
-    stub_const('VitallySharedFunctions::LIVE_PRE_DIAGNOSTIC_IDS', [pre_diagnostic_activity.id])
+    stub_const('Activity::PRE_TEST_DIAGNOSTIC_IDS', [pre_diagnostic_activity.id])
     create(:activity_classification, key: ActivityClassification::DIAGNOSTIC_KEY)
   end
 
