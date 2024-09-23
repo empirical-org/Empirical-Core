@@ -13,10 +13,7 @@ const SchoolYearUpdatesCard = ({ handleCloseCard, }) => {
           <li>Content improvements for all Diagnostics</li>
           <li>Quill Reading for Evidence now provides green, yellow, and red scores for students and teachers</li>
           <li>New High School Reading for Evidence Offerings: Social Studies (World History) and Interdisciplinary Science (Building AI Knowledge)</li>
-          <li>Coming soon: All ELL Practice Activities will provide bilingual translation to Spanish</li>
-          <ul>
-            <li>Diagnostics continue to support 16 languages</li>
-          </ul>
+          <li>All ELL practice activities now provide bilingual translation to Spanish</li>
         </ul>
       }
       buttons={[

@@ -6,7 +6,7 @@ import { Events } from '../../../Diagnostic/modules/analytics';
 
 interface LanguageSelectionPageProps {
   questionCount?: number,
-  dispatch: (any) => void,
+  dispatch: Function,
   setLanguage: (language: string) => void,
   previewMode: boolean,
   beginActivity?: () => void,
