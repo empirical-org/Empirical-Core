@@ -342,10 +342,11 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       const { session } = this.props
       if(!session?.currentQuestion) { return null }
       const { currentQuestion, translated_questions } = session
-      const { key } = currentQuestion
+      const { key, uid } = currentQuestion
       let translation
-      if (showTranslation && translated_questions) {
-        translation = translated_questions[key]
+      const keyOrUid = key || uid
+      if (showTranslation && translated_questions && keyOrUid) {
+        translation = translated_questions[keyOrUid]
       }
       if (translation) {
         return { ...currentQuestion, translation }
