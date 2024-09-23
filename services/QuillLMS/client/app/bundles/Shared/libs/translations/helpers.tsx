@@ -26,15 +26,8 @@ export function renderSaveAndExitButton({ isELLDiagnostic, language, languageOpt
   return <a className="quill-button medium contained white focus-on-dark" href={`${process.env.DEFAULT_URL}/profile`}>{buttonText}</a>
 }
 
-// Temporary feature flag until we are ready to ship this.
-export const hasTranslationFlag = (): boolean => {
-  const urlParams = new URLSearchParams(window.location.search)
-  if (urlParams.get('showTranslations') !== 'true') return false;
-  return true;
-};
-
 export const showTranslations = (language, languageOptions): boolean => {
-  return hasTranslationFlag() && !!languageOptions && !!language && Object.keys(languageOptions).length > 1;
+  return !!languageOptions && !!language && Object.keys(languageOptions).length > 1;
 };
 
 const getTranslatedConceptsFeedbackData = (key, conceptsFeedback, showTranslation) => {
