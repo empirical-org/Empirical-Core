@@ -6,16 +6,15 @@ module Evidence
   module Gemini
     RSpec.describe Completion, external_api: true do
       Evidence::Research::GenAI::LLM::GOOGLE_VERSIONS.each do |version|
-        subject { described_class.new(llm:, prompt:) }
-
         let(:llm) { create(:evidence_research_gen_ai_llm, version:) }
         let(:prompt) { "Write the next word after this sentence: #{Faker::Quote.mitch_hedberg}" }
 
         describe 'rate limit error handling' do
-          subject { described_class.new(llm:, prompt:) }
+          subject { described_class.new(llm:, prompt:, temperature:) }
 
           let(:endpoint) { subject.send(:endpoint) }
           let(:code) { 429 }
+          let(:temperature) { 0 }
 
           let(:body) do
             {

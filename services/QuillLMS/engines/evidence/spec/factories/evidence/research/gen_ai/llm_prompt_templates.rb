@@ -8,6 +8,7 @@
 #  contents   :text             not null
 #  name       :text             not null
 #  notes      :text
+#  order      :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
