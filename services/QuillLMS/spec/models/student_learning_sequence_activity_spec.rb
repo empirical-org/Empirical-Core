@@ -13,6 +13,10 @@
 #  classroom_unit_id            :integer          not null
 #  student_learning_sequence_id :integer          not null
 #
+# Indexes
+#
+#  idx_on_student_learning_sequence_id_classroom_unit__84e420e79d  (student_learning_sequence_id,classroom_unit_id,activity_id) UNIQUE
+#
 require 'rails_helper'
 
 RSpec.describe StudentLearningSequenceActivity, type: :model do
