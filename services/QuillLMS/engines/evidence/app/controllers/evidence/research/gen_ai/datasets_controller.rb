@@ -26,11 +26,11 @@ module Evidence
         private def stem_vault = @stem_vault ||= StemVault.find(params[:stem_vault_id])
 
         private def create_dataset_from_file
-          dataset = stem_vault.datasets.new
+          @dataset = stem_vault.datasets.new(dataset_params)
 
-          if dataset.save
-            DatasetImporter.run(dataset:, file:)
-            redirect_to dataset
+          if @dataset.save
+            DatasetImporter.run(dataset: @dataset, file:)
+            redirect_to @dataset
           else
             render :new
           end
