@@ -168,5 +168,10 @@ export const ALPHA_TRANSLATED_ACTIVITY_UIDS = [
   "e2c285fd-b973-4d52-a2b3-0cb73b3b6391",
   "4f17260c-c793-4443-8902-0a5f81b92116",
   "7d363347-6ad3-4476-b124-6d0e08182cc8",
-  "54c91530-d44a-4a9a-8ce9-af9c6680fd60"
+  "54c91530-d44a-4a9a-8ce9-af9c6680fd60",
+  // randomized question activities
+  "-KybO7eiRjMiMYYowjtR",
+  "z8WSMBEV9uBRodWd_t-RNA",
+  "-KybNc1Xkj1Yz59OoNaA",
+  "-L0udJg9M0ETmF6k0zJ6"
 ]
