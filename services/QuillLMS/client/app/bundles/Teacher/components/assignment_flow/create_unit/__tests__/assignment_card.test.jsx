@@ -4,7 +4,7 @@ import React from 'react';
 import AssignmentCard from '../assignment_card';
 
 const props = {
-  link: "http://localhost:3000/diagnostic/-LKX2sTTnPVhTOrWyUx9/stage/3",
+  link: "http://localhost:5000/diagnostic/-LKX2sTTnPVhTOrWyUx9/stage/3",
   buttonText: "Preview",
   buttonLink: "https://quill.org/diagnostic/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9",
   header: "Starter Diagnostic",
