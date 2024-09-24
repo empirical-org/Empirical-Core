@@ -9216,17 +9216,24 @@ CREATE UNIQUE INDEX feedback_history_ratings_uniqueness ON public.feedback_histo
 
 
 --
--- Name: idx_on_student_learning_sequence_id_classroom_unit__84e420e79d; Type: INDEX; Schema: public; Owner: -
+-- Name: idx_on_classroom_unit_id_activity_id_e74613431d; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX idx_on_student_learning_sequence_id_classroom_unit__84e420e79d ON public.student_learning_sequence_activities USING btree (student_learning_sequence_id, classroom_unit_id, activity_id);
+CREATE INDEX idx_on_classroom_unit_id_activity_id_e74613431d ON public.student_learning_sequence_activities USING btree (classroom_unit_id, activity_id);
+
+
+--
+-- Name: idx_on_student_learning_sequence_id_63827699e9; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_on_student_learning_sequence_id_63827699e9 ON public.student_learning_sequence_activities USING btree (student_learning_sequence_id);
 
 
 --
 -- Name: idx_on_user_id_initial_activity_id_initial_classroo_868ab8c89e; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX idx_on_user_id_initial_activity_id_initial_classroo_868ab8c89e ON public.student_learning_sequences USING btree (user_id, initial_activity_id, initial_classroom_unit_id);
+CREATE INDEX idx_on_user_id_initial_activity_id_initial_classroo_868ab8c89e ON public.student_learning_sequences USING btree (user_id, initial_activity_id, initial_classroom_unit_id);
 
 
 --

@@ -13,7 +13,7 @@
 #
 # Indexes
 #
-#  idx_on_user_id_initial_activity_id_initial_classroo_868ab8c89e  (user_id,initial_activity_id,initial_classroom_unit_id) UNIQUE
+#  idx_on_user_id_initial_activity_id_initial_classroo_868ab8c89e  (user_id,initial_activity_id,initial_classroom_unit_id)
 #
 require 'rails_helper'
 
