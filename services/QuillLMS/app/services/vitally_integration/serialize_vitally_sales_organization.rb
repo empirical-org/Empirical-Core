@@ -133,6 +133,7 @@ module VitallyIntegration
           }
         }).where(classification: { key: ActivityClassification::DIAGNOSTIC_KEY })
         .where(classroom_units: { created_at: start..stop })
+        .where('classrooms_teachers.role = ?', ClassroomsTeacher::ROLE_TYPES[:owner])
         .map(&:assigned_students).reject(&:blank?).sum
     end
 
@@ -146,6 +147,7 @@ module VitallyIntegration
           }
         }
       }).where(classification: { key: ActivityClassification::DIAGNOSTIC_KEY })
+        .where('classrooms_teachers.role = ?', ClassroomsTeacher::ROLE_TYPES[:owner])
         .where(activity_sessions: { completed_at: start..stop })
         .count
     end
@@ -185,6 +187,7 @@ module VitallyIntegration
         .includes(classrooms_teachers: [classroom_unscoped: :students_classrooms])
         .joins('JOIN users students ON students.id = students_classrooms.student_id')
         .order('students.last_sign_in DESC')
+        .where('classrooms_teachers.role = ?', ClassroomsTeacher::ROLE_TYPES[:owner])
         .first
         &.last_sign_in
     end
@@ -195,18 +198,21 @@ module VitallyIntegration
         .joins([classroom_unscoped: [classroom_units: :activity_sessions]])
         .joins('JOIN users students on students.id = activity_sessions.user_id')
         .where('districts.id = ?', district.id)
+        .where('classrooms_teachers.role = ?', ClassroomsTeacher::ROLE_TYPES[:owner])
         .where('activity_sessions.state = ?', 'finished')
     end
 
     def activities_assigned_query
       ClassroomUnit.joins(classroom_unscoped: { teachers: { school: :district } }, unit: :activities)
         .where('districts.id = ?', district.id)
+        .where('classrooms_teachers.role = ?', ClassroomsTeacher::ROLE_TYPES[:owner])
         .select('assigned_student_ids', 'activities.id', 'unit_activities.created_at')
     end
 
     def activities_finished_query
       ClassroomsTeacher.joins(user: { schools_users: { school: :district } }, classroom_unscoped: [{ classroom_units: { unit: :activities } }, { classroom_units: :activity_sessions }])
         .where('districts.id = ?', district.id)
+        .where('classrooms_teachers.role = ?', ClassroomsTeacher::ROLE_TYPES[:owner])
         .where('activity_sessions.state = ?', 'finished')
     end
 
