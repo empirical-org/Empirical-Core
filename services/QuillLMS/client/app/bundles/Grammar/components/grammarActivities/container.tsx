@@ -11,6 +11,7 @@ import TurkCodePage from './turkCodePage';
 
 import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
+  ALPHA_TRANSLATED_ACTIVITY_UIDS,
   CLICK,
   ENGLISH,
   KEYDOWN,
@@ -359,6 +360,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       const { showTurkCode, saving, } = this.state
       const { dispatch, grammarActivities, session, concepts, conceptsFeedback, previewMode, questions, handleToggleQuestion, isOnMobile, handleTogglePreviewMenu, availableLanguages, updateLanguage, language, translate } = this.props
       const showTranslation = language && availableLanguages?.includes(language) && language !== ENGLISH
+      const activityUID = getParameterByName('uid', window.location.href)
       if (showTurkCode) {
         return <TurkCodePage />
       }
@@ -393,7 +395,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         }
         if (saving || (!grammarActivities && !proofreaderSessionId)) { return <LoadingSpinner /> }
 
-        if (availableLanguages && !language) {
+        if (availableLanguages && !language && !ALPHA_TRANSLATED_ACTIVITY_UIDS.includes(activityUID)) {
           return (
             <LanguageSelectionPage
               dispatch={dispatch}
