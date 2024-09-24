@@ -214,9 +214,6 @@ describe ClassroomUnit, type: :model, redis: true do
       let(:new_assigned_student_ids) { create_list(:student, 2, classrooms: [classroom]).pluck(:id) }
       let(:call_count) { new_assigned_student_ids.length }
 
-      # ClassroomUnit has validation on it that prevents students from being assigned if they don't have ClassroomsStudents records for the classroom
-      #before { new_assigned_student_ids.map { |student_id| create(:students_classrooms, classroom:, student_id:) } }
-
       it do
         expect(StudentLearningSequences::HandleAssignmentWorker).to receive(:perform_async).exactly(call_count).times
         subject
