@@ -10,6 +10,7 @@ import PlaySentenceFragment from './sentenceFragment.jsx';
 
 import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
+  ALPHA_TRANSLATED_ACTIVITY_UIDS,
   CLICK,
   ENGLISH,
   KEYDOWN,
@@ -547,7 +548,7 @@ export class Lesson extends React.Component {
           translate={translate}
         />
       );
-    } else if (availableLanguages?.length > 1 && !language) {
+    } else if (availableLanguages?.length > 1 && !language && !ALPHA_TRANSLATED_ACTIVITY_UIDS.includes(params.lessonID)) {
       component = (<LanguageSelectionPage
         dispatch={dispatch}
         handlePageLoaded={this.onLanguagePageLoad}
