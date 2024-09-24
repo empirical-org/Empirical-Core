@@ -18,7 +18,7 @@ module StudentLearningSequences
     end
 
     private def activity = activity_session.activity
-    private def activity_session = @activity_session ||= ActivitySession.includes(:activity, :classroom_unit, :user).find(activity_session_id)
+    private def activity_session = @activity_session ||= ActivitySession.unscoped.includes(:activity, :classroom_unit, :user).find(activity_session_id)
     private def user = activity_session.user
     private def classroom_unit = activity_session.classroom_unit
     private def completed_at = activity_session.completed_at
