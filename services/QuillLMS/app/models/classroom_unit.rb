@@ -151,7 +151,9 @@ class ClassroomUnit < ApplicationRecord
   end
 
   private def assign_student_learning_sequences
-    assigned_student_ids.each do |student_id|
+    old_ids, new_ids = saved_change_to_assigned_student_ids
+    newly_assigned = new_ids - old_ids
+    newly_assigned.each do |student_id|
       StudentLearningSequences::HandleAssignmentWorker.perform_async(id, student_id)
     end
   end

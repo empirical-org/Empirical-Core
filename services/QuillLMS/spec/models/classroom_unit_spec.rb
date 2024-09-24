@@ -211,15 +211,25 @@ describe ClassroomUnit, type: :model, redis: true do
     end
 
     context 'assigned_student_ids changes' do
-      let(:new_assigned_student_ids) { create_list(:student, 2).pluck(:id) }
+      let(:new_assigned_student_ids) { create_list(:student, 2, classrooms: [classroom]).pluck(:id) }
       let(:call_count) { new_assigned_student_ids.length }
 
       # ClassroomUnit has validation on it that prevents students from being assigned if they don't have ClassroomsStudents records for the classroom
-      before { new_assigned_student_ids.map { |student_id| create(:students_classrooms, classroom:, student_id:) } }
+      #before { new_assigned_student_ids.map { |student_id| create(:students_classrooms, classroom:, student_id:) } }
 
       it do
         expect(StudentLearningSequences::HandleAssignmentWorker).to receive(:perform_async).exactly(call_count).times
         subject
+      end
+
+      context 'add one new student to assignment' do
+        let(:new_student) { create(:student) }
+        let(:new_assigned_student_ids) { [student.id, new_student.id] }
+
+        it do
+          expect(StudentLearningSequences::HandleAssignmentWorker).to receive(:perform_async).with(classroom_unit.id, new_student.id).once
+          subject
+        end
       end
     end
   end
