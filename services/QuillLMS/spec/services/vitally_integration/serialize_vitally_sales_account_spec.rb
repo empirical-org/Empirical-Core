@@ -220,7 +220,7 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
     let!(:old_classroom_unit) { create(:classroom_unit, classroom: classroom) }
     let!(:classroom_teachers) do
       [
-        create(:classrooms_teacher, user: teacher, classroom: classroom),
+        create(:classrooms_teacher, user: teacher, classroom: classroom, role: 'owner'),
         create(:classrooms_teacher, user: teacher2, classroom: classroom, role: 'coteacher')
       ]
     end
@@ -275,6 +275,25 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
       end
 
       it { expect(results[:traits][:active_students]).to eq(2) }
+    end
+
+    context 'when teachers are merely coteachers and not owners of the classroom' do
+
+      it 'does not double count activities finished and active students' do
+        classroom_teachers[0].update(role: 'coteacher')
+        classroom_teachers[1].update(role: 'coteacher')
+
+        expect(results[:traits]).to include(
+          active_students: 0,
+          active_students_this_year: 0,
+          total_students: 0,
+          total_students_this_year: 0,
+          activities_finished: 0,
+          activities_finished_this_year: 0,
+          activities_per_student: 0,
+          activities_per_student_this_year: 0
+        )
+      end
     end
   end
 

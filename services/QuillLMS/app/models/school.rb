@@ -190,7 +190,7 @@ class School < ApplicationRecord
   end
 
   def students
-    User.joins(student_in_classroom: { teachers: :school }).where(schools: { id: id }).distinct
+    User.joins(student_in_classroom: { teachers: :school }).where(schools: { id: id }).where(classrooms_teachers: {role: ClassroomsTeacher::ROLE_TYPES[:owner]}).distinct
   end
 
   def detach_from_existing_district_admins(district)
