@@ -45,7 +45,7 @@ namespace :student_learning_sequence do
 
   module StudentLearningSequenceBackfill
     def activities = Activity.where(id: [pre_diagnostic_activity_ids] + [post_diagnostic_activity_ids] + [recommendation_activity_ids])
-    def classroom_units = ClassroomUnit.joins(unit: :activities).select(:id)
+    def classroom_units = ClassroomUnit.joins(unit: :activities).select(:id, :assigned_student_ids)
     def pre_diagnostics = Activity.where.not(follow_up_activity_id: nil)
     def pre_diagnostic_activity_ids = pre_diagnostics.pluck(:id)
     def post_diagnostic_activity_ids = pre_diagnostics.pluck(:follow_up_activity_id)

@@ -2,11 +2,12 @@
 
 module StudentLearningSequences
   class HandleAssignment < ApplicationService
-    attr_reader :classroom_unit_id, :student_id
+    attr_reader :backfill, :classroom_unit_id, :student_id
 
-    def initialize(classroom_unit_id, student_id)
+    def initialize(classroom_unit_id, student_id, backfill = false)
       @classroom_unit_id = classroom_unit_id
       @student_id = student_id
+      @backfill = backfill
     end
 
     def run
@@ -19,7 +20,9 @@ module StudentLearningSequences
       activities.map do |activity|
         StudentLearningSequenceActivity.find_or_create_by(activity:,
           classroom_unit:,
-          student_learning_sequence:)
+          student_learning_sequence:,
+          created_at: creation_timestamp,
+          updated_at: creation_timestamp)
       end
     end
 
@@ -30,6 +33,10 @@ module StudentLearningSequences
     private def pre_diagnostic = @pre_diagnostic ||= activities.find { |a| !a.follow_up_activity_id.nil? }
     private def student = @student ||= User.find(student_id)
     private def user_id = student_id
+
+    private def creation_timestamp
+      @creation_timestamp ||= backfill ? classroom_unit.updated_at : DateTime.current
+    end
 
     private def student_learning_sequence
       @student_learning_sequence ||= fetch_student_learning_sequence ||
@@ -59,7 +66,9 @@ module StudentLearningSequences
       StudentLearningSequence.create(
         initial_activity: pre_diagnostic,
         initial_classroom_unit_id: classroom_unit_id,
-        user_id:
+        user_id:,
+        created_at: creation_timestamp,
+        updated_at: creation_timestamp
       )
     end
   end
