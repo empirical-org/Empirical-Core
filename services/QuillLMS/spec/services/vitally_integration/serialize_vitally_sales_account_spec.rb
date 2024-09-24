@@ -278,7 +278,6 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
     end
 
     context 'when teachers are merely coteachers and not owners of the classroom' do
-
       it 'does not double count activities finished and active students' do
         classroom_teachers[0].update(role: 'coteacher')
         classroom_teachers[1].update(role: 'coteacher')
