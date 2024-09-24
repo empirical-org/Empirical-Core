@@ -15,7 +15,8 @@
 #
 # Indexes
 #
-#  idx_on_student_learning_sequence_id_classroom_unit__84e420e79d  (student_learning_sequence_id,classroom_unit_id,activity_id) UNIQUE
+#  idx_on_classroom_unit_id_activity_id_e74613431d  (classroom_unit_id,activity_id)
+#  idx_on_student_learning_sequence_id_63827699e9   (student_learning_sequence_id)
 #
 require 'rails_helper'
 
