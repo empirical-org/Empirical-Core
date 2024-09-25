@@ -406,9 +406,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
       end
 
       context 'excludes classrooms where teacher is coteacher' do
-        before do
-          classroom_teacher1.update(role: 'coteacher')
-        end
+        let!(:classroom_teacher1) { create(:classrooms_teacher, user: teacher1, classroom: classroom1, role: 'coteacher') }
 
         it 'activities completed all time' do
           expect(described_class.new(district).data[:traits][:activities_completed_all_time]).to eq(0)

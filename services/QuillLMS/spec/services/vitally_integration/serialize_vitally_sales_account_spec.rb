@@ -278,10 +278,9 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
     end
 
     context 'when teachers are merely coteachers and not owners of the classroom' do
-      it 'does not double count activities finished and active students' do
-        classroom_teachers[0].update(role: 'coteacher')
-        classroom_teachers[1].update(role: 'coteacher')
+      let!(:classroom_teachers) { create_list(:classrooms_teacher, 2, classroom:, role: 'coteacher') }
 
+      it 'does not double count activities finished and active students' do
         expect(results[:traits]).to include(
           active_students: 0,
           active_students_this_year: 0,
