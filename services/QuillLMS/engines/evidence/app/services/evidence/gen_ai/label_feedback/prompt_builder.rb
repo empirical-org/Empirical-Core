@@ -23,15 +23,14 @@ module Evidence
         private def rag_label_examples = markdown_table_rows(rag_example_data)
 
         private def rag_example_data
-          Evidence::PromptResponse
-            .closest_prompt_texts(prompt.id, entry, RAG_EXAMPLE_LIMIT)
+          Evidence::PromptResponse.closest_prompt_texts(prompt.id, entry, RAG_EXAMPLE_LIMIT)
         end
 
         private def label_example_data
           DataFetcher.run('train.csv')
             .sample(EXAMPLES_LIMIT, random: Random.new(1))
             .sort_by(&:entry)
-            .map {|data| [data.entry, data.label]}
+            .map { |data| [data.entry, data.label] }
         end
       end
     end

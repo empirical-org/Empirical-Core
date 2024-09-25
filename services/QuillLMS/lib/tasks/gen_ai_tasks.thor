@@ -2,6 +2,8 @@
 
 require_relative '../../config/environment'
 
+require 'neighbor'
+
 class GenAITasks < Thor
   # bundle exec thor gen_a_i_tasks:optimal_test 'because' 2
   desc "sample_test 'because' 2", 'Run to see if examplar optimals are labeled optimal by the prompt'
@@ -447,23 +449,54 @@ class GenAITasks < Thor
     end
   end
 
-  # bundle exec thor gen_a_i_tasks:generate_labeled_data_files
+  # bundle exec thor gen_a_i_tasks:generate_labeled_data_files 673
   desc 'generate_labeled_data_files', 'Create a csv for example data.'
-  def generate_labeled_data_files
-    csv_data = CSV.read("#{labeled_folder}coral_reefs_because_all.csv", headers: true)
+  def generate_labeled_data_files(prompt_id)
+    csv_data = CSV.read("#{labeled_folder}#{prompt_id}/all.csv", headers: true)
 
-    label_transform = proc {|label| label.starts_with?("Optimal") ? "Optimal" : label}
+    label_transform = proc { |label| label.starts_with?('Optimal') ? 'Optimal' : label }
 
-    create_label_file(csv_data, 'prompt', 'train', label_transform)
-    create_label_file(csv_data, 'test', 'test', label_transform)
+    create_label_file(csv_data, prompt_id, 'prompt', 'train', label_transform)
+    create_label_file(csv_data, prompt_id, 'test', 'test', label_transform)
   end
 
   LabelResult = Data.define(:entry, :label, :llm_label, :matches)
 
+  # bundle exec thor gen_a_i_tasks:transform 'input.csv' 673
+  desc 'transform input_file prompt_id', 'Transform the automl output to a format that can be used for testing'
+  def boom(input_file, prompt_id, part = 'part1', limit = nil, temperature = 0)
+    if part == 'part1'
+      transform_automl_to_all(input_file, prompt_id)
+      generate_labeled_data_files(prompt_id)
+      store_labeled_embeddings(prompt_id)
+    elsif part == 'part2'
+      rag_label_feedback_test("testing #{input_file}", prompt_id, limit, temperature)
+    end
+  end
+
+  desc 'transform_automl_to_all input_file prompt_id', 'Transform the automl output to a format that can be used for testing'
+  def transform_automl_to_all(input_file, prompt_id)
+    input_data = CSV.read(input_file, headers: false)
+    output_file = "#{labeled_folder}#{prompt_id}/all.csv"
+    output_dir = File.dirname(output_file)
+    FileUtils.mkdir_p(output_dir) unless File.directory?(output_dir)
+
+    CSV.open(output_file, 'w') do |csv|
+      csv << ['entry', 'label', 'type']
+
+      input_data.each_with_index do |row, index|
+        next if row[1].blank? || row[2].blank?
+
+        type = index % 5 == 4 ? 'test' : 'prompt'
+
+        csv << [row[1], row[2], type]
+      end
+    end
+  end
+
   # bundle exec thor gen_a_i_tasks:label_feedback_test 'initial test' 2
   desc 'label_feedback_test description limit', 'Test a number or entries from the test.csv file'
   def label_feedback_test(description, limit = 150, temperature = 0)
-
     test_data = Evidence::GenAI::LabelFeedback::DataFetcher.run('test.csv')
       .sample(limit.to_i, random: Random.new(1))
 
@@ -493,72 +526,24 @@ class GenAITasks < Thor
       results.each { |data| csv << data.deconstruct }
     end
 
-    correct_count = results.count{ |result| result.matches }
+    correct_count = results.count { |result| result.matches }
 
     puts "Correct: #{correct_count} / #{results.size}: #{correct_count / results.size.to_f}"
   end
 
   # bundle exec thor gen_a_i_tasks:rag_label_feedback_test 'initial test' 2
   desc 'rag_label_feedback_test description limit', 'Test a number or entries from the test.csv file'
-  def rag_label_feedback_test(description, limit = 150, temperature = 0)
-    require 'neighbor'
-    test_data = Evidence::GenAI::LabelFeedback::DataFetcher.run('test.csv')
-      .sample(limit.to_i, random: Random.new(1))
-
-    label_api = Evidence::Gemini::Chat
-
-    results = []
-
-    prompt = Evidence::Prompt.find 673
-
-    test_data.each do |data|
-      entry = data.entry
-      label = data.label_transformed
-
-      system_prompt = Evidence::GenAI::LabelFeedback::PromptBuilder.run(prompt:, entry:)
-
-      response = label_api.run(system_prompt:, entry:)
-
-      llm_label = response['label']
-
-      matches = label == llm_label
-      result = LabelResult.new(entry:, label:, llm_label:, matches:)
-
-      puts "#{label} ||| #{llm_label} ||| #{matches}"
-
-      results << result
-    end
-
-    CSV.open(label_output_file(limit), 'wb') do |csv|
-      csv << LabelResult.members.map(&:to_s)
-      results.each { |data| csv << data.deconstruct }
-    end
-
-    correct_count = results.count{ |result| result.matches }
-
-    puts "Correct: #{correct_count} / #{results.size}: #{correct_count / results.size.to_f}"
+  def rag_label_feedback_test(description, prompt_id, limit = nil, temperature = 0)
+    Evidence::Research::GenAI::RagLabelFeedbackBatchWorker.perform_async(description, prompt_id, limit, temperature)
   end
 
   # bundle exec thor gen_a_i_tasks:store_labeled_embeddings
   desc 'store_labeled_embeddings 673', 'populate the DB with embeddings for data'
   def store_labeled_embeddings(prompt_id)
-    train_data = Evidence::GenAI::LabelFeedback::DataFetcher.run
-    placeholder_feedback = 'placeholder feedback'
+    train_data = Evidence::GenAI::LabelFeedback::DataFetcher.run(prompt_id:)
 
     train_data.each.with_index do |label_data, index|
-      puts index
-      response_text = label_data.entry
-
-      next if Evidence::PromptResponse.where(response_text:, prompt_id:).exists?
-
-      prompt_response = Evidence::PromptResponse.new(response_text:, prompt_id:)
-
-      feedback = Evidence::PromptResponseFeedback.create(
-        feedback: placeholder_feedback,
-        label: label_data.label,
-        label_transformed: label_data.label_transformed,
-        prompt_response:,
-      )
+      Evidence::StoreLabeledEmbeddingsWorker.perform_async(prompt_id, label_data.to_h)
     end
   end
 
@@ -597,16 +582,18 @@ class GenAITasks < Thor
 
     LabeledData = Data.define(:entry, :label, :label_transformed)
 
-    private def create_label_file(data, type, name, label_transform)
-      CSV.open("#{labeled_folder}#{name}.csv", 'wb') do |csv|
+    private def create_label_file(data, prompt_id, type, name, label_transform)
+      CSV.open("#{labeled_folder}/#{prompt_id}/#{name}.csv", 'wb') do |csv|
         csv << LabeledData.members.map(&:to_s)
-        labeled_data_from_csv(data, type, label_transform).each { |data| csv << data.deconstruct }
+        labeled_data_from_csv(data, type, label_transform)
+          .shuffle(random: Random.new(1))
+          .each { |row| csv << row.deconstruct }
       end
     end
 
     private def labeled_data_from_csv(data, type, label_transform)
       data
-        .select {|row| row['type'] == type}
+        .select { |row| row['type'] == type }
         .map do |row|
           LabeledData.new(
             entry: row['entry'],
@@ -647,7 +634,9 @@ class GenAITasks < Thor
     end
 
     private def label_output_file(limit)
-      "#{GEN_AI_OUTPUT_FOLDER}label_feedback_#{limit}_#{Time.now.to_i}.csv"
+      dir_path = Rails.root.join('lib/data').to_s
+      FileUtils.mkdir_p(dir_path) unless File.directory?(dir_path)
+      File.join(dir_path, "label_feedback_#{limit}_#{Time.now.to_i}.csv")
     end
 
     def repeated_folder

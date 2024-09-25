@@ -4,6 +4,8 @@ sidekiq_url = ENV['SIDEKIQ_REDIS_URL'] || 'redis://localhost:6379'
 
 Sidekiq.configure_server do |config|
   config.redis = { url: sidekiq_url, namespace: 'sidekiq' }
+  config.logger = Logger.new($stdout)
+  config.logger.level = Logger::INFO
 end
 
 Sidekiq.configure_client do |config|
