@@ -7,7 +7,7 @@ export {checkFillInTheBlankQuestion} from './libs/graders/fill_in_the_blank'
 export {checkGrammarQuestion} from './libs/graders/grammar'
 export {focusPointMatchHelper} from './libs/matchers/focus_point_match'
 export {incorrectSequenceMatchHelper} from './libs/matchers/incorrect_sequence_match'
-import {Response,
+import type { Response,
   PartialResponse,
   ConceptResult,
   FocusPoint,

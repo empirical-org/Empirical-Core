@@ -50,7 +50,6 @@
     "postcss-scss": "^4.0.6",
     "puppeteer": "^19.5.2",
     "react-csv": "^1.1.2",
-    "rollup-plugin-friendly-type-imports": "^1.0.3",
     "sass": "^1.58.3",
     "ws": "^8.17.1"
   },

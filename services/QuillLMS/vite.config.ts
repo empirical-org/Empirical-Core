@@ -3,7 +3,6 @@ import path, { resolve } from 'path';
 
 import { viteCommonjs } from '@originjs/vite-plugin-commonjs';
 import replace from '@rollup/plugin-replace';
-import friendlyTypeImports from 'rollup-plugin-friendly-type-imports';
 import { defineConfig, loadEnv } from 'vite';
 import RubyPlugin from 'vite-plugin-ruby';
 
@@ -54,7 +53,6 @@ export default defineConfig(({command, mode}) => {
         'process.env.QUILL_CMS': JSON.stringify(quillCmsUrl)
       }),
       viteCommonjs(),
-      friendlyTypeImports(),
       RubyPlugin(),
     ],
     esbuild: {
