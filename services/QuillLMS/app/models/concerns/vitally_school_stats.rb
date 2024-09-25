@@ -14,7 +14,9 @@ module VitallySchoolStats
       .joins('JOIN classrooms_teachers ON classrooms_teachers.classroom_id=classrooms.id')
       .joins('JOIN schools_users ON schools_users.user_id = classrooms_teachers.user_id')
       .joins('JOIN schools ON schools_users.school_id=schools.id')
-      .where(state: 'finished').where('schools.id = ?', school.id)
+      .where(state: 'finished')
+      .where('classrooms_teachers.role = ?', ClassroomsTeacher::ROLE_TYPES[:owner])
+      .where('schools.id = ?', school.id)
   end
 
   private def activities_finished_query
@@ -22,12 +24,14 @@ module VitallySchoolStats
       .joins(classroom_unit: { classroom_unscoped: { classrooms_teachers: { user: :schools_users } } })
       .joins(:activity)
       .where(state: 'finished')
+      .where('classrooms_teachers.role = ?', ClassroomsTeacher::ROLE_TYPES[:owner])
       .where('schools_users.school_id = ?', school.id)
   end
 
   def activities_assigned_query
     @activities_assigned ||= ClassroomUnit.joins(classroom_unscoped: { teachers: :school }, unit: :activities)
       .where('schools.id = ?', school.id)
+      .where('classrooms_teachers.role = ?', ClassroomsTeacher::ROLE_TYPES[:owner])
       .select('assigned_student_ids', 'activities.id', 'unit_activities.created_at')
   end
 end
