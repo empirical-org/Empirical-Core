@@ -831,6 +831,19 @@ nav.q-navbar-home {
   }
 }
 
+.primary-tab-active {
+  .active {
+    span {
+      text-decoration: underline;
+    }
+  }
+  .navbar-tooltip-trigger:not(.active) {
+    span {
+      color: $quill-grey-35;
+    }
+  }
+}
+
 .navbar-tooltip-trigger {
   cursor: pointer;
   position: relative;

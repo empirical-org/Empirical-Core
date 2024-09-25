@@ -3,6 +3,7 @@
 <% logo_src = on_home_page ? "https://assets.quill.org/images/logos/quill-logo-white-2022.svg" : "https://assets.quill.org/images/logos/quill-logo-green.svg" %>
 <% home_page_class = on_home_page ? 'on-home-page' : '' %>
 <% active_tab = determine_active_tab(current_path) %>
+<% active_primary_tab = determine_active_primary_tab(current_path) %>
 
 <nav class="q-navbar-home">
   <% if on_sign_up_or_log_in? %>
@@ -22,24 +23,24 @@
 		<% if current_user&.student? && !current_path.include?('tools') %>
 			<%= react_component('StudentNavbarItems', props: { name: current_user.name }) %>
 		<% else %>
-  		<div class='home-nav-right wide' >
+  		<div class="home-nav-right wide <%= active_primary_tab ? 'primary-tab-active' : '' %>" >
 	  		<% if !current_user %>
-          <%= render 'navbar/schools_and_districts', active_tab: active_tab  %>
-	  	    <%= render 'navbar/learning_tools', active_tab: active_tab %>
-	  	    <%= render 'navbar/explore_curriculum', active_tab: active_tab %>
-	  	    <%= render 'navbar/teacher_center', active_tab: active_tab %>
-	  	    <%= render 'navbar/our_story', active_tab: active_tab %>
+          <%= render 'navbar/schools_and_districts', active_tab: active_primary_tab  %>
+	  	    <%= render 'navbar/learning_tools', active_tab: active_primary_tab %>
+	  	    <%= render 'navbar/explore_curriculum', active_tab: active_primary_tab %>
+	  	    <%= render 'navbar/teacher_center', active_tab: active_primary_tab %>
+	  	    <%= render 'navbar/our_story', active_tab: active_primary_tab %>
 	  		<% elsif current_user.role != 'student' %>
-          <%= render 'navbar/schools_and_districts', active_tab: active_tab  %>
-	  			<%= render 'navbar/learning_tools', active_tab: active_tab  %>
-	  			<%= render 'navbar/teacher_center', active_tab: active_tab  %>
-	  			<%= render 'navbar/quill_support', active_tab: active_tab  %>
+          <%= render 'navbar/schools_and_districts', active_tab: active_primary_tab  %>
+	  			<%= render 'navbar/learning_tools', active_tab: active_primary_tab  %>
+	  			<%= render 'navbar/teacher_center', active_tab: active_primary_tab  %>
+	  			<%= render 'navbar/quill_support', active_tab: active_primary_tab  %>
 	   		<% end %>
   		<%- if current_user.nil? %>
 				<a class="<%= home_page_class %> text-white nav-element" href="/session/new">Log In</a>
 				<a class="<%= home_page_class %> text-white nav-element sign-up-button" href="/account/new">Sign Up</a>
   		<%- elsif current_user.teacher? %>
-        <% if ['assign', 'teachers', 'quill_academy'].any? { |path_fragment| current_path.include?(path_fragment) } %>
+        <% if on_teacher_dashboard? %>
           <%= render 'navbar/user_dropdown_button' %>
         <% else %>
           <a class="return-to-dashboard-button focus-on-light" href="/"><img alt="" src="https://assets.quill.org/images/icons/xs/return-arrow.svg">Return to Dashboard</a>

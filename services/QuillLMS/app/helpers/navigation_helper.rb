@@ -72,7 +72,7 @@ module NavigationHelper
   STUDENT_TABS = [SCHOOLS_AND_DISTRICTS_TAB, LEARNING_TOOLS_TAB, STUDENT_CENTER_TAB, QUILL_SUPPORT_TAB, LOGOUT_TAB]
 
   ACTIVE_TAB_PATHS = {
-    SCHOOLS_AND_DISTRICTS => ['admins', 'premium'],
+    SCHOOLS_AND_DISTRICTS => ['admins', /premium$/],
     LEARNING_TOOLS => ['tools'],
     ABOUT_US => ['about', 'announcements', 'mission', 'impact', 'press', 'team', 'pathways', 'careers', 'contact'],
     EXPLORE_CURRICULUM => ['activities/', 'ap', 'preap', 'springboard'],
@@ -258,6 +258,10 @@ module NavigationHelper
     current_uri&.match(%r{assign/.*}) != nil
   end
 
+  def on_teacher_dashboard?
+    ['assign', 'teachers', 'quill_academy'].any? { |path_fragment| request.env['PATH_INFO'].include?(path_fragment) }
+  end
+
   def playing_activity?
     activity_actions = [
       ApplicationController::EVIDENCE,
@@ -289,11 +293,20 @@ module NavigationHelper
   end
 
   def determine_active_tab(current_path)
-    ACTIVE_TAB_PATHS.each do |tab, paths|
-      return tab if paths.any? { |path| current_path.include?(path) }
-    end
+    determine_active_primary_tab(current_path)
 
     determine_dashboard_active_tab(current_path)
+  end
+
+  def determine_active_primary_tab(current_path)
+    ACTIVE_TAB_PATHS.each do |tab, paths|
+      puts 'current_path', current_path
+      puts 'tab', tab
+      puts 'paths', paths
+      return tab if paths.any? { |path_fragment| current_path.match?(path_fragment) }
+    end
+
+    nil
   end
 
   def determine_active_subtab(current_path)
