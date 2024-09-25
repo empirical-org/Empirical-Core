@@ -150,6 +150,11 @@ RSpec.describe Cron, type: :model do
       Cron.interval_1_day
     end
 
+    it do
+      expect(VitallyIntegration::UnignoreActiveOrganizationsWorker).to receive(:perform_async)
+      Cron.interval_1_day
+    end
+
     it 'enqueues TeacherNotifications::EnqueueUsersForRollupEmailWorker' do
       # Don't actually call run_friday because we don't want to trigger the
       # WEEKLY rollup logic
