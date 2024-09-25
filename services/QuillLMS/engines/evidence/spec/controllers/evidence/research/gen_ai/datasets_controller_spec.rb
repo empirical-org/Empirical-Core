@@ -30,7 +30,7 @@ module Evidence
           end
 
           context 'with file upload' do
-            let(:file) { fixture_file_upload('test.csv', 'text/csv') }
+            let(:file) { fixture_file_upload('evidence/research/gen_ai/dataset.csv', 'text/csv') }
             let(:attributes) { { research_gen_ai_dataset: { file: } } }
 
             it { expect { subject }.to change(Evidence::Research::GenAI::Dataset, :count).by(1) }

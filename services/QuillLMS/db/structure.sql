@@ -3323,7 +3323,8 @@ CREATE TABLE public.evidence_research_gen_ai_llm_prompt_templates (
     contents text NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    notes text
+    notes text,
+    "order" integer NOT NULL
 );
 
 
@@ -9314,6 +9315,27 @@ CREATE UNIQUE INDEX feedback_history_ratings_uniqueness ON public.feedback_histo
 
 
 --
+-- Name: idx_on_classroom_unit_id_activity_id_e74613431d; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_on_classroom_unit_id_activity_id_e74613431d ON public.student_learning_sequence_activities USING btree (classroom_unit_id, activity_id);
+
+
+--
+-- Name: idx_on_student_learning_sequence_id_63827699e9; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_on_student_learning_sequence_id_63827699e9 ON public.student_learning_sequence_activities USING btree (student_learning_sequence_id);
+
+
+--
+-- Name: idx_on_user_id_initial_activity_id_initial_classroo_868ab8c89e; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_on_user_id_initial_activity_id_initial_classroo_868ab8c89e ON public.student_learning_sequences USING btree (user_id, initial_activity_id, initial_classroom_unit_id);
+
+
+--
 -- Name: index_act_category_acts_on_act_id_and_act_cat_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -11737,6 +11759,9 @@ ALTER TABLE ONLY public.learn_worlds_account_course_events
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240924151321'),
+('20240924151311'),
+('20240918144926'),
 ('20240830183429'),
 ('20240830183419'),
 ('20240828221440'),

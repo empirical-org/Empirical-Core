@@ -153,10 +153,10 @@ function translatedCMSResponseFeedback(latestAttempt, question) {
 
 function translatedIncorrectContinueFeedback(translate, latestAttempt, correctResponse) {
   const firstPhrase = translate('feedback^Good try!')
-  const secondPhrase = translate('feedback^Compare your response to the strong response, and then go on to the next question')
+  const secondPhrase = translate('feedback^Compare your response to the strong response, and then go on to the next question.')
   const thirdPhrase = translate('feedback^Your response:')
   const fourthPhrase = translate('feedback^A strong response:')
-  return `<b>${firstPhrase}</b>${secondPhrase}<br><br><b>${thirdPhrase}</b><br>${latestAttempt}<br><br><b>${fourthPhrase}</b><br>${correctResponse}`
+  return ReactHtmlParser(`<p class="incorrect-continue"><b>${firstPhrase}</b>${secondPhrase}<br><br><b>${thirdPhrase}</b><br>${latestAttempt}<br><br><b>${fourthPhrase}</b><br>${correctResponse}</p>`)
 }
 
 function translatedReviseMatchedFeedback(question, latestAttempt, translate) {
@@ -189,6 +189,9 @@ function translatedReviseMatchedFeedback(question, latestAttempt, translate) {
     if(C.ERROR_AUTHORS.includes(author)) {
       return translate(`feedback^${feedback}`)
     }
+  }
+  if(response) {
+    return <p>{translatedCMSResponseFeedback(latestAttempt, question)}</p>
   }
 }
 
@@ -251,7 +254,12 @@ const Feedback = ({
     }
   }
 
-  const translatedFeedback = getTranslatedFeedback(showTranslation, question, feedbackType)
+  function renderFeedbackElement() {
+    const translatedFeedback = getTranslatedFeedback(showTranslation, question, feedbackType)
+    if(!translatedFeedback) { return }
+    return <div className="translated-feedback">{translatedFeedback}</div>
+  }
+
 
   return(
     <div aria-live="assertive" className={getCSSClasses(feedbackType)} role="status">
@@ -259,7 +267,7 @@ const Feedback = ({
         <img alt={getIconAlt(feedbackType)} className={getIconClassName(feedbackType)} src={getFeedbackIcon(feedbackType)} />
         <div>
           {feedback}
-          {!!translatedFeedback && <div className="translated-feedback">{translatedFeedback}</div>}
+          {renderFeedbackElement()}
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@ export interface QuestionsReducerState {
   data?: Questions
   error?: string;
   states: { [key: string]: string };
-  newConceptModalOpen: Boolean;
+  newConceptModalOpen: Boolean
 }
 
 type QuestionReducerAction = Action & { data: Questions, qid: string, rid: string }

@@ -7,6 +7,7 @@ module VitallySharedFunctions
 
   PRE_DIAGNOSTIC_IDS = Activity.where(activity_classification_id: ActivityClassification.diagnostic&.id).where.not(follow_up_activity: nil).pluck(:id)
   POST_DIAGNOSTIC_IDS = Activity.where(id: PRE_DIAGNOSTIC_IDS).pluck(:follow_up_activity_id)
+  LIVE_POST_DIAGNOSTIC_IDS = Activity.where(id: Activity::PRE_TEST_DIAGNOSTIC_IDS).pluck(:follow_up_activity_id)
 
   def activities_per_student(active_students, activities_finished)
     return 0 unless active_students.nonzero?
@@ -28,8 +29,16 @@ module VitallySharedFunctions
     activities.select { |r| diagnostic_ids.include?(r.id) }
   end
 
+  def filter_live_pre_diagnostic(activities)
+    activities.select { |r| Activity::PRE_TEST_DIAGNOSTIC_IDS.include?(r.id) }
+  end
+
   def filter_pre_diagnostic(activities)
     activities.select { |r| PRE_DIAGNOSTIC_IDS.include?(r.id) }
+  end
+
+  def filter_live_post_diagnostic(activities)
+    activities.select { |r| LIVE_POST_DIAGNOSTIC_IDS.include?(r.id) }
   end
 
   def filter_post_diagnostic(activities)
@@ -48,16 +57,32 @@ module VitallySharedFunctions
     sum_students(filter_pre_diagnostic(in_school_year(activities_assigned_query, school_year_start, school_year_end)))
   end
 
+  def live_pre_diagnostics_assigned_in_year_count
+    sum_students(filter_live_pre_diagnostic(in_school_year(activities_assigned_query, school_year_start, school_year_end)))
+  end
+
   def post_diagnostics_assigned_in_year_count
     sum_students(filter_post_diagnostic(in_school_year(activities_assigned_query, school_year_start, school_year_end)))
+  end
+
+  def live_post_diagnostics_assigned_in_year_count
+    sum_students(filter_live_post_diagnostic(in_school_year(activities_assigned_query, school_year_start, school_year_end)))
   end
 
   def pre_diagnostics_completed_in_year_count
     pre_diagnostics_completed.where('activity_sessions.completed_at >=? AND activity_sessions.completed_at < ?', school_year_start, school_year_end).count
   end
 
+  def live_pre_diagnostics_completed_in_year_count
+    live_pre_diagnostics_completed.where('activity_sessions.completed_at >=? AND activity_sessions.completed_at < ?', school_year_start, school_year_end).count
+  end
+
   def post_diagnostics_completed_in_year_count
     post_diagnostics_completed.where('activity_sessions.completed_at >=? AND activity_sessions.completed_at < ?', school_year_start, school_year_end).count
+  end
+
+  def live_post_diagnostics_completed_in_year_count
+    live_post_diagnostics_completed.where('activity_sessions.completed_at >=? AND activity_sessions.completed_at < ?', school_year_start, school_year_end).count
   end
 
   def pre_diagnostics_assigned_count
@@ -76,8 +101,16 @@ module VitallySharedFunctions
     activities_finished_query.where(activity: { id: PRE_DIAGNOSTIC_IDS })
   end
 
+  def live_pre_diagnostics_completed
+    activities_finished_query.where(activity: { id: Activity::PRE_TEST_DIAGNOSTIC_IDS })
+  end
+
   def post_diagnostics_completed
     activities_finished_query.where(activity: { id: POST_DIAGNOSTIC_IDS })
+  end
+
+  def live_post_diagnostics_completed
+    activities_finished_query.where(activity: { id: LIVE_POST_DIAGNOSTIC_IDS })
   end
 
   private def evidence_assigned_count

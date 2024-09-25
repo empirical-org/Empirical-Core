@@ -13,6 +13,11 @@
 #  classroom_unit_id            :integer          not null
 #  student_learning_sequence_id :integer          not null
 #
+# Indexes
+#
+#  idx_on_classroom_unit_id_activity_id_e74613431d  (classroom_unit_id,activity_id)
+#  idx_on_student_learning_sequence_id_63827699e9   (student_learning_sequence_id)
+#
 class StudentLearningSequenceActivity < ApplicationRecord
   belongs_to :activity
   belongs_to :classroom_unit

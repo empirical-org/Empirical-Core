@@ -11,7 +11,9 @@ import TurkCodePage from './turkCodePage';
 
 import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
+  ALPHA_TRANSLATED_ACTIVITY_UIDS,
   CLICK,
+  ENGLISH,
   KEYDOWN,
   KEYPRESS,
   LanguageSelectionPage,
@@ -19,11 +21,10 @@ import {
   MOUSEMOVE,
   SCROLL,
   VISIBILITYCHANGE,
-  hasTranslationFlag,
   roundValuesToSeconds,
 } from '../../../Shared/index';
 import { startListeningToConcepts } from '../../actions/concepts';
-import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback';
+import { startListeningToConceptsFeedback, loadTranslatedConceptsFeedback } from '../../actions/conceptsFeedback';
 import { getActivity } from "../../actions/grammarActivities";
 import { startListeningToQuestions } from '../../actions/questions';
 import {
@@ -31,6 +32,7 @@ import {
   getQuestions,
   getQuestionsForConcepts,
   goToNextQuestion,
+  loadTranslatedQuestions,
   startListeningToFollowUpQuestionsForProofreaderSession,
   startNewSession,
   updateSession,
@@ -42,7 +44,6 @@ import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer';
 import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer';
 import { SessionState } from '../../reducers/sessionReducer';
 import LoadingSpinner from '../shared/loading_spinner';
-import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces';
 
 interface PlayGrammarContainerState {
   showTurkCode: boolean;
@@ -70,7 +71,7 @@ interface PlayGrammarContainerProps {
   updateLanguage: () => void;
   availableLanguages: string[];
   language?: string;
-  t: (language: string) => string;
+  translate: (language: string) => string;
 }
 
 export class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, PlayGrammarContainerState> {
@@ -119,7 +120,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
 
   componentDidUpdate(prevProps) {
     const { timeTracking, introSkipped, saved, saving, } = this.state
-    const { previewMode, questions, questionToPreview, grammarActivities, session, skippedToQuestionFromIntro, dispatch, handleToggleQuestion, } = this.props;
+    const { previewMode, questions, questionToPreview, grammarActivities, session, skippedToQuestionFromIntro, dispatch, handleToggleQuestion, language } = this.props;
     const { hasreceiveddata } = grammarActivities
 
     if (saved || saving) { return }
@@ -169,7 +170,10 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     if(previewMode && !introSkipped && skippedToQuestionFromIntro) {
       this.setState({ introSkipped: true });
     }
-
+    if (hasreceiveddata && grammarActivities.currentActivity && session.hasreceiveddata && !session.pending && !session.error && language && language !== ENGLISH && !session.translated_questions) {
+      dispatch(loadTranslatedQuestions(activityUID, language))
+      dispatch(loadTranslatedConceptsFeedback(language))
+    }
   }
 
   componentWillUnmount() {
@@ -335,10 +339,28 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       dispatch(goToNextQuestion())
     }
 
+    getCurrentQuestion = (showTranslation) => {
+      const { session } = this.props
+      if(!session?.currentQuestion) { return null }
+      const { currentQuestion, translated_questions } = session
+      const { key, uid } = currentQuestion
+      let translation
+      const keyOrUid = key || uid
+      if (showTranslation && translated_questions && keyOrUid) {
+        translation = translated_questions[keyOrUid]
+      }
+      if (translation) {
+        return { ...currentQuestion, translation }
+      }
+      return currentQuestion;
+    }
+
     render(): JSX.Element {
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
       const { showTurkCode, saving, } = this.state
       const { dispatch, grammarActivities, session, concepts, conceptsFeedback, previewMode, questions, handleToggleQuestion, isOnMobile, handleTogglePreviewMenu, availableLanguages, updateLanguage, language, translate } = this.props
+      const showTranslation = language && availableLanguages?.includes(language) && language !== ENGLISH
+      const activityUID = getParameterByName('uid', window.location.href)
       if (showTurkCode) {
         return <TurkCodePage />
       }
@@ -354,7 +376,6 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
               checkAnswer={this.checkAnswer}
               concepts={concepts}
               conceptsFeedback={conceptsFeedback}
-              currentQuestion={session.currentQuestion}
               dispatch={dispatch}
               goToNextQuestion={this.goToNextQuestion}
               handleTogglePreviewMenu={handleTogglePreviewMenu}
@@ -362,16 +383,19 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
               isOnMobile={isOnMobile}
               language={language}
               previewMode={previewMode}
+              question={this.getCurrentQuestion(showTranslation)}
               questions={questions}
               questionSet={session.questionSet}
+              showTranslation={showTranslation}
               translate={translate}
+              translatedQuestions={session?.translated_questions}
               unansweredQuestions={session.unansweredQuestions}
             />
           )
         }
         if (saving || (!grammarActivities && !proofreaderSessionId)) { return <LoadingSpinner /> }
 
-        if (availableLanguages && hasTranslationFlag() && !language) {
+        if (availableLanguages && !language && !ALPHA_TRANSLATED_ACTIVITY_UIDS.includes(activityUID)) {
           return (
             <LanguageSelectionPage
               dispatch={dispatch}

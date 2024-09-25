@@ -5,9 +5,9 @@ module Evidence
     module GenAI
       class LLMPromptTemplatesController < ApplicationController
         NEW_PERMITTED_PARAMS = %i[contents name notes]
-        EDIT_PERMITTED_PARAMS = %i[notes]
+        EDIT_PERMITTED_PARAMS = %i[notes order]
 
-        def index = @llm_prompt_templates = LLMPromptTemplate.all.order(id: :desc)
+        def index = @llm_prompt_templates = LLMPromptTemplate.order(:order)
 
         def new
           @llm_prompt_template = LLMPromptTemplate.new
@@ -33,7 +33,7 @@ module Evidence
 
         def update
           if llm_prompt_template.update(llm_prompt_template_params(EDIT_PERMITTED_PARAMS))
-            redirect_to llm_prompt_template
+            redirect_to research_gen_ai_llm_prompt_templates_path
           else
             render :edit
           end

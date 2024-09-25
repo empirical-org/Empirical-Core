@@ -11,6 +11,10 @@
 #  initial_classroom_unit_id :integer          not null
 #  user_id                   :integer          not null
 #
+# Indexes
+#
+#  idx_on_user_id_initial_activity_id_initial_classroo_868ab8c89e  (user_id,initial_activity_id,initial_classroom_unit_id)
+#
 class StudentLearningSequence < ApplicationRecord
   belongs_to :initial_activity, class_name: 'Activity'
   belongs_to :initial_classroom_unit, class_name: 'ClassroomUnit'

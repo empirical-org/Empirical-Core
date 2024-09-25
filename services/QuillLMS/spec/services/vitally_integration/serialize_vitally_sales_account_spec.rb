@@ -20,7 +20,7 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
   end
   let(:subscription) { create(:subscription, account_type: Subscription::SCHOOL_PAID) }
   let!(:post_diagnostic_activity) { create(:diagnostic_activity) }
-  let!(:pre_diagnostic_activity) { create(:diagnostic_activity, follow_up_activity_id: post_diagnostic_activity.id) }
+  let!(:pre_diagnostic_activity) { create(:diagnostic_activity, id: Activity::PRE_TEST_DIAGNOSTIC_IDS[0], follow_up_activity_id: post_diagnostic_activity.id) }
 
   before do
     create(:evidence)
@@ -40,7 +40,9 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
     year = School.school_year_start(1.year.ago).year
     VitallyIntegration::CacheVitallySchoolData.set(school.id, year, previous_year_data.to_json)
     stub_const('VitallySharedFunctions::PRE_DIAGNOSTIC_IDS', [pre_diagnostic_activity.id])
+    stub_const('Activity::PRE_TEST_DIAGNOSTIC_IDS', [pre_diagnostic_activity.id])
     stub_const('VitallySharedFunctions::POST_DIAGNOSTIC_IDS', [post_diagnostic_activity.id])
+    stub_const('VitallySharedFunctions::LIVE_POST_DIAGNOSTIC_IDS', [post_diagnostic_activity.id])
     create(:activity_classification, key: ActivityClassification::DIAGNOSTIC_KEY)
   end
 
@@ -218,7 +220,7 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
     let!(:old_classroom_unit) { create(:classroom_unit, classroom: classroom) }
     let!(:classroom_teachers) do
       [
-        create(:classrooms_teacher, user: teacher, classroom: classroom),
+        create(:classrooms_teacher, user: teacher, classroom: classroom, role: 'owner'),
         create(:classrooms_teacher, user: teacher2, classroom: classroom, role: 'coteacher')
       ]
     end
@@ -273,6 +275,23 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
       end
 
       it { expect(results[:traits][:active_students]).to eq(2) }
+    end
+
+    context 'when teachers are merely coteachers and not owners of the classroom' do
+      let!(:classroom_teachers) { create_list(:classrooms_teacher, 2, classroom:, role: 'coteacher') }
+
+      it 'does not double count activities finished and active students' do
+        expect(results[:traits]).to include(
+          active_students: 0,
+          active_students_this_year: 0,
+          total_students: 0,
+          total_students_this_year: 0,
+          activities_finished: 0,
+          activities_finished_this_year: 0,
+          activities_per_student: 0,
+          activities_per_student_this_year: 0
+        )
+      end
     end
   end
 

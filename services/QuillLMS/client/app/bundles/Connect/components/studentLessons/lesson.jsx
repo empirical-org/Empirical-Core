@@ -10,6 +10,7 @@ import PlaySentenceFragment from './sentenceFragment.jsx';
 
 import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
+  ALPHA_TRANSLATED_ACTIVITY_UIDS,
   CLICK,
   ENGLISH,
   KEYDOWN,
@@ -24,7 +25,6 @@ import {
   Spinner,
   TeacherPreviewMenuButton,
   VISIBILITYCHANGE,
-  hasTranslationFlag,
   roundValuesToSeconds,
 } from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, resumePreviousSession, setCurrentQuestion, submitResponse, updateCurrentQuestion } from '../../actions.js';
@@ -220,9 +220,10 @@ export class Lesson extends React.Component {
     const { translated_questions } = questions
     const { currentQuestion, language } = playLesson
     const { question } = currentQuestion;
-    const { key } = question
-    if (translated_questions && language && language !== ENGLISH) {
-      const question_translation = translated_questions[key]
+    const { key, uid } = question
+    const keyOrUid = key || uid
+    if (translated_questions && language && language !== ENGLISH && keyOrUid) {
+      const question_translation = translated_questions[keyOrUid]
       return { ...question, translation: question_translation };
     }
     return question;
@@ -548,7 +549,7 @@ export class Lesson extends React.Component {
           translate={translate}
         />
       );
-    } else if (availableLanguages?.length > 1 && hasTranslationFlag() && !language) {
+    } else if (availableLanguages?.length > 1 && !language && !ALPHA_TRANSLATED_ACTIVITY_UIDS.includes(params.lessonID)) {
       component = (<LanguageSelectionPage
         dispatch={dispatch}
         handlePageLoaded={this.onLanguagePageLoad}

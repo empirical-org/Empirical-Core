@@ -152,9 +152,9 @@ export {
   formatAnswerStringForReport,
   getlanguageOptions,
   renderSaveAndExitButton,
-  hasTranslationFlag,
   showTranslations,
-  pluralize
+  pluralize,
+  renderExplanation
 } from './libs/index'
 
 export {
@@ -292,6 +292,6 @@ export {
   DEFAULT_FILL_IN_BLANK
 } from './utils/constants'
 
-export { ENGLISH, defaultLanguages, languageToLocale } from './utils/languageList'
+export { ENGLISH, defaultLanguages, languageToLocale, ALPHA_TRANSLATED_ACTIVITY_UIDS } from './utils/languageList'
 
 export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'
