@@ -300,9 +300,6 @@ module NavigationHelper
 
   def determine_active_primary_tab(current_path)
     ACTIVE_TAB_PATHS.each do |tab, paths|
-      puts 'current_path', current_path
-      puts 'tab', tab
-      puts 'paths', paths
       return tab if paths.any? { |path_fragment| current_path.match?(path_fragment) }
     end
 
