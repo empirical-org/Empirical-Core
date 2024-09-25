@@ -13,7 +13,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
     let!(:school1) { create(:school, district: district) }
     let!(:teacher1) { create(:teacher, school: school1) }
     let!(:classroom1) { create(:classroom) }
-    let!(:classroom_teacher1) { create(:classrooms_teacher, user: teacher1, classroom: classroom1) }
+    let!(:classroom_teacher1) { create(:classrooms_teacher, user: teacher1, classroom: classroom1, role: 'owner') }
     let!(:student1) { create(:student, student_in_classroom: [classroom1]) }
     let!(:student2) { create(:student, student_in_classroom: [classroom1]) }
     let!(:diagnostic) { create(:diagnostic_activity) }
@@ -402,6 +402,22 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
 
         it 'active students all time' do
           expect(described_class.new(district).data[:traits][:active_students_all_time]).to eq(2)
+        end
+      end
+
+      context 'excludes classrooms where teacher is coteacher' do
+        let!(:classroom_teacher1) { create(:classrooms_teacher, user: teacher1, classroom: classroom1, role: 'coteacher') }
+
+        it 'activities completed all time' do
+          expect(described_class.new(district).data[:traits][:activities_completed_all_time]).to eq(0)
+        end
+
+        it 'activities completed per student all time' do
+          expect(described_class.new(district).data[:traits][:activities_completed_per_student_all_time]).to eq(0)
+        end
+
+        it 'active students all time' do
+          expect(described_class.new(district).data[:traits][:active_students_all_time]).to eq(0)
         end
       end
     end
