@@ -73,8 +73,8 @@ class TestQuestion extends React.Component {
             checkAnswer={this.checkAnswer}
             concepts={this.props.concepts}
             conceptsFeedback={this.props.conceptsFeedback}
-            currentQuestion={currentQuestion}
             goToNextQuestion={this.reset}
+            question={currentQuestion}
             unansweredQuestions={unansweredQuestions}
           />
         </div>
