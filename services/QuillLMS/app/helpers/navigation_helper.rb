@@ -177,20 +177,12 @@ module NavigationHelper
     @premium_hub_tab ||= { name: PREMIUM_HUB, url: teachers_premium_hub_path, id: 'admin-tab' }
   end
 
-  def premium_tab
-    @premium_tab ||= { name: PREMIUM, url: premium_path, id: 'premium-tab' }
-  end
-
   def quill_academy_tab
     @quill_academy_tab ||= { name: QUILL_ACADEMY, url: quill_academy_path, id: 'quill-academy-tab' }
   end
 
   def standards_tab
     @standards_tab ||= { name: STANDARDS, url: teachers_progress_reports_standards_classrooms_path }
-  end
-
-  def teacher_premium_tab
-    @teacher_premium_tab ||= { name: TEACHER_PREMIUM, url: teacher_premium_path, id: 'premium-tab' }
   end
 
   def common_authed_user_tabs
@@ -243,29 +235,19 @@ module NavigationHelper
     action_name == 'teacher_premium'
   end
 
-  def premium_tab_copy(current_user)
-    middle_diamond_img = "<div class='large-diamond-icon is-in-middle'></div>"
-    end_diamond_img = "<div class='large-diamond-icon'></div>"
-    case current_user&.premium_state
-    when TRIAL
-      "<span>Premium</span>#{middle_diamond_img}<span>#{current_user.trial_days_remaining} Days Left</span>"
-    when LOCKED
-      current_user.last_expired_subscription&.is_trial? ? "<span>Premium</span>#{middle_diamond_img}<span>Trial Expired</span>" : "<span>Premium</span>#{middle_diamond_img}<span>Expired</span>"
-    when NONE, nil
-      "<span>Explore Premium</span>#{end_diamond_img}"
-    end
-  end
-
   def determine_premium_badge(current_user)
     return unless current_user
-
-    premium_state = current_user.premium_state
-    return unless [PAID, TRIAL].include?(premium_state)
 
     if current_user.district_premium?
       "<a class='premium-navbar-badge-container focus-on-light red' href='/premium' rel='noopener noreferrer' target='_blank' ><span class='premium-badge-text'>DISTRICT PREMIUM</span><div class='small-diamond-icon'></div></a>".html_safe
     elsif current_user.school_premium?
       "<a class='premium-navbar-badge-container focus-on-light red' href='/premium' rel='noopener noreferrer' target='_blank' ><span class='premium-badge-text'>SCHOOL PREMIUM</span><div class='small-diamond-icon'></div></a>".html_safe
+    elsif [NONE, nil].include?(current_user&.premium_state)
+      "<a class='premium-navbar-badge-container focus-on-light yellow' href='/premium' rel='noopener noreferrer' target='_blank' ><span class='premium-badge-text'>EXPLORE PREMIUM</span><div class='small-diamond-icon'></div></a>".html_safe
+    elsif current_user.premium_state == TRIAL
+      "<a class='premium-navbar-badge-container focus-on-light yellow' href='/premium' rel='noopener noreferrer' target='_blank' ><span class='premium-badge-text'>EXPLORE PREMIUM</span><div class='small-diamond-icon'></div></a><span class='premium-counter'>#{pluralize(current_user.trial_days_remaining, 'day')} left</span>".html_safe
+    elsif current_user.premium_state == LOCKED
+      "<a class='premium-navbar-badge-container focus-on-light yellow' href='/premium' rel='noopener noreferrer' target='_blank' ><span class='premium-badge-text'>TEACHER PREMIUM</span><div class='small-diamond-icon'></div></a><span class='premium-counter'>#{current_user.last_expired_subscription&.is_trial? ? 'trial ' : ''}expired</span>".html_safe
     else
       "<a class='premium-navbar-badge-container focus-on-light yellow' href='/premium' rel='noopener noreferrer' target='_blank' ><span class='premium-badge-text'>TEACHER PREMIUM</span><div class='small-diamond-icon'></div></a>".html_safe
     end
@@ -402,8 +384,6 @@ module NavigationHelper
       view_reports_tab
     ]
 
-    tabs.push(premium_tab) unless current_user.premium_state == 'paid' || current_user.should_render_teacher_premium?
-    tabs.push(teacher_premium_tab) if current_user.should_render_teacher_premium?
     tabs.push(premium_hub_tab) if current_user.admin? && !admin_impersonating_user?(current_user)
     tabs.push(quill_academy_tab)
     tabs.concat(common_authed_user_tabs)
