@@ -1,10 +1,8 @@
 import * as _ from 'underscore'
+
 import constants from '../../constants';
-import {stringNormalize} from 'quill-string-normalizer'
 import {getTopOptimalResponse} from '../sharedResponseFunctions'
-import {Response, PartialResponse, ConceptResult, WordCountChange} from '../../interfaces'
-import {feedbackStrings} from '../constants/feedback_strings'
-import {conceptResultTemplate} from '../helpers/concept_result_template'
+import {Response, PartialResponse, WordCountChange} from '../../interfaces'
 
 export interface LengthMatch {
   feedback: string,

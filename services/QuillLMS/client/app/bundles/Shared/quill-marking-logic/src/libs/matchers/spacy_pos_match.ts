@@ -1,14 +1,10 @@
-import constants from '../../constants';
-import {getTopOptimalResponse} from '../sharedResponseFunctions'
-import {Response, PartialResponse, ConceptResult, WordCountChange} from '../../interfaces'
-import {feedbackStrings} from '../constants/feedback_strings'
-import {conceptResultTemplate} from '../helpers/concept_result_template'
+import {Response, PartialResponse } from '../../interfaces'
 
 export function spacyPOSSentenceMatch(response: string, question_uid: string, link: string): Promise<any> {
   const options = {
     method: 'POST',
     body: JSON.stringify({
-      text: response, 
+      text: response,
       question_id: question_uid
     }),
     // mode: 'cors',
