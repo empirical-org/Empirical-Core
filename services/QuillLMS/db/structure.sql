@@ -3121,7 +3121,8 @@ CREATE TABLE public.evidence_research_gen_ai_datasets (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     version integer NOT NULL,
-    parent_id integer
+    parent_id integer,
+    task_type character varying NOT NULL
 );
 
 
@@ -11726,6 +11727,7 @@ ALTER TABLE ONLY public.learn_worlds_account_course_events
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240926201615'),
 ('20240925185730'),
 ('20240924151321'),
 ('20240924151311'),

@@ -8,6 +8,7 @@
 #  locked           :boolean          default(FALSE), not null
 #  optimal_count    :integer          default(0), not null
 #  suboptimal_count :integer          default(0), not null
+#  task_type        :string           not null
 #  version          :integer          not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
@@ -18,7 +19,10 @@ module Evidence
   module Research
     module GenAI
       class Dataset < ApplicationRecord
-        TASK_TYPES = %w[classification generative].freeze
+        TASK_TYPES = [
+          CLASSIFICATION = 'classification',
+          GENERATIVE = 'generative'
+        ].freeze
 
         has_many :test_examples, dependent: :destroy
         has_many :prompt_examples, dependent: :destroy

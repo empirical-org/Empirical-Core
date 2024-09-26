@@ -53,16 +53,22 @@ module Evidence
             if headers_present?(headers)
               csv_data.shift
               data = csv_data
-              Activity.find_by(name:)
-
-                elsif labels_present?(headers)
-                  data = csv_data
+            elsif labels_present?(headers)
+              data = csv_data
             else
               puts "Prompt ID: #{prompt_id} has no headers or labels"
               next
             end
 
-            FooFormatter.run(data:, prompt_id:)
+            evidence_activity = Evidence::Activity.find(row['evidence_activity_id'])
+            name = evidence_activity.notes
+            text = evidence_activity.passages.first.text
+            activity = Evidence::Research::GenAI::Activity.find_or_create_by!(name:, text:)
+            prompt = Evidence::Prompt.find(prompt_id)
+            stem_vault = StemVault.find_or_create_by!(activity:, conjunction: row['conjunction'].strip, stem: prompt.text)
+            dataset = Dataset.create!(task_type: Dataset::CLASSIFICATION, stem_vault:)
+
+            FooFormatter.run(data:, prompt_id:, dataset:)
           end
         end
 
