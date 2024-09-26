@@ -398,13 +398,11 @@ module NavigationHelper
   end
 
   private def trial_badge(current_user)
-    badge_html('EXPLORE PREMIUM', 'yellow') +
-      badge_counter("#{pluralize(current_user.trial_days_remaining, 'day')} left")
+    badge_html('EXPLORE PREMIUM', 'yellow') + badge_counter("#{pluralize(current_user.trial_days_remaining, 'day')} left")
   end
 
   private def locked_badge(current_user)
-    badge_html('TEACHER PREMIUM', 'yellow') +
-      badge_counter("#{current_user.last_expired_subscription&.is_trial? ? 'trial ' : ''}expired")
+    badge_html('TEACHER PREMIUM', 'yellow') + badge_counter("#{current_user.last_expired_subscription&.is_trial? ? 'trial ' : ''}expired")
   end
 
   private def explore_badge
@@ -429,5 +427,4 @@ module NavigationHelper
   private def badge_counter(text)
     "<span class='premium-counter'>#{text}</span>".html_safe
   end
-
 end

@@ -17,13 +17,12 @@ describe NavigationHelper do
     end
 
     context 'when current_user has district premium' do
-
       it 'returns district premium badge' do
         subscription = create(:subscription, account_type: Subscription::SCHOOL_DISTRICT_PAID)
-        district_subscription = create(:district_subscription, subscription: )
-        user_subscription = create(:user_subscription, user: current_user, subscription: )
-        school = create(:school, district: district_subscription.district )
-        create(:schools_users, user: current_user, school: )
+        district_subscription = create(:district_subscription, subscription:)
+        user_subscription = create(:user_subscription, user: current_user, subscription:)
+        school = create(:school, district: district_subscription.district)
+        create(:schools_users, user: current_user, school:)
 
         current_user.reload
 
@@ -35,8 +34,8 @@ describe NavigationHelper do
     context 'when current_user has school premium' do
       it 'returns school premium badge' do
         subscription = create(:subscription, account_type: Subscription::SCHOOL_PAID)
-        school_subscription = create(:school_subscription, subscription: )
-        user_subscription = create(:user_subscription, user: current_user, subscription: )
+        school_subscription = create(:school_subscription, subscription:)
+        user_subscription = create(:user_subscription, user: current_user, subscription:)
         create(:schools_users, school: school_subscription.school, user: current_user)
 
         current_user.reload
