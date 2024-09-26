@@ -7,36 +7,50 @@ module Evidence
   module Research
     module GenAI
       class FooFormatter < ApplicationService
-        attr_reader :data, :prompt_id, :label_freq
+        attr_reader :data, :prompt_id, :label_freq, :dataset_id
 
         OPTIMAL = HasAssignedStatus::OPTIMAL
         SUBOPTIMAL = HasAssignedStatus::SUBOPTIMAL
 
-        def initialize(data:, prompt_id:)
+        def initialize(data:, prompt_id:, dataset_id:)
           @data = data
+          @dataset_id = dataset_id
           @prompt_id = prompt_id
           @label_freq = Hash.new(0)
         end
 
         def run
+          optimal_count = 0
+          suboptimal_count = 0
+
           data.each_with_index do |row, index|
-            if row[0].blank? || row[1].blank?
+            entry = row[0]&.strip
+            label = row[1]
+
+            if entry.blank? || label.blank?
               puts "Row #{index + 1} is missing data"
             else
-              entry = row[0]
-              label = row[1]
               label_freq[label] += 1
-              if label_freq[label] % 5 == 4
-                LabeledEntry.create!(entry:, label:, prompt_id:)
-              else
-                TestExample.create!(entry: entry, label: label, prompt_id: prompt_id)
-              end
 
-              # else
-              #   type = index % 5 == 4 ? 'test' : 'prompt'
-              #   row.unshift(type)
+              if label_freq[label] % 5 == 4
+                LabeledEntry.find_or_create_by!(entry:, label:, prompt_id:)
+              else
+                curriculum_assigned_status = label.start_with?('Optimal') ? OPTIMAL : SUBOPTIMAL
+                curriculum_assigned_status == OPTIMAL ? optimal_count += 1 : suboptimal_count += 1
+
+                TestExample.create!(
+                  curriculum_assigned_status:,
+                  dataset_id:,
+                  curriculum_label: label,
+                  student_response: entry
+                )
+              end
             end
           end
+
+          Dataset
+            .where(id: dataset.id)
+            .update_all(locked: true, optimal_count:, suboptimal_count:) # HACK: to get around attr_readonly
         end
       end
     end

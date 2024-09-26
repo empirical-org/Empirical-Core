@@ -18,6 +18,8 @@ module Evidence
   module Research
     module GenAI
       class Dataset < ApplicationRecord
+        TASK_TYPES = %w[classification generative].freeze
+
         has_many :test_examples, dependent: :destroy
         has_many :prompt_examples, dependent: :destroy
         has_many :trials, dependent: :destroy
@@ -31,10 +33,11 @@ module Evidence
         validates :suboptimal_count, presence: true
         validates :stem_vault, presence: true
         validates :version, presence: true
+        validates :task_type, presence: true, inclusion: { in: TASK_TYPES }
 
         validate :validate_file_content
 
-        attr_readonly :locked, :stem_vault_id, :optimal_count, :suboptimal_count, :version
+        attr_readonly :locked, :stem_vault_id, :optimal_count, :suboptimal_count, :version, :task_type
 
         delegate :stem_and_conjunction, to: :stem_vault
 
