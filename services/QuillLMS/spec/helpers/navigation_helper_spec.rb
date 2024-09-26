@@ -17,18 +17,30 @@ describe NavigationHelper do
     end
 
     context 'when current_user has district premium' do
-      before { allow(current_user).to receive(:district_premium?).and_return(true) }
 
       it 'returns district premium badge' do
+        subscription = create(:subscription, account_type: Subscription::SCHOOL_DISTRICT_PAID)
+        district_subscription = create(:district_subscription, subscription: )
+        user_subscription = create(:user_subscription, user: current_user, subscription: )
+        school = create(:school, district: district_subscription.district )
+        create(:schools_users, user: current_user, school: )
+
+        current_user.reload
+
         expect(subject).to include('DISTRICT PREMIUM')
         expect(subject).to include('premium-navbar-badge-container focus-on-light red')
       end
     end
 
     context 'when current_user has school premium' do
-      before { allow(current_user).to receive(:school_premium?).and_return(true) }
-
       it 'returns school premium badge' do
+        subscription = create(:subscription, account_type: Subscription::SCHOOL_PAID)
+        school_subscription = create(:school_subscription, subscription: )
+        user_subscription = create(:user_subscription, user: current_user, subscription: )
+        create(:schools_users, school: school_subscription.school, user: current_user)
+
+        current_user.reload
+
         expect(subject).to include('SCHOOL PREMIUM')
         expect(subject).to include('premium-navbar-badge-container focus-on-light red')
       end
@@ -395,12 +407,15 @@ describe NavigationHelper do
       it 'should return "Schools & Districts" for teacher_premium and admins path' do
         expect(helper.determine_active_tab('teacher_premium')).to eq(NavigationHelper::SCHOOLS_AND_DISTRICTS)
         expect(helper.determine_active_tab('admins')).to eq(NavigationHelper::SCHOOLS_AND_DISTRICTS)
-        expect(helper.determine_active_tab('premium_hub')).to eq(NavigationHelper::SCHOOLS_AND_DISTRICTS)
         expect(helper.determine_active_tab('premium')).to eq(NavigationHelper::SCHOOLS_AND_DISTRICTS)
       end
 
       it 'should return "Quill Academy" for Quill Academy path' do
         expect(helper.determine_active_tab('quill_academy')).to eq(NavigationHelper::QUILL_ACADEMY)
+      end
+
+      it 'should return "Premium Hub" for Premium Hub path' do
+        expect(helper.determine_active_tab('premium_hub')).to eq(NavigationHelper::PREMIUM_HUB)
       end
 
       it 'should default to "Home" for unmatched paths' do

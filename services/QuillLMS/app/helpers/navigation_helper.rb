@@ -290,7 +290,8 @@ module NavigationHelper
   end
 
   def determine_active_tab(current_path)
-    determine_active_primary_tab(current_path)
+    active_primary_tab = determine_active_primary_tab(current_path)
+    return active_primary_tab if active_primary_tab
 
     determine_dashboard_active_tab(current_path)
   end
