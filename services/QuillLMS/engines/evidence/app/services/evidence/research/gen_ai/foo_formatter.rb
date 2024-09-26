@@ -7,21 +7,21 @@ module Evidence
   module Research
     module GenAI
       class FooFormatter < ApplicationService
-        attr_reader :data, :prompt_id, :label_freq, :dataset_id
+        attr_reader :data, :dataset, :prompt_id
 
         OPTIMAL = HasAssignedStatus::OPTIMAL
         SUBOPTIMAL = HasAssignedStatus::SUBOPTIMAL
 
-        def initialize(data:, prompt_id:, dataset_id:)
+        def initialize(data:, prompt_id:, dataset:)
           @data = data
-          @dataset_id = dataset_id
+          @dataset = dataset
           @prompt_id = prompt_id
-          @label_freq = Hash.new(0)
         end
 
         def run
           optimal_count = 0
           suboptimal_count = 0
+          label_freq = Hash.new(0)
 
           data.each_with_index do |row, index|
             entry = row[0]&.strip
@@ -33,15 +33,15 @@ module Evidence
               label_freq[label] += 1
 
               if label_freq[label] % 5 == 4
-                LabeledEntry.find_or_create_by!(entry:, label:, prompt_id:)
+                StoreLabeledEntryWorker.perform_async(entry, label, prompt_id)
               else
                 curriculum_assigned_status = label.start_with?('Optimal') ? OPTIMAL : SUBOPTIMAL
                 curriculum_assigned_status == OPTIMAL ? optimal_count += 1 : suboptimal_count += 1
 
                 TestExample.create!(
                   curriculum_assigned_status:,
-                  dataset_id:,
                   curriculum_label: label,
+                  dataset:,
                   student_response: entry
                 )
               end

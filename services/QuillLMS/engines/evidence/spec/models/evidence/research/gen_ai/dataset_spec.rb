@@ -8,9 +8,11 @@
 #  locked           :boolean          default(FALSE), not null
 #  optimal_count    :integer          default(0), not null
 #  suboptimal_count :integer          default(0), not null
+#  task_type        :string           not null
 #  version          :integer          not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  parent_id        :integer
 #  stem_vault_id    :integer          not null
 #
 require 'rails_helper'
