@@ -2832,8 +2832,10 @@ ALTER SEQUENCE public.evidence_hints_id_seq OWNED BY public.evidence_hints.id;
 
 CREATE TABLE public.evidence_labeled_entries (
     id bigint NOT NULL,
+    approved boolean,
     entry text NOT NULL,
     label text NOT NULL,
+    label_transformed text NOT NULL,
     metadata jsonb,
     prompt_id integer NOT NULL,
     embedding public.vector(1536) NOT NULL,
@@ -9977,6 +9979,13 @@ CREATE INDEX index_evidence_hints_on_rule_id ON public.evidence_hints USING btre
 --
 
 CREATE INDEX index_evidence_labeled_entries_on_prompt_id ON public.evidence_labeled_entries USING btree (prompt_id);
+
+
+--
+-- Name: index_evidence_labeled_entries_on_prompt_id_and_entry; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_evidence_labeled_entries_on_prompt_id_and_entry ON public.evidence_labeled_entries USING btree (prompt_id, entry);
 
 
 --

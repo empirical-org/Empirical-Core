@@ -6,6 +6,7 @@ class CreateLabeledEntries < ActiveRecord::Migration[7.1]
     create_table :evidence_labeled_entries do |t|
       t.text :entry, null: false
       t.text :label, null: false
+      t.text :label_transformed, null: false
       t.jsonb :metadata
       t.integer :prompt_id, null: false
       t.vector :embedding, limit: 1536, null: false

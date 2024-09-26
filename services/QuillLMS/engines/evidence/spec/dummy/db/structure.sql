@@ -726,6 +726,7 @@ CREATE TABLE public.evidence_labeled_entries (
     id bigint NOT NULL,
     entry text NOT NULL,
     label text NOT NULL,
+    label_transformed text NOT NULL,
     metadata jsonb,
     prompt_id integer NOT NULL,
     embedding public.vector(1536) NOT NULL,

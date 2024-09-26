@@ -4,18 +4,21 @@
 #
 # Table name: evidence_labeled_entries
 #
-#  id         :bigint           not null, primary key
-#  embedding  :vector(1536)     not null
-#  entry      :text             not null
-#  label      :text             not null
-#  metadata   :jsonb
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  prompt_id  :integer          not null
+#  id                :bigint           not null, primary key
+#  approved          :boolean
+#  embedding         :vector(1536)     not null
+#  entry             :text             not null
+#  label             :text             not null
+#  label_transformed :text             not null
+#  metadata          :jsonb
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  prompt_id         :integer          not null
 #
 # Indexes
 #
-#  index_evidence_labeled_entries_on_prompt_id  (prompt_id)
+#  index_evidence_labeled_entries_on_prompt_id            (prompt_id)
+#  index_evidence_labeled_entries_on_prompt_id_and_entry  (prompt_id,entry) UNIQUE
 #
 
 require 'rails_helper'
@@ -30,6 +33,46 @@ module Evidence
     it { is_expected.to validate_presence_of(:entry) }
     it { is_expected.to validate_presence_of(:embedding) }
     it { is_expected.to validate_presence_of(:label) }
+    it { is_expected.to validate_presence_of(:label_transformed) }
+
+    context 'validations' do
+      context 'label_transformed' do
+        subject { create(factory, label:).label_transformed }
+
+        context 'when label matches "Optimal_1' do
+          let(:label) { 'Optimal_1' }
+
+          it { is_expected.to eq described_class::COLLAPSED_OPTIMAL_LABEL }
+        end
+
+        context 'when label matches "Optimal_10"' do
+          let(:label) { 'Optimal_10' }
+
+          it { is_expected.to eq described_class::COLLAPSED_OPTIMAL_LABEL }
+        end
+
+        context 'when label does not match "Optimal_n"' do
+          let(:label) { 'Label_5' }
+
+          it { is_expected.to eq label }
+        end
+
+        context 'when label is nil' do
+          let(:label) { nil }
+
+          it { expect { subject }.to raise_error(ActiveRecord::RecordInvalid) }
+        end
+      end
+
+      context 'entry' do
+        subject { labeled_entry.entry }
+
+        let(:entry) { ' some spaces before and after ' }
+        let(:labeled_entry) { create(factory, entry:) }
+
+        it { is_expected.to eq entry.strip }
+      end
+    end
 
     context 'with stubbed embedding' do
       subject { build(factory, entry:, embedding: initial_embedding) }
