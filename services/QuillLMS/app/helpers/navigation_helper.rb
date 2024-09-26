@@ -236,20 +236,17 @@ module NavigationHelper
   end
 
   def determine_premium_badge(current_user)
-    return unless current_user
+    return unless current_user&.teacher?
 
-    if current_user.district_premium?
-      "<a class='premium-navbar-badge-container focus-on-light red' href='/premium' rel='noopener noreferrer' target='_blank' ><span class='premium-badge-text'>DISTRICT PREMIUM</span><div class='small-diamond-icon'></div></a>".html_safe
-    elsif current_user.school_premium?
-      "<a class='premium-navbar-badge-container focus-on-light red' href='/premium' rel='noopener noreferrer' target='_blank' ><span class='premium-badge-text'>SCHOOL PREMIUM</span><div class='small-diamond-icon'></div></a>".html_safe
-    elsif [NONE, nil].include?(current_user&.premium_state)
-      "<a class='premium-navbar-badge-container focus-on-light yellow' href='/premium' rel='noopener noreferrer' target='_blank' ><span class='premium-badge-text'>EXPLORE PREMIUM</span><div class='small-diamond-icon'></div></a>".html_safe
-    elsif current_user.premium_state == TRIAL
-      "<a class='premium-navbar-badge-container focus-on-light yellow' href='/premium' rel='noopener noreferrer' target='_blank' ><span class='premium-badge-text'>EXPLORE PREMIUM</span><div class='small-diamond-icon'></div></a><span class='premium-counter'>#{pluralize(current_user.trial_days_remaining, 'day')} left</span>".html_safe
-    elsif current_user.premium_state == LOCKED
-      "<a class='premium-navbar-badge-container focus-on-light yellow' href='/premium' rel='noopener noreferrer' target='_blank' ><span class='premium-badge-text'>TEACHER PREMIUM</span><div class='small-diamond-icon'></div></a><span class='premium-counter'>#{current_user.last_expired_subscription&.is_trial? ? 'trial ' : ''}expired</span>".html_safe
+    case current_user.premium_state
+    when TRIAL
+      trial_badge(current_user)
+    when LOCKED
+      locked_badge(current_user)
+    when nil, NONE
+      explore_badge
     else
-      "<a class='premium-navbar-badge-container focus-on-light yellow' href='/premium' rel='noopener noreferrer' target='_blank' ><span class='premium-badge-text'>TEACHER PREMIUM</span><div class='small-diamond-icon'></div></a>".html_safe
+      teacher_or_district_badge(current_user)
     end
   end
 
@@ -398,4 +395,38 @@ module NavigationHelper
     tabs.push(quill_academy_tab)
     tabs.concat(common_authed_user_tabs)
   end
+
+  private def trial_badge(current_user)
+    badge_html('EXPLORE PREMIUM', 'yellow') +
+      badge_counter("#{pluralize(current_user.trial_days_remaining, 'day')} left")
+  end
+
+  private def locked_badge(current_user)
+    badge_html('TEACHER PREMIUM', 'yellow') +
+      badge_counter("#{current_user.last_expired_subscription&.is_trial? ? 'trial ' : ''}expired")
+  end
+
+  private def explore_badge
+    badge_html('EXPLORE PREMIUM', 'yellow')
+  end
+
+  private def teacher_or_district_badge(current_user)
+    if current_user.district_premium?
+      badge_html('DISTRICT PREMIUM', 'red')
+    elsif current_user.school_premium?
+      badge_html('SCHOOL PREMIUM', 'red')
+    else
+      badge_html('TEACHER PREMIUM', 'yellow')
+    end
+  end
+
+  private def badge_html(text, color)
+    "<a class='premium-navbar-badge-container focus-on-light #{color}' href='/premium' rel='noopener noreferrer' target='_blank'>" \
+    "<span class='premium-badge-text'>#{text}</span><div class='small-diamond-icon'></div></a>".html_safe
+  end
+
+  private def badge_counter(text)
+    "<span class='premium-counter'>#{text}</span>".html_safe
+  end
+
 end

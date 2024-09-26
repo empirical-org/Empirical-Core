@@ -522,6 +522,7 @@ Rails/Output:
 Rails/OutputSafety:
   Exclude:
     - 'app/helpers/mobile_helper.rb'
+    - 'app/helpers/navigation_helper.rb'
     - 'lib/eg_form_builder.rb'
 
 # Offense count: 5
