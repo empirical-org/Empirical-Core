@@ -53,8 +53,10 @@ module Evidence
             if headers_present?(headers)
               csv_data.shift
               data = csv_data
-            elsif labels_present?(headers)
-              data = csv_data
+              Activity.find_by(name:)
+
+                elsif labels_present?(headers)
+                  data = csv_data
             else
               puts "Prompt ID: #{prompt_id} has no headers or labels"
               next

@@ -26,12 +26,14 @@ module Evidence
         it { should validate_presence_of(:optimal_count) }
         it { should validate_presence_of(:suboptimal_count) }
         it { should validate_presence_of(:stem_vault) }
+        it { should validate_presence_of(:task_type) }
 
         it { should have_readonly_attribute(:locked) }
         it { should have_readonly_attribute(:stem_vault_id) }
         it { should have_readonly_attribute(:optimal_count) }
         it { should have_readonly_attribute(:suboptimal_count) }
         it { should have_readonly_attribute(:version) }
+        it { should have_readonly_attribute(:task_type) }
 
         it { have_many(:test_examples).dependent(:destroy) }
         it { have_many(:prompt_examples).dependent(:destroy) }
