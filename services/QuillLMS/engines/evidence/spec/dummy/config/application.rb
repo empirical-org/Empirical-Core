@@ -27,5 +27,10 @@ module Dummy
 
     # Allow for postgres vector extension
     config.active_record.schema_format = :sql
+
+    config.load_defaults 6.1
+    config.active_support.cache_format_version = 7.0
+    config.active_record.cache_versioning = false
+
   end
 end
