@@ -365,6 +365,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   renderButton = () => {
     const { nextQuestion, isLastQuestion, previewMode, question, translate, showTranslation } = this.props
     const { responses } = this.state
+    let foo = responses.bar.bat;
     const showRecheckWorkButton = question && question.attempts ? question.attempts.length > 0 : false
     if (this.showNextQuestionButton()) {
       let buttonText = isLastQuestion ? 'Next' : 'Next question';
