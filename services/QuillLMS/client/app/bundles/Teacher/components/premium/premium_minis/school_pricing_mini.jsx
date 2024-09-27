@@ -14,6 +14,14 @@ const SchoolPricingMini = ({ plan, premiumFeatureData, showBadges, handleClickPu
         <p>Per school, per year</p>
       </div>
       <div className="premium-button-container">
+        <a href="https://quill.org/request_quote" target="_blank">
+          <button
+            className="quill-button-archived contained medium primary focus-on-light book-call"
+            type="button"
+          >
+            Book a call
+          </button>
+        </a>
         <button
           className="quill-button-archived contained medium primary focus-on-light"
           href="https://quill.org/request_quote"
@@ -24,11 +32,6 @@ const SchoolPricingMini = ({ plan, premiumFeatureData, showBadges, handleClickPu
         </button>
         <p>Request Quote or Buy Now</p>
       </div>
-      {showBadges && <div className="school-premium-badge-container">
-        <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> Quill Academy</div>
-        <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> Premium Hub</div>
-        <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> Custom reports</div>
-      </div>}
     </section>
     <IndividualFeaturesTable premiumFeatureData={premiumFeatureData} type="school" />
   </div>
