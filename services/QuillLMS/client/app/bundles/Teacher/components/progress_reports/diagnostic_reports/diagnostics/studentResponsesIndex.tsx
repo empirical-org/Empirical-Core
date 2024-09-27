@@ -295,8 +295,13 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
     )
   }
 
-  function renderStudentChip({ total_correct_questions_count, id, name }) {
-    if (total_correct_questions_count === undefined) { return <React.Fragment><span>{name}</span><span className="name-section-subheader">Diagnostic not completed</span></React.Fragment> }
+  function renderStudentChip({ total_correct_questions_count, id, name, isDesktopView }) {
+    if (isDesktopView && total_correct_questions_count === undefined) {
+      return <span>{name}</span>
+    }
+    if (total_correct_questions_count === undefined) {
+      return <React.Fragment><span>{name}</span><span className="name-section-subheader">Diagnostic not completed</span></React.Fragment>
+    }
     return(
       <Link className="student-responses-link" to={responsesLink(id)}>
         <DataTableChip icon={accountGreenIcon} label={name} />
@@ -316,7 +321,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
 
     return {
       id: id || name,
-      name: renderStudentChip({ total_correct_questions_count, id, name }),
+      name: renderStudentChip({ total_correct_questions_count, id, name, isDesktopView: true }),
       alphabeticalName: alphabeticalName(name),
       preToPostImprovedSkills: renderPreToPostImprovedSkillsElement({total_correct_questions_count, total_acquired_skill_groups_count}),
       totalCorrectSkillsCount: total_correct_questions_count,
@@ -335,7 +340,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
     const { name, total_possible_questions_count, total_correct_questions_count, id, } = student
     return {
       id: id || name,
-      name: renderStudentChip({ total_correct_questions_count, id, name }),
+      name: renderStudentChip({ total_correct_questions_count, id, name, isDesktopView: false }),
       alphabeticalName: alphabeticalName(name),
       totalCorrectSkillsCount: total_correct_questions_count,
       skillsCorrectElement: total_correct_questions_count !== undefined ? <div className="skills-correct-element">{total_correct_questions_count} of {total_possible_questions_count} ({calculateSkillsPercentage(total_correct_questions_count, total_possible_questions_count)}%)</div> : null
