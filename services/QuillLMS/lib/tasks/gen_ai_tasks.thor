@@ -543,23 +543,23 @@ class GenAITasks < Thor
   desc 'store_labeled_embeddings 673', 'populate the DB with embeddings for data'
   def store_labeled_embeddings(prompt_id)
     train_data = Evidence::GenAI::LabelFeedback::DataFetcher.run
-    placeholder_feedback = 'placeholder feedback'
 
-    train_data.each.with_index do |label_data, index|
-      puts index
-      response_text = label_data.entry
+    store_labeled_data(labeled_data, prompt_id)
+  end
 
-      next if Evidence::PromptResponse.where(response_text:, prompt_id:).exists?
+  # bundle exec thor gen_a_i_tasks:sstore_labeled_embeddings_from_db 673 17
+  desc 'store_labeled_embeddings_from_db 673', 'populate the DB with embeddings for data'
+  def store_labeled_embeddings_from_db(source_prompt_id, prompt_id)
+    test_texts = Evidence::PromptResponse.where(prompt_id: 16).pluck(:response_text)
 
-      prompt_response = Evidence::PromptResponse.new(response_text:, prompt_id:)
+    label_transform = proc {|label| label.starts_with?("Optimal") ? "Optimal" : label}
 
-      feedback = Evidence::PromptResponseFeedback.create(
-        feedback: placeholder_feedback,
-        label: label_data.label,
-        label_transformed: label_data.label_transformed,
-        prompt_response:,
-      )
-    end
+    labeled_data = FeedbackHistory
+      .entry_label_sample(prompt_id: source_prompt_id)
+      .select {|array| !array.first.in?(test_texts)} # remove exact matches to test set
+      .map { |array| LabeledData.new(entry: array[0], label: array[1], label_transformed: label_transform.call(array[1])) }
+
+    store_labeled_data(labeled_data, prompt_id)
   end
 
   # put helper methods in this block
@@ -596,6 +596,27 @@ class GenAITasks < Thor
     end
 
     LabeledData = Data.define(:entry, :label, :label_transformed)
+
+
+    private def store_labeled_data(data, prompt_id)
+      placeholder_feedback = 'placeholder feedback'
+
+      data.each.with_index do |label_data, index|
+        puts index
+        response_text = label_data.entry
+
+        next if Evidence::PromptResponse.where(response_text:, prompt_id:).exists?
+
+        prompt_response = Evidence::PromptResponse.new(response_text:, prompt_id:)
+
+        feedback = Evidence::PromptResponseFeedback.create(
+          feedback: placeholder_feedback,
+          label: label_data.label,
+          label_transformed: label_data.label_transformed,
+          prompt_response:,
+        )
+      end
+    end
 
     private def create_label_file(data, type, name, label_transform)
       CSV.open("#{labeled_folder}#{name}.csv", 'wb') do |csv|

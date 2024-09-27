@@ -130,6 +130,18 @@ class FeedbackHistory < ApplicationRecord
       .uniq
   end
 
+  def self.entry_label_sample(prompt_id:, confidence_limit: 0.80, max_length: 100, limit: 2_000)
+    autoML
+      .joins("INNER JOIN comprehension_rules on comprehension_rules.uid = feedback_histories.rule_uid")
+      .joins("INNER JOIN comprehension_labels ON comprehension_rules.id = comprehension_labels.rule_id")
+      .for_prompt(prompt_id)
+      .confidence_greater_than(confidence_limit)
+      .entry_shorter_than(max_length)
+      .limit(limit)
+      .pluck('feedback_histories.entry, comprehension_labels.name')
+      .uniq {|fh| fh.first }
+  end
+
   def concept_results_hash
     return {} if concept.blank?
 
