@@ -35,42 +35,40 @@ export default class PremiumPricingMinisRow extends React.Component {
     })
 
     return (
-      <React.Fragment>
-        <div className="sticky-header">
-          <div className="sticky-header-background-container">
-            <div className="choose-plan">
-              <h2>Go Premium to improve student writing</h2>
-              <div className="premium-description">
-                <p>As a nonprofit, Quill provides all activities for free, forever.</p>
-                <p>Quill Premium provides schools and districts with:</p>
-                <ul>
-                  <li>Advanced reporting</li>
-                  <li>Professional learning</li>
-                  <li>Priority tech support</li>
-                </ul>
-              </div>
+      <div className="sticky-header">
+        <div className="sticky-header-background-container">
+          <div className="choose-plan">
+            <h2>Go Premium to improve student writing</h2>
+            <div className="premium-description">
+              <p>As a nonprofit, Quill provides all activities for free, forever.</p>
+              <p>Quill Premium provides schools and districts with:</p>
+              <ul>
+                <li>Advanced reporting</li>
+                <li>Professional learning</li>
+                <li>Priority tech support</li>
+              </ul>
             </div>
-            <div className="pricing-minis-container">
-              <div className="pricing-minis">
-                <BasicPricingMini
-                  premiumFeatureData={premiumFeatureData}
-                  userIsSignedIn={userIsSignedIn}
-                />
-                <TeacherPricingMini
-                  buyNowButton={teacherBuyNowButton}
-                  plan={stripeTeacherPlan.plan}
-                  premiumFeatureData={premiumFeatureData}
-                />
-                <SchoolPricingMini
-                  handleClickPurchasingOptions={onClickPurchasingOptions}
-                  plan={stripeSchoolPlan.plan}
-                  premiumFeatureData={premiumFeatureData}
-                />
-              </div>
+          </div>
+          <div className="pricing-minis-container">
+            <div className="pricing-minis">
+              <BasicPricingMini
+                premiumFeatureData={premiumFeatureData}
+                userIsSignedIn={userIsSignedIn}
+              />
+              <TeacherPricingMini
+                buyNowButton={teacherBuyNowButton}
+                plan={stripeTeacherPlan.plan}
+                premiumFeatureData={premiumFeatureData}
+              />
+              <SchoolPricingMini
+                handleClickPurchasingOptions={onClickPurchasingOptions}
+                plan={stripeSchoolPlan.plan}
+                premiumFeatureData={premiumFeatureData}
+              />
             </div>
           </div>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

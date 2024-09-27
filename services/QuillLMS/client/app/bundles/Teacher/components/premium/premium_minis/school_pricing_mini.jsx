@@ -14,7 +14,7 @@ const SchoolPricingMini = ({ plan, premiumFeatureData, showBadges, handleClickPu
         <p>Per school, per year</p>
       </div>
       <div className="premium-button-container">
-        <a href="https://quill.org/request_quote" target="_blank">
+        <a href="https://quill.org/request_quote" rel="noopener noreferrer" target="_blank">
           <button
             className="quill-button-archived contained medium primary focus-on-light book-call"
             type="button"
