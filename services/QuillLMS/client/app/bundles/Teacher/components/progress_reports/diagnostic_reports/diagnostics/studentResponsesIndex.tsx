@@ -13,7 +13,7 @@ import {
 } from './shared';
 
 import { requestGet } from '../../../../../../modules/request/index';
-import { DataTable, pluralize } from '../../../../../Shared/index';
+import { DataTable, DataTableChip, accountGreenIcon, pluralize } from '../../../../../Shared/index';
 import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
 interface Student {
@@ -72,14 +72,6 @@ const preTestDesktopHeaders = (isSortable) => ([
     tooltipDescription: preSkillsProficientTooltipText,
     noTooltip: true,
     isSortable
-  },
-  {
-    name: 'Responses',
-    attribute: 'individualResponsesLink',
-    width: S_CELL_WIDTH,
-    noTooltip: true,
-    rowSectionClassName: 'individual-responses-link',
-    headerClassName: 'individual-responses-header'
   }
 ])
 
@@ -155,14 +147,6 @@ const postTestDesktopHeaders = (isSortable) => ([
     tooltipDescription: postSkillsImprovedOrMaintainTooltipText,
     noTooltip: true,
     isSortable
-  },
-  {
-    name: 'Responses',
-    attribute: 'individualResponsesLink',
-    width: S_CELL_WIDTH,
-    noTooltip: true,
-    rowSectionClassName: 'individual-responses-link',
-    headerClassName: 'individual-responses-header'
   }
 ])
 
@@ -312,10 +296,13 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
     )
   }
 
-  function renderIndividualResponsesLink({total_correct_questions_count, id}) {
-    if (total_correct_questions_count === undefined) { return null }
-
-    return <Link className="quill-button-archived fun secondary outlined focus-on-light" to={responsesLink(id)}>View</Link>
+  function renderStudentChip({ total_correct_questions_count, id, name }) {
+    if (total_correct_questions_count === undefined) { return <React.Fragment><span>{name}</span><span className="name-section-subheader">Diagnostic not completed</span></React.Fragment> }
+    return(
+      <Link className="student-responses-link" to={responsesLink(id)}>
+        <DataTableChip icon={accountGreenIcon} label={name} />
+      </Link>
+    )
   }
 
   const responsesLink = (studentId: number) => unitId ? `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}?unit=${unitId}` : `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}`
@@ -330,7 +317,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
 
     return {
       id: id || name,
-      name,
+      name: renderStudentChip({ total_correct_questions_count, id, name }),
       alphabeticalName: alphabeticalName(name),
       preToPostImprovedSkills: renderPreToPostImprovedSkillsElement({total_correct_questions_count, total_acquired_skill_groups_count}),
       totalCorrectSkillsCount: total_correct_questions_count,
@@ -341,21 +328,18 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
       preSkillsProficientElement: renderPreSkillsProficient({ total_correct_questions_count, total_pre_correct_questions_count, skill_groups, total_correct_skill_groups_count, correct_skill_groups_text }),
       preSkillsCorrectElement: renderPreSkillsCorrectElement({ total_correct_questions_count, total_pre_correct_questions_count, total_pre_possible_questions_count, total_possible_questions_count }),
       activeDiagnosticSkillsCorrectElement: renderActiveDiagnosticSkillsCorrectElement({ total_correct_questions_count, total_possible_questions_count }),
-      postSkillsImprovedOrMaintained: renderPostSkillsImprovedOrMaintained({ total_pre_possible_questions_count, correct_skill_groups_text, total_acquired_skill_groups_count, total_maintained_skill_group_proficiency_count }),
-      individualResponsesLink: renderIndividualResponsesLink({ total_correct_questions_count, id })
+      postSkillsImprovedOrMaintained: renderPostSkillsImprovedOrMaintained({ total_pre_possible_questions_count, correct_skill_groups_text, total_acquired_skill_groups_count, total_maintained_skill_group_proficiency_count })
     }
   })
 
   const mobileRows = students.map(student => {
     const { name, total_possible_questions_count, total_correct_questions_count, id, } = student
-    const nameElement = total_correct_questions_count !== undefined ? <Link to={responsesLink(id)}>{name}</Link> : <React.Fragment><span>{name}</span><span className="name-section-subheader">Diagnostic not completed</span></React.Fragment>
     return {
       id: id || name,
-      name: nameElement,
+      name: renderStudentChip({ total_correct_questions_count, id, name }),
       alphabeticalName: alphabeticalName(name),
       totalCorrectSkillsCount: total_correct_questions_count,
-      skillsCorrectElement: total_correct_questions_count !== undefined ? <div className="skills-correct-element">{total_correct_questions_count} of {total_possible_questions_count} ({calculateSkillsPercentage(total_correct_questions_count, total_possible_questions_count)}%)</div> : null,
-      individualResponsesLink: total_correct_questions_count !== undefined ? <Link className="quill-button-archived fun secondary outlined focus-on-light" to={responsesLink(id)}>View</Link> : <span className="name-section-subheader">Diagnostic not completed</span>
+      skillsCorrectElement: total_correct_questions_count !== undefined ? <div className="skills-correct-element">{total_correct_questions_count} of {total_possible_questions_count} ({calculateSkillsPercentage(total_correct_questions_count, total_possible_questions_count)}%)</div> : null
     }
   })
 
