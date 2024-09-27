@@ -6,19 +6,33 @@ module Evidence
       class BuildLLMExampleWorker
         include Evidence.sidekiq_module
 
-        sidekiq_options retry: 0, queue: 'default'
+        sidekiq_options queue: 'default'
+
+        class TrialNotFoundError < StandardError; end
 
         def perform(trial_id, test_example_id)
           trial = Trial.find(trial_id)
           test_example = trial.test_examples.find(test_example_id)
 
           api_call_start_time = Time.zone.now
-          prompt = trial.llm_prompt.prompt_with_student_response(test_example.student_response)
+          student_response = test_example.student_response
+
+          if trial.classification?
+            prompt = trial.llm_prompt.prompt_with_rag_label_examples_and_student_response(entry: student_response, prompt_id: trial.stem_vault.prompt_id)
+          elsif trial.generative?
+            prompt = trial.llm_prompt.prompt_with_student_response(student_response:)
+          end
+
           raw_text = trial.llm.completion(prompt, trial.temperature)
           api_call_time = Time.zone.now - api_call_start_time
 
           llm_feedback = LLMFeedbackResolver.run(raw_text:)
-          llm_assigned_status = LLMAssignedStatusResolver.run(raw_text:)
+
+          if trial.classification?
+            llm_assigned_status = llm_feedback&.start_with?('Optimal') ? 'optimal' : 'suboptimal'
+          elsif trial.generative?
+            llm_assigned_status = LLMAssignedStatusResolver.run(raw_text:)
+          end
 
           LLMExample.create!(trial:, raw_text:, llm_feedback:, test_example:, llm_assigned_status:)
 

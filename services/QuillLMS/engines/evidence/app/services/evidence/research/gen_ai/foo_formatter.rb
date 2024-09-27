@@ -33,8 +33,6 @@ module Evidence
               label_freq[label] += 1
 
               if label_freq[label] % 5 == 4
-                StoreLabeledEntryWorker.perform_async(entry, label, prompt_id)
-              else
                 curriculum_assigned_status = label.start_with?('Optimal') ? OPTIMAL : SUBOPTIMAL
                 curriculum_assigned_status == OPTIMAL ? optimal_count += 1 : suboptimal_count += 1
 
@@ -44,6 +42,8 @@ module Evidence
                   dataset:,
                   student_response: entry
                 )
+              else
+                StoreLabeledEntryWorker.perform_async(entry, label, prompt_id)
               end
             end
           end
