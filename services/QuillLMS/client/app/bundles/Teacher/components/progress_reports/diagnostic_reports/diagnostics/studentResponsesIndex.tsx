@@ -32,8 +32,7 @@ interface Student {
 
 const S_CELL_WIDTH = '176px'
 const M_CELL_WIDTH = '184px'
-const L_CELL_WIDTH = '244px'
-const XL_CELL_WIDTH = '252px'
+const L_CELL_WIDTH = '320px'
 const NOT_AVAILABLE = 'Not available'
 
 const diagnosticNotCompletedElement = (<span>Diagnostic not completed</span>)
@@ -51,7 +50,7 @@ const preTestDesktopHeaders = (isSortable) => ([
     name: '',
     attribute: 'activeDiagnosticSkillsCorrectElement',
     sortAttribute: 'totalCorrectSkillsCount',
-    width: XL_CELL_WIDTH,
+    width: L_CELL_WIDTH,
     rowSectionClassName: 'score-section',
     headerClassName: 'score-header',
     primaryTitle: 'Pre:',
@@ -65,7 +64,7 @@ const preTestDesktopHeaders = (isSortable) => ([
     name: '',
     attribute: 'preSkillsProficientElement',
     sortAttribute: 'totalPreCorrectSkillsCount',
-    width: XL_CELL_WIDTH,
+    width: L_CELL_WIDTH,
     primaryTitle: 'Pre:',
     secondaryTitle: 'Skills Proficient',
     tooltipName: 'Pre: Skills Proficient',
