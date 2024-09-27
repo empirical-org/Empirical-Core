@@ -36,8 +36,9 @@ module Evidence
     def self.fetch_embedding(text) = Evidence::OpenAI::EmbeddingFetcher.run(input: text)
 
     def self.closest_prompt_texts(prompt_id, response_text, limit = 10)
-      # TODO: replace this line with etch_embedding(response_text)
+      # TODO: replace this line with fetch_embedding(response_text)
       # For testing efficiency, I stored embeddings on a different prompt
+
       embedding = find_by(prompt_id: 16, response_text:)
 
       embedding
@@ -45,7 +46,6 @@ module Evidence
         .includes(:prompt_response_feedback)
         .where(prompt_id: prompt_id)
         .limit(limit)
-        .map {|r| [r.response_text, r.label_transformed]}
     end
 
     def closest_prompt_response

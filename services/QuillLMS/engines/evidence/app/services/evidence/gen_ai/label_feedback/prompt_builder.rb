@@ -22,9 +22,12 @@ module Evidence
         private def label_examples = markdown_table_rows(label_example_data)
         private def rag_label_examples = markdown_table_rows(rag_example_data)
 
-        private def rag_example_data
-          Evidence::PromptResponse
+        private def rag_example_data = rag_examples.map {|r| [r.response_text, r.label_transformed]}
+
+        def rag_examples
+          @rag_examples ||= Evidence::PromptResponse
             .closest_prompt_texts(prompt.id, entry, RAG_EXAMPLE_LIMIT)
+            .to_a
         end
 
         private def label_example_data

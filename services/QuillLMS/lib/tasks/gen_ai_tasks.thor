@@ -505,8 +505,6 @@ class GenAITasks < Thor
     test_data = Evidence::GenAI::LabelFeedback::DataFetcher.run('test.csv')
       .sample(limit.to_i, random: Random.new(1))
 
-    label_api = Evidence::Gemini::Chat
-
     results = []
 
     prompt = Evidence::Prompt.find 673
@@ -515,11 +513,7 @@ class GenAITasks < Thor
       entry = data.entry
       label = data.label_transformed
 
-      system_prompt = Evidence::GenAI::LabelFeedback::PromptBuilder.run(prompt:, entry:)
-
-      response = label_api.run(system_prompt:, entry:)
-
-      llm_label = response['label']
+      llm_label = Evidence::GenAI::LabelFeedback::Retriever.run(prompt:, entry:)
 
       matches = label == llm_label
       result = LabelResult.new(entry:, label:, llm_label:, matches:)
