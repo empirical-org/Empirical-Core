@@ -8,7 +8,5 @@ class AddTaskTypeToDataset < ActiveRecord::Migration[7.1]
     Evidence::Research::GenAI::Dataset.find_each do |dataset|
       dataset.update!(task_type: 'generative')
     end
-
-    change_column_null :evidence_research_gen_ai_datasets, :task_type, false
   end
 end

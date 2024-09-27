@@ -17,10 +17,16 @@ module Evidence
           datetime.in_time_zone(time_zone).strftime('%m/%d/%y, %I:%M %p')
         end
 
-        def llm_example_match_color(llm_example)
-          return LIGHT_GREEN if llm_example.optimal_or_suboptimal_match?
-          return LIGHT_RED if llm_example.optimal?
-          return DARK_RED if llm_example.suboptimal?
+        def llm_example_match_color(llm_example, task_type)
+          if task_type == Dataset::CLASSIFICATION
+            return LIGHT_GREEN if llm_example.rag_label == llm_example.test_example.rag_label
+            return DARK_RED if llm_example.optimal?
+            return LIGHT_RED if llm_example.suboptimal?
+          elsif task_type == Dataset::GENERATIVE
+            return LIGHT_GREEN if llm_example.optimal_or_suboptimal_match?
+            return LIGHT_RED if llm_example.optimal?
+            return DARK_RED if llm_example.suboptimal?
+          end
         end
 
         def percent_accuracy(numerator, denominator)

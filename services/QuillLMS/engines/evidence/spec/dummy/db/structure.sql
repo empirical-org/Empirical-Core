@@ -1428,7 +1428,8 @@ CREATE TABLE public.evidence_research_gen_ai_stem_vaults (
     stem text NOT NULL,
     conjunction character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    prompt_id integer
 );
 
 
@@ -2575,6 +2576,7 @@ SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20241002153807'),
+('20240926215948'),
 ('20240926201306'),
 ('20240925184213'),
 ('20240918144745'),

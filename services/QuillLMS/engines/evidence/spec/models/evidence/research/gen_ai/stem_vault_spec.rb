@@ -10,6 +10,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  activity_id :integer          not null
+#  prompt_id   :integer
 #
 require 'rails_helper'
 

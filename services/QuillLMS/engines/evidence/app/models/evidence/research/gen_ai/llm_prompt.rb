@@ -19,7 +19,10 @@ module Evidence
   module Research
     module GenAI
       class LLMPrompt < ApplicationRecord
-        FEEDBACK_JSON_SCHEMA = { 'optimal': 'boolean', 'feedback': 'string' }.to_json
+        CLASSIFICATION_SCHEMA = { 'label': 'string' }.to_json
+        GENERATE_SCHEMA = { 'optimal': 'boolean', 'feedback': 'string' }.to_json
+
+        RAG_EXAMPLE_LIMIT = 5
 
         belongs_to :llm_prompt_template
 
@@ -69,8 +72,18 @@ module Evidence
           end
         end
 
-        def prompt_with_student_response(student_response)
-          "#{prompt}\n\n{student_response: #{student_response}}\nProvide feedback in the following JSON format: #{FEEDBACK_JSON_SCHEMA}"
+        def prompt_with_student_response(student_response:)
+          "#{prompt}\n\n{student_response: #{student_response}}\nProvide feedback in the following JSON format: #{GENERATIVE_SCHEMA}"
+        end
+
+        def prompt_with_rag_label_examples_and_student_response(entry:, prompt_id:)
+          "#{prompt}\n\n#{rag_label_examples(entry:, prompt_id:)}\n\n{student_response: #{entry}}\nProvide feedback in the following JSON format: #{CLASSIFICATION_SCHEMA}"
+        end
+
+        def rag_label_examples(entry:, prompt_id:)
+          Evidence::LabeledEntry
+            .closest_prompt_texts(entry:, prompt_id:, limit: RAG_EXAMPLE_LIMIT)
+            .sort_by(&:first)
         end
 
         def guidelines_count = optimal_guidelines_count + suboptimal_guidelines_count

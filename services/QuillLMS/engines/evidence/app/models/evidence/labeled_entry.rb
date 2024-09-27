@@ -44,6 +44,14 @@ module Evidence
 
     before_validation :set_embedding, :set_transformed_label, :set_entry
 
+    def self.closest_prompt_texts(entry:, prompt_id:, limit: 10)
+      find_or_create_by(prompt_id: 0, entry:)
+        .nearest_neighbors(:embedding, distance: DISTANCE_METRIC)
+        .where(prompt_id:)
+        .limit(limit)
+        .pluck(:entry, :label_transformed)
+    end
+
     def nearest_neighbor
       nearest_neighbors(:embedding, distance: DISTANCE_METRIC)
         .where(prompt_id:)

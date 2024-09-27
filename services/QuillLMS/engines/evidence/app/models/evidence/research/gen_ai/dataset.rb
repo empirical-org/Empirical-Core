@@ -37,7 +37,6 @@ module Evidence
         validates :suboptimal_count, presence: true
         validates :stem_vault, presence: true
         validates :version, presence: true
-        validates :task_type, presence: true, inclusion: { in: TASK_TYPES }
 
         validate :validate_file_content
 
@@ -53,6 +52,8 @@ module Evidence
 
         def whole? = parent_id.nil?
         def subset? = parent_id.present?
+        def generative? = task_type == GENERATIVE
+        def classification? = task_type == CLASSIFICATION
 
         def set_version
           existing_version = self.class.where(parent_id:, stem_vault:).order(version: :desc).first&.version
