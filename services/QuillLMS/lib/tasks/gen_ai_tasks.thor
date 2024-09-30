@@ -509,6 +509,7 @@ class GenAITasks < Thor
     match_results = []
     nearby_results = []
     far_results = []
+    beyond_results = []
 
     retriever = Evidence::GenAI::LabelFeedback::Retriever
 
@@ -530,8 +531,10 @@ class GenAITasks < Thor
         match_results << result
       elsif closest_distance <= retriever::NEARBY_THRESHOLD
         nearby_results << result
-      else
+      elsif closest_distance <= retriever::FAR_THRESHOLD
         far_results << result
+      else
+        beyond_results << result
       end
 
       puts "#{label} ||| #{llm_label} ||| #{matches}"
@@ -546,7 +549,8 @@ class GenAITasks < Thor
 
     print_match_counts("Match #{retriever::MATCH_THRESHOLD}", match_results)
     print_match_counts("Nearby #{retriever::NEARBY_THRESHOLD}", nearby_results)
-    print_match_counts("Far", far_results)
+    print_match_counts("Far #{retriever::FAR_THRESHOLD}", far_results)
+    print_match_counts("Beyond", beyond_results)
     print_match_counts('Total', results)
 
     # correct_count = results.count{ |result| result.matches }

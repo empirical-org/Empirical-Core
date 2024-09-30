@@ -7,7 +7,7 @@ module Evidence
         TEMPLATE_FOLDER = 'app/services/evidence/gen_ai/label_feedback/prompts/'
         DEFAULT_TEMPLATE = '2024_09_19_rag_examples.md'
 
-        EXAMPLES_LIMIT = 1000
+        EXAMPLES_LIMIT = 500
         DEFAULT_RAG_EXAMPLE_LIMIT = 5
         KEY_LIMIT = :limit
 
