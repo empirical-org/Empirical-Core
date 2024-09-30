@@ -263,6 +263,7 @@ const iconGroups = [
       { path: "pointing-hand.svg" },
       { path: "premium-icon.svg" },
       { path: "remove.svg" },
+      { path: "return-arrow.svg" },
       { path: "revise-gold.svg" },
       { path: "star-white.svg" },
       { path: "star-green.svg" },

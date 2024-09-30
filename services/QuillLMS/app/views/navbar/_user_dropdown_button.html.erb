@@ -1,0 +1,65 @@
+<% current_path = request.env['PATH_INFO'] %>
+<% user_dropdown_class = current_path.include?('teachers') || current_path.include?('assign') ? 'on-dashboard' : 'not-on-dashboard' %>
+
+<% if show_school_selection_reminders %>
+  <% show_notification_badges_class = 'show-notification-badges' %>
+<% else %>
+  <% show_notification_badges_class = '' %>
+<% end %>
+
+<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element <%= show_notification_badges_class %> <%= user_dropdown_class %>">
+  <span onclick="toggleDropdown()" class='user-dropdown-button notification-badge-relative'>
+    <%="#{truncate(current_user.name, length: 50)}"%>
+  </span>
+  <div>
+    <%= link_to raw(
+      "<span class='image-container'><img class='static' src='https://assets.quill.org/images/icons/pulldown_icons/clipboard-icon-green.svg'></img></span>
+      My Dashboard"
+    ),
+      dashboard_teachers_classrooms_path
+    %>
+    <%= link_to raw(
+      "<span class='image-container'>
+        <img class='static' src='https://assets.quill.org/images/icons/pulldown_icons/account-icon-green.svg'></img>
+      </span>
+      <span class='notification-badge-relative'>My Account</span>"
+    ),
+      teachers_my_account_path
+    %>
+    <%= link_to raw(
+      "<span class='image-container'><img class='static' src='https://assets.quill.org/images/icons/pulldown_icons/settings-icon-green.svg'></img></span>Support"
+    ),
+      'https://support.quill.org',
+      target: "_blank"
+    %>
+    <img class='divider'></img>
+    <%= link_to raw(
+      "<span class='image-container'><img class='static' src='https://assets.quill.org/images/icons/pulldown_icons/logout-icon-green.svg'></img></span>Logout"
+    ),
+      '/session'
+    %>
+  </div>
+</div>
+
+<script>
+  function toggleDropdown() {
+    const dropdown = document.querySelector('#nav-user-dropdown');
+    if(dropdown.classList.contains('dropdown-closed')) {
+      dropdown.classList.remove('dropdown-closed');
+      dropdown.classList.add('dropdown-open');
+    } else {
+      dropdown.classList.remove('dropdown-open');
+      dropdown.classList.add('dropdown-closed');
+    }
+  }
+
+  document.addEventListener("click", closeDropdownIfOpen)
+
+  function closeDropdownIfOpen(e) {
+    const dropdown = document.querySelector('#nav-user-dropdown');
+    if (!e.target.classList.contains('user-dropdown-button') && e.target.parentElement.classList.value !== 'user-dropdown-button' && dropdown && dropdown.classList.contains('dropdown-open')) {
+        dropdown.classList.remove('dropdown-open');
+        dropdown.classList.add('dropdown-closed');
+    }
+  }
+</script>
