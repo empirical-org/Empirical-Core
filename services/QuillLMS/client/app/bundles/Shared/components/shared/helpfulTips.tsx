@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { expandIcon } from '../../index'
+import { expandIcon } from '../../images';
 
 const lightbulbIcon = <img alt="Lightbulb icon for helpful tips" src={`${process.env.CDN_URL}/images/pages/activity_analysis/lightbulb.svg`} />
 
