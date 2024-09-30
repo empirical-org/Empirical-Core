@@ -113,6 +113,19 @@ table.data-table {
         display: inline-block;
       }
     }
+    .student-responses-link {
+      text-decoration: none;
+      &:focus {
+        .data-table-chip {
+          outline: dashed 2px #06806B;
+          outline-offset: 2px;
+          text-decoration: inherit;
+        }
+      }
+      .data-table-chip {
+        margin: 4px;
+      }
+    }
     td {
       .aggregate-row-icon, .aggregate-row-toggle {
         margin-left: 4px;
@@ -126,6 +139,42 @@ table.data-table {
         min-height: 48px;
         display: flex;
         align-items: center;
+      }
+      .data-table-chip {
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+        padding: 4px 8px 4px 6px;
+        background-color: $quill-green-1;
+        border: 1px solid $quill-green-20;
+        width: min-content;
+        max-width: 100%;
+
+        &:focus {
+          outline-offset: 3px;
+        }
+
+        &:not(.grey):hover {
+          background-color: $quill-green-5;
+        }
+
+        &.grey {
+          background-color: $quill-grey-1;
+          border: 1px solid $quill-grey-15;
+
+          p {
+            color: $quill-grey-90;
+          }
+        }
+
+        p {
+          @include display-xs;
+          color: $quill-green;
+          margin-left: 4px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
       }
     }
     &:hover {
