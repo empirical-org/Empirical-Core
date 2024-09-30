@@ -3,25 +3,37 @@
   border: solid 1px $quill-grey-5;
   padding: 0px;
   width: 950px;
+  position: relative;
+  top: 150px;
   .header-row {
     padding: 32px 16px 8px;
     line-height: 1.38;
     color: #262626;
     text-align: left;
+    border-left: 1px solid $quill-grey-5;
+    border-right: 1px solid $quill-grey-5;
+    border-top: 1px solid $quill-grey-5;
     h4 {
       font-size: 16px;
       font-weight: 600;
       line-height: 1.38;
       color: #262626;
     }
-    &:not(:first-of-type) {
-      border-top: 1px solid $quill-grey-5;
-    }
+  }
+  .header-row:first-of-type {
+    border-top-left-radius: 5px;
   }
   .premium-features-table-row {
     border-top: 1px solid $quill-grey-5;
+    border-left: 1px solid $quill-grey-5;
+    border-right: 1px solid $quill-grey-5;
     display: flex;
     position: relative;
+  }
+  .premium-features-table-row:last-of-type {
+    border-bottom: 1px solid $quill-grey-5;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
   .label-and-tooltip {
     display: flex;

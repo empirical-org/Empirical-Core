@@ -12,22 +12,8 @@ export default class PremiumPricingMinisRow extends React.Component {
   state = {
     subscriptionType: null,
     subscriptionStatus: null,
-    userIsSignedIn: !!Number(document.getElementById('current-user-id').getAttribute('content')),
-    isScrolled: false
+    userIsSignedIn: !!Number(document.getElementById('current-user-id').getAttribute('content'))
   };
-
-  componentDidMount() {
-    window.addEventListener('scroll', this.listenScrollEvent)
-  }
-
-  listenScrollEvent = e => {
-    const { isScrolled, } = this.state
-    if (window.scrollY > VERTICAL_INTERSECTION_OF_PREMIUM_PRICING_ROW_AND_TABLE && !isScrolled && window.innerWidth > MOBILE_WIDTH) {
-      this.setState({isScrolled: true})
-    } else if (window.scrollY < VERTICAL_INTERSECTION_OF_PREMIUM_PRICING_ROW_AND_TABLE && isScrolled) {
-      this.setState({isScrolled: false})
-    }
-  }
 
   render() {
     const {
@@ -40,7 +26,7 @@ export default class PremiumPricingMinisRow extends React.Component {
       onClickPurchasingOptions,
     } = this.props
 
-    const { userIsSignedIn, isScrolled, } = this.state
+    const { userIsSignedIn } = this.state
 
     const premiumFeatureData = premiumFeatures({
       diagnosticActivityCount,
@@ -49,31 +35,40 @@ export default class PremiumPricingMinisRow extends React.Component {
     })
 
     return (
-      <React.Fragment>
-        <div className="choose-plan">
-          <h2>Choose the plan that&apos;s right for you</h2>
-          <p>As a nonprofit dedicated to helping students, Quill will always provide 100% of our activities for free.</p>
-        </div>
-        <div className="pricing-minis-container">
-          <div className="pricing-minis">
-            <BasicPricingMini
-              premiumFeatureData={premiumFeatureData}
-              userIsSignedIn={userIsSignedIn}
-            />
-            <TeacherPricingMini
-              buyNowButton={teacherBuyNowButton}
-              plan={stripeTeacherPlan.plan}
-              premiumFeatureData={premiumFeatureData}
-            />
-            <SchoolPricingMini
-              handleClickPurchasingOptions={onClickPurchasingOptions}
-              plan={stripeSchoolPlan.plan}
-              premiumFeatureData={premiumFeatureData}
-              showBadges={!isScrolled}
-            />
+      <div className="sticky-header">
+        <div className="sticky-header-background-container">
+          <div className="choose-plan">
+            <h2>Go Premium to improve student writing</h2>
+            <div className="premium-description">
+              <p>As a nonprofit, Quill provides all activities for free, forever.</p>
+              <p>Quill Premium provides schools and districts with:</p>
+              <ul>
+                <li>Advanced reporting</li>
+                <li>Professional learning</li>
+                <li>Priority tech support</li>
+              </ul>
+            </div>
+          </div>
+          <div className="pricing-minis-container">
+            <div className="pricing-minis">
+              <BasicPricingMini
+                premiumFeatureData={premiumFeatureData}
+                userIsSignedIn={userIsSignedIn}
+              />
+              <TeacherPricingMini
+                buyNowButton={teacherBuyNowButton}
+                plan={stripeTeacherPlan.plan}
+                premiumFeatureData={premiumFeatureData}
+              />
+              <SchoolPricingMini
+                handleClickPurchasingOptions={onClickPurchasingOptions}
+                plan={stripeSchoolPlan.plan}
+                premiumFeatureData={premiumFeatureData}
+              />
+            </div>
           </div>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }
