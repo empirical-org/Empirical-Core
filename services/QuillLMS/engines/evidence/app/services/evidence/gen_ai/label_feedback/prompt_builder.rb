@@ -8,7 +8,8 @@ module Evidence
         DEFAULT_TEMPLATE = '2024_09_19_rag_examples.md'
 
         EXAMPLES_LIMIT = 1000
-        RAG_EXAMPLE_LIMIT = 5
+        DEFAULT_RAG_EXAMPLE_LIMIT = 5
+        KEY_LIMIT = :limit
 
         private def template_variables
           {
@@ -25,10 +26,11 @@ module Evidence
         private def rag_example_data = rag_examples.map {|r| [r.response_text, r.label_transformed]}
 
         def rag_examples
-          @rag_examples ||= Evidence::PromptResponse
-            .closest_prompt_texts(prompt.id, entry, RAG_EXAMPLE_LIMIT)
-            .to_a
+          Evidence::PromptResponse
+            .closest_prompt_texts(prompt.id, entry, example_limit)
         end
+
+        private def example_limit = options[KEY_LIMIT] || DEFAULT_RAG_EXAMPLE_LIMIT
 
         private def label_example_data
           DataFetcher.run('train.csv')

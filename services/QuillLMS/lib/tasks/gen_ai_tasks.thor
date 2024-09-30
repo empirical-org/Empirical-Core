@@ -458,7 +458,7 @@ class GenAITasks < Thor
     create_label_file(csv_data, 'test', 'test', label_transform)
   end
 
-  LabelResult = Data.define(:entry, :label, :llm_label, :matches)
+  LabelResult = Data.define(:entry, :label, :llm_label, :matches, :closest_distance)
 
   # bundle exec thor gen_a_i_tasks:label_feedback_test 'initial test' 2
   desc 'label_feedback_test description limit', 'Test a number or entries from the test.csv file'
@@ -506,6 +506,11 @@ class GenAITasks < Thor
       .sample(limit.to_i, random: Random.new(1))
 
     results = []
+    match_results = []
+    nearby_results = []
+    far_results = []
+
+    retriever = Evidence::GenAI::LabelFeedback::Retriever
 
     prompt = Evidence::Prompt.find 673
 
@@ -513,10 +518,21 @@ class GenAITasks < Thor
       entry = data.entry
       label = data.label_transformed
 
-      llm_label = Evidence::GenAI::LabelFeedback::Retriever.run(prompt:, entry:)
+      result = retriever.run(prompt:, entry:)
+      llm_label = result.label
+      closest_distance = result.closest_distance
 
       matches = label == llm_label
-      result = LabelResult.new(entry:, label:, llm_label:, matches:)
+
+      result = LabelResult.new(entry:, label:, llm_label:, matches:, closest_distance:)
+
+      if closest_distance <= retriever::MATCH_THRESHOLD
+        match_results << result
+      elsif closest_distance <= retriever::NEARBY_THRESHOLD
+        nearby_results << result
+      else
+        far_results << result
+      end
 
       puts "#{label} ||| #{llm_label} ||| #{matches}"
 
@@ -528,9 +544,14 @@ class GenAITasks < Thor
       results.each { |data| csv << data.deconstruct }
     end
 
-    correct_count = results.count{ |result| result.matches }
+    print_match_counts("Match #{retriever::MATCH_THRESHOLD}", match_results)
+    print_match_counts("Nearby #{retriever::NEARBY_THRESHOLD}", nearby_results)
+    print_match_counts("Far", far_results)
+    print_match_counts('Total', results)
 
-    puts "Correct: #{correct_count} / #{results.size}: #{correct_count / results.size.to_f}"
+    # correct_count = results.count{ |result| result.matches }
+
+    # puts "Correct: #{correct_count} / #{results.size}: #{correct_count / results.size.to_f}"
   end
 
   # bundle exec thor gen_a_i_tasks:store_labeled_embeddings
@@ -589,8 +610,13 @@ class GenAITasks < Thor
       !!llm_response[Evidence::GenAI::RepeatedFeedback::Checker::KEY_REPEAT]
     end
 
-    LabeledData = Data.define(:entry, :label, :label_transformed)
+    private def print_match_counts(name, results)
+      correct_count = results.count{ |result| result.matches }
 
+      puts "#{name} Correct: #{correct_count} / #{results.size}: #{correct_count / results.size.to_f}"
+    end
+
+    LabeledData = Data.define(:entry, :label, :label_transformed)
 
     private def store_labeled_data(data, prompt_id)
       placeholder_feedback = 'placeholder feedback'

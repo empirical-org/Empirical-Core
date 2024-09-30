@@ -8,7 +8,12 @@ module Evidence
       class Retriever < ApplicationService
         API = Evidence::Gemini::Chat
         KEY_LABEL = 'label'
-        THRESHOLD = 0.05
+        MATCH_THRESHOLD = 0.03
+        LOW_EXAMPLE_AMOUNT = 5
+        NEARBY_THRESHOLD = 0.08
+        HIGH_EXAMPLE_AMOUNT = 5
+
+        Result = Data.define(:label, :closest_distance)
 
         attr_reader :prompt, :entry
 
@@ -18,24 +23,26 @@ module Evidence
         end
 
         def run
-          puts closest_example.neighbor_distance
-          if closest_example.neighbor_distance <= THRESHOLD
+          closest_distance = closest_example.neighbor_distance
+          puts closest_distance
+          if closest_distance <= MATCH_THRESHOLD
             puts 'under threshold'
-            return closest_example.label_transformed
+            return Result.new(label: closest_example.label_transformed, closest_distance:)
           end
 
-          response = API.run(system_prompt:, entry:)
+          limit = closest_distance <= NEARBY_THRESHOLD ? LOW_EXAMPLE_AMOUNT : HIGH_EXAMPLE_AMOUNT
+          puts limit
 
-          response[KEY_LABEL]
+          response = API.run(system_prompt: system_prompt(limit), entry:)
+
+          Result.new(label: response[KEY_LABEL], closest_distance:)
         end
 
-        private def closest_example = closest_examples.first
-        private def closest_examples = prompt_builder.rag_examples
-        private def system_prompt = prompt_builder.run
-
-        private def prompt_builder
-          @prompt_builder ||= Evidence::GenAI::LabelFeedback::PromptBuilder.new(prompt:, entry:)
+        private def closest_example
+          @closest_example ||= Evidence::PromptResponse.closest_prompt_texts(prompt.id, entry, 1).first
         end
+
+        private def system_prompt(limit) = Evidence::GenAI::LabelFeedback::PromptBuilder.run(prompt:, entry:, options: {limit:})
       end
     end
   end
