@@ -3,7 +3,6 @@ import { stripHtml } from "string-strip-html";
 import clip from "text-clipper";
 import ReactHtmlParser from 'react-html-parser';
 
-//import { BECAUSE, BUT, CHECKLIST, Feedback, INTRODUCTION, READ_AND_HIGHLIGHT, SO, getLatestAttempt } from '../../Shared/index';
 import { QuestionObject, Activity } from '../interfaces';
 import { PromptInterface } from '../../Staff/interfaces/evidenceInterfaces';
 import { getLatestAttempt } from './getLatestAttempt';
