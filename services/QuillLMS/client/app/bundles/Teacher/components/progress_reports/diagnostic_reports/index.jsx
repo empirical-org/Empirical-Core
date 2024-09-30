@@ -133,15 +133,6 @@ class DiagnosticReports extends React.Component {
     history.push(`/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${studentId}/activity_session_id/${value}`)
   }
 
-  changeStudent = (student) => {
-    const { history } = this.props
-    const { value } = student
-    this.setState({selectedStudentId: value })
-    const p = this.parseParams(this.props.location.pathname);
-    const { activityId, classroomId, unitId } = p
-    history.push(`/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${value}`)
-  };
-
   findClassroomById = (id) => {
     return this.props.classrooms
       ? this.props.classrooms.find((c) => c.id === id)
