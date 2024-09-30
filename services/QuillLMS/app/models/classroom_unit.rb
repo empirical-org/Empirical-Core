@@ -46,6 +46,7 @@ class ClassroomUnit < ApplicationRecord
   before_save :check_for_assign_on_join_and_update_students_array_if_true
 
   after_save :manage_user_pack_sequence_items, if: :saved_change_to_assigned_student_ids?
+  after_save :assign_student_learning_sequences, if: :saved_change_to_assigned_student_ids?
   after_save :hide_appropriate_activity_sessions, :save_user_pack_sequence_items
 
   # Using an after_commit hook here because we want to trigger the callback
@@ -147,5 +148,13 @@ class ClassroomUnit < ApplicationRecord
 
   private def touch_classroom_without_callbacks
     classroom&.update_columns(updated_at: current_time_from_proper_timezone) unless classroom&.destroyed?
+  end
+
+  private def assign_student_learning_sequences
+    old_ids, new_ids = saved_change_to_assigned_student_ids
+    newly_assigned = new_ids - old_ids
+    newly_assigned.each do |student_id|
+      StudentLearningSequences::HandleAssignmentWorker.perform_async(id, student_id)
+    end
   end
 end

@@ -14,13 +14,16 @@ import {
   hashToCollection,
   FinalAttemptFeedback,
   ALLOWED_ATTEMPTS,
-  ENGLISH
+  ENGLISH,
+  INSTRUCTIONS,
+  CORRECT_MATCHED,
+  REVISE_MATCHED,
+  renderExplanation
 } from '../../../Shared/index';
 import * as responseActions from '../../actions/responses';
 import { setCurrentQuestion } from '../../actions/session';
 import { GrammarActivity } from '../../interfaces/grammarActivities';
 import { Question } from '../../interfaces/questions';
-import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces';
 
 const UNANSWERED = 'unanswered'
 const CORRECTLY_ANSWERED = 'correctly answered'
@@ -33,7 +36,7 @@ interface QuestionProps {
   availableLanguages?: string[];
   dispatch: Function;
   unansweredQuestions: Question[] | never;
-  currentQuestion: Question;
+  question: Question;
   goToNextQuestion: Function;
   checkAnswer: Function;
   conceptsFeedback: any;
@@ -46,6 +49,8 @@ interface QuestionProps {
   handleTogglePreviewMenu: () => void;
   language?: string;
   translate: (language: string) => string;
+  showTranslation: boolean;
+  translatedQuestions?: any;
 }
 
 interface QuestionState {
@@ -66,7 +71,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     this.state = {
       showExample: true,
       response: '',
-      questionStatus: this.getCurrentQuestionStatus(props.currentQuestion),
+      questionStatus: this.getCurrentQuestionStatus(props.question),
       submittedEmptyString: false,
       submittedForPreview: false,
       submittedSameResponseTwice: false,
@@ -76,9 +81,9 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   componentDidMount() {
-    const { currentQuestion, } = this.props;
+    const { question, } = this.props;
     // preview questions use key as the unique identifier
-    const uid = currentQuestion.uid ? currentQuestion.uid : currentQuestion.key;
+    const uid = question.uid ? question.uid : question.key;
 
     responseActions.getGradedResponsesWithCallback(
       uid,
@@ -96,26 +101,28 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   //TODO: refactor into componentDidUpdate
 
   UNSAFE_componentWillReceiveProps(nextProps: QuestionProps) {
-    const { currentQuestion, previewMode } = this.props;
-    if (nextProps.currentQuestion && nextProps.currentQuestion.attempts && nextProps.currentQuestion.attempts.length > 0) {
-      this.setState({ questionStatus: this.getCurrentQuestionStatus(nextProps.currentQuestion) })
+    const { question, previewMode } = this.props;
+    const { questionStatus } = this.state;
+    const newQuestionStatus = this.getCurrentQuestionStatus(nextProps.question)
+    if (nextProps.question && nextProps.question.attempts && nextProps.question.attempts.length > 0 && questionStatus !== newQuestionStatus) {
+      this.setState({ questionStatus: newQuestionStatus })
     }
-    if (nextProps.currentQuestion.uid && currentQuestion.uid !== nextProps.currentQuestion.uid) {
+    if (nextProps.question.uid && question.uid !== nextProps.question.uid) {
       responseActions.getGradedResponsesWithCallback(
-        nextProps.currentQuestion.uid,
+        nextProps.question.uid,
         (data: Response[]) => {
           this.setState({ responses: data, });
         }
       );
       // previewQuestion has been switched, reset values or set text to latest attempt
       if(previewMode) {
-        const latestAttempt = this.handleGetLatestAttempt(nextProps.currentQuestion.attempts)
+        const latestAttempt = this.handleGetLatestAttempt(nextProps.question.attempts)
         if(latestAttempt && latestAttempt.text) {
           this.setState({ response: latestAttempt.text });
         } else {
           this.setState({ response: '' });
         }
-        this.setState({ questionStatus: this.getCurrentQuestionStatus(nextProps.currentQuestion) });
+        this.setState({ questionStatus: this.getCurrentQuestionStatus(nextProps.question) });
       }
     }
   }
@@ -136,20 +143,20 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   previousResponses = () => {
-    const question = this.currentQuestion()
+    const { question } = this.props
     return question.attempts ? question.attempts.map(a => a.text) : []
   }
 
-  getCurrentQuestionStatus(currentQuestion) {
-    if (currentQuestion.attempts && currentQuestion.attempts.length) {
-      if (currentQuestion.attempts.length === ALLOWED_ATTEMPTS && currentQuestion.attempts[currentQuestion.attempts.length - 1]) {
-        if (currentQuestion.attempts[currentQuestion.attempts.length - 1].optimal) {
+  getCurrentQuestionStatus(question) {
+    if (question.attempts && question.attempts.length) {
+      if (question.attempts.length === ALLOWED_ATTEMPTS && question.attempts[question.attempts.length - 1]) {
+        if (question.attempts[question.attempts.length - 1].optimal) {
           return CORRECTLY_ANSWERED
         } else {
           return FINAL_ATTEMPT
         }
       } else {
-        if (currentQuestion.attempts.length < ALLOWED_ATTEMPTS && currentQuestion.attempts[currentQuestion.attempts.length - 1] && currentQuestion.attempts[currentQuestion.attempts.length - 1].optimal) {
+        if (question.attempts.length < ALLOWED_ATTEMPTS && question.attempts[question.attempts.length - 1] && question.attempts[question.attempts.length - 1].optimal) {
           return CORRECTLY_ANSWERED
         } else {
           return INCORRECTLY_ANSWERED
@@ -160,14 +167,9 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     }
   }
 
-  currentQuestion = () => {
-    const { currentQuestion } = this.props
-    return currentQuestion;
-  }
-
   correctResponse = () => {
     const { responses } = this.state
-    const question = this.currentQuestion()
+    const { question } = this.props
     let text
     if (Object.keys(responses).length) {
       const responseArray = hashToCollection(responses).sort((a: Response, b: Response) => b.count - a.count)
@@ -183,9 +185,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   handleCheckWorkClick = () => {
-    const { checkAnswer } = this.props
+    const { checkAnswer, question } = this.props
     const { response, responses } = this.state
-    const question = this.currentQuestion()
     const isFirstAttempt = !question.attempts || question.attempts.length === 0
     if (Object.keys(responses).length) {
       if (response !== '') {
@@ -238,8 +239,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   getConcept = () => {
-    const { concepts, } = this.props
-    return concepts && concepts.data && concepts.data[0] ? concepts.data[0].find((c: any) => c.uid === this.currentQuestion().concept_uid) : null
+    const { concepts, question } = this.props
+    return concepts && concepts.data && concepts.data[0] ? concepts.data[0].find((c: any) => c.uid === question.concept_uid) : null
   }
 
   handleKeyDown = (e: any) => {
@@ -257,8 +258,9 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   handleDrop = (e) => e.preventDefault()
 
   example = (): JSX.Element | string | void => {
-    if (this.currentQuestion().rule_description && this.currentQuestion().rule_description.length && this.currentQuestion().rule_description !== "<br/>") {
-      return this.currentQuestion().rule_description
+    const { question } = this.props
+    if (question.rule_description && question.rule_description.length && question.rule_description !== "<br/>") {
+      return question.rule_description
     } else if (this.getConcept() && this.getConcept().description) {
       return this.getConcept().description
     }
@@ -311,10 +313,9 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   getQuestionCounts = (): object => {
-    const { answeredQuestions, unansweredQuestions, activity, previewMode, questionSet } = this.props;
+    const { answeredQuestions, unansweredQuestions, activity, previewMode, questionSet, question } = this.props;
     let answeredQuestionCount;
     let totalQuestionCount;
-    const question = this.currentQuestion();
     if(previewMode) {
       // standard activity questions
       // some Grammar activities return an empty array for the questions property so we check it's length
@@ -384,7 +385,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   renderQuestionSection(): JSX.Element {
-    const question = this.currentQuestion()
+    const { question } = this.props
     const { prompt, attempts, cues, cues_label, } = question
     const latestAttempt = this.handleGetLatestAttempt(attempts)
     const feedbackKey = latestAttempt ? latestAttempt.text : 'instructions'
@@ -411,55 +412,82 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   }
 
   renderFeedbackSection(): JSX.Element | undefined {
-    const { response } = this.state
-    const question = this.currentQuestion()
+    const { showTranslation, translate, question } = this.props
     const latestAttempt: Response | undefined = this.handleGetLatestAttempt(question.attempts)
-
-    if (!latestAttempt) { return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: this.currentQuestion().instructions }} />} feedbackType="instructions" />}
-
+    // this is how Connect latestAttempts are structured so we need to match for this shared Feedback component
+    const attemptToPass = { response: latestAttempt }
+    if (!latestAttempt) {
+      return(
+        <Feedback
+          feedback={<p dangerouslySetInnerHTML={{ __html: question.instructions }} />}
+          feedbackType={INSTRUCTIONS}
+          question={question}
+          showTranslation={showTranslation}
+        />
+      )
+    }
     if (latestAttempt && latestAttempt.optimal) {
-      return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: latestAttempt.feedback }} />} feedbackType="correct-matched" />
+      return(
+        <Feedback
+          feedback={<p dangerouslySetInnerHTML={{ __html: latestAttempt.feedback }} />}
+          feedbackType={CORRECT_MATCHED}
+          latestAttempt={attemptToPass}
+          question={question}
+          showTranslation={showTranslation}
+        />
+      )
     }
-
     if (question.attempts && question.attempts.length === ALLOWED_ATTEMPTS) {
-      return <FinalAttemptFeedback correctResponse={this.correctResponse()} latestAttempt={response} />;
+      return(
+        <FinalAttemptFeedback
+          correctResponse={this.correctResponse()}
+          latestAttempt={latestAttempt?.text}
+          showTranslation={showTranslation}
+          translate={translate}
+        />
+      )
     }
-    return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: latestAttempt && latestAttempt.feedback ? latestAttempt.feedback : '' }} />} feedbackType="revise-matched" />
+    return(
+      <Feedback
+        feedback={<p dangerouslySetInnerHTML={{ __html: latestAttempt?.feedback ? latestAttempt.feedback : '' }} />}
+        feedbackType={REVISE_MATCHED}
+        latestAttempt={attemptToPass}
+        question={question}
+        showTranslation={showTranslation}
+        translate={translate}
+      />
+    )
   }
 
-  renderConceptExplanation = (): JSX.Element | void => {
-    const { conceptsFeedback, } = this.props
-    const latestAttempt: Response | undefined = this.handleGetLatestAttempt(this.currentQuestion().attempts);
-    if (latestAttempt && !latestAttempt.optimal) {
-      if (latestAttempt.conceptResults) {
-        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.conceptResults);
-        if (conceptID) {
-          const data = conceptsFeedback.data[conceptID.conceptUID];
-          if (data) {
-            return <ConceptExplanation {...data} />;
-          }
-        }
-        // pretty sure it is only conceptResults now, but trying to avoid further issues
-      } else if (latestAttempt.concept_results) {
-        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.concept_results);
-        if (conceptID) {
-          const data = conceptsFeedback.data[conceptID.conceptUID];
-          if (data) {
-            return <ConceptExplanation {...data} />;
-          }
-        }
 
-      } else if (this.currentQuestion() && this.currentQuestion().modelConceptUID) {
-        const dataF = conceptsFeedback.data[this.currentQuestion().modelConceptUID];
-        if (dataF) {
-          return <ConceptExplanation {...dataF} />;
-        }
-      } else if (this.currentQuestion().concept_uid) {
-        const data = conceptsFeedback.data[this.currentQuestion().concept_uid];
-        if (data) {
-          return <ConceptExplanation {...data} />;
-        }
+  renderConceptExplanation = (): JSX.Element | void => {
+    const { conceptsFeedback, question, showTranslation } = this.props
+    const latestAttempt: Response | undefined = this.handleGetLatestAttempt(question.attempts);
+    if(!latestAttempt || latestAttempt.optimal) { return }
+    if (latestAttempt.conceptResults) {
+      const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.conceptResults);
+      if (conceptID) {
+        const key = conceptID.conceptUID
+        const data = conceptsFeedback.data[key];
+        return renderExplanation({ data, key, conceptsFeedback, showTranslation })
       }
+      // pretty sure it is only conceptResults now, but trying to avoid further issues
+    } else if (latestAttempt.concept_results) {
+      const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.concept_results);
+      if (conceptID) {
+        const key = conceptID.conceptUID
+        const data = conceptsFeedback.data[key];
+        return renderExplanation({ data, key, conceptsFeedback, showTranslation })
+      }
+
+    } else if (question && question.modelConceptUID) {
+      const key = question.modelConceptUID
+      const data = conceptsFeedback.data[key];
+      return renderExplanation({ data, key, conceptsFeedback, showTranslation })
+    } else if (question.concept_uid) {
+      const key = question.concept_uid
+      const data = conceptsFeedback.data[key];
+      return renderExplanation({ data, key, conceptsFeedback, showTranslation })
     }
   }
 

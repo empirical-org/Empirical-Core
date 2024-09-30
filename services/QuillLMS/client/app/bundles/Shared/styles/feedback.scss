@@ -13,6 +13,9 @@
   }
   .translated-feedback {
     margin-top: 8px;
+    .incorrect-continue {
+      padding-top: 8px;
+    }
   }
   &.admin-feedback-row {
     margin-top: 5px;
@@ -47,7 +50,7 @@
     background-color: #d3e7bd;
     border-left: 3px solid #498900;
 
-    p, strong, em {
+    p, strong, em, b, div {
       color: #457818;
     }
 
@@ -83,7 +86,7 @@
       }
     }
 
-    p, strong, em {
+    p, strong, em, b, div {
       color: #875a12;
     }
   }

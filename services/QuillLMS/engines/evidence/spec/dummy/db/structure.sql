@@ -660,7 +660,7 @@ CREATE TABLE public.evidence_automl_models (
     notes text DEFAULT ''::text,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    project character varying
+    project character varying NOT NULL
 );
 
 
@@ -681,38 +681,6 @@ CREATE SEQUENCE public.evidence_automl_models_id_seq
 --
 
 ALTER SEQUENCE public.evidence_automl_models_id_seq OWNED BY public.evidence_automl_models.id;
-
-
---
--- Name: evidence_evidence_research_gen_ai_prompt_template_variables; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.evidence_evidence_research_gen_ai_prompt_template_variables (
-    id bigint NOT NULL,
-    name character varying NOT NULL,
-    value text NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: evidence_evidence_research_gen_ai_prompt_template_variab_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.evidence_evidence_research_gen_ai_prompt_template_variab_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: evidence_evidence_research_gen_ai_prompt_template_variab_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.evidence_evidence_research_gen_ai_prompt_template_variab_id_seq OWNED BY public.evidence_evidence_research_gen_ai_prompt_template_variables.id;
 
 
 --
@@ -748,6 +716,42 @@ CREATE SEQUENCE public.evidence_hints_id_seq
 --
 
 ALTER SEQUENCE public.evidence_hints_id_seq OWNED BY public.evidence_hints.id;
+
+
+--
+-- Name: evidence_labeled_entries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_labeled_entries (
+    id bigint NOT NULL,
+    entry text NOT NULL,
+    label text NOT NULL,
+    label_transformed text NOT NULL,
+    metadata jsonb,
+    prompt_id integer NOT NULL,
+    embedding public.vector(1536) NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_labeled_entries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_labeled_entries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_labeled_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_labeled_entries_id_seq OWNED BY public.evidence_labeled_entries.id;
 
 
 --
@@ -993,38 +997,6 @@ CREATE SEQUENCE public.evidence_research_gen_ai_comparisons_id_seq
 --
 
 ALTER SEQUENCE public.evidence_research_gen_ai_comparisons_id_seq OWNED BY public.evidence_research_gen_ai_comparisons.id;
-
-
---
--- Name: evidence_research_gen_ai_data_slices; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.evidence_research_gen_ai_data_slices (
-    id bigint NOT NULL,
-    parent_dataset_id integer NOT NULL,
-    child_dataset_id integer NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: evidence_research_gen_ai_data_slices_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.evidence_research_gen_ai_data_slices_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: evidence_research_gen_ai_data_slices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.evidence_research_gen_ai_data_slices_id_seq OWNED BY public.evidence_research_gen_ai_data_slices.id;
 
 
 --
@@ -1279,7 +1251,8 @@ CREATE TABLE public.evidence_research_gen_ai_llm_prompt_templates (
     contents text NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    notes text
+    notes text,
+    "order" integer NOT NULL
 );
 
 
@@ -1817,17 +1790,17 @@ ALTER TABLE ONLY public.evidence_automl_models ALTER COLUMN id SET DEFAULT nextv
 
 
 --
--- Name: evidence_evidence_research_gen_ai_prompt_template_variables id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.evidence_evidence_research_gen_ai_prompt_template_variables ALTER COLUMN id SET DEFAULT nextval('public.evidence_evidence_research_gen_ai_prompt_template_variab_id_seq'::regclass);
-
-
---
 -- Name: evidence_hints id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.evidence_hints ALTER COLUMN id SET DEFAULT nextval('public.evidence_hints_id_seq'::regclass);
+
+
+--
+-- Name: evidence_labeled_entries id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_labeled_entries ALTER COLUMN id SET DEFAULT nextval('public.evidence_labeled_entries_id_seq'::regclass);
 
 
 --
@@ -1877,13 +1850,6 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_activities ALTER COLUMN id SET 
 --
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_comparisons ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_comparisons_id_seq'::regclass);
-
-
---
--- Name: evidence_research_gen_ai_data_slices id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.evidence_research_gen_ai_data_slices ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_data_slices_id_seq'::regclass);
 
 
 --
@@ -2172,19 +2138,19 @@ ALTER TABLE ONLY public.evidence_automl_models
 
 
 --
--- Name: evidence_evidence_research_gen_ai_prompt_template_variables evidence_evidence_research_gen_ai_prompt_template_variable_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.evidence_evidence_research_gen_ai_prompt_template_variables
-    ADD CONSTRAINT evidence_evidence_research_gen_ai_prompt_template_variable_pkey PRIMARY KEY (id);
-
-
---
 -- Name: evidence_hints evidence_hints_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.evidence_hints
     ADD CONSTRAINT evidence_hints_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_labeled_entries evidence_labeled_entries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_labeled_entries
+    ADD CONSTRAINT evidence_labeled_entries_pkey PRIMARY KEY (id);
 
 
 --
@@ -2241,14 +2207,6 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_activities
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_comparisons
     ADD CONSTRAINT evidence_research_gen_ai_comparisons_pkey PRIMARY KEY (id);
-
-
---
--- Name: evidence_research_gen_ai_data_slices evidence_research_gen_ai_data_slices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.evidence_research_gen_ai_data_slices
-    ADD CONSTRAINT evidence_research_gen_ai_data_slices_pkey PRIMARY KEY (id);
 
 
 --
@@ -2538,6 +2496,13 @@ CREATE INDEX index_evidence_hints_on_rule_id ON public.evidence_hints USING btre
 
 
 --
+-- Name: index_evidence_labeled_entries_on_prompt_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_evidence_labeled_entries_on_prompt_id ON public.evidence_labeled_entries USING btree (prompt_id);
+
+
+--
 -- Name: index_evidence_prompt_healths_on_evidence_activity_health_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2607,106 +2572,107 @@ ALTER TABLE ONLY public.comprehension_regex_rules
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20200605133641'),
-('20200608233222'),
-('20200609005839'),
-('20200625222938'),
-('20200626160522'),
-('20200626181312'),
-('20200630161345'),
-('20201125161727'),
-('20201202224853'),
-('20210114154926'),
-('20210114164149'),
-('20210114182832'),
-('20210121200031'),
-('20210122144228'),
-('20210122165204'),
-('20210122165328'),
-('20210128152309'),
-('20210128155938'),
-('20210129184505'),
-('20210209200555'),
-('20210212194127'),
-('20210218195536'),
-('20210218213618'),
-('20210219163806'),
-('20210316160648'),
-('20210317200004'),
-('20210317200005'),
-('20210317200006'),
-('20210429144611'),
-('20210511160025'),
-('20210525194626'),
-('20210603191300'),
-('20210614190110'),
-('20210713204109'),
-('20210722143752'),
-('20210811130211'),
-('20210816195955'),
-('20211022145011'),
-('20220105145314'),
-('20220128175908'),
-('20220201131639'),
-('20220201161535'),
-('20220623205532'),
-('20221003205702'),
-('20221019185954'),
-('20221110063831'),
-('20221110063922'),
-('20230306215123'),
-('20230306215326'),
-('20230306215624'),
-('20230911142601'),
-('20240221192859'),
-('20240305224710'),
-('20240307142932'),
-('20240307165408'),
-('20240315140702'),
-('20240315141841'),
-('20240315180944'),
-('20240315184312'),
-('20240315191401'),
-('20240318140506'),
-('20240318141942'),
-('20240318143146'),
-('20240318144447'),
-('20240401223116'),
-('20240407172612'),
-('20240411135531'),
-('20240425125151'),
-('20240513162557'),
-('20240521200827'),
-('20240528185315'),
-('20240531183845'),
-('20240603162245'),
-('20240604230733'),
-('20240605004535'),
-('20240605132531'),
-('20240605170721'),
-('20240605185440'),
-('20240619161005'),
-('20240619171521'),
-('20240619184956'),
-('20240619215433'),
-('20240619224707'),
-('20240620113244'),
-('20240620115506'),
-('20240625122344'),
-('20240625135430'),
-('20240625204226'),
-('20240626142847'),
-('20240627001402'),
-('20240627002301'),
-('20240701180438'),
-('20240713141016'),
-('20240714214900'),
-('20240801134328'),
-('20240805185650'),
-('20240808123536'),
-('20240821205700'),
-('20240822145206'),
+('20240925184213'),
+('20240918144745'),
+('20240828221309'),
 ('20240823204315'),
-('20240828221309');
-
+('20240822145206'),
+('20240821205700'),
+('20240808123536'),
+('20240805185650'),
+('20240801134328'),
+('20240714214900'),
+('20240713141016'),
+('20240701180438'),
+('20240627002301'),
+('20240627001402'),
+('20240626142847'),
+('20240625204226'),
+('20240625135430'),
+('20240625122344'),
+('20240620115506'),
+('20240620113244'),
+('20240619224707'),
+('20240619215433'),
+('20240619184956'),
+('20240619171521'),
+('20240619161005'),
+('20240605185440'),
+('20240605170721'),
+('20240605132531'),
+('20240605004535'),
+('20240604230733'),
+('20240603162245'),
+('20240531183845'),
+('20240528185315'),
+('20240521200827'),
+('20240513162557'),
+('20240425125151'),
+('20240411135531'),
+('20240407172612'),
+('20240401223116'),
+('20240318144447'),
+('20240318143146'),
+('20240318141942'),
+('20240318140506'),
+('20240315191401'),
+('20240315184312'),
+('20240315180944'),
+('20240315141841'),
+('20240315140702'),
+('20240307165408'),
+('20240307142932'),
+('20240305224710'),
+('20240221192859'),
+('20230911142601'),
+('20230306215624'),
+('20230306215326'),
+('20230306215123'),
+('20221110063922'),
+('20221110063831'),
+('20221019185954'),
+('20221003205702'),
+('20220623205532'),
+('20220201161535'),
+('20220201131639'),
+('20220128175908'),
+('20220105145314'),
+('20211022145011'),
+('20210816195955'),
+('20210811130211'),
+('20210722143752'),
+('20210713204109'),
+('20210614190110'),
+('20210603191300'),
+('20210525194626'),
+('20210511160025'),
+('20210429144611'),
+('20210317200006'),
+('20210317200005'),
+('20210317200004'),
+('20210316160648'),
+('20210219163806'),
+('20210218213618'),
+('20210218195536'),
+('20210212194127'),
+('20210209200555'),
+('20210129184505'),
+('20210128155938'),
+('20210128152309'),
+('20210122165328'),
+('20210122165204'),
+('20210122144228'),
+('20210121200031'),
+('20210114182832'),
+('20210114164149'),
+('20210114154926'),
+('20201202224853'),
+('20201125161727'),
+('20200630161345'),
+('20200626181312'),
+('20200626160522'),
+('20200625222938'),
+('20200609005839'),
+('20200608233222'),
+('20200605133641');
 

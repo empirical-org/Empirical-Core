@@ -90,25 +90,9 @@
               padding-bottom: 16px;
             }
 
-            &#premium-tab, &#admin-tab, &#quill-academy-tab {
+            &#admin-tab, &#quill-academy-tab {
               a {
                 display: flex;
-                .premium-tab-copy {
-                  display: flex;
-                  .large-diamond-icon {
-                    background-image: url("https://assets.quill.org/images/icons/yellow-diamond.svg");
-                    margin: 2px 8px;
-                  }
-                  img {
-                    display: inherit;
-                    margin-left: 8px;
-                  }
-                }
-              }
-            }
-            &#premium-tab {
-              a {
-                color: $quill-gold-dark !important;
               }
             }
             &#quill-academy-tab {
@@ -320,6 +304,26 @@
   }
 }
 
+.return-to-dashboard-button {
+  margin-left: 32px;
+  border-radius: 8px;
+  border: 1px solid $quill-green-15;
+  background: $quill-green-5;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0px 16px;
+  height: 30px;
+  color: $quill-green;
+  img {
+    @include quill-green-filter;
+  }
+  &:hover, &:focus {
+    text-decoration: none;
+    color: $quill-green;
+  }
+}
+
 #nav-user-dropdown {
   position: relative;
   margin-top: 2px;
@@ -462,6 +466,14 @@ nav.q-navbar-home {
   .logo-and-badge-container {
     display: flex;
     align-items: center;
+    .premium-counter {
+      margin-left: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      color: $quill-gold-dark-50;
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
     .premium-navbar-badge-container {
       display: flex;
       align-items: center;
@@ -473,6 +485,7 @@ nav.q-navbar-home {
       font-size: 12px;
       height: 20px;
       text-decoration: none;
+      min-width: fit-content;
       &.yellow {
         background-color: $quillgoldlight;
         color: $quill-gold-dark-50;
@@ -814,6 +827,19 @@ nav.q-navbar-home {
 
         }
       }
+    }
+  }
+}
+
+.primary-tab-active {
+  .active {
+    span {
+      text-decoration: underline;
+    }
+  }
+  .navbar-tooltip-trigger:not(.active) {
+    span {
+      color: $quill-grey-35;
     }
   }
 }

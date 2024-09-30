@@ -3,7 +3,7 @@
 namespace :local do
   desc 'Update seed / prod dump\'d ActivityClassifications so that redirects point to localhost'
   task :localize_classification_module_urls => :environment do
-    def change_url_domain(original, domain = 'http://localhost:3000')
+    def change_url_domain(original, domain = 'http://localhost:5000')
       original.gsub('https://www.quill.org', domain)
     end
 

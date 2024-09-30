@@ -11,7 +11,8 @@
         <th>Template Name</th>
         <th>Number of Trials</th>
         <th>Date Created</th>
-        <th>Template Notes
+        <th>Template Notes</th>
+        <th>Order</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -24,6 +25,12 @@
           <td><%= llm_prompt_template.num_trials %></td>
           <td><%= date_helper(llm_prompt_template.created_at) %></td>
           <td><%= llm_prompt_template.notes %></td>
+          <td>
+            <%= form_with(model: llm_prompt_template, local: true) do |form| %>
+              <%= form.number_field :order, min: 0 %>
+              <%= form.submit 'Update' %>
+            <% end %>
+          </td>
           <td><%= link_to "View", llm_prompt_template %> / <%= link_to "Edit", [:edit, llm_prompt_template] %></td>
         </tr>
       <% end %>

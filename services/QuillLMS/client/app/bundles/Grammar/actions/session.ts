@@ -278,6 +278,18 @@ export const getQuestions = (questions: any, flag: string) => {
   }
 }
 
+export const loadTranslatedQuestions = (uid, language) => {
+  return (dispatch) => {
+    QuestionApi.getAllForActivity(uid, language).then((questions) => {
+      if (!questions) { return }
+      dispatch({
+        type: ActionTypes.RECEIVE_TRANSLATED_QUESTIONS_DATA,
+        data: questions
+      })
+    })
+  }
+}
+
 export const checkAnswer = (response: string, question: Question, responses: Response[], isFirstAttempt: Boolean) => {
   return dispatch => {
     const questionUID: string = question.uid

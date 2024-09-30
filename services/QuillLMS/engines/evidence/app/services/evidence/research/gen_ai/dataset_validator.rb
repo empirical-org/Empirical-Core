@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'csv'
+
 module Evidence
   module Research
     module GenAI
@@ -40,7 +42,7 @@ module Evidence
           end
         end
 
-        private def csv = @csv ||= CSV.parse(file.read, headers: true)
+        private def csv = @csv ||= ::CSV.parse(file.read, headers: true)
 
         private def headers_error = format(MISSING_HEADERS_ERROR, missing_headers.join(', '))
 

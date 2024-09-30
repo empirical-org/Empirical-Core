@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ENGLISH } from '../../utils/languageList'
-import { defaultLanguages } from '../..';
+import { ConceptExplanation, defaultLanguages } from '../..';
 
 export const getlanguageOptions = (translations) => ([
   { value: ENGLISH, label: ENGLISH },
@@ -26,13 +26,16 @@ export function renderSaveAndExitButton({ isELLDiagnostic, language, languageOpt
   return <a className="quill-button medium contained white focus-on-dark" href={`${process.env.DEFAULT_URL}/profile`}>{buttonText}</a>
 }
 
-// Temporary feature flag until we are ready to ship this.
-export const hasTranslationFlag = (): boolean => {
-  const urlParams = new URLSearchParams(window.location.search)
-  if (urlParams.get('showTranslations') !== 'true') return false;
-  return true;
+export const showTranslations = (language, languageOptions): boolean => {
+  return !!languageOptions && !!language && Object.keys(languageOptions).length > 1;
 };
 
-export const showTranslations = (language, languageOptions): boolean => {
-  return hasTranslationFlag() && !!languageOptions && !!language && Object.keys(languageOptions).length > 1;
+const getTranslatedConceptsFeedbackData = (key, conceptsFeedback, showTranslation) => {
+  return showTranslation && conceptsFeedback?.translated_data ? conceptsFeedback.translated_data[key] : null
+}
+
+export const renderExplanation = ({ data, key, conceptsFeedback, showTranslation }) => {
+  if (!data) return null;
+  const translatedData = getTranslatedConceptsFeedbackData(key, conceptsFeedback, showTranslation);
+  return <ConceptExplanation {...data} translatedExplanation={translatedData} />;
 };

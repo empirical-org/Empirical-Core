@@ -18,7 +18,7 @@ RSpec.shared_context 'External Checkout Session' do
         status: nil
       },
       billing_address_collection: nil,
-      cancel_url: 'http://localhost:3000/premium',
+      cancel_url: 'http://localhost:5000/premium',
       client_reference_id: nil,
       consent: nil,
       consent_collection: nil,
@@ -56,7 +56,7 @@ RSpec.shared_context 'External Checkout Session' do
       status: stripe_checkout_session_status,
       submit_type: nil,
       subscription: nil,
-      success_url: 'http://localhost:3000/subscriptions?checkout_session_id={CHECKOUT_SESSION_ID}',
+      success_url: 'http://localhost:5000/subscriptions?checkout_session_id={CHECKOUT_SESSION_ID}',
       total_details: {
         amount_discount: 0,
         amount_shipping: 0,

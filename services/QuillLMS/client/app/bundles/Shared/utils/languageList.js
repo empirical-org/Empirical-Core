@@ -116,3 +116,6 @@ export const languageToLocale = {
   [TAGALOG]: 'tl',
   [DARI]: 'prs'
 }
+
+// we'll keep this for when new activities are translated and the translations still need to be QA'ed
+export const ALPHA_TRANSLATED_ACTIVITY_UIDS = []

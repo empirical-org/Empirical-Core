@@ -36,6 +36,7 @@ describe ClassroomUnit, type: :model, redis: true do
   it { is_expected.to callback(:check_for_assign_on_join_and_update_students_array_if_true).before(:save) }
   it { is_expected.to callback(:hide_appropriate_activity_sessions).after(:save) }
   it { is_expected.to callback(:manage_user_pack_sequence_items).after(:save) }
+  it { is_expected.to callback(:assign_student_learning_sequences).after(:save) }
   it { is_expected.to callback(:save_user_pack_sequence_items).after(:save) }
 
   let!(:activity) { create(:activity) }
@@ -195,6 +196,37 @@ describe ClassroomUnit, type: :model, redis: true do
 
       it 'should not raise an error' do
         expect { classroom_unit.save }.to_not raise_error
+      end
+    end
+  end
+
+  describe '#assign_student_learning_sequences' do
+    subject { classroom_unit.update(assigned_student_ids: new_assigned_student_ids, assign_on_join: false) }
+
+    let(:new_assigned_student_ids) { assigned_student_ids }
+
+    it do
+      expect(StudentLearningSequences::HandleAssignmentWorker).to_not receive(:perform_async)
+      subject
+    end
+
+    context 'assigned_student_ids changes' do
+      let(:new_assigned_student_ids) { create_list(:student, 2, classrooms: [classroom]).pluck(:id) }
+      let(:call_count) { new_assigned_student_ids.length }
+
+      it do
+        expect(StudentLearningSequences::HandleAssignmentWorker).to receive(:perform_async).exactly(call_count).times
+        subject
+      end
+
+      context 'add one new student to assignment' do
+        let(:new_student) { create(:student) }
+        let(:new_assigned_student_ids) { [student.id, new_student.id] }
+
+        it do
+          expect(StudentLearningSequences::HandleAssignmentWorker).to receive(:perform_async).with(classroom_unit.id, new_student.id).once
+          subject
+        end
       end
     end
   end

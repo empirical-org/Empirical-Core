@@ -3,7 +3,6 @@ import path, { resolve } from 'path';
 
 import { viteCommonjs } from '@originjs/vite-plugin-commonjs';
 import replace from '@rollup/plugin-replace';
-import friendlyTypeImports from 'rollup-plugin-friendly-type-imports';
 import { defineConfig, loadEnv } from 'vite';
 import RubyPlugin from 'vite-plugin-ruby';
 
@@ -15,9 +14,9 @@ export default defineConfig(({command, mode}) => {
   const railsEnv = process.env.RAILS_ENV || process.env.NODE_ENV
   const pusherKey = process.env.PUSHER_KEY;
   const pusherCluster = process.env.PUSHER_CLUSTER;
-  const defaultUrl = process.env.DEFAULT_URL || 'http://localhost:3000'
+  const defaultUrl = process.env.DEFAULT_URL || 'http://localhost:5000'
   const cdnUrl = process.env.CDN_URL || 'https://assets.quill.org'
-  const grammarUrl = process.env.QUILL_GRAMMAR_URL || 'http://localhost:3000/grammar/#';
+  const grammarUrl = process.env.QUILL_GRAMMAR_URL || 'http://localhost:5000/grammar/#';
   const lessonsWebsocketsUrl = process.env.LESSONS_WEBSOCKETS_URL || 'http://localhost:3200';
   const quillCmsUrl = process.env.QUILL_CMS || 'http://localhost:3100';
 
@@ -54,7 +53,6 @@ export default defineConfig(({command, mode}) => {
         'process.env.QUILL_CMS': JSON.stringify(quillCmsUrl)
       }),
       viteCommonjs(),
-      friendlyTypeImports(),
       RubyPlugin(),
     ],
     esbuild: {
