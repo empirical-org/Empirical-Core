@@ -25,25 +25,6 @@
           <%= link_to raw("<span class='hide-on-mobile'>View Reports</span>"), teachers_progress_reports_landing_page_path %>
         </li>
 
-        <% unless current_user.premium_state == 'paid' || current_user.should_render_teacher_premium? %>
-          <li class="premium-tab <%= 'active' if premium_page_active? %>">
-            <%= link_to raw("<span class='hide-on-mobile premium-tab-copy'>#{premium_tab_copy(current_user)}</span><span class='hide-on-desktop premium-tab-small'>Premium <img src='https://assets.quill.org/images/icons/yellow-diamond.svg'></img></span>"), premium_path %>
-          </li>
-        <% end %>
-
-        <% if current_user.should_render_teacher_premium? %>
-          <li class="premium-tab teacher-premium-tab <%= 'active' if teacher_premium_active? %>">
-            <a href="/teacher_premium">
-              <span>Teacher Premium</span>
-              <% if teacher_premium_active? %>
-                <img src='https://assets.quill.org/images/icons/white-diamond.svg'></img>
-              <% else %>
-                <img src='https://assets.quill.org/images/icons/yellow-diamond.svg'></img>
-              <% end %>
-            </a>
-          </li>
-        <% end %>
-
         <% if current_user.admin? && !admin_impersonating_user?(current_user) %>
           <li class="admin-tab <%= 'active' if admin_page_active? %>">
             <a href="/teachers/premium_hub">
