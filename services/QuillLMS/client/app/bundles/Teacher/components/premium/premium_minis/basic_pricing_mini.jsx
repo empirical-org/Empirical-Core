@@ -5,7 +5,7 @@ import IndividualFeaturesTable from './individual_features_table';
 const getStartedButton = (userIsSignedIn) => {
   if (userIsSignedIn) { return }
 
-  return <a className='quill-button-archived medium secondary outlined focus-on-light' href="/account/new">Get started</a>
+  return <a className='quill-button-archived contained medium primary focus-on-light' href="/account/new">Get started</a>
 }
 
 const BasicPricingMini = ({ userIsSignedIn, premiumFeatureData, }) => (
