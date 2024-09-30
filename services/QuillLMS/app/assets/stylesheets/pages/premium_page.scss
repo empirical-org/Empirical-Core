@@ -204,6 +204,7 @@ li.premium-tab > a:hover {
     width: 100%;
     display: inline-block;
     position: relative;
+    top: -80px;
     .header {
       margin: auto;
       max-width: 656px;
@@ -222,26 +223,41 @@ li.premium-tab > a:hover {
   }
 
   .choose-plan {
-    margin-right: 17px;
-    top: 75px;
+    margin-right: 2px;
     left: 0px;
     position: relative;
     z-index: 4;
     max-width: 360px;
+    padding-top: 20px;
     padding-right: 8px;
     display: inline-block;
     border-radius: 8px;
     justify-content: center;
     flex-direction: column;
     text-align: left;
+    background-color: white;
+    height: 350px;
     h2 {
       font-weight: bold;
       line-height: 38px;
+      font-size: 22px;
+      line-height: 28.69px;
+      width: 320px;
+      color: $quill-black;
+      margin-bottom: 0px;
     }
     p {
-      font-size: 16px;
       line-height: 22px;
-      margin-top: 8px;
+      margin-top: 12px;
+    }
+    .premium-description {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 22px;
+      color: #262626;
+      ul {
+        margin-top: 12px;
+      }
     }
   }
   .school-premium-badge-container {
@@ -272,11 +288,11 @@ li.premium-tab > a:hover {
     border-bottom: none;
     display: flex;
     border-radius: 8px 8px 0px 0px;
+    height: 350px;
   }
   .pricing-mini {
     background-color: white;
     border-radius: 8px;
-    border-bottom: 1px solid $quill-grey-5;
   }
   .premium-button-container {
     display: flex;
@@ -294,6 +310,24 @@ li.premium-tab > a:hover {
       line-height: 20px;
       color: $quill-grey-50;
       margin-top: 4px;
+    }
+    a:link {
+      text-decoration: none;
+    }
+    a:visited {
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: none;
+    }
+    a:active {
+      text-decoration: none;
+    }
+    a {
+      width: 100%;
+    }
+    .book-call {
+      margin-bottom: 14px;
     }
   }
   .promo-tab {
@@ -319,8 +353,8 @@ li.premium-tab > a:hover {
   }
   h2 {
     font-size: 20px;
-    height: 52px;
-    margin: 0 0 24px;
+    height: 42px;
+    margin: 0px;
     font-weight: bold;
     display: flex;
     align-items: flex-end;
@@ -336,15 +370,14 @@ li.premium-tab > a:hover {
       font-weight: 600;
     }
     .premium-rates {
-      min-height: 90px;
       h3 {
-        margin: 24px 0 8px;
+        margin: 16px 0 0px;
         font-size: 24px;
         line-height: 1.27;
         color: #262626;
       }
       p {
-        margin: 8px 0 24px;
+        margin: 0px 0 16px;
         line-height: 1.43;
         color: $quill-grey-50;
       }
@@ -582,6 +615,21 @@ li.premium-tab > a:hover {
 @media (min-width: 992px) {
   .premium-page {
 
+    .sticky-header {
+      position: sticky;
+      top: -150px;
+      z-index: 4;
+      margin-left: -15px;
+    }
+
+    .sticky-header-background-container {
+      background-color: white;
+      position: relative;
+      top: 150px;
+      padding: 0px;
+      margin: 0px;
+    }
+
     .overview {
       height: min-content;
       width: 950px;
@@ -602,13 +650,13 @@ li.premium-tab > a:hover {
 
     .pricing-minis-container {
       display: inline-flex;
-      position: sticky;
       top: -7px;
       flex-direction: column;
       height: 375px;
       width: 572px;
       align-items: flex-end;
       z-index: 4;
+      float: right;
       &::after, &:after {
         content: '';
         width: 572px;
@@ -702,15 +750,22 @@ li.premium-tab > a:hover {
       margin-bottom: 80px;
     }
 
+    .sticky-header {
+      position: relative;
+      margin-top: 120px;
+      margin-bottom: 40px;
+    }
+
     .choose-plan {
       text-align: center;
       width: 290px;
       margin: 0 auto;
+      background-color: white;
+      height: 375px;
     }
 
     .pricing-minis-container {
       width: 100%;
-      margin-top: 125px;
     }
 
     .pricing-minis {
@@ -719,6 +774,7 @@ li.premium-tab > a:hover {
       border: none;
       align-items: center;
       border: none;
+      height: fit-content;
     }
 
     .pricing-mini {

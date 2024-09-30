@@ -151,7 +151,7 @@ const SchoolAndDistrictPremiumModal = ({ stripeSchoolPlan, eligibleSchools, hand
             <div className="premium-rates">
               <h3>${stripeSchoolPlan.plan.price_in_dollars}</h3>
               <p>Per school, per year</p>
-              <p>Complete the quote request form to receive a quote via email.</p>
+              <p>Complete the form to connect with a Partnerships Specialist.</p>
             </div>
             {requestSchoolQuoteButton}
           </div>
