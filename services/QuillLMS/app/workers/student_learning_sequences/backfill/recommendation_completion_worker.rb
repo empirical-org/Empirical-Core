@@ -4,7 +4,24 @@ module StudentLearningSequences
   module Backfill
     class RecommendationCompletionWorker < BaseWorker
       def run_backfill
-        backfill_activity_sessions(activity_sessions.where(activity_id: recommendation_activity_ids))
+        puts recommendation_activity_sessions.to_sql
+        backfill_activity_sessions(recommendation_activity_sessions)
+      end
+
+      def recommendation_activity_sessions
+        ActivitySession.unscoped.joins(classroom_unit: {
+          unit: {
+            unit_template: :recommendations
+          }
+        }).where(classroom_unit: {
+          unit: {
+            unit_template: {
+              recommendations: {
+                activity_id: pre_diagnostic_activity_ids
+              }
+            }
+          }
+        })
       end
     end
   end
