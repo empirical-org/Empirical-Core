@@ -11727,7 +11727,7 @@ ALTER TABLE ONLY public.learn_worlds_account_course_events
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20241002154111'),
+('20241002164211'),
 ('20240925185730'),
 ('20240924151321'),
 ('20240924151311'),
