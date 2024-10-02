@@ -80,7 +80,7 @@ module Translatable
     @translation ||= translations(locale: locale, source_api: source_api, field_name: default_translatable_field)&.first&.translation
   end
 
-  def translations(locale:, source_api:, field_name:)
+  def translations(locale:, source_api:, field_name: default_translatable_field)
     translated_texts.joins(:translation_mappings)
       .where(translation_mappings: { field_name: })
       .where(locale: locale).ordered_by_source_api(source_api)
