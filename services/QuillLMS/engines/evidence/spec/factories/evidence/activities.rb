@@ -20,6 +20,7 @@ FactoryBot.define do
     sequence(:notes) { |n| "MyString #{n}" }
     target_level { 1 }
     version { 1 }
+    ai_type { Evidence::Activity::GENAI }
 
     trait :with_prompt_and_passage do
       after(:create) do |activity|
