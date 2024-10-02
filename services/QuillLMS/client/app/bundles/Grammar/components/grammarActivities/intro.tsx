@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { ENGLISH } from '../../../Shared';
 
 interface IntroProps {
   startActivity: () => void;
@@ -85,7 +86,7 @@ export default class Intro extends React.Component<IntroProps, IntroState> {
     const { activity, language, availableLanguages } = this.props
     const { showLandingPage, } = this.state
     const translatedText = this.translatedText()
-    const showTranslatedButton = language && availableLanguages?.includes(language)
+    const showTranslatedButton = language && language !== ENGLISH && availableLanguages?.includes(language)
     if (showLandingPage) {
       return (
         <div className="intro landing-page">
