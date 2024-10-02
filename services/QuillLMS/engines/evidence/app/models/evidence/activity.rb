@@ -5,6 +5,7 @@
 # Table name: comprehension_activities
 #
 #  id                 :integer          not null, primary key
+#  ai_type            :string
 #  notes              :string
 #  scored_level       :string(100)
 #  target_level       :integer
