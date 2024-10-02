@@ -125,7 +125,7 @@ RSpec.describe Translatable do
       end
 
       context 'when there are multiple translation_mappings with different field_names' do
-        let(:translatable_text) { 'Specialized un-translated text' }        
+        let(:translatable_text) { 'Specialized un-translated text' }
         let(:non_default_translation) { 'Specialized translated text' }
         let(:field_name) { 'non_default_field_name' }
         let(:english_text2) { create(:english_text, text: translatable_text) }
@@ -137,7 +137,7 @@ RSpec.describe Translatable do
             english_text: english_text2)
         end
 
-        before do 
+        before do
           translatable_object.create_translation_mappings_with_text(translatable_text:, field_name:)
         end
 
