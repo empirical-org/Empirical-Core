@@ -44,5 +44,5 @@
     ],
     "start_url": "https://cissy.quill.org/",
     "display": "minimal-ui",
-    "scope": "/app/"
+    "scope": "https://cissy.quill.org/"
 }
