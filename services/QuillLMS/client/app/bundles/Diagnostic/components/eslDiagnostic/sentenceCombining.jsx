@@ -9,7 +9,6 @@ import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import { ENGLISH, rightToLeftLanguages } from '../../../Shared/utils/languageList';
 import getResponse from '../renderForQuestions/checkAnswer';
 import RenderQuestionCues from '../renderForQuestions/cues.tsx';
-import RenderFeedback from '../renderForQuestions/feedback';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
@@ -89,19 +88,6 @@ class ELLSentenceCombining extends React.Component {
   listCuesAsString(cues) {
     const newCues = cues.slice(0);
     return `${newCues.splice(0, newCues.length - 1).join(', ')} or ${newCues.pop()}.`;
-  }
-
-  renderFeedback = () => {
-    const { question, } = this.props
-    return (
-      <RenderFeedback
-        getQuestion={this.getQuestion}
-        listCuesAsString={this.listCuesAsString}
-        question={question}
-        renderFeedbackStatements={this.renderFeedbackStatements}
-        sentence="We have not seen this sentence before. Could you please try writing it in another way?"
-      />
-    );
   }
 
   getErrorsForAttempt(attempt) {

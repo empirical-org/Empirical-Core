@@ -27,10 +27,6 @@ export const commonText = {
     header: "You're halfway there!",
     text: "Keep up the great work!"
   },
-  "ELL Halfway": {
-    header: "You're halfway there!",
-    text: "Keep up the great work!"
-  },
   "ELL Starter Questions": {
     header: "Questions",
     text: "In this section, you'll be writing questions. Remember that questions have a question mark (?) at the end. You can do it!"
