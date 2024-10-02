@@ -77,7 +77,7 @@ module Translatable
   end
 
   def translation(locale: DEFAULT_LOCALE, source_api: OPEN_AI_SOURCE)
-    @translation ||= translations(locale: locale, source_api: source_api, field_name: default_translatable_field)&.first&.translation
+    @translation ||= translations(locale: locale, source_api: source_api)&.first&.translation
   end
 
   def translations(locale:, source_api:, field_name: default_translatable_field)
