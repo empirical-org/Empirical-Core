@@ -42,6 +42,7 @@
         "purpose": "any"
       }
     ],
-    "start_url": "https://www.quill.org/",
-    "display": "minimal-ui"
+    "start_url": "https://www.cissy.quill.org/",
+    "display": "minimal-ui",
+    "scope": "/app/"
 }
