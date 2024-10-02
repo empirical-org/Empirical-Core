@@ -42,7 +42,7 @@
         "purpose": "any"
       }
     ],
-    "start_url": "https://www.cissy.quill.org/",
+    "start_url": "https://cissy.quill.org/",
     "display": "minimal-ui",
     "scope": "/app/"
 }
