@@ -50,16 +50,16 @@ module Evidence
 
         it 'any of the ai types should be valid' do
           Activity::AI_TYPES.each do |ai_type|
-            expect { activity.update(ai_type:) }.not_to raise_error(ActiveRecord::RecordInvalid)
+            expect { activity.update!(ai_type:) }.not_to raise_error(ActiveRecord::RecordInvalid)
           end
         end
 
         it 'null should be invalid' do
-          expect { activity.update(ai_type: null) }.to raise_error(ActiveRecord::RecordInvalid)
+          expect { activity.update!(ai_type: nil) }.to raise_error(ActiveRecord::RecordInvalid)
         end
 
         it 'any other string should be invalid' do
-          expect { activity.update(ai_type: 'something else') }.to raise_error(ActiveRecord::RecordInvalid)
+          expect { activity.update!(ai_type: 'something else') }.to raise_error(ActiveRecord::RecordInvalid)
         end
       end
 
