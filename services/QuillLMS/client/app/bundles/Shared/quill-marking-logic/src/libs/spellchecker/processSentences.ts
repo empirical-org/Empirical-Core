@@ -14,7 +14,6 @@ export function processSentences(sentences: string[]): string {
 export function uniqueWordsFromSentences(sentences: string[]): string[] {
   const nestedWords = sentences
     .map(sentence => processSentence(sentence).split('\n')) // process the individual sentences
-    .filter(sentence => sentence !== [] || sentence !== ['']); // remove empty arrays
 
   const flattenedWords: string[] = [].concat.apply([], nestedWords); // flatten the arrays
 
