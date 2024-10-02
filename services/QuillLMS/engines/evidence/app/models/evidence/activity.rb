@@ -54,8 +54,8 @@ module Evidence
     DEFAULT_REPEAT_STEM_RULE_CONCEPT = 'N5VXCdTAs91gP46gATuvPQ'
 
     AI_TYPES = [
-      AUTOML = 'AutoML',
-      GENAI = 'Gen AI',
+      AUTO_ML = 'AutoML',
+      GEN_AI = 'GenAI',
       RAG = 'RAG'
     ]
 
