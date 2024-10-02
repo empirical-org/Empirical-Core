@@ -55,11 +55,11 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
+    console.log('removing stuff');
     if (window.matchMedia('(display-mode: standalone)').matches || window.matchMedia('(display-mode: minimal-ui)').matches) {
       function removeTargetFromLinks() {
-        document.querySelectorAll('a[target=_blank]').forEach(function(a) {
-          a.removeAttribute('target');
-        });
+        console.log('removing target');
+        document.querySelectorAll('a[target=_blank]').forEach(function(a) {a.removeAttribute('target');});
       }
       removeTargetFromLinks();
       const observer = new MutationObserver(removeTargetFromLinks);
