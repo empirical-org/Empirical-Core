@@ -395,7 +395,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         }
         if (saving || (!grammarActivities && !proofreaderSessionId)) { return <LoadingSpinner /> }
 
-        if (availableLanguages && !language && !ALPHA_TRANSLATED_ACTIVITY_UIDS.includes(activityUID)) {
+        if (availableLanguages?.length > 1 && !language && !ALPHA_TRANSLATED_ACTIVITY_UIDS.includes(activityUID)) {
           return (
             <LanguageSelectionPage
               dispatch={dispatch}
