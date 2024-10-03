@@ -289,6 +289,10 @@
   }
 }
 
+@media (min-width: 930px) {
+  .hide-on-desktop:not(.premium-tab-small) { display: none !important; }
+}
+
 @media (min-width: 930px) and (max-width: 1040px) {
   #teacher-nav-tabs li a {
       padding: 3px 20px 3px;
