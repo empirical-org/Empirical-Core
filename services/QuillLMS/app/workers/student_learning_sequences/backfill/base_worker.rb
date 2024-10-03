@@ -4,7 +4,6 @@ module StudentLearningSequences
   module Backfill
     class BaseWorker
       include Sidekiq::Worker
-      sidekiq_options queue: SidekiqQueue::MIGRATION
 
       DEFAULT_PAGE_SIZE = 10_000_000
 
