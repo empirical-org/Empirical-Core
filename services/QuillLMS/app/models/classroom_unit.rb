@@ -29,6 +29,7 @@ class ClassroomUnit < ApplicationRecord
   include AtomicArrays
 
   belongs_to :unit # Note, there is a touch in the unit -> classroom_unit direction, so don't add one here.
+  belongs_to :unit_unscoped, foreign_key: :unit_id
   belongs_to :classroom
   belongs_to :classroom_unscoped, foreign_key: :classroom_id
 
