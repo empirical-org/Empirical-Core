@@ -51,4 +51,5 @@ EmpiricalGrammar::Application.configure do
   config.active_record.database_selector = { delay: 0.seconds }
   config.active_record.database_resolver = Test::MultiDb::CustomResolver
   config.active_record.database_resolver_context = Test::MultiDb::CustomSession
+  config.eager_load = false
 end

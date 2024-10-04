@@ -21,25 +21,25 @@ class Rack::Attack
     end
   end
 
-  Rack::Attack.blocklist('block bad urls') do |req|
-    req.get? &&
-      BLOCKLIST_REGEX.present? &&
-      req.path != '/404' &&
-      req.path != '/500' &&
-      !req.path.start_with?('/apple-touch-icon') &&
-      req.path.match?(BLOCKLIST_REGEX)
-  end
+  # Rack::Attack.blocklist('block bad urls') do |req|
+  #   req.get? &&
+  #     BLOCKLIST_REGEX.present? &&
+  #     req.path != '/404' &&
+  #     req.path != '/500' &&
+  #     !req.path.start_with?('/apple-touch-icon') &&
+  #     req.path.match?(BLOCKLIST_REGEX)
+  # end
 
-  Rack::Attack.throttled_response = lambda do |_request|
-    # NB: you have access to the name and other data about the matched throttle
-    #  request.env['rack.attack.matched'],
-    #  request.env['rack.attack.match_type'],
-    #  request.env['rack.attack.match_data'],
-    #  request.env['rack.attack.match_discriminator']
-    THROTTLE_RESPONSE
-  end
+  # Rack::Attack.throttled_response = lambda do |_request|
+  #   # NB: you have access to the name and other data about the matched throttle
+  #   #  request.env['rack.attack.matched'],
+  #   #  request.env['rack.attack.match_type'],
+  #   #  request.env['rack.attack.match_data'],
+  #   #  request.env['rack.attack.match_discriminator']
+  #   THROTTLE_RESPONSE
+  # end
 
-  Rack::Attack.blocklisted_response = lambda do |_request|
-    BLOCKLIST_RESPONSE
-  end
+  # Rack::Attack.blocklisted_response = lambda do |_request|
+  #   BLOCKLIST_RESPONSE
+  # end
 end

@@ -450,7 +450,6 @@ GEM
       childprocess (~> 5.0)
     letter_opener (1.10.0)
       launchy (>= 2.2, < 4)
-    libv8-node (18.16.0.0)
     lms-api (1.24.0)
       activesupport (>= 3.0)
       httparty
@@ -481,8 +480,6 @@ GEM
       rake
     mini_mime (1.1.5)
     mini_portile2 (2.8.7)
-    mini_racer (0.8.0)
-      libv8-node (~> 18.16.0.0)
     minitest (5.25.1)
     multi_json (1.15.0)
     multi_xml (0.7.1)
@@ -959,7 +956,6 @@ DEPENDENCIES
   matrix (~> 0.4.2)
   maxminddb
   memory_profiler
-  mini_racer (= 0.8.0)
   neighbor
   newrelic_rpm (~> 9.3.1)
   nokogiri (>= 1.13.2)

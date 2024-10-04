@@ -75,6 +75,7 @@ EmpiricalGrammar::Application.configure do
   config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
   config.hosts << ENV.fetch('NGROK_HOST') if ENV.fetch('NGROK_HOST', false)
+  config.eager_load = false
 
   BetterErrors.editor = ENV['BETTER_ERRORS_EDITOR'] if defined?(BetterErrors) && ENV['BETTER_ERRORS_EDITOR']
 end
