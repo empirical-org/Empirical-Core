@@ -67,6 +67,7 @@ module Evidence
             prompt = Evidence::Prompt.find(prompt_id)
             stem_vault = StemVault.find_or_create_by!(activity:, conjunction: row['conjunction'].strip, stem: prompt.text)
             stem_vault.update!(prompt:)
+            stem_vault.set_confusion_matrix_and_labels!
             dataset = Dataset.create!(task_type: Dataset::CLASSIFICATION, stem_vault:)
 
             FooFormatter.run(data:, prompt_id:, dataset:)

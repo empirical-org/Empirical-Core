@@ -1429,7 +1429,8 @@ CREATE TABLE public.evidence_research_gen_ai_stem_vaults (
     conjunction character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    prompt_id integer
+    prompt_id integer,
+    automl_data jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -2575,6 +2576,7 @@ ALTER TABLE ONLY public.comprehension_regex_rules
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20241004133206'),
 ('20241002153807'),
 ('20240926215948'),
 ('20240926201306'),

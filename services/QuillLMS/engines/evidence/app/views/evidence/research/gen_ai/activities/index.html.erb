@@ -27,6 +27,24 @@
       <% end %>
     </tbody>
   </table>
+
+
+  <div>
+    <% @activities.each do |activity| %>
+      <% activity.stem_vaults.each do |stem_vault| %>
+        <% trial = stem_vault&.trials&.order(:created_at)&.last %>
+        <% next unless trial&.confusion_matrix %>
+        <hr>
+        <h3><%= stem_vault %></h3>
+        <%= render 'classification_confusion_matrix_comparison',
+          automl_matrix: stem_vault.confusion_matrix,
+          automl_labels: stem_vault.labels,
+          rag_matrix: trial.confusion_matrix,
+          rag_labels: trial.labels
+        %>
+      <% end %>
+    <% end %>
 <% else %>
   <p>No activities found.</p>
 <% end %>
+
