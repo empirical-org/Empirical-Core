@@ -40,7 +40,7 @@ class ProfilesController < ApplicationController
   def student_profile_data
     classroom_id = params[:current_classroom_id]
 
-    if current_user.classrooms.any? && classroom_id
+    if classroom_id && current_user.classrooms.any?
       render json: {
         scores: student_profile_data_sql(classroom_id),
         next_activity_session:,

@@ -20,6 +20,7 @@ import KeyMetrics from '../components/student_profile/key_metrics'
 
 class StudentProfile extends React.Component {
   componentDidMount() {
+    console.log("StudentProfile: componentDidMount")
     const {
       fetchStudentProfile,
       fetchStudentsClassrooms,
@@ -29,11 +30,10 @@ class StudentProfile extends React.Component {
     if (classroomId) {
       handleClassroomClick(classroomId);
       fetchStudentProfile(classroomId)
-      fetchStudentsClassrooms();
     } else {
       fetchStudentProfile();
-      fetchStudentsClassrooms();
     }
+    fetchStudentsClassrooms();
   }
 
   componentDidUpdate(prevProps, prevState) {
