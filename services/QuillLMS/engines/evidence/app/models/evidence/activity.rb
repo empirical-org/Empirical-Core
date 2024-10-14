@@ -5,6 +5,7 @@
 # Table name: comprehension_activities
 #
 #  id                 :integer          not null, primary key
+#  ai_type            :string
 #  notes              :string
 #  scored_level       :string(100)
 #  target_level       :integer
@@ -52,6 +53,12 @@ module Evidence
     DEFAULT_REPEAT_STEM_RULE_NAME = 'Repeating the stem'
     DEFAULT_REPEAT_STEM_RULE_CONCEPT = 'N5VXCdTAs91gP46gATuvPQ'
 
+    AI_TYPES = [
+      AUTO_ML = 'AutoML',
+      GEN_AI = 'GenAI',
+      RAG = 'RAG'
+    ]
+
     before_destroy :expire_turking_rounds
     before_validation :set_parent_activity, on: :create
     after_save :update_parent_activity_name, if: :saved_change_to_title?
@@ -79,6 +86,7 @@ module Evidence
     validates :title, presence: true, length: { in: MIN_TITLE_LENGTH..MAX_TITLE_LENGTH }
     validates :notes, presence: true
     validates :scored_level, length: { maximum: MAX_SCORED_LEVEL_LENGTH, allow_nil: true }
+    validates :ai_type, :inclusion => { :in => AI_TYPES }
     validate :version_monotonically_increases, on: :update
 
     def set_parent_activity

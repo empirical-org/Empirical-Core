@@ -3,14 +3,7 @@
 <% logo_src = on_home_page ? "https://assets.quill.org/images/logos/quill-logo-white-2022.svg" : "https://assets.quill.org/images/logos/quill-logo-green.svg" %>
 <% home_page_class = on_home_page ? 'on-home-page' : '' %>
 <% active_tab = determine_active_tab(current_path) %>
-
-<% user_dropdown_class = current_path.include?('teachers') || current_path.include?('assign') ? 'on-dashboard' : 'not-on-dashboard' %>
-
-<% if show_school_selection_reminders %>
-  <% show_notification_badges_class = 'show-notification-badges' %>
-<% else %>
-  <% show_notification_badges_class = '' %>
-<% end %>
+<% active_primary_tab = determine_active_primary_tab(current_path) %>
 
 <nav class="q-navbar-home">
   <% if on_sign_up_or_log_in? %>
@@ -30,56 +23,28 @@
 		<% if current_user&.student? && !current_path.include?('tools') %>
 			<%= react_component('StudentNavbarItems', props: { name: current_user.name }) %>
 		<% else %>
-  		<div class='home-nav-right wide' >
+  		<div class="home-nav-right wide <%= active_primary_tab ? 'primary-tab-active' : '' %>" >
 	  		<% if !current_user %>
-          <%= render 'navbar/schools_and_districts', active_tab: active_tab  %>
-	  	    <%= render 'navbar/learning_tools', active_tab: active_tab %>
-	  	    <%= render 'navbar/explore_curriculum', active_tab: active_tab %>
-	  	    <%= render 'navbar/teacher_center', active_tab: active_tab %>
-	  	    <%= render 'navbar/our_story', active_tab: active_tab %>
+          <%= render 'navbar/schools_and_districts', active_tab: active_primary_tab  %>
+	  	    <%= render 'navbar/learning_tools', active_tab: active_primary_tab %>
+	  	    <%= render 'navbar/explore_curriculum', active_tab: active_primary_tab %>
+	  	    <%= render 'navbar/teacher_center', active_tab: active_primary_tab %>
+	  	    <%= render 'navbar/our_story', active_tab: active_primary_tab %>
 	  		<% elsif current_user.role != 'student' %>
-          <%= render 'navbar/schools_and_districts', active_tab: active_tab  %>
-	  			<%= render 'navbar/learning_tools', active_tab: active_tab  %>
-	  			<%= render 'navbar/teacher_center', active_tab: active_tab  %>
-	  			<%= render 'navbar/quill_support', active_tab: active_tab  %>
+          <%= render 'navbar/schools_and_districts', active_tab: active_primary_tab  %>
+	  			<%= render 'navbar/learning_tools', active_tab: active_primary_tab  %>
+	  			<%= render 'navbar/teacher_center', active_tab: active_primary_tab  %>
+	  			<%= render 'navbar/quill_support', active_tab: active_primary_tab  %>
 	   		<% end %>
   		<%- if current_user.nil? %>
 				<a class="<%= home_page_class %> text-white nav-element" href="/session/new">Log In</a>
 				<a class="<%= home_page_class %> text-white nav-element sign-up-button" href="/account/new">Sign Up</a>
   		<%- elsif current_user.teacher? %>
-  			<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element <%= show_notification_badges_class %> <%= user_dropdown_class %>">
-  				<span onclick="toggleDropdown()" class='user-dropdown-button notification-badge-relative'>
-            <%="#{truncate(current_user.name, length: 50)}"%>
-          </span>
-  				<div>
-  					<%= link_to raw(
-  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/icons/pulldown_icons/clipboard-icon-green.svg'></img></span>
-  						My Dashboard"
-  					),
-  						dashboard_teachers_classrooms_path
-   					%>
-  					<%= link_to raw(
-  						"<span class='image-container'>
-                <img class='static' src='https://assets.quill.org/images/icons/pulldown_icons/account-icon-green.svg'></img>
-              </span>
-  						<span class='notification-badge-relative'>My Account</span>"
-            ),
-  						teachers_my_account_path
-  					%>
-  					<%= link_to raw(
-  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/icons/pulldown_icons/settings-icon-green.svg'></img></span>Support"
-  					),
-  						'https://support.quill.org',
-  						target: "_blank"
-  					%>
-						<img class='divider'></img>
-  					<%= link_to raw(
-  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/icons/pulldown_icons/logout-icon-green.svg'></img></span>Logout"
-  					),
-  						'/session'
-  					%>
-  				</div>
-  			</div>
+        <% if on_teacher_dashboard? %>
+          <%= render 'navbar/user_dropdown_button' %>
+        <% else %>
+          <a class="return-to-dashboard-button focus-on-light" href="/"><img alt="" src="https://assets.quill.org/images/icons/xs/return-arrow.svg">Return to Dashboard</a>
+        <% end %>
   		<% else %>
   			<%= link_to "Logout", '/session', class: "text-white nav-element"%>
 			<% end %>
@@ -89,27 +54,6 @@
 </nav>
 
 <script>
-	function toggleDropdown() {
-		const dropdown = document.querySelector('#nav-user-dropdown');
-		if(dropdown.classList.contains('dropdown-closed')) {
-			dropdown.classList.remove('dropdown-closed');
-			dropdown.classList.add('dropdown-open');
-		} else {
-			dropdown.classList.remove('dropdown-open');
-			dropdown.classList.add('dropdown-closed');
-		}
-	}
-
-	document.addEventListener("click", closeDropdownIfOpen)
-
-	function closeDropdownIfOpen(e) {
-		const dropdown = document.querySelector('#nav-user-dropdown');
-		if (!e.target.classList.contains('user-dropdown-button') && e.target.parentElement.classList.value !== 'user-dropdown-button' && dropdown && dropdown.classList.contains('dropdown-open')) {
-				dropdown.classList.remove('dropdown-open');
-				dropdown.classList.add('dropdown-closed');
-		}
-	}
-
 	const tooltipTriggers = document.getElementsByClassName("navbar-tooltip-trigger")
 
 	for (let i = 0; i < tooltipTriggers.length; i++) {

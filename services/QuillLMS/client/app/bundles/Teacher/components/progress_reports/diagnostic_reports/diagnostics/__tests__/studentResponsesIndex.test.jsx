@@ -1,5 +1,5 @@
-import { mount } from 'enzyme';
 import React from 'react';
+import { render } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import {
@@ -13,7 +13,7 @@ import { StudentResponsesIndex, } from '../studentResponsesIndex';
 
 describe('StudentResponsesIndex component', () => {
   it('should render when there is no student data', () => {
-    const wrapper = mount(<Router>
+    const { asFragment } = render(<Router>
       <StudentResponsesIndex
         location={dummyLocationData}
         match={dummyMatchData}
@@ -21,11 +21,11 @@ describe('StudentResponsesIndex component', () => {
         passedStudents={passedStudentsWithNoStudentData}
       />
     </Router>)
-    expect(wrapper).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot();
   })
 
   it('should render when there is student data', () => {
-    const wrapper = mount(<Router>
+    const { asFragment } = render(<Router>
       <StudentResponsesIndex
         location={dummyLocationData}
         match={dummyMatchData}
@@ -33,6 +33,6 @@ describe('StudentResponsesIndex component', () => {
         passedStudents={passedStudentsWithStudentData}
       />
     </Router>)
-    expect(wrapper).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot();
   })
 })

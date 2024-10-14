@@ -181,7 +181,9 @@
     }
     .content {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
+      max-width: $sitewidepagewidth;
+      margin: auto;
     }
     .admin-bezel-img-wrapper {
       max-width: calc(100vw - 480px);
@@ -190,7 +192,7 @@
       }
     }
     .text-side {
-      margin: 0px 64px 0px 200px;
+      margin: 0px 64px 0px 0px;
       min-width: 400px;
       h4, p {
         font-size: 24px;

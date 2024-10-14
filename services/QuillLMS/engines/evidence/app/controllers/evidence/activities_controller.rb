@@ -193,6 +193,7 @@ module Evidence
         :target_level,
         :scored_level,
         :flag,
+        :ai_type,
         passages_attributes: [:id, :text, :image_link, :image_alt_text, :image_caption, :image_attribution, :highlight_prompt, :essential_knowledge_text],
         prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :first_strong_example, :second_strong_example]
       )

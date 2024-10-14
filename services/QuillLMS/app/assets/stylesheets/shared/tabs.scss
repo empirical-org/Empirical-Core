@@ -149,14 +149,6 @@
               color: $quill-white;
               font-weight: 600;
               line-height: 20px;
-              background-color: transparent !important;
-              .premium-tab-copy {
-                display: flex;
-                img {
-                  display: inherit;
-                  margin-left: 8px;
-                }
-              }
             }
             .checkmark-icon {
               background-image: url("https://assets.quill.org/images/icons/mobile-white-check.svg");
@@ -295,22 +287,6 @@
   a {
     border-radius: 0px 8px 0px 0px;
   }
-}
-
-@media (max-width: 1200px) {
-  .hide-on-mobile {
-    &.premium-tab-copy {
-      display: none !important;
-    }
-  }
-}
-
-@media (min-width: 1200px) {
-  .hide-on-desktop {
-      &.premium-tab-small {
-        display: none !important;
-      }
-    }
 }
 
 @media (min-width: 930px) {

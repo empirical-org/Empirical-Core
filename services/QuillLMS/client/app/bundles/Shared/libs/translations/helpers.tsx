@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ENGLISH } from '../../utils/languageList'
-import { ConceptExplanation, defaultLanguages } from '../..';
+import { ConceptExplanation } from '../../components/feedback/conceptExplanation';
+import { defaultLanguages } from '../../utils/languageList.js'
 
 export const getlanguageOptions = (translations) => ([
   { value: ENGLISH, label: ENGLISH },

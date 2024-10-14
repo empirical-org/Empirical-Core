@@ -1545,7 +1545,8 @@ CREATE TABLE public.comprehension_activities (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     notes character varying,
-    version smallint DEFAULT 1 NOT NULL
+    version smallint DEFAULT 1 NOT NULL,
+    ai_type character varying
 );
 
 
@@ -2824,6 +2825,43 @@ CREATE SEQUENCE public.evidence_hints_id_seq
 --
 
 ALTER SEQUENCE public.evidence_hints_id_seq OWNED BY public.evidence_hints.id;
+
+
+--
+-- Name: evidence_labeled_entries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_labeled_entries (
+    id bigint NOT NULL,
+    approved boolean,
+    entry text NOT NULL,
+    label text NOT NULL,
+    label_transformed text NOT NULL,
+    metadata jsonb,
+    prompt_id integer NOT NULL,
+    embedding public.vector(1536) NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_labeled_entries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_labeled_entries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_labeled_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_labeled_entries_id_seq OWNED BY public.evidence_labeled_entries.id;
 
 
 --
@@ -7068,6 +7106,13 @@ ALTER TABLE ONLY public.evidence_hints ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
+-- Name: evidence_labeled_entries id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_labeled_entries ALTER COLUMN id SET DEFAULT nextval('public.evidence_labeled_entries_id_seq'::regclass);
+
+
+--
 -- Name: evidence_prompt_healths id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8398,6 +8443,14 @@ ALTER TABLE ONLY public.evidence_automl_models
 
 ALTER TABLE ONLY public.evidence_hints
     ADD CONSTRAINT evidence_hints_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_labeled_entries evidence_labeled_entries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_labeled_entries
+    ADD CONSTRAINT evidence_labeled_entries_pkey PRIMARY KEY (id);
 
 
 --
@@ -10019,6 +10072,20 @@ CREATE INDEX index_evidence_automl_models_on_prompt_id ON public.evidence_automl
 --
 
 CREATE INDEX index_evidence_hints_on_rule_id ON public.evidence_hints USING btree (rule_id);
+
+
+--
+-- Name: index_evidence_labeled_entries_on_prompt_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_evidence_labeled_entries_on_prompt_id ON public.evidence_labeled_entries USING btree (prompt_id);
+
+
+--
+-- Name: index_evidence_labeled_entries_on_prompt_id_and_entry; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_evidence_labeled_entries_on_prompt_id_and_entry ON public.evidence_labeled_entries USING btree (prompt_id, entry);
 
 
 --
@@ -11759,6 +11826,8 @@ ALTER TABLE ONLY public.learn_worlds_account_course_events
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20241002164211'),
+('20240925185730'),
 ('20240924151321'),
 ('20240924151311'),
 ('20240918144926'),

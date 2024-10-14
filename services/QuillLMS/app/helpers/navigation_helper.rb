@@ -72,7 +72,7 @@ module NavigationHelper
   STUDENT_TABS = [SCHOOLS_AND_DISTRICTS_TAB, LEARNING_TOOLS_TAB, STUDENT_CENTER_TAB, QUILL_SUPPORT_TAB, LOGOUT_TAB]
 
   ACTIVE_TAB_PATHS = {
-    SCHOOLS_AND_DISTRICTS => ['admins', 'premium'],
+    SCHOOLS_AND_DISTRICTS => ['admins', /premium$/],
     LEARNING_TOOLS => ['tools'],
     ABOUT_US => ['about', 'announcements', 'mission', 'impact', 'press', 'team', 'pathways', 'careers', 'contact'],
     EXPLORE_CURRICULUM => ['activities/', 'ap', 'preap', 'springboard'],
@@ -177,20 +177,12 @@ module NavigationHelper
     @premium_hub_tab ||= { name: PREMIUM_HUB, url: teachers_premium_hub_path, id: 'admin-tab' }
   end
 
-  def premium_tab
-    @premium_tab ||= { name: PREMIUM, url: premium_path, id: 'premium-tab' }
-  end
-
   def quill_academy_tab
     @quill_academy_tab ||= { name: QUILL_ACADEMY, url: quill_academy_path, id: 'quill-academy-tab' }
   end
 
   def standards_tab
     @standards_tab ||= { name: STANDARDS, url: teachers_progress_reports_standards_classrooms_path }
-  end
-
-  def teacher_premium_tab
-    @teacher_premium_tab ||= { name: TEACHER_PREMIUM, url: teacher_premium_path, id: 'premium-tab' }
   end
 
   def common_authed_user_tabs
@@ -243,37 +235,28 @@ module NavigationHelper
     action_name == 'teacher_premium'
   end
 
-  def premium_tab_copy(current_user)
-    middle_diamond_img = "<div class='large-diamond-icon is-in-middle'></div>"
-    end_diamond_img = "<div class='large-diamond-icon'></div>"
-    case current_user&.premium_state
-    when TRIAL
-      "<span>Premium</span>#{middle_diamond_img}<span>#{current_user.trial_days_remaining} Days Left</span>"
-    when LOCKED
-      current_user.last_expired_subscription&.is_trial? ? "<span>Premium</span>#{middle_diamond_img}<span>Trial Expired</span>" : "<span>Premium</span>#{middle_diamond_img}<span>Expired</span>"
-    when NONE, nil
-      "<span>Explore Premium</span>#{end_diamond_img}"
-    end
-  end
-
   def determine_premium_badge(current_user)
-    return unless current_user
+    return unless current_user&.teacher?
 
-    premium_state = current_user.premium_state
-    return unless [PAID, TRIAL].include?(premium_state)
-
-    if current_user.district_premium?
-      "<a class='premium-navbar-badge-container focus-on-light red' href='/premium' rel='noopener noreferrer' target='_blank' ><span class='premium-badge-text'>DISTRICT PREMIUM</span><div class='small-diamond-icon'></div></a>".html_safe
-    elsif current_user.school_premium?
-      "<a class='premium-navbar-badge-container focus-on-light red' href='/premium' rel='noopener noreferrer' target='_blank' ><span class='premium-badge-text'>SCHOOL PREMIUM</span><div class='small-diamond-icon'></div></a>".html_safe
+    case current_user.premium_state
+    when TRIAL
+      trial_badge(current_user)
+    when LOCKED
+      locked_badge(current_user)
+    when nil, NONE
+      explore_badge
     else
-      "<a class='premium-navbar-badge-container focus-on-light yellow' href='/premium' rel='noopener noreferrer' target='_blank' ><span class='premium-badge-text'>TEACHER PREMIUM</span><div class='small-diamond-icon'></div></a>".html_safe
+      teacher_or_district_badge(current_user)
     end
   end
 
   def in_assignment_flow?
     current_uri = request.env['PATH_INFO']
     current_uri&.match(%r{assign/.*}) != nil
+  end
+
+  def on_teacher_dashboard?
+    ['assign', 'teachers', 'quill_academy'].any? { |path_fragment| request.env['PATH_INFO'].include?(path_fragment) }
   end
 
   def playing_activity?
@@ -307,11 +290,18 @@ module NavigationHelper
   end
 
   def determine_active_tab(current_path)
-    ACTIVE_TAB_PATHS.each do |tab, paths|
-      return tab if paths.any? { |path| current_path.include?(path) }
-    end
+    active_primary_tab = determine_active_primary_tab(current_path)
+    return active_primary_tab if active_primary_tab
 
     determine_dashboard_active_tab(current_path)
+  end
+
+  def determine_active_primary_tab(current_path)
+    ACTIVE_TAB_PATHS.each do |tab, paths|
+      return tab if paths.any? { |path_fragment| current_path.match?(path_fragment) }
+    end
+
+    nil
   end
 
   def determine_active_subtab(current_path)
@@ -402,10 +392,39 @@ module NavigationHelper
       view_reports_tab
     ]
 
-    tabs.push(premium_tab) unless current_user.premium_state == 'paid' || current_user.should_render_teacher_premium?
-    tabs.push(teacher_premium_tab) if current_user.should_render_teacher_premium?
     tabs.push(premium_hub_tab) if current_user.admin? && !admin_impersonating_user?(current_user)
     tabs.push(quill_academy_tab)
     tabs.concat(common_authed_user_tabs)
+  end
+
+  private def trial_badge(current_user)
+    badge_html('EXPLORE PREMIUM', 'yellow') + badge_counter("#{pluralize(current_user.trial_days_remaining, 'day')} left")
+  end
+
+  private def locked_badge(current_user)
+    badge_html('TEACHER PREMIUM', 'yellow') + badge_counter("#{current_user.last_expired_subscription&.is_trial? ? 'trial ' : ''}expired")
+  end
+
+  private def explore_badge
+    badge_html('EXPLORE PREMIUM', 'yellow')
+  end
+
+  private def teacher_or_district_badge(current_user)
+    if current_user.district_premium?
+      badge_html('DISTRICT PREMIUM', 'red')
+    elsif current_user.school_premium?
+      badge_html('SCHOOL PREMIUM', 'red')
+    else
+      badge_html('TEACHER PREMIUM', 'yellow')
+    end
+  end
+
+  private def badge_html(text, color)
+    "<a class='premium-navbar-badge-container focus-on-light #{color}' href='/premium' rel='noopener noreferrer' target='_blank'>" \
+    "<span class='premium-badge-text'>#{text}</span><div class='small-diamond-icon'></div></a>".html_safe
+  end
+
+  private def badge_counter(text)
+    "<span class='premium-counter'>#{text}</span>".html_safe
   end
 end

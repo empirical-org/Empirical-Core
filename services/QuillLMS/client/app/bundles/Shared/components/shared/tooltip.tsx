@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { onMobile } from '../..'
+import { onMobile } from '../../libs/onMobile';
 
 interface TooltipProps {
   isTabbable?: boolean,

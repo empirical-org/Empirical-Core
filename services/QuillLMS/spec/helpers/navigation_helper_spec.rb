@@ -3,6 +3,97 @@
 require 'rails_helper'
 
 describe NavigationHelper do
+  describe '#determine_premium_badge' do
+    let(:current_user) { create(:teacher) }
+
+    subject { helper.determine_premium_badge(current_user) }
+
+    context 'when current_user is nil' do
+      let(:current_user) { nil }
+
+      it 'returns nil' do
+        expect(subject).to be_nil
+      end
+    end
+
+    context 'when current_user has district premium' do
+      it 'returns district premium badge' do
+        subscription = create(:subscription, account_type: Subscription::SCHOOL_DISTRICT_PAID)
+        district_subscription = create(:district_subscription, subscription:)
+        user_subscription = create(:user_subscription, user: current_user, subscription:)
+        school = create(:school, district: district_subscription.district)
+        create(:schools_users, user: current_user, school:)
+
+        current_user.reload
+
+        expect(subject).to include('DISTRICT PREMIUM')
+        expect(subject).to include('premium-navbar-badge-container focus-on-light red')
+      end
+    end
+
+    context 'when current_user has school premium' do
+      it 'returns school premium badge' do
+        subscription = create(:subscription, account_type: Subscription::SCHOOL_PAID)
+        school_subscription = create(:school_subscription, subscription:)
+        user_subscription = create(:user_subscription, user: current_user, subscription:)
+        create(:schools_users, school: school_subscription.school, user: current_user)
+
+        current_user.reload
+
+        expect(subject).to include('SCHOOL PREMIUM')
+        expect(subject).to include('premium-navbar-badge-container focus-on-light red')
+      end
+    end
+
+    context 'when current_user has no premium state or nil premium state' do
+      before do
+        allow(current_user).to receive(:premium_state).and_return(nil)
+        allow(current_user).to receive(:district_premium?).and_return(false)
+        allow(current_user).to receive(:school_premium?).and_return(false)
+      end
+
+      it 'returns explore premium badge' do
+        expect(subject).to include('EXPLORE PREMIUM')
+        expect(subject).to include('premium-navbar-badge-container focus-on-light yellow')
+      end
+    end
+
+    context 'when current_user is on a trial' do
+      before do
+        allow(current_user).to receive(:premium_state).and_return(NavigationHelper::TRIAL)
+        allow(current_user).to receive(:trial_days_remaining).and_return(10)
+      end
+
+      it 'returns explore premium badge with trial counter' do
+        expect(subject).to include('EXPLORE PREMIUM')
+        expect(subject).to include('premium-navbar-badge-container focus-on-light yellow')
+        expect(subject).to include('10 days left')
+      end
+    end
+
+    context 'when current_user premium state is locked' do
+      before do
+        allow(current_user).to receive(:premium_state).and_return(NavigationHelper::LOCKED)
+        allow(current_user).to receive(:last_expired_subscription).and_return(double(:subscription, is_trial?: true))
+      end
+
+      it 'returns teacher premium badge with expired trial notice' do
+        expect(subject).to include('TEACHER PREMIUM')
+        expect(subject).to include('premium-navbar-badge-container focus-on-light yellow')
+        expect(subject).to include('trial expired')
+      end
+    end
+
+    context 'when current_user premium state is not trial or locked' do
+      before { allow(current_user).to receive(:premium_state).and_return('ACTIVE') }
+
+      it 'returns teacher premium badge' do
+        expect(subject).to include('TEACHER PREMIUM')
+        expect(subject).to include('premium-navbar-badge-container focus-on-light yellow')
+      end
+    end
+  end
+
   describe '#home_page_active?' do
     context 'when action name is dashboard, my account, teacher guide or google sync' do
       before { allow(helper).to receive(:action_name) { 'dashboard' } }
@@ -86,43 +177,6 @@ describe NavigationHelper do
 
     it 'should return true on teacher premium action' do
       expect(helper.teacher_premium_active?).to eq true
-    end
-  end
-
-  describe '#premium_tab_copy' do
-    subject { helper.premium_tab_copy(current_user) }
-
-    let(:trial_subscription) { create(:subscription) }
-    let(:premium_subscription) { create(:subscription, account_type: 'Not A Trial') }
-
-    context 'user has 5 days left in trial' do
-      let(:current_user) { double(:user, premium_state: 'trial', trial_days_remaining: 5) }
-
-      it { is_expected.to eq "<span>Premium</span><div class='large-diamond-icon is-in-middle'></div><span>5 Days Left</span>" }
-    end
-
-    context 'user has locked premium subscription' do
-      let(:current_user) { double(:user, premium_state: 'locked', last_expired_subscription: premium_subscription) }
-
-      it { is_expected.to eq "<span>Premium</span><div class='large-diamond-icon is-in-middle'></div><span>Expired</span>" }
-    end
-
-    context 'user has locked trial subscription' do
-      let(:current_user) { double(:user, premium_state: 'locked', last_expired_subscription: trial_subscription) }
-
-      it { is_expected.to eq "<span>Premium</span><div class='large-diamond-icon is-in-middle'></div><span>Trial Expired</span>" }
-    end
-
-    context 'user has nil premium state' do
-      let(:current_user) { double(:user, premium_state: nil) }
-
-      it { is_expected.to eq "<span>Explore Premium</span><div class='large-diamond-icon'></div>" }
-    end
-
-    context "user has 'none' premium state" do
-      let(:current_user) { double(:user, premium_state: 'none') }
-
-      it { is_expected.to eq "<span>Explore Premium</span><div class='large-diamond-icon'></div>" }
     end
   end
 
@@ -217,7 +271,7 @@ describe NavigationHelper do
       before { allow(teacher).to receive(:should_render_teacher_premium?).and_return(false) }
 
       it 'should return the expected tabs' do
-        expected_tabs = tabs.push(helper.premium_tab)
+        expected_tabs = tabs
         tabs.push(helper.quill_academy_tab)
         expected_tabs.concat(helper.common_authed_user_tabs)
         expect(subject).to eq(expected_tabs)
@@ -230,7 +284,7 @@ describe NavigationHelper do
       before { allow(teacher).to receive(:should_render_teacher_premium?).and_return(true) }
 
       it 'should return the expected tabs' do
-        expected_tabs = tabs.push(helper.teacher_premium_tab)
+        expected_tabs = tabs
         tabs.push(helper.quill_academy_tab)
         expected_tabs.concat(helper.common_authed_user_tabs)
         expect(subject).to eq(expected_tabs)
@@ -243,7 +297,7 @@ describe NavigationHelper do
       before { allow(admin).to receive(:should_render_teacher_premium?).and_return(false) }
 
       it 'should return the expected tabs' do
-        expected_tabs = tabs.concat([helper.premium_tab, helper.premium_hub_tab, helper.quill_academy_tab])
+        expected_tabs = tabs.concat([helper.premium_hub_tab, helper.quill_academy_tab])
         expected_tabs.concat(helper.common_authed_user_tabs)
         expect(subject).to eq(expected_tabs)
       end
@@ -352,12 +406,15 @@ describe NavigationHelper do
       it 'should return "Schools & Districts" for teacher_premium and admins path' do
         expect(helper.determine_active_tab('teacher_premium')).to eq(NavigationHelper::SCHOOLS_AND_DISTRICTS)
         expect(helper.determine_active_tab('admins')).to eq(NavigationHelper::SCHOOLS_AND_DISTRICTS)
-        expect(helper.determine_active_tab('premium_hub')).to eq(NavigationHelper::SCHOOLS_AND_DISTRICTS)
         expect(helper.determine_active_tab('premium')).to eq(NavigationHelper::SCHOOLS_AND_DISTRICTS)
       end
 
       it 'should return "Quill Academy" for Quill Academy path' do
         expect(helper.determine_active_tab('quill_academy')).to eq(NavigationHelper::QUILL_ACADEMY)
+      end
+
+      it 'should return "Premium Hub" for Premium Hub path' do
+        expect(helper.determine_active_tab('premium_hub')).to eq(NavigationHelper::PREMIUM_HUB)
       end
 
       it 'should default to "Home" for unmatched paths' do

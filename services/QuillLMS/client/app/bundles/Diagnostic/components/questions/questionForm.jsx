@@ -18,7 +18,6 @@ export default class extends React.Component {
   submit = () => {
     const questionObj = {
       conceptUID: this.props.question.conceptUID,
-      cuesLabel: this.props.question.cuesLabel,
       focusPoints: this.props.question.focusPoints,
       incorrectSequences: this.props.question.incorrectSequences,
       modelConceptUID: this.props.question.modelConceptUID,

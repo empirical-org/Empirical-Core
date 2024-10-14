@@ -189,9 +189,9 @@ describe ActivitiesController, type: :controller, redis: true do
     let(:user) { create(:user, flagset: Flags::PRODUCTION, teacher_info: teacher_info) }
 
     before do
-      Evidence::Activity.create(parent_activity_id: production_activity1.id, notes: 'notes', title: 'title')
-      Evidence::Activity.create(parent_activity_id: production_activity2.id, notes: 'notes', title: 'title')
-      Evidence::Activity.create(parent_activity_id: beta1_activity.id, notes: 'notes', title: 'title')
+      Evidence::Activity.create(parent_activity_id: production_activity1.id, notes: 'notes', title: 'title', ai_type: Evidence::Activity::GEN_AI)
+      Evidence::Activity.create(parent_activity_id: production_activity2.id, notes: 'notes', title: 'title', ai_type: Evidence::Activity::GEN_AI)
+      Evidence::Activity.create(parent_activity_id: beta1_activity.id, notes: 'notes', title: 'title', ai_type: Evidence::Activity::GEN_AI)
       create(:evidence_activity, parent_activity_id: beta2_activity.id, notes: 'notes', title: 'title')
       allow(controller).to receive(:current_user) { user }
     end
