@@ -5,7 +5,7 @@ import MaxAttemptsEditor from "./maxAttemptsEditor";
 import PromptsForm from './promptsForm';
 import UpperFormSection from './upperFormSection';
 
-import { BECAUSE, BREAK_TAG, BUILDING_ESSENTIAL_KNOWLEDGE, BUT, HIGHLIGHTING_PROMPT, HIGHLIGHT_PROMPT, IMAGE, MAX_ATTEMPTS_FEEDBACK, PASSAGE, PROMPTS, SO, TEXT, activityFormKeys } from '../../../../../constants/evidence';
+import { BECAUSE, BREAK_TAG, BUILDING_ESSENTIAL_KNOWLEDGE, BUT, HIGHLIGHTING_PROMPT, HIGHLIGHT_PROMPT, IMAGE, MAX_ATTEMPTS_FEEDBACK, PASSAGE, STEMS, SO, TEXT, activityFormKeys, GEN_AI_AI_TYPE, AI_TYPES, } from '../../../../../constants/evidence';
 import { DataTable, Input, TextEditor, ToggleComponentSection, titleCase } from '../../../../Shared/index';
 import { DEFAULT_HIGHLIGHT_PROMPT } from '../../../../Shared/utils/constants';
 import { buildActivity, validateForm, validateFormSection } from '../../../helpers/evidence/miscHelpers';
@@ -20,7 +20,7 @@ interface ActivityFormProps {
 }
 
 const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormProps) => {
-  const { id, parent_activity_id, invalid_highlights, passages, prompts, title, notes, flag, } = activity;
+  const { id, parent_activity_id, invalid_highlights, passages, prompts, title, notes, flag, ai_type, } = activity;
   const formattedPassage = passages && passages.length ? passages : [{ text: '', highlight_prompt: DEFAULT_HIGHLIGHT_PROMPT, essential_knowledge_text: '' }];
   const formattedPrompts = promptsByConjunction(prompts);
   const becausePrompt = formattedPrompts && formattedPrompts[BECAUSE] ? formattedPrompts[BECAUSE] : buildBlankPrompt(BECAUSE);
@@ -30,6 +30,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
   const [activityTitle, setActivityTitle] = React.useState<string>(title || '');
   const [activityNotes, setActivityNotes] = React.useState<string>(notes || '');
   const [activityFlag, setActivityFlag] = React.useState<string>(flag || 'alpha');
+  const [aiType, setAIType] = React.useState<string>(ai_type || GEN_AI_AI_TYPE);
   const [activityPassages, setActivityPassages] = React.useState<PassagesInterface[]>(formattedPassage);
   const [activityBecausePrompt, setActivityBecausePrompt] = React.useState<PromptInterface>(becausePrompt);
   const [activityButPrompt, setActivityButPrompt] = React.useState<PromptInterface>(butPrompt);
@@ -39,6 +40,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
 
   function toggleShowHighlights(e: ClickEvent) { setShowHighlights(!showHighlights)}
   function handleSetActivityFlag(option: { value: string, label: string }) { setActivityFlag(option.value) };
+  function handleSetAIType(option: { value: string, label: string }) { setAIType(option.value) };
   function handleSetActivityTitle(e: InputEvent){ setActivityTitle(e.target.value) };
   function handleSetActivityNotes(e: InputEvent){ setActivityNotes(e.target.value) };
   function handleSetHighlightPrompt(e: InputEvent){ handleSetActivityPassages('highlight_prompt', e.target.value) };
@@ -75,6 +77,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
 
     const activityObject = buildActivity({
       activityFlag,
+      aiType,
       activityNotes,
       activityTitle,
       activityParentActivityId: parent_activity_id,
@@ -86,6 +89,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
     });
     const state = [
       activityFlag,
+      aiType,
       activityTitle,
       activityNotes,
       activityPassages[0].text,
@@ -160,7 +164,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
           handleSetPrompt={handleSetPrompt}
         />
       ]}
-      label={PROMPTS}
+      label={STEMS}
     />,
     <ToggleComponentSection
       components={[
@@ -215,11 +219,13 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
         activityFlag={activityFlag}
         activityNotes={activityNotes}
         activityTitle={activityTitle}
+        aiType={aiType}
         errors={errors}
         formErrorsPresent={formErrorsPresent}
         handleSetActivityFlag={handleSetActivityFlag}
         handleSetActivityNotes={handleSetActivityNotes}
         handleSetActivityTitle={handleSetActivityTitle}
+        handleSetAIType={handleSetAIType}
         handleSubmitActivity={handleSubmitActivity}
         parentActivityId={parent_activity_id}
         requestErrors={requestErrors}

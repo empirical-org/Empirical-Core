@@ -38,8 +38,12 @@
   .title-input {
     margin: 0px 0px 24px 0px;
   }
-  .flag-input {
-    width: 10vw;
+  .dropdowns-container {
+    display: flex;
+    gap: 16px;
+    .dropdown-container {
+      width: 160px;
+    }
   }
   .button-and-id-container {
     display: flex;
@@ -62,7 +66,7 @@
       margin-left: 16px;
     }
   }
-  .course-input, .flag-input, .reading-level-input,
+  .course-input, .dropdowns-container, .reading-level-input,
   .reading-score-input, .because-input, .but-input, .name-input, .highlight-prompt-input,
   .scored-reading-level-input, .target-reading-level-input, .image-link-input,
   .because-example, .but-example, .so-example {

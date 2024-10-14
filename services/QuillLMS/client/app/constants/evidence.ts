@@ -281,10 +281,12 @@ export const BUILDING_ESSENTIAL_KNOWLEDGE = 'Building Essential Knowledge';
 export const HIGHLIGHTING_PROMPT = 'Highlight Prompt';
 export const IMAGE = 'Image';
 export const MAX_ATTEMPTS_FEEDBACK = 'Max Attempts Feedback';
-export const PROMPTS = 'Prompts'
+export const STEMS = 'Stems'
+export const AI_TYPE = 'AI Type'
 
 export const activityFormKeys = [
   FLAG,
+  AI_TYPE,
   TITLE,
   NOTES,
   PASSAGE,

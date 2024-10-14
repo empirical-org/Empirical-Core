@@ -20,10 +20,11 @@ import {
   MAX_ATTEMPTS_FEEDBACK,
   MINIMUM_READING_LEVEL,
   PLAGIARISM,
-  PROMPTS,
+  STEMS,
   SCORED_READING_LEVEL,
   TARGET_READING_LEVEL,
   TEXT,
+  AI_TYPE,
 } from '../../../../constants/evidence';
 import { DEFAULT_HIGHLIGHT_PROMPT, NumberFilterInput, TextFilter, filterNumbers } from "../../../Shared";
 import { ActivitySessionInterface, DropdownObjectInterface } from '../../interfaces/evidenceInterfaces';
@@ -41,6 +42,7 @@ export const buildActivity = ({
   activityButPrompt,
   activitySoPrompt,
   highlightPrompt,
+  aiType,
 }) => {
   const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt];
   return {
@@ -49,6 +51,7 @@ export const buildActivity = ({
       title: activityTitle,
       parent_activity_id: activityParentActivityId ? parseInt(activityParentActivityId) : null,
       flag: activityFlag,
+      ai_type: aiType,
       highlight_prompt: highlightPrompt,
       passages_attributes: activityPassages,
       prompts_attributes: prompts
@@ -139,6 +142,7 @@ export const validateForm = (keys: string[], state: any[], ruleType?: string) =>
       case IMAGE_ATTRIBUTION:
       case HIGHLIGHT_PROMPT:
       case FLAG:
+      case AI_TYPE:
         break;
       case TARGET_READING_LEVEL:
         const targetError = targetReadingLevelError(value);
@@ -220,7 +224,7 @@ export function validateFormSection({
         activitySoPrompt.max_attempts_feedback !== BREAK_TAG
       );
       return getCheckIcon(maxAttemptsFeedbackPresent);
-    case PROMPTS:
+    case STEMS:
       const promptsDetailsPresent = (
         activityBecausePrompt &&
         activityButPrompt &&
