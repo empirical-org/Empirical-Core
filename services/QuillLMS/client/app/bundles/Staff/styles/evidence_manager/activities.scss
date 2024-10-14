@@ -1,9 +1,25 @@
 .activities-container, .loading-spinner-container, .error-container {
   width: calc(100vw - 200px);
   padding: 20px;
+
+  .dropdowns-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+    .dropdown-container {
+      min-width: 200px;
+    }
+  }
+
   .activities-table, .tabs-container {
     width: 100%;
     align-self: flex-start;
+
+    .sort-arrow {
+      margin-right: 0px;
+    }
+
     .data-table-body{
       min-height: 30vh;
       max-height: 70vh;
@@ -20,6 +36,10 @@
         }
       }
     }
+  }
+
+  .center-content {
+    text-align: center !important;
   }
 
   .ai-type-tag {

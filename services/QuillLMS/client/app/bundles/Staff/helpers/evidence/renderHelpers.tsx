@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from 'react-router-dom';
 
-import { RULE_TYPE_TO_NAME, RULE_TYPE_TO_ROUTE_PART } from "../../../../constants/evidence";
+import { RULE_TYPE_TO_NAME, RULE_TYPE_TO_ROUTE_PART, AUTO_ML_AI_TYPE, RAG_AI_TYPE, GEN_AI_AI_TYPE, } from "../../../../constants/evidence";
 import { DataTable } from "../../../Shared";
 import { ActivityInterface, InvalidHighlight } from '../../interfaces/evidenceInterfaces';
 
@@ -92,9 +92,9 @@ export const renderInvalidHighlightLinks = (invalidHighlights: InvalidHighlight[
 
 export const renderColorCodedAiType = (aiType: string) => {
   const aiTypeToClassName = {
-    'AutoML': 'auto-ml',
-    'GenAI': 'gen-ai',
-    'RAG': 'rag'
+    [AUTO_ML_AI_TYPE]: 'auto-ml',
+    [GEN_AI_AI_TYPE]: 'gen-ai',
+    [RAG_AI_TYPE]: 'rag'
   }
 
   return <span className={`ai-type-tag ${aiTypeToClassName[aiType]}`}>{aiType}</span>

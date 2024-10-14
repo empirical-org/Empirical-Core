@@ -45,6 +45,12 @@ export const SECOND_STRONG_EXAMPLE = 'second_strong_example';
 // this constant is also used on the backend to generate hardcoded feedback for their reports (see services/QuillLMS/app/models/concerns/public_progress_reports.rb) and should be updated there if it's updated here.
 export const EVIDENCE_SUBOPTIMAL_SPELLING_OR_GRAMMAR_FINAL_ATTEMPT_FEEDBACK = "You completed four revisions!<br/><br/>You’ve found the right piece of evidence, but there may still be spelling or grammar changes you could make to improve your sentence.<br/><br/>Read your sentence one more time and think about what changes you could make. Then move on to the next prompt."
 
+export const AUTO_ML_AI_TYPE = 'AutoML'
+export const RAG_AI_TYPE = 'RAG'
+export const GEN_AI_AI_TYPE = 'GenAI'
+
+export const AI_TYPES = [AUTO_ML_AI_TYPE, RAG_AI_TYPE, GEN_AI_AI_TYPE]
+
 export const courseOptions = [
   {
     label: 'Word Generation',
