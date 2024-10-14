@@ -20,7 +20,6 @@ import KeyMetrics from '../components/student_profile/key_metrics'
 
 class StudentProfile extends React.Component {
   componentDidMount() {
-    console.log("StudentProfile: componentDidMount")
     const {
       fetchStudentProfile,
       fetchStudentsClassrooms,
