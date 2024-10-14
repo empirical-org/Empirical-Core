@@ -16,6 +16,7 @@ export interface ActivityInterface {
   flag?: string,
   title: string,
   notes: string,
+  ai_type: string,
   scored_level?: string,
   target_level?: number,
   version: number,

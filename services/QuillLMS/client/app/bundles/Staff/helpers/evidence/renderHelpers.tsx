@@ -89,3 +89,13 @@ export const renderInvalidHighlightLinks = (invalidHighlights: InvalidHighlight[
     />
   )
 }
+
+export const renderColorCodedAiType = (aiType: string) => {
+  const aiTypeToClassName = {
+    'AutoML': 'auto-ml',
+    'GenAI': 'gen-ai',
+    'RAG': 'rag'
+  }
+
+  return <span className={`ai-type-tag ${aiTypeToClassName[aiType]}`}>{aiType}</span>
+}

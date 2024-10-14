@@ -21,4 +21,18 @@
       }
     }
   }
+
+  .ai-type-tag {
+    padding: 4px;
+    border-radius: 16px;
+    &.auto-ml {
+      background-color: $quill-blue-20;
+    }
+    &.gen-ai {
+      background-color: $quill-green-vibrant-20;
+    }
+    &.rag {
+      background-color: $quill-purple-20;
+    }
+  }
 }

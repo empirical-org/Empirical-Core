@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Navigation from './navigation';
 
 import { DataTable, Error, FlagDropdown, Spinner, } from '../../../Shared/index';
-import { getCheckIcon, renderErrorsContainer } from "../../helpers/evidence/renderHelpers";
+import { getCheckIcon, renderErrorsContainer, renderColorCodedAiType, } from "../../helpers/evidence/renderHelpers";
 import { ActivityInterface } from '../../interfaces/evidenceInterfaces';
 import { fetchActivities, } from '../../utils/evidence/activityAPIs';
 import ActivityInvalidHighlights from './activityInvalidHighlights'
@@ -20,7 +20,7 @@ const Activities = ({ location, match }) => {
   const filteredActivities = activitiesData && activitiesData.activities && activitiesData.activities.filter(act => flag === 'All Flags' || act.flag === flag) || []
 
   const formattedRows = filteredActivities.map((activity: ActivityInterface) => {
-    const { id, title, parent_activity_id, notes } = activity;
+    const { id, title, parent_activity_id, notes, ai_type, } = activity;
     const activityInternalNameLink = (<Link to={`/activities/${id}`}>{notes}</Link>);
     const activityLink = (<Link to={`/activities/${id}`}>{title}</Link>);
     const highlightLabel = (
@@ -31,7 +31,8 @@ const Activities = ({ location, match }) => {
       parent_activity_id,
       title: activityLink,
       notes: activityInternalNameLink,
-      valid_highlights: highlightLabel
+      valid_highlights: highlightLabel,
+      ai_type: renderColorCodedAiType(ai_type)
     }
   });
 
@@ -58,7 +59,8 @@ const Activities = ({ location, match }) => {
 
   const dataTableFields = [
     { name: "Parent Activity ID", attribute:"parent_activity_id", width: "100px" },
-    { name: "Internal Name", attribute:"notes", width: "450px" },
+    { name: "Type", attribute: "ai_type", width: "100px", noTooltip: true },
+    { name: "Internal Name", attribute:"notes", width: "350px" },
     { name: "Name", attribute:"title", width: "350px" },
     { name: "Highlight Validation", attribute:"valid_highlights", width: "100px", noTooltip: true }
   ];

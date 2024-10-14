@@ -106,7 +106,7 @@ module Evidence
     def serializable_hash(options = nil)
       options ||= {}
       super(options.reverse_merge(
-        only: [:id, :parent_activity_id, :title, :version, :notes, :target_level, :scored_level],
+        only: [:id, :parent_activity_id, :title, :version, :notes, :target_level, :scored_level, :ai_type],
         include: [:passages, :prompts],
         methods: [:invalid_highlights, :flag]
       ))
