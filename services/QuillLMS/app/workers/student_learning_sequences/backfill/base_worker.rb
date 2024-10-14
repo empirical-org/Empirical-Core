@@ -39,7 +39,7 @@ module StudentLearningSequences
       end
 
       def backfill_activity_sessions(query)
-        fetch_page(query).find_each do |activity_session|
+        fetch_page(query).each do |activity_session|
           Sidekiq::Client.push('class' => StudentLearningSequences::HandleCompletionWorker,
             'queue' => SidekiqQueue::MIGRATION,
             'args' => [activity_session.id]
@@ -48,7 +48,7 @@ module StudentLearningSequences
       end
 
       def backfill_classroom_units(query)
-        fetch_page(query).find_each do |classroom_unit|
+        fetch_page(query).each do |classroom_unit|
           classroom_unit_id = classroom_unit.id
           classroom_unit.assigned_student_ids&.uniq&.compact&.each do |student_id|
             Sidekiq::Client.push('class' => StudentLearningSequences::HandleAssignmentWorker,
