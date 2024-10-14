@@ -9,7 +9,7 @@ class ActivityFeedbackHistory
     inner_query = ActivitySession.unscoped
       .joins(:feedback_sessions)
       .joins(:feedback_histories)
-      .joins('LEFT JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
+      .joins('LEFT JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id AND feedback_histories.prompt_type = ?', FeedbackHistory::DEFAULT_PROMPT_TYPE)
       .where('comprehension_prompts.activity_id = ?', activity_id)
 
     inner_query = inner_query.where('feedback_histories.activity_version = ?', activity_version) if activity_version

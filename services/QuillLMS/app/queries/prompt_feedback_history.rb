@@ -21,7 +21,7 @@ class PromptFeedbackHistory
       AVG(CAST((feedback_histories.metadata->>'api')::json->>'confidence' AS float)) AS avg_confidence
     SELECT
                                   )
-      .joins('JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
+      .joins('JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id AND feedback_histories.prompt_type = ?', FeedbackHistory::DEFAULT_PROMPT_TYPE)
       .joins('LEFT JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
       .joins('LEFT JOIN feedback_sessions ON feedback_histories.feedback_session_uid = feedback_sessions.uid')
       .joins('LEFT JOIN activity_sessions ON feedback_sessions.activity_session_uid = activity_sessions.uid')
@@ -46,9 +46,9 @@ class PromptFeedbackHistory
                                                  )
       .joins('RIGHT JOIN feedback_sessions ON feedback_sessions.activity_session_uid = activity_sessions.uid')
       .joins('RIGHT JOIN feedback_histories ON feedback_histories.feedback_session_uid = feedback_sessions.uid')
-      .joins('RIGHT JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
+      .joins('RIGHT JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id AND feedback_histories.prompt_type = ?', FeedbackHistory::DEFAULT_PROMPT_TYPE)
       .where('feedback_histories.used = true')
-      .where('feedback_histories.prompt_id = ?', prompt_id)
+      .where('feedback_histories.prompt_id = ? AND feedback_histories.prompt_type = ?', prompt_id, FeedbackHistory::DEFAULT_PROMPT_TYPE)
       .group('activity_sessions.id, comprehension_prompts.conjunction')
 
     inner_query = inner_query.where('feedback_histories.activity_version = ?', activity_version) if activity_version

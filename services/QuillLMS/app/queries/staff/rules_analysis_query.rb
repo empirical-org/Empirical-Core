@@ -40,7 +40,7 @@ module Staff
         FROM lms.comprehension_rules
         INNER JOIN lms.comprehension_prompts_rules as prompts_rules ON comprehension_rules.id = prompts_rules.rule_id
         INNER JOIN lms.comprehension_prompts as prompts ON prompts_rules.prompt_id = prompts.id
-        LEFT JOIN lms.feedback_histories ON feedback_histories.rule_uid = comprehension_rules.uid AND feedback_histories.prompt_id = prompts.id
+        LEFT JOIN lms.feedback_histories ON feedback_histories.rule_uid = comprehension_rules.uid AND feedback_histories.prompt_id = prompts.id AND feedback_histories.prompt_type = #{FeedbackHistory::DEFAULT_PROMPT_TYPE}
         LEFT JOIN lms.feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id
         LEFT JOIN lms.feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id
       SQL

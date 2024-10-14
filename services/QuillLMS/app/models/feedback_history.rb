@@ -228,7 +228,9 @@ class FeedbackHistory < ApplicationRecord
   end
 
   private def histories_from_same_session
-    FeedbackHistory.where(feedback_session_uid: feedback_session_uid, prompt_id: prompt_id, used: true)
+    FeedbackHistory
+      .for_prompt(prompt_id)
+      .where(feedback_session_uid: feedback_session_uid, used: true)
       .where.not(id: id)
   end
 
@@ -338,7 +340,7 @@ class FeedbackHistory < ApplicationRecord
       SQL
     )
       .joins('LEFT OUTER JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
-      .joins('LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
+      .joins('LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id AND feedback_histories.prompt_type = ?', FeedbackHistory::DEFAULT_PROMPT_TYPE)
       .joins('LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
       .where(used: true)
       .group(:feedback_session_uid, :activity_id)
@@ -356,7 +358,7 @@ class FeedbackHistory < ApplicationRecord
 
   def self.get_total_count(activity_id: nil, start_date: nil, end_date: nil, filter_type: nil, responses_for_scoring: false, activity_version: nil)
     query = FeedbackHistory.select(:feedback_session_uid)
-      .joins('LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
+      .joins('LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id AND feedback_histories.prompt_type = ?', FeedbackHistory::DEFAULT_PROMPT_TYPE)
       .joins('LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
       .group(:feedback_session_uid, :activity_id)
     query = query.where(comprehension_prompts: { activity_id: activity_id.to_i }) if activity_id
@@ -406,7 +408,7 @@ class FeedbackHistory < ApplicationRecord
       SQL
     )
       .joins('LEFT OUTER JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
-      .joins('LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
+      .joins('LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id AND feedback_histories.prompt_type = ?', FeedbackHistory::DEFAULT_PROMPT_TYPE)
       .joins('LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
       .where(used: true)
       .group(:feedback_session_uid)
@@ -432,7 +434,7 @@ class FeedbackHistory < ApplicationRecord
         comprehension_rules.name
       SQL
     )
-      .joins('LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
+      .joins('LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id AND feedback_histories.prompt_type = ?', FeedbackHistory::DEFAULT_PROMPT_TYPE)
       .joins('LEFT OUTER JOIN comprehension_rules ON comprehension_rules.uid = feedback_histories.rule_uid')
       .where(used: true)
       .order('datetime DESC')

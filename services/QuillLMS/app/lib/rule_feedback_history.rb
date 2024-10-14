@@ -25,7 +25,7 @@ class RuleFeedbackHistory
                                  )
       .joins('INNER JOIN comprehension_prompts_rules as prompts_rules ON comprehension_rules.id = prompts_rules.rule_id')
       .joins('INNER JOIN comprehension_prompts as prompts ON prompts_rules.prompt_id = prompts.id')
-      .joins('LEFT JOIN feedback_histories ON feedback_histories.rule_uid = comprehension_rules.uid AND feedback_histories.prompt_id = prompts.id')
+      .joins('LEFT JOIN feedback_histories ON feedback_histories.rule_uid = comprehension_rules.uid AND feedback_histories.prompt_id = prompts.id AND feedback_histories.prompt_type = ?', FeedbackHistory::DEFAULT_PROMPT_TYPE)
       .joins('LEFT JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
       .joins('LEFT JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
       .where('(feedback_histories.used = ? OR feedback_histories.id IS NULL)', true)
@@ -54,7 +54,9 @@ class RuleFeedbackHistory
     rule_uid = rule_uid.to_sym
     prompt_id = prompt_id.to_i
 
-    query = FeedbackHistory.where(rule_uid: rule_uid, prompt_id: prompt_id, used: true)
+    query = FeedbackHistory
+      .for_prompt(prompt_id)
+      .where(rule_uid: rule_uid, used: true)
       .includes(:feedback_history_ratings)
 
     query = query.where('feedback_histories.created_at >= ?', start_date) if start_date
