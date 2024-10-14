@@ -12,6 +12,7 @@ module Evidence
           @activity = Activity.new(activity_params)
 
           if @activity.save
+
             redirect_to @activity
           else
             render :new

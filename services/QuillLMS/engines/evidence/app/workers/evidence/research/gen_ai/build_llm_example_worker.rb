@@ -6,6 +6,9 @@ module Evidence
       class BuildLLMExampleWorker
         include Evidence.sidekiq_module
 
+        OPTIMAL = HasAssignedStatus::OPTIMAL
+        SUBOPTIMAL = HasAssignedStatus::SUBOPTIMAL
+
         sidekiq_options queue: 'default'
 
         class TrialNotFoundError < StandardError; end
@@ -29,7 +32,7 @@ module Evidence
           llm_feedback = LLMFeedbackResolver.run(raw_text:)
 
           if trial.classification?
-            llm_assigned_status = llm_feedback&.start_with?('Optimal') ? 'optimal' : 'suboptimal'
+            llm_assigned_status = llm_feedback&.start_with?('Optimal') ? OPTIMAL : SUBOPTIMAL
           elsif trial.generative?
             llm_assigned_status = LLMAssignedStatusResolver.run(raw_text:)
           end
