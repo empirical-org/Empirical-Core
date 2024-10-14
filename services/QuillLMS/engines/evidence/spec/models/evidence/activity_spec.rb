@@ -45,23 +45,7 @@ module Evidence
 
       it { should validate_length_of(:scored_level).is_at_most(100) }
 
-      context 'ai_type' do
-        let(:activity) { create(:evidence_activity) }
-
-        it 'any of the ai types should be valid' do
-          Activity::AI_TYPES.each do |ai_type|
-            expect { activity.update!(ai_type:) }.not_to raise_error(ActiveRecord::RecordInvalid)
-          end
-        end
-
-        it 'null should be invalid' do
-          expect { activity.update!(ai_type: nil) }.to raise_error(ActiveRecord::RecordInvalid)
-        end
-
-        it 'any other string should be invalid' do
-          expect { activity.update!(ai_type: 'something else') }.to raise_error(ActiveRecord::RecordInvalid)
-        end
-      end
+      it { should validate_inclusion_of(:ai_type).in?(Activity::AI_TYPES) }
 
       context 'version' do
         it 'a non-monotonically increasing version should be invalid' do
