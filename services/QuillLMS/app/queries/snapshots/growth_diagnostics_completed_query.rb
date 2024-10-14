@@ -2,7 +2,7 @@
 
 module Snapshots
   class GrowthDiagnosticsCompletedQuery < ReportingSessionCountQuery
-    GROWTH_DIAGNOSTIC_IDS = Activity.where(id: Activity::PRE_TEST_DIAGNOSTIC_IDS).pluck(:follow_up_activity_id)
+    GROWTH_DIAGNOSTIC_IDS = Activity.where(id: Activity::PRE_TEST_DIAGNOSTIC_IDS + Activity::OLD_PRE_TEST_DIAGNOSTIC_IDS).pluck(:follow_up_activity_id)
 
     def select_clause
       'SELECT COUNT(DISTINCT session_id) AS count'
