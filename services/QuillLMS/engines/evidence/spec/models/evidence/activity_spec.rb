@@ -5,15 +5,20 @@
 # Table name: comprehension_activities
 #
 #  id                 :integer          not null, primary key
-#  title              :string(100)
-#  parent_activity_id :integer
-#  target_level       :integer
+#  ai_type            :string
+#  notes              :string
 #  scored_level       :string(100)
+#  target_level       :integer
+#  title              :string(100)
+#  version            :integer          default(1), not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  notes              :string
-#  version            :integer          default(1), not null
+#  parent_activity_id :integer
 #
+# Indexes
+#
+#  index_comprehension_activities_on_parent_activity_id  (parent_activity_id)
+
 require 'rails_helper'
 
 module Evidence
@@ -39,6 +44,8 @@ module Evidence
       it { should validate_presence_of(:notes) }
 
       it { should validate_length_of(:scored_level).is_at_most(100) }
+
+      it { should validate_inclusion_of(:ai_type).in?(Activity::AI_TYPES) }
 
       context 'version' do
         it 'a non-monotonically increasing version should be invalid' do
