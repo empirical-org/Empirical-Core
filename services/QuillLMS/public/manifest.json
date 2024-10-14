@@ -43,5 +43,6 @@
       }
     ],
     "start_url": "https://www.quill.org/",
-    "display": "minimal-ui"
+    "display": "minimal-ui",
+    "scope": "https://www.quill.org/"
 }
