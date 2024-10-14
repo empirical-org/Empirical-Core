@@ -81,7 +81,7 @@ module Evidence
       end
 
       it 'should create a valid record and return it as json' do
-        post(:create, :params => { :activity => { :parent_activity_id => activity.parent_activity_id, :scored_level => activity.scored_level, :target_level => activity.target_level, :title => activity.title, :notes => activity.notes } })
+        post(:create, :params => { :activity => { :parent_activity_id => activity.parent_activity_id, :scored_level => activity.scored_level, :target_level => activity.target_level, :title => activity.title, :notes => activity.notes, :ai_type => activity.ai_type } })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
         expect(parsed_response['title']).to(eq('First Activity'))
@@ -91,7 +91,7 @@ module Evidence
       end
 
       it 'should make a change log record after creating the Activity record' do
-        post :create, params: { activity: { parent_activity_id: activity.parent_activity_id, scored_level: activity.scored_level, target_level: activity.target_level, title: activity.title, notes: activity.notes } }
+        post :create, params: { activity: { parent_activity_id: activity.parent_activity_id, scored_level: activity.scored_level, target_level: activity.target_level, title: activity.title, notes: activity.notes, :ai_type => activity.ai_type } }
 
         new_activity = Activity.last
         change_log = Evidence.change_log_class.last
@@ -111,7 +111,7 @@ module Evidence
       end
 
       it 'should create a valid record with passage attributes' do
-        post(:create, :params => { :activity => { :parent_activity_id => activity.parent_activity_id, :scored_level => activity.scored_level, :target_level => activity.target_level, :title => activity.title, :notes => activity.notes, :passages_attributes => [{ :text => ('Hello ' * 20) }] } })
+        post(:create, :params => { :activity => { :parent_activity_id => activity.parent_activity_id, :scored_level => activity.scored_level, :target_level => activity.target_level, :title => activity.title, :notes => activity.notes, :passages_attributes => [{ :text => ('Hello ' * 20) }], :ai_type => activity.ai_type } })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
         expect(parsed_response['title']).to(eq('First Activity'))
@@ -122,7 +122,7 @@ module Evidence
       end
 
       it 'should create a valid record with prompt attributes' do
-        post(:create, :params => { :activity => { :parent_activity_id => activity.parent_activity_id, :scored_level => activity.scored_level, :target_level => activity.target_level, :title => activity.title, :notes => activity.notes, :prompts_attributes => [{ :text => 'meat is bad for you.', :conjunction => 'because' }] } })
+        post(:create, :params => { :activity => { :parent_activity_id => activity.parent_activity_id, :scored_level => activity.scored_level, :target_level => activity.target_level, :title => activity.title, :notes => activity.notes, :prompts_attributes => [{ :text => 'meat is bad for you.', :conjunction => 'because' }], :ai_type => activity.ai_type } })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
         expect(parsed_response['title']).to(eq('First Activity'))
@@ -133,7 +133,7 @@ module Evidence
       end
 
       it 'should create a new parent activity and activity if no parent_activity_id is passed' do
-        post(:create, :params => { :activity => { :parent_activity_id => nil, :scored_level => activity.scored_level, :target_level => activity.target_level, :title => activity.title, :notes => activity.notes, :prompts_attributes => [{ :text => 'meat is bad for you.', :conjunction => 'because' }] } })
+        post(:create, :params => { :activity => { :parent_activity_id => nil, :scored_level => activity.scored_level, :target_level => activity.target_level, :title => activity.title, :notes => activity.notes, :prompts_attributes => [{ :text => 'meat is bad for you.', :conjunction => 'because' }], :ai_type => activity.ai_type } })
         parent_activity = Evidence.parent_activity_class.find_by_name(activity.title)
         new_activity = Activity.find_by_title(activity.title)
         expect(parent_activity.present?).to(eq(true))
@@ -150,7 +150,8 @@ module Evidence
               target_level: activity.target_level,
               title: activity.title,
               notes: activity.notes,
-              prompts_attributes: [{ text: 'meat is bad for you.', conjunction: 'because' }]
+              prompts_attributes: [{ text: 'meat is bad for you.', conjunction: 'because' }],
+              ai_type: activity.ai_type
             }
           }
         parsed_response = JSON.parse(response.body)
@@ -172,7 +173,8 @@ module Evidence
               target_level: activity.target_level,
               title: activity.title,
               notes: activity.notes,
-              prompts_attributes: [{ text: 'meat is bad for you.', conjunction: 'so' }]
+              prompts_attributes: [{ text: 'meat is bad for you.', conjunction: 'so' }],
+              ai_type: activity.ai_type
             }
           }
         parsed_response = JSON.parse(response.body)
@@ -199,7 +201,8 @@ module Evidence
                 { text: 'meat is bad for you.', conjunction: 'because' },
                 { text: 'meat is bad for you.', conjunction: 'but' },
                 { text: 'meat is bad for you.', conjunction: 'so' }
-              ]
+              ],
+              ai_type: activity.ai_type
             }
           }
         parsed_response = JSON.parse(response.body)
@@ -296,7 +299,7 @@ module Evidence
       end
 
       it 'should update passage if valid, return nothing' do
-        put(:update, :params => { :id => activity.id, :activity => { :passages_attributes => [{ :id => passage.id, :text => ('Goodbye' * 20) }] } })
+        put(:update, :params => { :id => activity.id, :activity => { :passages_attributes => [{ :id => passage.id, :text => ('Goodbye' * 20) }], :ai_type => activity.ai_type } })
         expect(response.body).to(eq(''))
         expect(response.code.to_i).to(eq(204))
         passage.reload
@@ -304,7 +307,7 @@ module Evidence
       end
 
       it 'should update prompt if valid, return nothing' do
-        put(:update, :params => { :id => activity.id, :activity => { :prompts_attributes => [{ :id => prompt.id, :text => 'this is a good thing.' }] } })
+        put(:update, :params => { :id => activity.id, :activity => { :prompts_attributes => [{ :id => prompt.id, :text => 'this is a good thing.' }], :ai_type => activity.ai_type } })
         expect(response.body).to(eq(''))
         expect(response.code.to_i).to(eq(204))
         prompt.reload
@@ -379,6 +382,7 @@ module Evidence
             target_level: activity.target_level,
             title: activity.title,
             notes: activity.notes,
+            ai_type: activity.ai_type,
             passages_attributes: [{
               text: passage.text
             }],

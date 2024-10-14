@@ -153,7 +153,8 @@ CREATE TABLE public.comprehension_activities (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     notes character varying,
-    version smallint DEFAULT 1 NOT NULL
+    version smallint DEFAULT 1 NOT NULL,
+    ai_type character varying
 );
 
 
@@ -2572,6 +2573,7 @@ ALTER TABLE ONLY public.comprehension_regex_rules
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20241002153807'),
 ('20240925184213'),
 ('20240918144745'),
 ('20240828221309'),
