@@ -52,12 +52,13 @@
   h1, h2 {
     font-weight: bold;
     font-size: 24px;
-    line-height: 1.33;
+    line-height: 1.4;
   }
   .header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 56px;
+    min-height: 42px;
 
     .input-container {
       width: 250px;
@@ -91,6 +92,7 @@
       }
 
       &.import-classes-dropdown-input {
+        width: 174px;
         .dropdown__single-value::before {
           content: url('https://assets.quill.org/images/pages/activity_summary/students.svg');
           position: relative;
@@ -99,7 +101,7 @@
         .dropdown__single-value {
           margin-right: 4px;
           align-items: center;
-          font-size: 14px;
+          // font-size: 14px;
           justify-content: flex-end;
         }
         .dropdown__menu {
@@ -115,20 +117,22 @@
       margin-left: 24px;
     }
   }
-  .no-active-classes {
-    img {
-      margin: 32px 0px 16px;
-    }
+  .no-active-classes, .no-archived-classes {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 128px 0px;
     h2 {
       font-size: 20px;
-      font-weight: bold;
+      font-weight: 700;
       line-height: normal;
     }
     p {
-      margin: 8px 0px 32px;
-      font-size: 16px;
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 400;
       line-height: normal;
-      max-width: 460px;
+      color: $quill-grey-50;
     }
   }
 
@@ -150,21 +154,28 @@
 
   .coteacher-invitation {
     height: 122px;
-    border-radius: 6px;
-    border: solid 1px $quill-grey-5;
+    border-radius: 8px;
+    border: solid 1px $quill-grey-15;
     padding: 32px;
     margin-bottom: 24px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     background-color: $quill-white;
     .coteacher-invitation-content {
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
+      h2 {
+        font-size: 20px;
+        font-weight: 700;
+      }
       p {
         font-size: 14px;
-        line-height: 1.57;
-        color: #646464;
+        font-style: normal;
+        font-weight: 400;
+        color: $quill-grey-50;
       }
       span {
         font-size: 14px;
@@ -173,16 +184,16 @@
         cursor: pointer;
         margin-left: 40px;
       }
-      .accept-or-decline {
-        display: flex;
-        button:first-of-type {
-          margin-right: 16px;
-        }
-        .spinner-container {
-          margin: 0;
-          .spinner {
-            height: 24px;
-          }
+    }
+    .accept-or-decline {
+      display: flex;
+      button:first-of-type {
+        margin-right: 16px;
+      }
+      .spinner-container {
+        margin: 0;
+        .spinner {
+          height: 24px;
         }
       }
     }

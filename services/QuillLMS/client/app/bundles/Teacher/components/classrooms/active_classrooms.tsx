@@ -348,7 +348,7 @@ const ActiveClassrooms = ({
   const renderCreateAClassButton = () => {
     return (
       <button
-        className="quill-button-archived medium primary contained create-a-class-button"
+        className="quill-button medium primary contained create-a-class-button"
         onClick={() => openModal(createAClassModal)}
         type="button"
       >
@@ -463,7 +463,7 @@ const ActiveClassrooms = ({
 
     return (
       <DropdownInput
-        className="import-classes-dropdown-input"
+        className="import-classes-dropdown-input medium bordered icon"
         handleChange={handleImportClassesClick}
         options={options}
         value={{ label: 'Import Classes', value: null }}
@@ -534,7 +534,6 @@ const ActiveClassrooms = ({
 
       return (
         <div className="no-active-classes">
-          <img alt="Gray book, open and blank" src={bookEmptySrc} />
           <h2>Add your first class</h2>
           <p>All teachers need a class! Choose to create or import your classes. </p>
         </div>
