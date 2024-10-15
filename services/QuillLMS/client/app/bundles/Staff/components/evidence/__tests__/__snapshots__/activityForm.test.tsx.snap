@@ -80,8 +80,10 @@ exports[`Activity Form component should render Activities 1`] = `
     activityFlag="alpha"
     activityNotes="Could Capybaras Create Chaos? [student testing]"
     activityTitle="Could Capybaras Create Chaos?"
+    aiType="GenAI"
     errors={Object {}}
     formErrorsPresent={false}
+    handleSetAIType={[Function]}
     handleSetActivityFlag={[Function]}
     handleSetActivityNotes={[Function]}
     handleSetActivityTitle={[Function]}
@@ -195,7 +197,7 @@ exports[`Activity Form component should render Activities 1`] = `
                 />,
               ]
             }
-            label="Prompts"
+            label="Stems"
           />,
           "id": 1,
         },

@@ -42,50 +42,74 @@ exports[`UpperFormSection component should render UpperFormSection 1`] = `
       Save
     </button>
   </div>
-  <DropdownInput
-    className="flag-input"
-    handleChange={[MockFunction]}
-    label="Activity Flag"
-    options={
-      Array [
-        Object {
-          "label": "alpha",
-          "value": "alpha",
-        },
-        Object {
-          "label": "private",
-          "value": "private",
-        },
-        Object {
-          "label": "beta",
-          "value": "beta",
-        },
-        Object {
-          "label": "gamma",
-          "value": "gamma",
-        },
-        Object {
-          "label": "Evidence Beta 1",
-          "value": "evidence_beta1",
-        },
-        Object {
-          "label": "Evidence Beta 2",
-          "value": "evidence_beta2",
-        },
-        Object {
-          "label": "College Board",
-          "value": "college_board",
-        },
-        Object {
-          "label": "production",
-          "value": "production",
-        },
-        Object {
-          "label": "archived",
-          "value": "archived",
-        },
-      ]
-    }
-  />
+  <div
+    className="dropdowns-container"
+  >
+    <DropdownInput
+      className="flag-input"
+      handleChange={[MockFunction]}
+      label="Activity Flag"
+      options={
+        Array [
+          Object {
+            "label": "alpha",
+            "value": "alpha",
+          },
+          Object {
+            "label": "private",
+            "value": "private",
+          },
+          Object {
+            "label": "beta",
+            "value": "beta",
+          },
+          Object {
+            "label": "gamma",
+            "value": "gamma",
+          },
+          Object {
+            "label": "Evidence Beta 1",
+            "value": "evidence_beta1",
+          },
+          Object {
+            "label": "Evidence Beta 2",
+            "value": "evidence_beta2",
+          },
+          Object {
+            "label": "College Board",
+            "value": "college_board",
+          },
+          Object {
+            "label": "production",
+            "value": "production",
+          },
+          Object {
+            "label": "archived",
+            "value": "archived",
+          },
+        ]
+      }
+    />
+    <DropdownInput
+      className="ai-type-input"
+      label="AI Type"
+      options={
+        Array [
+          Object {
+            "label": "AutoML",
+            "value": "AutoML",
+          },
+          Object {
+            "label": "RAG",
+            "value": "RAG",
+          },
+          Object {
+            "label": "GenAI",
+            "value": "GenAI",
+          },
+        ]
+      }
+    />
+  </div>
 </Fragment>
 `;
