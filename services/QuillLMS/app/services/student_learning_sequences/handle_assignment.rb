@@ -18,11 +18,18 @@ module StudentLearningSequences
 
     private def assign_activities_to_sequence
       activities.map do |activity|
-        StudentLearningSequenceActivity.find_or_create_by(activity:,
+        params = {
+          activity:,
           classroom_unit:,
-          student_learning_sequence:,
+          student_learning_sequence:
+        }
+
+        params = params.update({
           created_at: creation_timestamp,
-          updated_at: creation_timestamp)
+          updated_at: creation_timestamp
+        }) if backfill
+
+        StudentLearningSequenceActivity.find_or_create_by(**params)
       end
     end
 
@@ -34,13 +41,14 @@ module StudentLearningSequences
     private def user_id = student_id
 
     private def activities
-      Activity.joins(unit_activities: :classroom_unit)
+      Activity.joins(unit_activities: :classroom_units)
         .where(classroom_units: {id: classroom_unit_id})
     end
 
     private def pre_diagnostic
       @pre_diagnostic ||= activities.where(activity_classification_id: ActivityClassification.diagnostic)
         .where.not(follow_up_activity_id: nil)
+        .first
     end
 
     private def creation_timestamp
@@ -58,7 +66,7 @@ module StudentLearningSequences
       ClassroomUnit.joins(unit: { unit_template: :activities })
         .where(unit: { unit_template: { activities: initial_activity } })
         .where(classroom:)
-        .where('ANY(assigned_student_ids) = ?', student_id)
+        .where('? = ANY(assigned_student_ids)', student_id)
     end
 
     private def fetch_student_learning_sequence
