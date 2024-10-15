@@ -136,8 +136,7 @@ module Evidence
     end
 
     def invalid_highlights
-      invalid_feedback_highlights
-      invalid_plagiarism_texts
+      invalid_feedback_highlights.concat(invalid_plagiarism_texts)
     end
 
     def invalid_feedback_highlights
