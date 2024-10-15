@@ -32,6 +32,7 @@ describe ClassroomUnit, type: :model, redis: true do
   it { should belong_to(:unit) }
   it { should have_many(:activity_sessions) }
   it { should have_many(:classroom_unit_activity_states).dependent(:destroy) }
+  it { should have_many(:student_learning_sequences) }
 
   it { is_expected.to callback(:check_for_assign_on_join_and_update_students_array_if_true).before(:save) }
   it { is_expected.to callback(:hide_appropriate_activity_sessions).after(:save) }

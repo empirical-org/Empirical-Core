@@ -39,6 +39,7 @@ class ClassroomUnit < ApplicationRecord
   has_many :user_pack_sequence_items, through: :pack_sequence_items
   has_many :completed_activity_sessions, -> { completed }, class_name: 'ActivitySession'
   has_many :classroom_unit_activity_states, dependent: :destroy
+  has_many :student_learning_sequences, foreign_key: 'initial_classroom_unit_id'
 
   scope :visible, -> { where(visible: true) }
 

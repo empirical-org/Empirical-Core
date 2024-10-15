@@ -26,13 +26,21 @@ module StudentLearningSequences
       end
     end
 
-    private def activities = classroom_unit.unit_activities.map(&:activity)
     private def classroom_unit = @classroom_unit ||= ClassroomUnit.find(classroom_unit_id)
     private def initial_activity = @initial_activity ||= FindInitialActivity.run(activities&.first&.id, classroom_unit_id)
     private def initial_classroom_units = @initial_classroom_units ||= fetch_initial_classroom_units
-    private def pre_diagnostic = @pre_diagnostic ||= activities.find { |a| !a.follow_up_activity_id.nil? }
     private def student = @student ||= User.find(student_id)
     private def user_id = student_id
+
+    private def activities
+      Activity.joins(unit_activities: :classroom_unit)
+        .where(classroom_units: {id: classroom_unit_id})
+    end
+
+    private def pre_diagnostic
+      @pre_diagnostic ||= activities.where(activity_classification_id: ActivityClassification.diagnostic)
+        .where.not(follow_up_activity_id: nil)
+    end
 
     private def creation_timestamp
       @creation_timestamp ||= backfill ? classroom_unit.updated_at : DateTime.current
