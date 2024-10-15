@@ -20,6 +20,8 @@
 #
 module Evidence
   class PlagiarismText < ApplicationRecord
+    include TextFormatter
+
     self.table_name = 'comprehension_plagiarism_texts'
 
     default_scope { order(created_at: :asc) }
@@ -53,5 +55,23 @@ module Evidence
     def conjunctions
       rule.prompts.map(&:conjunction)
     end
+
+    def invalid_activity_ids
+      related_passages = rule.prompts.map(&:activity).uniq.map(&:passages).flatten
+      invalid_ids = related_passages.reject do |p|
+        included = unscape_html_strip_tags_and_punctuation_and_downcase(p.text).include?(unscape_html_strip_tags_and_punctuation_and_downcase(text))
+        if !included
+          puts 'UNFORMATTED PASSAGE TEXT', p.text
+          puts 'UNFORMATTED TEXT', text
+          puts 'FORMATETTED PASSAGE TEXT', unscape_html_strip_tags_and_punctuation_and_downcase(p.text)
+          puts 'FORMATTED TEXT', unscape_html_strip_tags_and_punctuation_and_downcase(text)
+        end
+        included
+      end.map { |p| p.activity.id }
+      return if invalid_ids.empty?
+
+      invalid_ids
+    end
+
   end
 end
