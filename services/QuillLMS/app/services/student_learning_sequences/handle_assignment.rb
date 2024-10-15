@@ -26,6 +26,7 @@ module StudentLearningSequences
       end
     end
 
+    private def classroom = classroom_unit.classroom
     private def classroom_unit = @classroom_unit ||= ClassroomUnit.find(classroom_unit_id)
     private def initial_activity = @initial_activity ||= FindInitialActivity.run(activities&.first&.id, classroom_unit_id)
     private def initial_classroom_units = @initial_classroom_units ||= fetch_initial_classroom_units
@@ -56,6 +57,8 @@ module StudentLearningSequences
 
       ClassroomUnit.joins(unit: { unit_template: :activities })
         .where(unit: { unit_template: { activities: initial_activity } })
+        .where(classroom:)
+        .where('ANY(assigned_student_ids) = ?', student_id)
     end
 
     private def fetch_student_learning_sequence
