@@ -2,7 +2,7 @@
 
 module Snapshots
   class BaselineDiagnosticsCompletedQuery < ReportingSessionCountQuery
-    BASELINE_DIAGNOSTIC_IDS = Activity::PRE_TEST_DIAGNOSTIC_IDS
+    BASELINE_DIAGNOSTIC_IDS = Activity::ALL_PRE_TEST_DIAGNOSTIC_IDS
 
     def select_clause
       'SELECT COUNT(DISTINCT session_id) AS count'
