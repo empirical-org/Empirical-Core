@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TextFormatter
   require 'cgi'
   require 'nokogiri'
@@ -11,7 +13,7 @@ module TextFormatter
   end
 
   def strip_tags_and_replace_with_spaces(input)
-    Nokogiri::HTML(input).xpath('//text()').map(&:text).join(' ').squeeze(' ')
+    Nokogiri::HTML(input).xpath('//text()').map(&:text).join(' ')
   end
 
   def strip_punctuation_and_downcase(str)

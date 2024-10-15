@@ -68,6 +68,5 @@ module Evidence
 
       invalid_ids
     end
-
   end
 end

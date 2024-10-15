@@ -19,7 +19,7 @@
 module Evidence
   class Highlight < ApplicationRecord
     include TextFormatter
-    
+
     self.table_name = 'comprehension_highlights'
 
     include Evidence::ChangeLog
