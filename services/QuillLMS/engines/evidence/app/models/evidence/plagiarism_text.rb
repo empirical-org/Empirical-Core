@@ -58,16 +58,7 @@ module Evidence
 
     def invalid_activity_ids
       related_passages = rule.prompts.map(&:activity).uniq.map(&:passages).flatten
-      invalid_ids = related_passages.reject do |p|
-        included = unscape_html_strip_tags_and_punctuation_and_downcase(p.text).include?(unscape_html_strip_tags_and_punctuation_and_downcase(text))
-        if !included
-          puts 'UNFORMATTED PASSAGE TEXT', p.text
-          puts 'UNFORMATTED TEXT', text
-          puts 'FORMATETTED PASSAGE TEXT', unscape_html_strip_tags_and_punctuation_and_downcase(p.text)
-          puts 'FORMATTED TEXT', unscape_html_strip_tags_and_punctuation_and_downcase(text)
-        end
-        included
-      end.map { |p| p.activity.id }
+      invalid_ids = related_passages.reject { |p| unescape_html_strip_tags_and_punctuation_and_downcase(p.text).include?(unescape_html_strip_tags_and_punctuation_and_downcase(text)) }.map { |p| p.activity.id }
       return if invalid_ids.empty?
 
       invalid_ids

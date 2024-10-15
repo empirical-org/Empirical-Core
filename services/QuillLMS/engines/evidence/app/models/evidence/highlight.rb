@@ -18,6 +18,8 @@
 #
 module Evidence
   class Highlight < ApplicationRecord
+    include TextFormatter
+    
     self.table_name = 'comprehension_highlights'
 
     include Evidence::ChangeLog
@@ -95,10 +97,6 @@ module Evidence
 
     private def second_order
       feedback.order == 1
-    end
-
-    private def strip_tags(input)
-      ::ActionController::Base.helpers.strip_tags(input)
     end
   end
 end

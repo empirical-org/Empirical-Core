@@ -22,7 +22,7 @@ module TextFormatter
     CGI.unescapeHTML(html_string)
   end
 
-  def unscape_html_strip_tags_and_punctuation_and_downcase(str)
-    strip_punctuation_and_downcase(strip_tags_and_replace_with_spaces(unescape_html(str)))
+  def unescape_html_strip_tags_and_punctuation_and_downcase(str)
+    strip_punctuation_and_downcase(strip_tags_and_replace_with_spaces(unescape_html(str))).squeeze(' ')
   end
 end
