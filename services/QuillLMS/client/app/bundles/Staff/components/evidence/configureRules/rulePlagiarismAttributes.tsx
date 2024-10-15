@@ -97,12 +97,15 @@ const RulePlagiarismAttributes = ({
     if (plagiarismText._destroy) { return <span /> }
 
     return (
-      <PlagiarismTextEditor
-        index={i}
-        key={i}
-        setPlagiarismText={onHandleSetPlagiarismText}
-        text={plagiarismText.text}
-      />
+      <React.Fragment>
+        <PlagiarismTextEditor
+          index={i}
+          key={i}
+          setPlagiarismText={onHandleSetPlagiarismText}
+          text={plagiarismText.text}
+        />
+        {!plagiarismText.valid_in_all_targets && <p className="all-errors-message">This plagiarism text does not match the associated activity text. This means that it will not trigger the plagiarism feedback as intended. Please update the text above.</p>}
+      </React.Fragment>
     )
   })
 
