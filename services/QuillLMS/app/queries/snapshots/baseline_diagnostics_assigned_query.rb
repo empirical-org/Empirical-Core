@@ -2,7 +2,7 @@
 
 module Snapshots
   class BaselineDiagnosticsAssignedQuery < CountQuery
-    BASELINE_DIAGNOSTIC_IDS = Activity::PRE_TEST_DIAGNOSTIC_IDS + Activity::OLD_PRE_TEST_DIAGNOSTIC_IDS
+    BASELINE_DIAGNOSTIC_IDS = Activity::ALL_PRE_TEST_DIAGNOSTIC_IDS
 
     def query
       <<-SQL

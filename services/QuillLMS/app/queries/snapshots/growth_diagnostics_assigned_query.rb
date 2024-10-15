@@ -2,7 +2,7 @@
 
 module Snapshots
   class GrowthDiagnosticsAssignedQuery < CountQuery
-    GROWTH_DIAGNOSTIC_IDS = Activity.where(id: Activity::PRE_TEST_DIAGNOSTIC_IDS + Activity::OLD_PRE_TEST_DIAGNOSTIC_IDS).pluck(:follow_up_activity_id)
+    GROWTH_DIAGNOSTIC_IDS = Activity.where(id: Activity::ALL_PRE_TEST_DIAGNOSTIC_IDS).pluck(:follow_up_activity_id)
 
     def query
       <<-SQL
