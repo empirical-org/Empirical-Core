@@ -12,9 +12,8 @@ import ResetStudentPasswordModal from './reset_student_password_modal'
 
 import { DataTable, DropdownInput, Tooltip, helpIcon, warningIcon, } from '../../../Shared/index'
 
-const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`
-const lightBulbSrc = `${process.env.CDN_URL}/images/pages/classrooms/lightbulb.svg`
-const questionMarkSrc = `${process.env.CDN_URL}/images/pages/classrooms/question_mark.svg`
+const lightBulbSrc = `${process.env.CDN_URL}/images/icons/s/lightbulb.svg`
+const questionMarkSrc = `${process.env.CDN_URL}/images/icons/s/question-mark-green.svg`
 const canvasSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/canvas_setup_instructions.pdf`
 const cleverSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/clever_setup_instructions.pdf`
 const googleSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/google_setup_instructions.pdf`
@@ -402,17 +401,18 @@ const ClassroomStudentSection = ({
 
   const renderStudentActions = () => {
     if (!classroom.visible) { return null }
+    const noStudentsSelected = selectedStudentIds.length === 0
 
     return (
       <div className="student-actions-dropdown-wrapper">
         <DropdownInput
-          className="student-actions-dropdown"
-          disabled={selectedStudentIds.length === 0}
+          className={`student-actions-dropdown bordered small ${noStudentsSelected ? 'disabled' : ''}`}
+          disabled={noStudentsSelected}
           handleChange={selectAction}
           label="Actions"
           options={optionsForStudentActions()}
         />
-        {selectedStudentIds.length === 0 && <Tooltip
+        {noStudentsSelected && <Tooltip
           tooltipText="Please select students from the list below to take action"
           tooltipTriggerText={<img alt={warningIcon.alt} src={warningIcon.src} />}
         />}
@@ -524,7 +524,7 @@ const ClassroomStudentSection = ({
       <DataTable
         checkAllRows={checkAllRows}
         checkRow={checkRow}
-        className='show-overflow'
+        className='reporting-format show-overflow'
         headers={classroom.visible ? activeHeaders(hasClassroomProvider) : archivedHeaders(hasClassroomProvider)}
         rows={rows}
         showActions={classroom.visible}
@@ -563,7 +563,7 @@ const ClassroomStudentSection = ({
     /* eslint-disable react/jsx-no-target-blank */
     const loginPdfLink = (
       <a
-        className="quill-button-archived secondary outlined small"
+        className="quill-button secondary outlined small grey focus-on-light"
         download={download}
         href={loginPdfHref}
         rel="noopener noreferrer"
@@ -578,7 +578,7 @@ const ClassroomStudentSection = ({
       <div className="students-section-header-buttons">
         <div className="login-pdf-and-view-as-student top-buttons-container">
           {loginPdfLink}
-          <button className="quill-button-archived secondary outlined small" onClick={handleClickViewAsStudentButton} type="button">
+          <button className="quill-button secondary outlined small grey focus-on-light" onClick={handleClickViewAsStudentButton} type="button">
             View as student
           </button>
         </div>
@@ -598,7 +598,7 @@ const ClassroomStudentSection = ({
       return (
         <div className="invite-provider-classroom-students">
           <button
-            className={`quill-button-archived primary outlined small ${isDisabled ? 'disabled' : ''}`}
+            className={`quill-button primary outlined small focus-on-light ${isDisabled ? 'disabled' : ''}`}
             disabled={isDisabled}
             onClick={importProviderClassroomStudents}
             type="button"
@@ -612,7 +612,7 @@ const ClassroomStudentSection = ({
 
     return (
       <div className="invite-quill-classroom-students">
-        <button className="quill-button-archived primary outlined small" onClick={inviteStudents} type="button">
+        <button className="quill-button primary outlined small focus-on-light" onClick={inviteStudents} type="button">
           Invite students
         </button>
       </div>
@@ -649,10 +649,7 @@ const ClassroomStudentSection = ({
             <h3>Students</h3>
             {renderInviteStudents()}
           </div>
-          <div className="no-students">
-            <img alt="Three empty desks" src={emptyDeskSrc} />
-            <p>{copy}</p>
-          </div>
+          <p className="no-students">{copy}</p>
         </div>
       )
     } else {

@@ -107,7 +107,7 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
     if (classrooms.length === 0) {
       return(
         <div className="no-archived-classes">
-          <h1>No archived classes</h1>
+          <h2>No archived classes</h2>
           <p>When you archive a class, you will see it listed here.</p>
         </div>
       )

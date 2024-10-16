@@ -45,7 +45,7 @@ const bookEmptySrc = `${process.env.CDN_URL}/images/illustrations/book-empty.svg
 const canvasIconSrc = `${process.env.CDN_URL}/images/icons/canvas.svg`
 const cleverIconSrc = `${process.env.CDN_URL}/images/icons/clever.svg`
 const googleClassroomIconSrc = `${process.env.CDN_URL}/images/icons/google-classroom.svg`
-const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
+const reorderSrc = `${process.env.CDN_URL}/images/icons/s/reorder.svg`
 
 interface ActiveClassroomsProps {
   canvasLink: string
@@ -348,7 +348,7 @@ const ActiveClassrooms = ({
   const renderCreateAClassButton = () => {
     return (
       <button
-        className="quill-button medium primary contained create-a-class-button"
+        className="quill-button medium primary contained create-a-class-button focus-on-light"
         onClick={() => openModal(createAClassModal)}
         type="button"
       >

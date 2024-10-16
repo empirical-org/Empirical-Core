@@ -11,6 +11,7 @@
     background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-green;
   }
   &:focus {
+    outline-offset: 6px;
     &.gold {
       outline: dashed 2px $quill-gold-dark-50;
     }
