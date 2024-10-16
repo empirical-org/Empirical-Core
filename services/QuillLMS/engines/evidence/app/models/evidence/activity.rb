@@ -109,7 +109,7 @@ module Evidence
       super(options.reverse_merge(
         only: [:id, :parent_activity_id, :title, :version, :notes, :target_level, :scored_level],
         include: [:passages, :prompts],
-        methods: [:invalid_highlights, :flag]
+        methods: [:invalid_related_texts, :flag]
       ))
     end
 
@@ -135,13 +135,13 @@ module Evidence
       parent_activity.update(flag: flag)
     end
 
-    def invalid_highlights
+    def invalid_related_texts
       invalid_feedback_highlights.concat(invalid_plagiarism_texts)
     end
 
     def invalid_feedback_highlights
-      invalid_highlights = highlights.select { |h| h.invalid_activity_ids&.include?(id) }
-      invalid_highlights.map do |highlight|
+      invalid_related_texts = highlights.select { |h| h.invalid_activity_ids&.include?(id) }
+      invalid_related_texts.map do |highlight|
         {
           rule_id: highlight.feedback.rule_id,
           rule_type: highlight.feedback.rule.rule_type,

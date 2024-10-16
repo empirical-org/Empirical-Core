@@ -166,11 +166,11 @@ export const fetchActivityVersions = async ({ queryKey, }) => {
 
 export const fetchInvalidHighlights = async ({ queryKey, }) => {
   const [key, activityId]: [string, string] = queryKey
-  const response = await apiFetch(`activities/${activityId}/invalid_highlights`);
-  const invalid_highlights = await response.json();
+  const response = await apiFetch(`activities/${activityId}/invalid_related_texts`);
+  const invalid_related_texts = await response.json();
 
   return {
-    invalid_highlights: invalid_highlights.invalid_highlights,
-    error: handleApiError('Failed to fetch invalid_highlights value, please refresh the page.', response)
+    invalid_related_texts: invalid_related_texts.invalid_related_texts,
+    error: handleApiError('Failed to fetch invalid_related_texts value, please refresh the page.', response)
   };
 }

@@ -11,7 +11,7 @@ exports[`RulePlagiarismAttributes component should render RulePlagiarismAttribut
   <p
     className="all-errors-message"
   >
-    This plagiarism text does not match the associated activity text. This means that it will not trigger the plagiarism feedback as intended. Please update the text above.
+    This plagiarism text does not match the associated activity text. This means that it may not trigger the plagiarism feedback as intended. Please update the text above.
   </p>
   <PlagiarismTextEditor
     index={1}
@@ -22,7 +22,7 @@ exports[`RulePlagiarismAttributes component should render RulePlagiarismAttribut
   <p
     className="all-errors-message"
   >
-    This plagiarism text does not match the associated activity text. This means that it will not trigger the plagiarism feedback as intended. Please update the text above.
+    This plagiarism text does not match the associated activity text. This means that it may not trigger the plagiarism feedback as intended. Please update the text above.
   </p>
   <div
     className="button-wrapper"
