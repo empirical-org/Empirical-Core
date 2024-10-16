@@ -10,6 +10,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  activity_id :integer          not null
+#  prompt_id   :integer
 #
 module Evidence
   module Research
@@ -28,6 +29,7 @@ module Evidence
         }.freeze
 
         belongs_to :activity
+        belongs_to :prompt, class_name: 'Evidence::Prompt', optional: true
 
         has_many :guidelines, dependent: :destroy
         has_many :datasets, dependent: :destroy
