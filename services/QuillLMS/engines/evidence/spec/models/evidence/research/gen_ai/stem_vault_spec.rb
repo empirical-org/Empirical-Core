@@ -10,6 +10,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  activity_id :integer          not null
+#  prompt_id   :integer
 #
 require 'rails_helper'
 
@@ -30,6 +31,7 @@ module Evidence
         it { should have_readonly_attribute(:activity_id) }
 
         it { should belong_to(:activity) }
+        it { should belong_to(:prompt).class_name('Evidence::Prompt').optional }
 
         it { have_many(:guidelines).dependent(:destroy) }
         it { have_many(:datasets).dependent(:destroy) }
