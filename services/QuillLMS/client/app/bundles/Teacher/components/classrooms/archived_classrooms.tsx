@@ -105,7 +105,12 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
       return !c.visible && classroomOwner.id === user.id
     })
     if (classrooms.length === 0) {
-      return null
+      return(
+        <div className="no-archived-classes">
+          <h2>No archived classes</h2>
+          <p>When you archive a class, you will see it listed here.</p>
+        </div>
+      )
     } else {
       const classroomCards = classrooms.map(classroom => {
         const isOwnedByCurrentUser = !!ownArchivedClassrooms.find(c => c.id === classroom.id)
@@ -131,31 +136,15 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
     }
   }
 
-  renderHeader() {
-    const { classrooms } = this.state
-    if (classrooms.length) {
-      return (
-        <div className="header">
-          <h1>Archived Classes</h1>
-        </div>
-      )
-    } else {
-      return (
-        <div className="header">
-          <h1>No archived classes</h1>
-          <p>When you archive a class, you will see it listed here.</p>
-        </div>
-      )
-    }
-  }
-
   render() {
     return (
       <React.Fragment>
         <div className="container gray-background-accommodate-footer archived-classrooms classrooms-page">
           {this.renderUnarchiveClassroomModal()}
           {this.renderSnackbar()}
-          {this.renderHeader()}
+          <div className="header">
+            <h1>Archived Classes</h1>
+          </div>
           {this.renderPageContent()}
         </div>
         <ArticleSpotlight blogPostId={MY_CLASSES_FEATURED_BLOG_POST_ID} />
