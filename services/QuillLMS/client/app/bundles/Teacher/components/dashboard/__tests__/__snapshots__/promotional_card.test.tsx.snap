@@ -300,7 +300,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
       primaryHeaderText="Four Big Updates for the 2024-2025 School Year"
     >
       <div
-        className="banner-container gold-secondary school-year-updates-card"
+        className="banner-container gold-secondary school-year-updates-card green"
       >
         <div
           className="left-side-container"
@@ -332,7 +332,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
             className="buttons-container"
           >
             <a
-              className="quill-button-archived fun primary contained focus-on-light"
+              className="quill-button green extra-small contained focus-on-light"
               href="/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics"
               key="button-0"
               rel="noopener noreferrer"
@@ -497,7 +497,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
       primaryHeaderText="Four Big Updates for the 2024-2025 School Year"
     >
       <div
-        className="banner-container gold-secondary school-year-updates-card"
+        className="banner-container gold-secondary school-year-updates-card green"
       >
         <div
           className="left-side-container"
@@ -529,7 +529,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
             className="buttons-container"
           >
             <a
-              className="quill-button-archived fun primary contained focus-on-light"
+              className="quill-button green extra-small contained focus-on-light"
               href="/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics"
               key="button-0"
               rel="noopener noreferrer"
@@ -862,7 +862,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
       primaryHeaderText="Four Big Updates for the 2024-2025 School Year"
     >
       <div
-        className="banner-container gold-secondary school-year-updates-card"
+        className="banner-container gold-secondary school-year-updates-card green"
       >
         <div
           className="left-side-container"
@@ -894,7 +894,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
             className="buttons-container"
           >
             <a
-              className="quill-button-archived fun primary contained focus-on-light"
+              className="quill-button green extra-small contained focus-on-light"
               href="/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics"
               key="button-0"
               rel="noopener noreferrer"
@@ -1059,7 +1059,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
       primaryHeaderText="Four Big Updates for the 2024-2025 School Year"
     >
       <div
-        className="banner-container gold-secondary school-year-updates-card"
+        className="banner-container gold-secondary school-year-updates-card green"
       >
         <div
           className="left-side-container"
@@ -1091,7 +1091,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
             className="buttons-container"
           >
             <a
-              className="quill-button-archived fun primary contained focus-on-light"
+              className="quill-button green extra-small contained focus-on-light"
               href="/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics"
               key="button-0"
               rel="noopener noreferrer"
@@ -1424,7 +1424,7 @@ exports[`PromotionalCard container SchoolYearUpdatesCard rendering behavior when
       primaryHeaderText="Four Big Updates for the 2024-2025 School Year"
     >
       <div
-        className="banner-container gold-secondary school-year-updates-card"
+        className="banner-container gold-secondary school-year-updates-card green"
       >
         <div
           className="left-side-container"
@@ -1456,7 +1456,7 @@ exports[`PromotionalCard container SchoolYearUpdatesCard rendering behavior when
             className="buttons-container"
           >
             <a
-              className="quill-button-archived fun primary contained focus-on-light"
+              className="quill-button green extra-small contained focus-on-light"
               href="/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics"
               key="button-0"
               rel="noopener noreferrer"
