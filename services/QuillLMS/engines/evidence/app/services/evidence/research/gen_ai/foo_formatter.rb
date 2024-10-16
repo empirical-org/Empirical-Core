@@ -12,6 +12,11 @@ module Evidence
         OPTIMAL = HasAssignedStatus::OPTIMAL
         SUBOPTIMAL = HasAssignedStatus::SUBOPTIMAL
 
+        TRAIN = FooCleaner::TRAIN
+        TEST = FooCleaner::TEST
+        VALIDATION = FooCleaner::VALIDATION
+        DATA_PARTITIONS = FooCleaner::DATA_PARTITIONS
+
         def initialize(data:, prompt_id:, dataset:)
           @data = data
           @dataset = dataset
@@ -24,6 +29,9 @@ module Evidence
           label_freq = Hash.new(0)
 
           data.each_with_index do |row, index|
+            data_partition = nil
+            data_partition = row.shift if row[0].in?(DATA_PARTITIONS)
+
             entry = row[0]&.strip
             label = row[1]
 
@@ -32,7 +40,7 @@ module Evidence
             else
               label_freq[label] += 1
 
-              if label_freq[label] % 5 == 4
+              if (data_partition.nil? && label_freq[label] % 5 == 4) || data_partition == TEST
                 curriculum_assigned_status = label.start_with?('Optimal') ? OPTIMAL : SUBOPTIMAL
                 curriculum_assigned_status == OPTIMAL ? optimal_count += 1 : suboptimal_count += 1
 
