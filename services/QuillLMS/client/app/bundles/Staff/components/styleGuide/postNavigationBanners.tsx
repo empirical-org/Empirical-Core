@@ -36,10 +36,12 @@ const PostNavigationBanners = () => {
     <div id="post-navigation-banners">
       <h2 className="style-guide-h2">Banners</h2>
       <div className="element-container">
-        <h3>Standard Banner with one button</h3>
+        <h3>Primary (One Button)</h3>
         <pre>
           {
             `
+  // color will default to green if no bannerColor prop is passed
+
   <PostNavigationBanner
     bannerStyle="${colorOption.value}"
     bodyText="Quickly archive last year's classes."
@@ -83,12 +85,12 @@ const PostNavigationBanners = () => {
         />
       </div>
       <div className="element-container">
-        <h3>Standard Banner with multiple buttons</h3>
+        <h3>Primary (Multiple Buttons)</h3>
         <pre>
           {
             `
   <PostNavigationBanner
-    bannerStyle="${colorOption.value}"
+    bannerColor="${colorOption.value}"
     bodyText="Quickly archive last year's classes."
     buttons={[
       {
@@ -133,7 +135,7 @@ const PostNavigationBanners = () => {
           value={colorOption}
         />
         <PostNavigationBanner
-          bannerStyle={colorOption.value}
+          bannerColor={colorOption.value}
           bodyText="Quickly archive last year's classes."
           buttons={[
             {
@@ -168,7 +170,68 @@ const PostNavigationBanners = () => {
         />
       </div>
       <div className="element-container">
-        <h3>Premium Banner</h3>
+        <h3>Minimal</h3>
+        <pre>
+          {
+            `
+  <PostNavigationBanner
+    bannerColor={colorOption.value}
+    bannerStyle="minimal"
+    bodyText="Quickly archive last year's classes."
+    buttons={[
+      {
+        href: "",
+        className: "extra-small contained",
+        standardButtonStyle: true,
+        text: "Action",
+        target: "_blank"
+      },
+      {
+        href: "",
+        className: "extra-small outlined",
+        standardButtonStyle: true,
+        text: "Action",
+        target: "_blank"
+      }
+    ]}
+    primaryHeaderText="Start of a new school year?"
+  />
+            `
+          }
+        </pre>
+        <DropdownInput
+          className="color-options-dropdown"
+          handleChange={handleColorOptionChange}
+          isSearchable={true}
+          label="Banner color options"
+          options={COLOR_OPTIONS}
+          value={colorOption}
+        />
+        <PostNavigationBanner
+          bannerColor={colorOption.value}
+          bannerStyle="minimal"
+          bodyText="Quickly archive last year's classes"
+          buttons={[
+            {
+              href: "",
+              className: "extra-small contained",
+              standardButtonStyle: true,
+              text: "Action",
+              target: "_blank"
+            },
+            {
+              href: "",
+              className: "extra-small outlined",
+              standardButtonStyle: true,
+              text: "Action",
+              target: "_blank"
+            }
+          ]}
+          primaryHeaderText="Start of the new school year?"
+        />
+      </div>
+      <div className="element-container">
+        <h3>Premium</h3>
         <pre>
           {
             `

@@ -10,23 +10,53 @@ interface BannerProps {
   closeAria?: string,
   closeIconSrc?: string,
   handleCloseCard?: () => void,
-  icon: {
+  icon?: {
     alt: string,
     src: string
   },
   buttons: {
+    className?: string
     onClick?: () => void,
     href?: string,
     standardButtonStyle: boolean,
     text: string,
     target?: string
   }[],
-  bannerStyle: string
+  bannerStyle?: string
+  bannerColor?: string
 }
 
-export const PostNavigationBanner = ({ tagText, primaryHeaderText, secondaryHeaderText, bodyText, icon, buttons, bannerStyle, closeIconSrc, handleCloseCard, closeAria }: BannerProps) => {
+export const PostNavigationBanner = ({ tagText, primaryHeaderText, secondaryHeaderText, bodyText, icon, buttons, bannerStyle, bannerColor, closeIconSrc, handleCloseCard, closeAria }: BannerProps) => {
+  const color = bannerColor ? bannerColor : 'green'
+  if(bannerStyle && bannerStyle.includes('minimal')) {
+    return(
+      <div className={`banner-container ${bannerStyle} ${color}`}>
+        <div className="left-side-container">
+          {tagText && <p className="tag">{tagText}</p>}
+          <p className="primary-header">{primaryHeaderText}</p>
+          <p className="body">{bodyText}</p>
+        </div>
+        <div className="buttons-container">
+          {buttons.map((button, i) => {
+            const { className, onClick, href, standardButtonStyle, text, target } = button
+            let buttonClass = standardButtonStyle ? `quill-button ${color} ` : "nonstandard-banner-button "
+            if(className) {
+              buttonClass += className
+            } else {
+              buttonClass += "extra-small contained"
+            }
+            if (button.onClick) {
+              return <button className={`${buttonClass} focus-on-light`} key={`button-${i}`} onClick={onClick}>{text}</button>
+            } else {
+              return <a className={`${buttonClass} focus-on-light`} href={href} key={`button-${i}`} rel="noopener noreferrer" target={target}>{text} {!standardButtonStyle && <img alt={arrowPointingRightIcon.alt} src={arrowPointingRightIcon.src} />}</a>
+            }
+          })}
+        </div>
+      </div>
+    )
+  }
   return(
-    <div className={`banner-container ${bannerStyle}`}>
+    <div className={`banner-container ${bannerStyle} ${color}`}>
       <div className="left-side-container">
         {(tagText || secondaryHeaderText) && <div className="upper-section">
           {tagText && <p className="tag">{tagText}</p>}
@@ -36,8 +66,13 @@ export const PostNavigationBanner = ({ tagText, primaryHeaderText, secondaryHead
         <p className="body">{bodyText}</p>
         <div className="buttons-container">
           {buttons.map((button, i) => {
-            const { onClick, href, standardButtonStyle, text, target } = button
-            const buttonClass = standardButtonStyle ? "quill-button-archived fun primary contained" : "nonstandard-banner-button"
+            const { className, onClick, href, standardButtonStyle, text, target } = button
+            let buttonClass = standardButtonStyle ? `quill-button ${color} ` : "nonstandard-banner-button "
+            if (className) {
+              buttonClass += className
+            } else {
+              buttonClass += "extra-small contained"
+            }
             if(button.onClick) {
               return <button className={`${buttonClass} focus-on-light`} key={`button-${i}`} onClick={onClick}>{text}</button>
             } else {
