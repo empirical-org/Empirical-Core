@@ -5,6 +5,7 @@
 # Table name: evidence_research_gen_ai_stem_vaults
 #
 #  id          :bigint           not null, primary key
+#  automl_data :jsonb            not null
 #  conjunction :string           not null
 #  stem        :text             not null
 #  created_at  :datetime         not null
@@ -42,6 +43,16 @@ module Evidence
         attr_readonly :stem, :conjunction, :activity_id
 
         delegate :name, :because_text, :but_text, :so_text, to: :activity
+
+        store_accessor :automl_data, :confusion_matrix, :labels
+
+        def set_confusion_matrix_and_labels! = update_automl_data!(ConfusionMatrixAndLabelsExtractor.run(prompt_id:))
+
+        def update_automl_data!(new_data)
+          self.automl_data ||= {}
+          automl_data.merge!(new_data)
+          save!
+        end
 
         def full_text = activity.text
 

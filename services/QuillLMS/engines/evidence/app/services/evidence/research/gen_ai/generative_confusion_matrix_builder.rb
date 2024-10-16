@@ -3,13 +3,13 @@
 module Evidence
   module Research
     module GenAI
-      class ConfusionMatrixBuilder < ApplicationService
+      class GenerativeConfusionMatrixBuilder < ApplicationService
         attr_reader :llm_examples
 
         OPTIMAL = 0
         SUBOPTIMAL = 1
 
-        def initialize(llm_examples)
+        def initialize(llm_examples:)
           @llm_examples = llm_examples
         end
 

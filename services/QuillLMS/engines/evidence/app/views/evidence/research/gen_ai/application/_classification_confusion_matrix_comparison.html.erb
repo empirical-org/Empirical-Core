@@ -1,0 +1,182 @@
+<div id="confusionMatrixComparison">
+  <div style="text-align: right; margin-bottom: 10px;">
+    <span>Display counts</span>
+    <label class="switch">
+      <input type="checkbox" id="displayToggle">
+      <span class="slider round"></span>
+    </label>
+  </div>
+  <% if automl_matrix && automl_labels && rag_matrix && rag_labels %>
+    <table id="comparisonTable" style="table-layout: fixed; border-collapse: collapse; border: 1px solid black; width: 100%;">
+      <tr class='header-row'>
+        <th style="text-align: left; padding: 8px;">Label</th>
+        <th style="text-align: center; padding: 8px;">AutoML</th>
+        <th style="text-align: center; padding: 8px;">RAG</th>
+        <th style="text-align: center; padding: 8px;">Difference</th>
+      </tr>
+      <%
+        # Group Optimal labels for AutoML
+        automl_optimal_indices = automl_labels.each_index.select { |i| automl_labels[i].start_with?('Optimal') }
+        automl_optimal_sum = automl_optimal_indices.sum { |i| automl_matrix[i][i] }
+        automl_optimal_total = automl_optimal_indices.sum { |i| automl_matrix[i].sum }
+
+        if automl_optimal_sum > 0
+          automl_optimal_percent = (100.0 * automl_optimal_sum / automl_optimal_total).round
+
+          # Get Optimal for RAG
+          rag_optimal_index = rag_labels.index('Optimal')
+          rag_optimal_value = rag_matrix[rag_optimal_index][rag_optimal_index]
+          rag_optimal_percent = (100.0 * rag_optimal_value / rag_matrix[rag_optimal_index].sum).round
+
+          difference = rag_optimal_percent - automl_optimal_percent
+          color_intensity = [(difference.abs / 20.0), 0.5].min
+          bg_color = difference > 0 ? "rgba(0, 255, 0, #{color_intensity})" : "rgba(255, 0, 0, #{color_intensity})"
+      %>
+        <tr class='even-row'>
+          <td style="text-align: left; padding: 8px;">Optimal</td>
+          <td style="text-align: center; padding: 8px;">
+            <span class="count" style="display: none;"><%= automl_optimal_sum %></span>
+            <span class="percent"><%= "#{automl_optimal_percent}%" %></span>
+          </td>
+          <td style="text-align: center; padding: 8px;">
+            <span class="count" style="display: none;"><%= rag_optimal_value %></span>
+            <span class="percent"><%= "#{rag_optimal_percent}%" %></span>
+          </td>
+          <td style="text-align: center; padding: 8px; background-color: <%= bg_color %>;">
+            <span class="count" style="display: none;"><%= rag_optimal_value - automl_optimal_sum %></span>
+            <span class="percent"><%= "#{difference > 0 ? '+' : ''}#{difference}%" %></span>
+          </td>
+        </tr>
+      <% end %>
+
+      <%
+        # Process other labels (excluding Optimal)
+        other_labels = (automl_labels.reject { |l| l.start_with?('Optimal') } + rag_labels.reject { |l| l == 'Optimal' }).uniq.sort
+
+        other_labels.each_with_index do |label, index|
+          automl_index = automl_labels.index(label)
+          rag_index = rag_labels.index(label)
+
+          if automl_index
+            automl_value = automl_matrix[automl_index][automl_index]
+            automl_percent = (100.0 * automl_value / automl_matrix[automl_index].sum).round
+          else
+            next  # Skip this label if it's not in AutoML
+          end
+
+          if rag_index
+            rag_value = rag_matrix[rag_index][rag_index]
+            sum = rag_matrix[rag_index].sum
+            rag_percent = sum.zero? ? 0 : (100.0 * rag_value / sum).round
+          else
+            rag_value = 0
+            rag_percent = 0
+          end
+
+          difference = rag_percent - automl_percent
+          color_intensity = [(difference.abs / 20.0), 0.5].min
+          bg_color = difference > 0 ? "rgba(0, 255, 0, #{color_intensity})" : "rgba(255, 0, 0, #{color_intensity})"
+          row_class = (index % 2 == 0) ? 'even-row' : 'odd-row'
+      %>
+        <tr class='<%= row_class %>'>
+          <td style="text-align: left; padding: 8px;"><%= label %></td>
+          <td style="text-align: center; padding: 8px;">
+            <span class="count" style="display: none;"><%= automl_value %></span>
+            <span class="percent"><%= "#{automl_percent}%" %></span>
+          </td>
+          <td style="text-align: center; padding: 8px;">
+            <span class="count" style="display: none;"><%= rag_value %></span>
+            <span class="percent"><%= "#{rag_percent}%" %></span>
+          </td>
+          <td style="text-align: center; padding: 8px; background-color: <%= bg_color %>;">
+            <span class="count" style="display: none;"><%= rag_value - automl_value %></span>
+            <span class="percent"><%= "#{difference > 0 ? '+' : ''}#{difference}%" %></span>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>
+<style>
+  #confusionMatrixComparison table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  #confusionMatrixComparison th, #confusionMatrixComparison td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  #confusionMatrixComparison .header-row {
+    background-color: #f2f2f2;
+  }
+  #confusionMatrixComparison .even-row {
+    background-color: #ffffff;
+  }
+  #confusionMatrixComparison .odd-row {
+    background-color: #f9f9f9;
+  }
+  /* Switch styles */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    vertical-align: middle;
+    margin-left: 10px;
+  }
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+  }
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+  }
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+  .slider.round {
+    border-radius: 34px;
+  }
+  .slider.round:before {
+    border-radius: 50%;
+  }
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const toggle = document.getElementById('displayToggle');
+  const table = document.getElementById('comparisonTable');
+  // Set initial state to show percentages and hide counts
+  toggle.addEventListener('change', function() {
+    const showCounts = this.checked;
+    table.querySelectorAll('td').forEach(td => {
+      const countSpan = td.querySelector('.count');
+      const percentSpan = td.querySelector('.percent');
+      if (countSpan && percentSpan) {
+        countSpan.style.display = showCounts ? '' : 'none';
+        percentSpan.style.display = showCounts ? 'none' : '';
+      }
+    });
+  });
+});
+</script>

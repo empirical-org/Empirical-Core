@@ -8,6 +8,7 @@
 #  locked           :boolean          default(FALSE), not null
 #  optimal_count    :integer          default(0), not null
 #  suboptimal_count :integer          default(0), not null
+#  task_type        :string
 #  version          :integer          not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
@@ -18,6 +19,11 @@ module Evidence
   module Research
     module GenAI
       class Dataset < ApplicationRecord
+        TASK_TYPES = [
+          CLASSIFICATION = 'classification',
+          GENERATIVE = 'generative'
+        ].freeze
+
         has_many :test_examples, dependent: :destroy
         has_many :prompt_examples, dependent: :destroy
         has_many :trials, dependent: :destroy
@@ -34,7 +40,7 @@ module Evidence
 
         validate :validate_file_content
 
-        attr_readonly :locked, :stem_vault_id, :optimal_count, :suboptimal_count, :version
+        attr_readonly :locked, :stem_vault_id, :optimal_count, :suboptimal_count, :version, :task_type
 
         delegate :stem_and_conjunction, to: :stem_vault
 
@@ -46,6 +52,8 @@ module Evidence
 
         def whole? = parent_id.nil?
         def subset? = parent_id.present?
+        def generative? = task_type == GENERATIVE
+        def classification? = task_type == CLASSIFICATION
 
         def set_version
           existing_version = self.class.where(parent_id:, stem_vault:).order(version: :desc).first&.version
