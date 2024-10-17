@@ -35,6 +35,9 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
   const [activityBecausePrompt, setActivityBecausePrompt] = React.useState<PromptInterface>(becausePrompt);
   const [activityButPrompt, setActivityButPrompt] = React.useState<PromptInterface>(butPrompt);
   const [activitySoPrompt, setActivitySoPrompt] = React.useState<PromptInterface>(soPrompt);
+  const [activityBecauseRelevantText, setActivityBecauseRelevantText] = React.useState<string>(becausePrompt.relevant_text);
+  const [activityButRelevantText, setActivityButRelevantText] = React.useState<string>(butPrompt.relevant_text);
+  const [activitySoRelevantText, setActivitySoRelevantText] = React.useState<string>(soPrompt.relevant_text);
   const [errors, setErrors] = React.useState<{}>({});
   const [showHighlights, setShowHighlights] = React.useState(true)
 
@@ -50,6 +53,9 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
   function handleSetPassageEssentialKnowledgeText(text: string) { handleSetActivityPassages('essential_knowledge_text', text)}
   function handleSetImageAttribution(text: string) {handleSetActivityPassages('image_attribution', text) }
   function handleSetImageCaption(e: InputEvent) { handleSetActivityPassages('image_caption', e.target.value)}
+  function handleSetBecauseRelevantText(e: InputEvent){ setActivityBecauseRelevantText(e.target.value) };
+  function handleSetButRelevantText(e: InputEvent){ setActivityButRelevantText(e.target.value) };
+  function handleSetSoRelevantText(e: InputEvent){ setActivitySoRelevantText(e.target.value) };
 
   function handleSetActivityPassages(key, value){
     const updatedPassages = [...activityPassages];
@@ -138,6 +144,28 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
         />
       </div>
       {errors[PASSAGE] && <p className="error-message">{errors[PASSAGE]}</p>}
+      {ai_type === GEN_AI_AI_TYPE && (
+        <React.Fragment>
+          <Input
+            className="relevant-text-input"
+            handleChange={handleSetBecauseRelevantText}
+            label="Relevant Text - Because"
+            value={activityBecauseRelevantText}
+          />
+          <Input
+            className="relevant-text-input"
+            handleChange={handleSetButRelevantText}
+            label="Relevant Text - But"
+            value={activityButRelevantText}
+          />
+          <Input
+            className="relevant-text-input"
+            handleChange={handleSetSoRelevantText}
+            label="Relevant Text - So"
+            value={activitySoRelevantText}
+          />
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 

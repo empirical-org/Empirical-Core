@@ -39,6 +39,7 @@ module Evidence
     has_many :automl_models, inverse_of: :prompt
     has_many :prompts_rules
     has_many :rules, through: :prompts_rules, inverse_of: :prompts
+    has_many :stem_vaults, class_name: 'Evidence::Research::GenAI::StemVault'
 
     after_create :assign_universal_rules
     before_validation :downcase_conjunction
@@ -58,7 +59,7 @@ module Evidence
       options ||= {}
       super(options.reverse_merge(
         only: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :plagiarism_texts, :plagiarism_first_feedback, :plagiarism_second_feedback, :first_strong_example, :second_strong_example],
-        methods: [:optimal_label_feedback]
+        methods: [:optimal_label_feedback, :relevant_text]
       ))
     end
 
@@ -78,6 +79,14 @@ module Evidence
 
     def plagiarism_texts
       plagiarism_rule&.plagiarism_texts&.map(&:text) || []
+    end
+
+    def relevant_text
+      evidence_research_gen_ai_activity = stem_vaults&.last&.activity
+
+      return unless evidence_research_gen_ai_activity
+
+      evidence_research_gen_ai_activity["#{conjunction}_text"]
     end
 
     private def plagiarism_rule
