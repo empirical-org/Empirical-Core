@@ -34,7 +34,8 @@ export interface PromptInterface {
   max_attempts: number,
   max_attempts_feedback: string,
   first_strong_example: string,
-  second_strong_example: string
+  second_strong_example: string,
+  relevant_text?: string
 }
 
 export interface RegexRuleInterface {

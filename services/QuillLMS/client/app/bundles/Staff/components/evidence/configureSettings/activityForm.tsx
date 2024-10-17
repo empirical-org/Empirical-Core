@@ -5,7 +5,7 @@ import MaxAttemptsEditor from "./maxAttemptsEditor";
 import PromptsForm from './promptsForm';
 import UpperFormSection from './upperFormSection';
 
-import { BECAUSE, BREAK_TAG, BUILDING_ESSENTIAL_KNOWLEDGE, BUT, HIGHLIGHTING_PROMPT, HIGHLIGHT_PROMPT, IMAGE, MAX_ATTEMPTS_FEEDBACK, PASSAGE, STEMS, SO, TEXT, activityFormKeys, GEN_AI_AI_TYPE, AI_TYPES, } from '../../../../../constants/evidence';
+import { BECAUSE, BREAK_TAG, BUILDING_ESSENTIAL_KNOWLEDGE, BUT, HIGHLIGHTING_PROMPT, HIGHLIGHT_PROMPT, IMAGE, MAX_ATTEMPTS_FEEDBACK, PASSAGE, STEMS, SO, TEXT, activityFormKeys, GEN_AI_AI_TYPE, } from '../../../../../constants/evidence';
 import { DataTable, Input, TextEditor, ToggleComponentSection, titleCase } from '../../../../Shared/index';
 import { DEFAULT_HIGHLIGHT_PROMPT } from '../../../../Shared/utils/constants';
 import { buildActivity, validateForm, validateFormSection } from '../../../helpers/evidence/miscHelpers';
@@ -35,9 +35,6 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
   const [activityBecausePrompt, setActivityBecausePrompt] = React.useState<PromptInterface>(becausePrompt);
   const [activityButPrompt, setActivityButPrompt] = React.useState<PromptInterface>(butPrompt);
   const [activitySoPrompt, setActivitySoPrompt] = React.useState<PromptInterface>(soPrompt);
-  const [activityBecauseRelevantText, setActivityBecauseRelevantText] = React.useState<string>(becausePrompt.relevant_text);
-  const [activityButRelevantText, setActivityButRelevantText] = React.useState<string>(butPrompt.relevant_text);
-  const [activitySoRelevantText, setActivitySoRelevantText] = React.useState<string>(soPrompt.relevant_text);
   const [errors, setErrors] = React.useState<{}>({});
   const [showHighlights, setShowHighlights] = React.useState(true)
 
@@ -53,9 +50,9 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
   function handleSetPassageEssentialKnowledgeText(text: string) { handleSetActivityPassages('essential_knowledge_text', text)}
   function handleSetImageAttribution(text: string) {handleSetActivityPassages('image_attribution', text) }
   function handleSetImageCaption(e: InputEvent) { handleSetActivityPassages('image_caption', e.target.value)}
-  function handleSetBecauseRelevantText(e: InputEvent){ setActivityBecauseRelevantText(e.target.value) };
-  function handleSetButRelevantText(e: InputEvent){ setActivityButRelevantText(e.target.value) };
-  function handleSetSoRelevantText(e: InputEvent){ setActivitySoRelevantText(e.target.value) };
+  function handleSetBecauseRelevantText(text: string){ setActivityBecausePrompt({ ...activityBecausePrompt, relevant_text: text, }) };
+  function handleSetButRelevantText(text: string){ setActivityButPrompt({ ...activityButPrompt, relevant_text: text, }) };
+  function handleSetSoRelevantText(text: string){ setActivitySoPrompt({ ...activitySoPrompt, relevant_text: text, }) };
 
   function handleSetActivityPassages(key, value){
     const updatedPassages = [...activityPassages];
@@ -144,25 +141,25 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
         />
       </div>
       {errors[PASSAGE] && <p className="error-message">{errors[PASSAGE]}</p>}
-      {ai_type === GEN_AI_AI_TYPE && (
+      {aiType === GEN_AI_AI_TYPE && (
         <React.Fragment>
-          <Input
-            className="relevant-text-input"
-            handleChange={handleSetBecauseRelevantText}
-            label="Relevant Text - Because"
-            value={activityBecauseRelevantText}
+          <p className="text-editor-label">Relevant Text - Because</p>
+          <TextEditor
+            handleTextChange={handleSetBecauseRelevantText}
+            key="because-relevant-text"
+            text={activityBecausePrompt.relevant_text}
           />
-          <Input
-            className="relevant-text-input"
-            handleChange={handleSetButRelevantText}
-            label="Relevant Text - But"
-            value={activityButRelevantText}
+          <p className="text-editor-label">Relevant Text - But</p>
+          <TextEditor
+            handleTextChange={handleSetButRelevantText}
+            key="but-relevant-text"
+            text={activityButPrompt.relevant_text}
           />
-          <Input
-            className="relevant-text-input"
-            handleChange={handleSetSoRelevantText}
-            label="Relevant Text - So"
-            value={activitySoRelevantText}
+          <p className="text-editor-label">Relevant Text - So</p>
+          <TextEditor
+            handleTextChange={handleSetSoRelevantText}
+            key="so-relevant-text"
+            text={activitySoPrompt.relevant_text}
           />
         </React.Fragment>
       )}
@@ -231,7 +228,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
     return {
       id: i,
       component,
-      added: validateFormSection({ label, activityPassages, activityBecausePrompt, activityButPrompt, activitySoPrompt })
+      added: validateFormSection({ label, activityPassages, activityBecausePrompt, activityButPrompt, activitySoPrompt, aiType, })
     }
   });
 

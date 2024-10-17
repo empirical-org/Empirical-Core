@@ -39,9 +39,10 @@ module Evidence
     has_many :automl_models, inverse_of: :prompt
     has_many :prompts_rules
     has_many :rules, through: :prompts_rules, inverse_of: :prompts
-    has_many :stem_vaults, class_name: 'Evidence::Research::GenAI::StemVault'
+    has_one :stem_vault, class_name: 'Evidence::Research::GenAI::StemVault'
 
     after_create :assign_universal_rules
+    after_save :create_or_update_stem_vault
     before_validation :downcase_conjunction
     before_validation :set_max_attempts, on: :create
 
@@ -81,14 +82,6 @@ module Evidence
       plagiarism_rule&.plagiarism_texts&.map(&:text) || []
     end
 
-    def relevant_text
-      evidence_research_gen_ai_activity = stem_vaults&.last&.activity
-
-      return unless evidence_research_gen_ai_activity
-
-      evidence_research_gen_ai_activity["#{conjunction}_text"]
-    end
-
     private def plagiarism_rule
       rules&.find_by(rule_type: Evidence::Rule::TYPE_PLAGIARISM)
     end
@@ -122,6 +115,24 @@ module Evidence
     def optimal_label_feedback
       # we can just grab the first feedback here because all optimal feedback text strings will be the same for any given prompt
       rules.where(optimal: true, rule_type: Evidence::Rule::TYPE_AUTOML).joins('JOIN comprehension_feedbacks ON comprehension_feedbacks.rule_id = comprehension_rules.id').first&.feedbacks&.first&.text
+    end
+
+    def create_or_update_stem_vault
+      return if relevant_text.blank?
+
+      stem_vault_record = stem_vault || build_stem_vault
+      relevant_text_key = StemVault::RELEVANT_TEXTS[conjunction]
+      stem_vault_record[relevant_text_key] = relevant_text
+      stem_vault_record.conjunction = conjunction
+      stem_vault_record.stem = prompt.text.split(prompt.conjunction)[0]
+      stem_vault_record.update
+    end
+
+    def relevant_text
+      return unless stem_vault
+
+      relevant_text_key = StemVault::RELEVANT_TEXTS[conjunction]
+      stem_vault.send(relevant_text_key)
     end
 
     private def downcase_conjunction

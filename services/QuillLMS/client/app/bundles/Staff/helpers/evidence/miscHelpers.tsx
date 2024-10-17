@@ -25,6 +25,7 @@ import {
   TARGET_READING_LEVEL,
   TEXT,
   AI_TYPE,
+  GEN_AI_AI_TYPE,
 } from '../../../../constants/evidence';
 import { DEFAULT_HIGHLIGHT_PROMPT, NumberFilterInput, TextFilter, filterNumbers } from "../../../Shared";
 import { ActivitySessionInterface, DropdownObjectInterface } from '../../interfaces/evidenceInterfaces';
@@ -186,11 +187,17 @@ export function validateFormSection({
   activityBecausePrompt,
   activityButPrompt,
   activitySoPrompt,
+  aiType,
 }) {
   switch(label) {
     case titleCase(TEXT):
       const passagePresent = activityPassages && activityPassages[0] && activityPassages[0].text && activityPassages[0].text !== BREAK_TAG;
-      return getCheckIcon(passagePresent);
+      if (aiType === GEN_AI_AI_TYPE) {
+        const passageAndRelevantTextsPresent = passagePresent && activityBecausePrompt.relevant_text && activityButPrompt.relevant_text && activitySoPrompt.relevant_text
+        return getCheckIcon(passageAndRelevantTextsPresent);
+      } else {
+        return getCheckIcon(passagePresent);
+      }
     case BUILDING_ESSENTIAL_KNOWLEDGE:
       const essentialKnowledgePresent = (
         activityPassages && activityPassages[0] &&
