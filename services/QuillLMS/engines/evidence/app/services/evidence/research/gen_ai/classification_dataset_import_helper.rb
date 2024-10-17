@@ -6,7 +6,7 @@ require 'google/cloud/storage'
 module Evidence
   module Research
     module GenAI
-      class ClassificationDatasetCleaner < ApplicationService
+      class ClassificationDatasetImportHelper < ApplicationService
         attr_reader :csv_file
 
         AUTOML_HEADERS = [

@@ -12,10 +12,10 @@ module Evidence
         OPTIMAL = HasAssignedStatus::OPTIMAL
         SUBOPTIMAL = HasAssignedStatus::SUBOPTIMAL
 
-        TRAIN = ClassificationDatasetCleaner::TRAIN
-        TEST = ClassificationDatasetCleaner::TEST
-        VALIDATION = ClassificationDatasetCleaner::VALIDATION
-        DATA_PARTITIONS = ClassificationDatasetCleaner::DATA_PARTITIONS
+        TRAIN = ClassificationDatasetImportHelper::TRAIN
+        TEST = ClassificationDatasetImportHelper::TEST
+        VALIDATION = ClassificationDatasetImportHelper::VALIDATION
+        DATA_PARTITIONS = ClassificationDatasetImportHelper::DATA_PARTITIONS
 
         def initialize(data:, prompt_id:, dataset:)
           @data = data
@@ -40,7 +40,7 @@ module Evidence
             else
               label_freq[label] += 1
 
-              if (data_partition.nil? && label_freq[label] % 5 == 4) || data_partition == TEST
+              if (data_partition.nil? && label_freq[label] % 5 == 4) || data_partition.in?([TEST, VALIDATION])
                 curriculum_assigned_status = label.start_with?('Optimal') ? OPTIMAL : SUBOPTIMAL
                 curriculum_assigned_status == OPTIMAL ? optimal_count += 1 : suboptimal_count += 1
 
