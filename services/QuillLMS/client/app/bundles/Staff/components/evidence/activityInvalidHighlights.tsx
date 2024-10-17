@@ -21,7 +21,7 @@ const ActivityInvalidHighlights = ({ activityId }) => {
 
   return (
     <Link to={`/activities/${activityId}`}>
-      {getCheckIcon(!(invalidHighlights.invalid_highlights && invalidHighlights.invalid_highlights.length))}
+      {getCheckIcon(!(invalidHighlights.invalid_related_texts && invalidHighlights.invalid_related_texts.length))}
     </Link>
   )
 }

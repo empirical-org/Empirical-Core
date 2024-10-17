@@ -5,7 +5,7 @@ Evidence::Engine.routes.draw do
     member do
       get :activity_versions
       get :change_logs
-      get :invalid_highlights
+      get :invalid_related_texts
       put :increment_version
       get :rules
       get :topic_optimal_info
