@@ -97,10 +97,12 @@
       color: $quill-white-transparent-60;
     }
     .buttons-container {
-      .quill-button .transparent {
-        color: $quill-white !important;
-        background-color: transparent;
-        border: 1px solid rgba(255, 255, 255, 0.3);
+      .quill-button {
+        &.transparent {
+          color: $quill-white !important;
+          background-color: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
       }
       .nonstandard-banner-button {
         color: $quill-white !important;

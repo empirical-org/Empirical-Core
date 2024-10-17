@@ -59,6 +59,7 @@ const PostNavigationBanners = () => {
 
   const premiumStyle = premiumOption === DISTRICT_PREMIUM ? "district-premium" : "premium"
   const shadeContainerStyle = `shade-container ${shadeOption === DARK_MODE ? colorOption.value : ''}`
+  const iconUrl = shadeOption === DARK_MODE ? "https://assets.quill.org/images/icons/l/school-campus-transparent.svg" : `https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg`
 
   return(
     <div id="post-navigation-banners">
@@ -82,7 +83,7 @@ const PostNavigationBanners = () => {
         target: "_blank"
       }
     ]}
-    icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg" }}
+    icon={{ alt: "Image of a school building", src: "${iconUrl}" }}
     primaryHeaderText="Start of a new school year?"
     tagText="new"
   />
@@ -111,7 +112,7 @@ const PostNavigationBanners = () => {
                 target: "_blank"
               }
             ]}
-            icon={{ alt: "Image of a school building", src: `https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg` }}
+            icon={{ alt: "Image of a school building", src: iconUrl }}
             primaryHeaderText="Start of a new school year?"
             tagText="new"
           />
@@ -152,7 +153,7 @@ const PostNavigationBanners = () => {
         target: "_blank"
       },
     ]}
-    icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg" }}
+    icon={{ alt: "Image of a school building", src: "${iconUrl}" }}
     primaryHeaderText="Provide reading texts that enable students to write with evidence"
     secondaryHeaderText="Quill Reading for Evidence"
     tagText="new tool"
@@ -200,7 +201,7 @@ const PostNavigationBanners = () => {
                 target: "_blank"
               },
             ]}
-            icon={{ alt: "Image of a school building", src: `https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg` }}
+            icon={{ alt: "Image of a school building", src: `${iconUrl}` }}
             primaryHeaderText="Provide reading texts that enable students to write with evidence"
             secondaryHeaderText="Quill Reading for Evidence"
             tagText="new tool"
@@ -226,7 +227,7 @@ const PostNavigationBanners = () => {
       },
       {
         href: "",
-        className: "extra-small outlined",
+        className: "extra-small outlined ${shadeOption === DARK_MODE ? 'transparent' : ''}",
         standardButtonStyle: true,
         text: "Action",
         target: "_blank"
