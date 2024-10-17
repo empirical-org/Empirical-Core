@@ -80,9 +80,30 @@
   }
   &.minimal {
     align-items: center;
+    .buttons-container .quill-button {
+      margin-left: 8px;
+    }
+  }
+  &.dark-mode {
+    background-color: $quill-white-transparent-10 !important;
+    border: 1px solid $quill-white-transparent-30 !important;
+    .primary-header, .secondary-header {
+      color: $quill-white !important;
+    }
+    .tag {
+      border: 1px solid $quill-white-transparent-30 !important;
+    }
+    .body {
+      color: $quill-white-transparent-60;
+    }
     .buttons-container {
-      .quill-button {
-        margin-left: 8px;
+      .quill-button .transparent {
+        color: $quill-white !important;
+        background-color: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+      .nonstandard-banner-button {
+        color: $quill-white !important;
       }
     }
   }
@@ -257,5 +278,39 @@
         }
       }
     }
+  }
+}
+
+.shade-container {
+  padding: 24px;
+  &.green {
+    background-color: $quill-green;
+  }
+  &.gold {
+    background-color: $quill-gold;
+  }
+  &.viridian {
+    background-color: $quill-viridian;
+  }
+  &.teal {
+    background-color: $quill-teal;
+  }
+  &.blue {
+    background-color: $quill-blue;
+  }
+  &.purple {
+    background-color: $quill-purple;
+  }
+  &.violet {
+    background-color: $quill-violet;
+  }
+  &.red {
+    background-color: $quill-red;
+  }
+  &.maroon {
+    background-color: $quill-maroon;
+  }
+  &.grey {
+    background-color: $quill-grey-50;
   }
 }

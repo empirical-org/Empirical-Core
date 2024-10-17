@@ -17,10 +17,14 @@ const COLOR_OPTIONS = [
   { label: 'Quill Maroon', value: 'maroon' },
   { label: 'Quill Grey', value: 'grey' }
 ]
+const DARK_MODE = 'dark-mode'
+const LIGHT_MODE = 'light-mode'
+const SHADE_OPTIONS = [LIGHT_MODE, DARK_MODE]
 
 const PostNavigationBanners = () => {
   const [colorOption, setColorOption] = React.useState<DropdownObjectInterface>(COLOR_OPTIONS[0]);
   const [premiumOption, setPremiumOption] = React.useState<string>(PREMIUM_OPTIONS[0]);
+  const [shadeOption, setShadeOption] = React.useState<string>(SHADE_OPTIONS[0]);
 
   function handleColorOptionChange(option: DropdownObjectInterface) {
     setColorOption(option)
@@ -30,7 +34,31 @@ const PostNavigationBanners = () => {
     setPremiumOption(e.target.value)
   }
 
+  function handleShadeOptionChange(e) {
+    setShadeOption(e.target.value)
+  }
+
+  function renderShadeOptionsElement() {
+    return(
+      <div className="radio-options">
+        <div className="radio">
+          <label id="light-mode">
+            <input aria-labelledby="light-mode" checked={shadeOption === LIGHT_MODE} onChange={handleShadeOptionChange} type="radio" value={LIGHT_MODE} />
+            Light Mode
+          </label>
+        </div>
+        <div className="radio">
+          <label id="dark-mode">
+            <input aria-labelledby="dark-mode" checked={shadeOption === DARK_MODE} onChange={handleShadeOptionChange} type="radio" value={DARK_MODE} />
+            Dark Mode
+          </label>
+        </div>
+      </div>
+    )
+  }
+
   const premiumStyle = premiumOption === DISTRICT_PREMIUM ? "district-premium" : "premium"
+  const shadeContainerStyle = `shade-container ${shadeOption === DARK_MODE ? colorOption.value : ''}`
 
   return(
     <div id="post-navigation-banners">
@@ -43,7 +71,8 @@ const PostNavigationBanners = () => {
   // color will default to green if no bannerColor prop is passed
 
   <PostNavigationBanner
-    bannerStyle="${colorOption.value}"
+    bannerColor="${colorOption.value}"
+    bannerStyle="${shadeOption}"
     bodyText="Quickly archive last year's classes."
     buttons={[
       {
@@ -68,21 +97,25 @@ const PostNavigationBanners = () => {
           options={COLOR_OPTIONS}
           value={colorOption}
         />
-        <PostNavigationBanner
-          bannerStyle={colorOption.value}
-          bodyText="Quickly archive last year's classes."
-          buttons={[
-            {
-              href: "",
-              standardButtonStyle: false,
-              text: "Archive Classes",
-              target: "_blank"
-            }
-          ]}
-          icon={{ alt: "Image of a school building", src: `https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg` }}
-          primaryHeaderText="Start of a new school year?"
-          tagText="new"
-        />
+        {renderShadeOptionsElement()}
+        <div className={shadeContainerStyle}>
+          <PostNavigationBanner
+            bannerColor={colorOption.value}
+            bannerStyle={shadeOption}
+            bodyText="Quickly archive last year's classes."
+            buttons={[
+              {
+                href: "",
+                standardButtonStyle: false,
+                text: "Archive Classes",
+                target: "_blank"
+              }
+            ]}
+            icon={{ alt: "Image of a school building", src: `https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg` }}
+            primaryHeaderText="Start of a new school year?"
+            tagText="new"
+          />
+        </div>
       </div>
       <div className="element-container">
         <h3>Primary (Multiple Buttons)</h3>
@@ -90,7 +123,8 @@ const PostNavigationBanners = () => {
           {
             `
   <PostNavigationBanner
-    bannerColor="${colorOption.value}"
+    bannerColor="{colorOption.value}"
+    bannerStyle="{shadeOption}"
     bodyText="Quickly archive last year's classes."
     buttons={[
       {
@@ -134,40 +168,44 @@ const PostNavigationBanners = () => {
           options={COLOR_OPTIONS}
           value={colorOption}
         />
-        <PostNavigationBanner
-          bannerColor={colorOption.value}
-          bodyText="Quickly archive last year's classes."
-          buttons={[
-            {
-              href: "",
-              text: "Learn more",
-              standardButtonStyle: true,
-              target: "_blank"
-            },
-            {
-              href: "",
-              text: "View activities",
-              standardButtonStyle: true,
-              target: "_blank"
-            },
-            {
-              href: "",
-              text: "See tool demo",
-              standardButtonStyle: false,
-              target: "_blank"
-            },
-            {
-              href: "",
-              text: "Get the Teacher Handbook",
-              standardButtonStyle: false,
-              target: "_blank"
-            },
-          ]}
-          icon={{ alt: "Image of a school building", src: `https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg` }}
-          primaryHeaderText="Provide reading texts that enable students to write with evidence"
-          secondaryHeaderText="Quill Reading for Evidence"
-          tagText="new tool"
-        />
+        {renderShadeOptionsElement()}
+        <div className={shadeContainerStyle}>
+          <PostNavigationBanner
+            bannerColor={colorOption.value}
+            bannerStyle={shadeOption}
+            bodyText="Quickly archive last year's classes."
+            buttons={[
+              {
+                href: "",
+                text: "Learn more",
+                standardButtonStyle: true,
+                target: "_blank"
+              },
+              {
+                href: "",
+                text: "View activities",
+                standardButtonStyle: true,
+                target: "_blank"
+              },
+              {
+                href: "",
+                text: "See tool demo",
+                standardButtonStyle: false,
+                target: "_blank"
+              },
+              {
+                href: "",
+                text: "Get the Teacher Handbook",
+                standardButtonStyle: false,
+                target: "_blank"
+              },
+            ]}
+            icon={{ alt: "Image of a school building", src: `https://assets.quill.org/images/banners/large-school-campus-${colorOption.value}.svg` }}
+            primaryHeaderText="Provide reading texts that enable students to write with evidence"
+            secondaryHeaderText="Quill Reading for Evidence"
+            tagText="new tool"
+          />
+        </div>
       </div>
       <div className="element-container">
         <h3>Minimal</h3>
@@ -176,7 +214,7 @@ const PostNavigationBanners = () => {
             `
   <PostNavigationBanner
     bannerColor={colorOption.value}
-    bannerStyle="minimal"
+    bannerStyle="minimal ${shadeOption}"
     bodyText="Quickly archive last year's classes."
     buttons={[
       {
@@ -207,28 +245,31 @@ const PostNavigationBanners = () => {
           options={COLOR_OPTIONS}
           value={colorOption}
         />
-        <PostNavigationBanner
-          bannerColor={colorOption.value}
-          bannerStyle="minimal"
-          bodyText="Quickly archive last year's classes"
-          buttons={[
-            {
-              href: "",
-              className: "extra-small contained",
-              standardButtonStyle: true,
-              text: "Action",
-              target: "_blank"
-            },
-            {
-              href: "",
-              className: "extra-small outlined",
-              standardButtonStyle: true,
-              text: "Action",
-              target: "_blank"
-            }
-          ]}
-          primaryHeaderText="Start of the new school year?"
-        />
+        {renderShadeOptionsElement()}
+        <div className={shadeContainerStyle}>
+          <PostNavigationBanner
+            bannerColor={colorOption.value}
+            bannerStyle={`minimal ${shadeOption}`}
+            bodyText="Quickly archive last year's classes"
+            buttons={[
+              {
+                href: "",
+                className: "extra-small contained",
+                standardButtonStyle: true,
+                text: "Action",
+                target: "_blank"
+              },
+              {
+                href: "",
+                className: `extra-small outlined ${shadeOption === DARK_MODE ? 'transparent' : ''}`,
+                standardButtonStyle: true,
+                text: "Action",
+                target: "_blank"
+              }
+            ]}
+            primaryHeaderText="Start of the new school year?"
+          />
+        </div>
       </div>
       <div className="element-container">
         <h3>Premium</h3>
