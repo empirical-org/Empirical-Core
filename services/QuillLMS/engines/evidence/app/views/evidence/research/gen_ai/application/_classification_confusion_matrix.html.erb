@@ -1,13 +1,13 @@
-<div id="confusionMatrixContainer">
+<div id="confusionMatrixContainer_<%= trial_id %>">
   <div style="text-align: right; margin-bottom: 10px;">
     <span>Display counts</span>
     <label class="switch">
-      <input type="checkbox" id="displayToggle">
+      <input type="checkbox" id="displayToggle_confusionMatrix_<%= trial_id %>" class="displayToggle">
       <span class="slider round"></span>
     </label>
   </div>
   <% if matrix && labels %>
-    <table id="confusionMatrix" style="table-layout: fixed; border-collapse: collapse; border: 1px solid black;">
+    <table id="confusionMatrix_<%= trial_id %>" style="table-layout: fixed; border-collapse: collapse; border: 1px solid black;">
       <tr class='light-gray' style='text-align: center'>
         <th style="text-align: center">True label</th>
         <% labels.each do |label| %>
@@ -37,11 +37,9 @@
     </table>
   <% end %>
 </div>
-
 <style>
   .predicted-label { font-size: 0.7em; }
   .true-label { font-size: 0.65em; }
-
   /* Switch styles */
   .switch {
     position: relative;
@@ -89,21 +87,25 @@
     border-radius: 50%;
   }
 </style>
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const toggle = document.getElementById('displayToggle');
-  const table = document.getElementById('confusionMatrix');
+  const toggles = document.querySelectorAll('.displayToggle');
 
-  // Set initial state to show percentages and hide counts
-  toggle.addEventListener('change', function() {
-    const showCounts = this.checked;
-    table.querySelectorAll('td').forEach(td => {
-      const countSpan = td.querySelector('.count');
-      const percentSpan = td.querySelector('.percent');
-      if (countSpan && percentSpan) {
-        countSpan.style.display = showCounts ? '' : 'none';
-        percentSpan.style.display = showCounts ? 'none' : '';
+  toggles.forEach((toggle) => {
+    toggle.addEventListener('change', function() {
+      const showCounts = this.checked;
+      const trial_id = this.id.split('_').pop();
+      const table = document.getElementById(`confusionMatrix_${trial_id}`);
+
+      if (table) {
+        table.querySelectorAll('td').forEach(td => {
+          const countSpan = td.querySelector('.count');
+          const percentSpan = td.querySelector('.percent');
+          if (countSpan && percentSpan) {
+            countSpan.style.display = showCounts ? '' : 'none';
+            percentSpan.style.display = showCounts ? 'none' : '';
+          }
+        });
       }
     });
   });

@@ -74,12 +74,14 @@
       <%= render 'classification_confusion_matrix_comparison',
       automl_matrix: @trial.stem_vault.confusion_matrix,
       automl_labels: @trial.stem_vault.labels,
+      conjunction: @trial.stem_vault.conjunction,
       rag_matrix: @trial.confusion_matrix,
-      rag_labels: @trial.labels
+      rag_labels: @trial.labels,
+      trial_id: @trial.id
       %>
     </div>
     <div>
-      <%= render 'classification_confusion_matrix', matrix: @trial.confusion_matrix, labels: @trial.labels %>
+      <%= render 'classification_confusion_matrix', matrix: @trial.confusion_matrix, labels: @trial.labels, trial_id: @trial.id %>
     </div>
   <% end %>
   <% if @trial.api_call_times %>

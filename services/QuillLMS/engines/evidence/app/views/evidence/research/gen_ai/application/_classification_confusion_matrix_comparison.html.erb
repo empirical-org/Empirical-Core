@@ -1,13 +1,20 @@
-<div id="confusionMatrixComparison">
-  <div style="text-align: right; margin-bottom: 10px;">
-    <span>Display counts</span>
-    <label class="switch">
-      <input type="checkbox" id="displayToggle">
-      <span class="slider round"></span>
-    </label>
+<div id="confusionMatrixComparison_<%= trial_id %>">
+  <div class="matrix-header">
+    <div class="conjunction-header">
+      <% if defined?(trial_link) %>
+        <%= link_to conjunction.capitalize, trial_link %>
+      <% end %>
+    </div>
+    <div class="toggle-container">
+      <span class="toggle-label">Display counts</span>
+      <label class="switch">
+        <input type="checkbox" id="displayToggle_<%= trial_id %>" class="displayToggle">
+        <span class="slider round"></span>
+      </label>
+    </div>
   </div>
   <% if automl_matrix && automl_labels && rag_matrix && rag_labels %>
-    <table id="comparisonTable" style="table-layout: fixed; border-collapse: collapse; border: 1px solid black; width: 100%;">
+    <table id="comparisonTable_<%= trial_id %>" style="table-layout: fixed; border-collapse: collapse; border: 1px solid black; width: 100%;">
       <tr class='header-row'>
         <th style="text-align: left; padding: 8px;">Label</th>
         <th style="text-align: center; padding: 8px;">AutoML</th>
@@ -161,22 +168,60 @@
   .slider.round:before {
     border-radius: 50%;
   }
+  .matrix-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .toggle-container {
+    display: flex;
+    align-items: center;
+  }
+  .toggle-label {
+    margin-right: 10px;
+  }
+  .conjunction-header {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 1.2em;
+    border-radius: 5px;
+  }
+
+  .matrix-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .matrix-column {
+    flex: 1;
+    min-width: 300px;
+  }
 </style>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const toggle = document.getElementById('displayToggle');
-  const table = document.getElementById('comparisonTable');
-  // Set initial state to show percentages and hide counts
-  toggle.addEventListener('change', function() {
-    const showCounts = this.checked;
-    table.querySelectorAll('td').forEach(td => {
-      const countSpan = td.querySelector('.count');
-      const percentSpan = td.querySelector('.percent');
-      if (countSpan && percentSpan) {
-        countSpan.style.display = showCounts ? '' : 'none';
-        percentSpan.style.display = showCounts ? 'none' : '';
-      }
+  document.addEventListener('DOMContentLoaded', function() {
+    const toggles = document.querySelectorAll('.displayToggle');
+
+    toggles.forEach((toggle) => {
+      toggle.addEventListener('change', function() {
+        const showCounts = this.checked;
+        const trial_id = this.id.split('_')[1];
+        const table = document.getElementById(`comparisonTable_${trial_id}`);
+
+        if (table) {
+          table.querySelectorAll('td').forEach(td => {
+            const countSpan = td.querySelector('.count');
+            const percentSpan = td.querySelector('.percent');
+            if (countSpan && percentSpan) {
+              countSpan.style.display = showCounts ? '' : 'none';
+              percentSpan.style.display = showCounts ? 'none' : '';
+            }
+          });
+        }
+      });
     });
   });
-});
 </script>

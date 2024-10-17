@@ -45,6 +45,8 @@ module Evidence
         delegate :stem_and_conjunction, to: :stem_vault
 
         scope :whole, -> { where(parent_id: nil) }
+        scope :classification, -> { where(task_type: CLASSIFICATION) }
+        scope :generative, -> { where(task_type: GENERATIVE) }
 
         attr_accessor :file
 
