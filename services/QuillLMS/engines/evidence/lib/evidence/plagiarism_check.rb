@@ -4,6 +4,8 @@ require 'hotwater'
 
 module Evidence
   class PlagiarismCheck
+    include TextFormatter
+
     ALL_CORRECT_FEEDBACK = '<p>All plagiarism checks passed.</p>'
     PASSAGE_TYPE = 'passage'
     ENTRY_TYPE = 'response'
@@ -97,7 +99,7 @@ module Evidence
     end
 
     private def clean(str)
-      str.gsub(/[[:punct:]]/, '').downcase
+      strip_punctuation_and_downcase(str)
     end
 
     # split the entry into an array: ["i", "had", "a", "great", "time", "with", "you"]

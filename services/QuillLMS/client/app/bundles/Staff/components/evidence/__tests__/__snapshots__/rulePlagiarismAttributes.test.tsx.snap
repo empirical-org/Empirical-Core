@@ -8,12 +8,22 @@ exports[`RulePlagiarismAttributes component should render RulePlagiarismAttribut
     setPlagiarismText={[Function]}
     text="test plagiarism text"
   />
+  <p
+    className="all-errors-message"
+  >
+    This plagiarism text does not match the associated activity text. This means that it may not trigger the plagiarism feedback as intended. Please update the text above.
+  </p>
   <PlagiarismTextEditor
     index={1}
     key="1"
     setPlagiarismText={[Function]}
     text="test another plagiarism text"
   />
+  <p
+    className="all-errors-message"
+  >
+    This plagiarism text does not match the associated activity text. This means that it may not trigger the plagiarism feedback as intended. Please update the text above.
+  </p>
   <div
     className="button-wrapper"
   >

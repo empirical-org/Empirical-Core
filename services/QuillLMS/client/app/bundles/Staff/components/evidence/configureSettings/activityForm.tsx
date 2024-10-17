@@ -20,7 +20,7 @@ interface ActivityFormProps {
 }
 
 const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormProps) => {
-  const { id, parent_activity_id, invalid_highlights, passages, prompts, title, notes, flag, ai_type, } = activity;
+  const { id, parent_activity_id, invalid_related_texts, passages, prompts, title, notes, flag, ai_type, } = activity;
   const formattedPassage = passages && passages.length ? passages : [{ text: '', highlight_prompt: DEFAULT_HIGHLIGHT_PROMPT, essential_knowledge_text: '' }];
   const formattedPrompts = promptsByConjunction(prompts);
   const becausePrompt = formattedPrompts && formattedPrompts[BECAUSE] ? formattedPrompts[BECAUSE] : buildBlankPrompt(BECAUSE);
@@ -124,7 +124,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
   const imageAttributionStyle = activityPassages[0].image_attribution  && activityPassages[0].image_attribution !== BREAK_TAG ? 'has-text' : '';
   const essentialKnowledgeStyle = activityPassages[0].essential_knowledge_text && activityPassages[0].essential_knowledge_text !== BREAK_TAG ? 'has-text' : '';
   const imageAttributionGuideLink = 'https://www.notion.so/quill/Activity-Images-9bc3993400da46a6af445a8a0d2d9d3f#11e9a01b071e41bc954e1182d56e93e8';
-  const invalidHighlightsPresent = (invalid_highlights && invalid_highlights.length > 0)
+  const invalidHighlightsPresent = (invalid_related_texts && invalid_related_texts.length > 0)
 
   function getMaxAttemptsFeedbackComponent(conjunction: string, prompt: PromptInterface) {
     return <MaxAttemptsEditor conjunction={conjunction} handleSetPrompt={handleSetPrompt} prompt={prompt} />
@@ -265,7 +265,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
         headers={dataTableFields}
         rows={formattedRows}
       />
-      {invalidHighlightsPresent && renderInvalidHighlightLinks(invalid_highlights, id)}
+      {invalidHighlightsPresent && renderInvalidHighlightLinks(invalid_related_texts, id)}
     </div>
   )
 }
