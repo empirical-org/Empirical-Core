@@ -20,6 +20,8 @@
 #
 module Evidence
   class PlagiarismText < ApplicationRecord
+    include TextFormatter
+
     self.table_name = 'comprehension_plagiarism_texts'
 
     default_scope { order(created_at: :asc) }
@@ -34,7 +36,8 @@ module Evidence
     def serializable_hash(options = nil)
       options ||= {}
       super(options.reverse_merge(
-        only: [:id, :rule_id, :text]
+        only: [:id, :rule_id, :text],
+        methods: [:valid_in_all_targets]
       ))
     end
 
@@ -52,6 +55,18 @@ module Evidence
 
     def conjunctions
       rule.prompts.map(&:conjunction)
+    end
+
+    def valid_in_all_targets
+      !invalid_activity_ids
+    end
+
+    def invalid_activity_ids
+      related_passages = rule.prompts.map(&:activity).uniq.map(&:passages).flatten
+      invalid_ids = related_passages.reject { |p| unescape_html_strip_tags_and_punctuation_and_downcase(p.text).include?(unescape_html_strip_tags_and_punctuation_and_downcase(text)) }.map { |p| p.activity.id }
+      return if invalid_ids.empty?
+
+      invalid_ids
     end
   end
 end

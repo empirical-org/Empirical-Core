@@ -593,26 +593,26 @@ module Evidence
       end
     end
 
-    context '#invalid_highlights' do
-      subject { get :invalid_highlights, params: { id: activity.id } }
+    context '#invalid_related_texts' do
+      subject { get :invalid_related_texts, params: { id: activity.id } }
       let(:parsed_response) { JSON.parse(response.body) }
 
       let(:because_rule) { create(:evidence_rule) }
       let(:because_prompt) { create(:evidence_prompt, rules: [because_rule]) }
       let(:activity) { create(:evidence_activity, prompts: [because_prompt]) }
-      let(:invalid_highlights) {
+      let(:invalid_related_texts) {
         [
           { rule_id: because_rule.id, rule_type: because_rule.rule_type, prompt_id: because_prompt.id }
         ]
       }
       let(:expected_response) {
         {
-          'invalid_highlights' => invalid_highlights.map(&:stringify_keys)
+          'invalid_related_texts' => invalid_related_texts.map(&:stringify_keys)
         }
       }
 
       before do
-        allow(activity).to receive(:invalid_highlights).and_return(invalid_highlights)
+        allow(activity).to receive(:invalid_related_texts).and_return(invalid_related_texts)
         allow(Activity).to receive(:find).and_return(activity)
       end
 
