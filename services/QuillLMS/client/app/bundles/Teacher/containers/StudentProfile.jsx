@@ -31,7 +31,6 @@ class StudentProfile extends React.Component {
       fetchStudentProfile(classroomId)
       fetchStudentsClassrooms();
     } else {
-      fetchStudentProfile();
       fetchStudentsClassrooms();
     }
   }
@@ -63,9 +62,9 @@ class StudentProfile extends React.Component {
   }
 
   handleClassroomTabClick = (classroomId) => {
-    const { loading, handleClassroomClick, history, fetchStudentProfile, } = this.props;
+    const { classroomsLoaded, handleClassroomClick, history, fetchStudentProfile, } = this.props;
 
-    if (!loading) {
+    if (classroomsLoaded) {
       const newUrl = `/classrooms/${classroomId}`;
       history.push(newUrl);
       handleClassroomClick(classroomId);
@@ -108,17 +107,14 @@ class StudentProfile extends React.Component {
   render() {
     const {
       classrooms,
-      notifications,
-      numberOfClassroomTabs,
+      classroomsLoaded,
       student,
       selectedClassroomId,
-      showDropdown,
       nextActivitySession,
       loading,
       scores,
       activeClassworkTab,
       isBeingPreviewed,
-      history,
       metrics,
       exactScoresDataPending,
       exactScoresData,
@@ -126,9 +122,10 @@ class StudentProfile extends React.Component {
       completedEvidenceActivityPriorToScoring
     } = this.props;
 
+    if (!selectedClassroomId && classroomsLoaded) { return (<SelectAClassroom classrooms={classrooms} isBeingPreviewed={isBeingPreviewed} onClickCard={this.handleClassroomTabClick} />)}
+
     if (loading) { return <LoadingIndicator /> }
 
-    if (!selectedClassroomId) { return (<SelectAClassroom classrooms={classrooms} isBeingPreviewed={isBeingPreviewed} onClickCard={this.handleClassroomTabClick} />)}
 
     return (
       <div className="student-profile-container">
