@@ -104,10 +104,15 @@ class StudentProfile extends React.Component {
     }
   }
 
+  shouldDisplaySelectAClassroom = (selectedClassroomId, classroomsLoaded, location) => {
+    return (!selectedClassroomId && classroomsLoaded && location === "/classes")
+  }
+
   render() {
     const {
       classrooms,
       classroomsLoaded,
+      history,
       student,
       selectedClassroomId,
       nextActivitySession,
@@ -122,10 +127,11 @@ class StudentProfile extends React.Component {
       completedEvidenceActivityPriorToScoring
     } = this.props;
 
-    if (!selectedClassroomId && classroomsLoaded) { return (<SelectAClassroom classrooms={classrooms} isBeingPreviewed={isBeingPreviewed} onClickCard={this.handleClassroomTabClick} />)}
+    if (this.shouldDisplaySelectAClassroom(selectedClassroomId, classroomsLoaded, history?.location?.pathname)) {
+      return (<SelectAClassroom classrooms={classrooms} isBeingPreviewed={isBeingPreviewed} onClickCard={this.handleClassroomTabClick} />)
+    }
 
     if (loading) { return <LoadingIndicator /> }
-
 
     return (
       <div className="student-profile-container">
