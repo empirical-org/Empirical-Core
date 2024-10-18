@@ -19,8 +19,14 @@ interface ActivityFormProps {
   submitActivity: (activity: object) => void
 }
 
+interface RelevantTextsInterface {
+  because_text?: string,
+  so_text?: string,
+  but_text?: string
+}
+
 const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormProps) => {
-  const { id, parent_activity_id, invalid_related_texts, passages, prompts, title, notes, flag, ai_type, } = activity;
+  const { id, parent_activity_id, invalid_related_texts, passages, prompts, title, notes, flag, ai_type, relevant_texts, } = activity;
   const formattedPassage = passages && passages.length ? passages : [{ text: '', highlight_prompt: DEFAULT_HIGHLIGHT_PROMPT, essential_knowledge_text: '' }];
   const formattedPrompts = promptsByConjunction(prompts);
   const becausePrompt = formattedPrompts && formattedPrompts[BECAUSE] ? formattedPrompts[BECAUSE] : buildBlankPrompt(BECAUSE);
@@ -35,6 +41,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
   const [activityBecausePrompt, setActivityBecausePrompt] = React.useState<PromptInterface>(becausePrompt);
   const [activityButPrompt, setActivityButPrompt] = React.useState<PromptInterface>(butPrompt);
   const [activitySoPrompt, setActivitySoPrompt] = React.useState<PromptInterface>(soPrompt);
+  const [relevantTexts, setRelevantTexts] = React.useState<RelevantTextsInterface>(relevant_texts || {})
   const [errors, setErrors] = React.useState<{}>({});
   const [showHighlights, setShowHighlights] = React.useState(true)
 
@@ -50,9 +57,9 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
   function handleSetPassageEssentialKnowledgeText(text: string) { handleSetActivityPassages('essential_knowledge_text', text)}
   function handleSetImageAttribution(text: string) {handleSetActivityPassages('image_attribution', text) }
   function handleSetImageCaption(e: InputEvent) { handleSetActivityPassages('image_caption', e.target.value)}
-  function handleSetBecauseRelevantText(text: string){ setActivityBecausePrompt({ ...activityBecausePrompt, relevant_text: text, }) };
-  function handleSetButRelevantText(text: string){ setActivityButPrompt({ ...activityButPrompt, relevant_text: text, }) };
-  function handleSetSoRelevantText(text: string){ setActivitySoPrompt({ ...activitySoPrompt, relevant_text: text, }) };
+  function handleSetBecauseRelevantText(text: string){ setRelevantTexts({ ...relevantTexts, because_text: text, }) };
+  function handleSetButRelevantText(text: string){ setRelevantTexts({ ...relevantTexts, but_text: text, }) };
+  function handleSetSoRelevantText(text: string){ setRelevantTexts({ ...relevantTexts, so_text: text, }) };
 
   function handleSetActivityPassages(key, value){
     const updatedPassages = [...activityPassages];
@@ -88,7 +95,8 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
       activityBecausePrompt: trimmedBecausePrompt,
       activityButPrompt: trimmedButPrompt,
       activitySoPrompt: trimmedSoPrompt,
-      highlightPrompt: activityPassages[0].highlight_prompt || DEFAULT_HIGHLIGHT_PROMPT
+      highlightPrompt: activityPassages[0].highlight_prompt || DEFAULT_HIGHLIGHT_PROMPT,
+      relevantTexts
     });
     const state = [
       activityFlag,
@@ -147,19 +155,19 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
           <TextEditor
             handleTextChange={handleSetBecauseRelevantText}
             key="because-relevant-text"
-            text={activityBecausePrompt.relevant_text}
+            text={relevantTexts.because_text}
           />
           <p className="text-editor-label">Relevant Text - But</p>
           <TextEditor
             handleTextChange={handleSetButRelevantText}
             key="but-relevant-text"
-            text={activityButPrompt.relevant_text}
+            text={relevantTexts.but_text}
           />
           <p className="text-editor-label">Relevant Text - So</p>
           <TextEditor
             handleTextChange={handleSetSoRelevantText}
             key="so-relevant-text"
-            text={activitySoPrompt.relevant_text}
+            text={relevantTexts.so_text}
           />
         </React.Fragment>
       )}

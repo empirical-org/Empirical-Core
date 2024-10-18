@@ -1,5 +1,5 @@
 import { apiFetch, getActivitySessionsCSVUrl, getActivitySessionsUrl, handleApiError, handleRequestErrors, mainApiFetch, requestFailed } from '../../helpers/evidence/routingHelpers';
-import { ActivityInterface, DropdownObjectInterface } from '../../interfaces/evidenceInterfaces';
+import { ActivityInterface, DropdownObjectInterface, RelevantTextsInterface, } from '../../interfaces/evidenceInterfaces';
 
 export const fetchActivities = async () => {
   let activities: ActivityInterface[];

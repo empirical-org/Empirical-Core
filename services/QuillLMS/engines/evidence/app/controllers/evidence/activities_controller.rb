@@ -19,8 +19,11 @@ module Evidence
 
     # POST /activities.json
     def create
+      relevant_texts = @activity.delete(:relevant_texts)
+
       if @activity.save
         @activity.create_default_regex_rules
+        handle_stem_vaults_for_prompts(@activity, relevant_texts)
 
         changelog_params = {
           action: Evidence.change_log_class::EVIDENCE_ACTIONS[:create],
@@ -41,7 +44,11 @@ module Evidence
 
     # PATCH/PUT /activities/1.json
     def update
-      if @activity.update(activity_params)
+      params_to_save = activity_params
+      relevant_texts = params_to_save.delete(:relevant_texts)
+
+      if @activity.update(params_to_save)
+        handle_stem_vaults_for_prompts(@activity, relevant_texts)
         head :no_content
       else
         render json: @activity.errors, status: :unprocessable_entity
@@ -158,6 +165,38 @@ module Evidence
       }
     end
 
+    private def handle_stem_vaults_for_prompts(activity, relevant_texts)
+      relevant_texts.keys.each do |relevant_text_key|
+        conjunction = Evidence::Research::GenAI::StemVault::RELEVANT_TEXTS.key(relevant_text_key.to_sym)
+        prompt = activity.prompts.find_by(conjunction:)
+
+        puts 'CONJUNCTION', conjunction
+        puts 'Evidence::Research::GenAI::StemVault::RELEVANT_TEXTS', Evidence::Research::GenAI::StemVault::RELEVANT_TEXTS
+
+        gen_ai_activity = prompt.stem_vault&.activity || Evidence::Research::GenAI::Activity.find_or_initialize_by(
+          name: activity.title,
+          text: activity.passages.first&.text,
+        )
+
+        gen_ai_activity[relevant_text_key] = relevant_texts[relevant_text_key]
+
+        gen_ai_activity.save!
+
+        # Create or update the StemVault for this prompt
+        stem_vault = Evidence::Research::GenAI::StemVault.find_or_initialize_by(
+          prompt: prompt,
+          activity: gen_ai_activity,
+          conjunction: prompt.conjunction
+        )
+
+        # Set the stem and conjunction in the StemVault (removing conjunction from the prompt text)
+        stem_vault.stem = prompt.text.split(prompt.conjunction).first.strip
+
+        # Save the StemVault
+        stem_vault.save!
+      end
+    end
+
     private def set_activity
       if params[:id].present?
         @activity = Evidence::Activity.find(params[:id])
@@ -195,7 +234,8 @@ module Evidence
         :flag,
         :ai_type,
         passages_attributes: [:id, :text, :image_link, :image_alt_text, :image_caption, :image_attribution, :highlight_prompt, :essential_knowledge_text],
-        prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :first_strong_example, :second_strong_example, :relevant_text]
+        prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :first_strong_example, :second_strong_example],
+        relevant_texts: [:because_text, :so_text, :but_text]
       )
     end
 

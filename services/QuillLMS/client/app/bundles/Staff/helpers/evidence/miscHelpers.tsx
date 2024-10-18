@@ -44,6 +44,7 @@ export const buildActivity = ({
   activitySoPrompt,
   highlightPrompt,
   aiType,
+  relevantTexts,
 }) => {
   const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt];
   return {
@@ -55,7 +56,8 @@ export const buildActivity = ({
       ai_type: aiType,
       highlight_prompt: highlightPrompt,
       passages_attributes: activityPassages,
-      prompts_attributes: prompts
+      prompts_attributes: prompts,
+      relevant_texts: relevantTexts
     }
   };
 }
