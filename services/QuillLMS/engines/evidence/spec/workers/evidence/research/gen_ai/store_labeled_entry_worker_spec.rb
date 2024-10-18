@@ -27,12 +27,13 @@ module Evidence
         end
 
         context 'when LabeledEntry already exists' do
-          let!(:existing_labeled_entry) { create(:evidence_labeled_entry, prompt_id:, entry:, label: 'Old label') }
+          let(:old_label) { 'Old label' }
+          let!(:existing_labeled_entry) { create(:evidence_labeled_entry, prompt_id:, entry:, label: old_label) }
 
           it 'updates the existing LabeledEntry' do
             expect { subject }.not_to change(Evidence::LabeledEntry, :count)
 
-            expect(existing_labeled_entry.reload.label).to eq(label)
+            expect(existing_labeled_entry.reload.label).to eq(old_label)
           end
         end
 

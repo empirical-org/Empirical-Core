@@ -11,8 +11,7 @@ module Evidence
         def perform(entry, label, prompt_id)
           prompt = Prompt.find(prompt_id)
 
-          labeled_entry = LabeledEntry.find_by(prompt:, entry:)
-          labeled_entry ? labeled_entry.update(label:) : LabeledEntry.create!(prompt:, entry:, label:)
+          LabeledEntry.exists?(prompt:, entry:) || LabeledEntry.create!(prompt:, entry:, label:)
         end
       end
     end
