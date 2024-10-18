@@ -52,6 +52,7 @@ module Evidence
 
           context 'when one sentence is missing from the text' do
             let(:text) { "#{because_text} #{so_text}" }
+            
             it 'returns the key for the missing sentence' do
               expect(activity.invalid_relevant_texts).to contain_exactly(:but_text)
             end
@@ -59,6 +60,7 @@ module Evidence
 
           context 'when multiple sentences are missing from the text' do
             let(:text) { because_text }
+
             it 'returns the keys for the missing sentences' do
               expect(activity.invalid_relevant_texts).to contain_exactly(:but_text, :so_text)
             end
@@ -66,6 +68,7 @@ module Evidence
 
           context 'when the sentences differ only by case or punctuation' do
             let(:text) { 'the sky is blue! however it may rain tomorrow... so bring an umbrella' }
+
             it 'returns an empty array due to case and punctuation normalization' do
               expect(activity.invalid_relevant_texts).to eq([])
             end
@@ -84,6 +87,7 @@ module Evidence
 
           context 'when none of the sentences are present in the text' do
             let(:text) { 'This is completely unrelated text.' }
+
             it 'returns all relevant keys' do
               expect(activity.invalid_relevant_texts).to contain_exactly(:because_text, :but_text, :so_text)
             end

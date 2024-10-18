@@ -6,13 +6,13 @@ module Evidence
   RSpec.describe(ActivitiesController, :type => :controller) do
     before { @routes = Engine.routes }
 
-    RELEVANT_TEXTS = {
-      because_text: 'The earth is warming because of greenhouse gases.',
-      so_text: 'We must take action to reduce emissions.',
-      but_text: 'Not everyone agrees on the solution.'
-    }.freeze
-
-    AI_TYPE_GEN_AI = Evidence::Activity::GEN_AI
+    let(:relevant_texts) {
+      {
+        because_text: 'The earth is warming because of greenhouse gases.',
+        so_text: 'We must take action to reduce emissions.',
+        but_text: 'Not everyone agrees on the solution.'
+      }
+    }
 
     context '#increment_version' do
       it 'should increment version and persist new changelog with note' do
@@ -106,8 +106,8 @@ module Evidence
             :target_level => activity.target_level,
             :title => activity.title,
             :notes => activity.notes,
-            :ai_type => AI_TYPE_GEN_AI,
-            :relevant_texts => RELEVANT_TEXTS,
+            :ai_type => Evidence::Activity::GEN_AI,
+            :relevant_texts => relevant_texts,
             :passages_attributes => [
               { text: 'The climate is changing rapidly due to human activity.', image_link: 'climate.jpg', image_alt_text: 'Climate change graphic' }
             ],
@@ -122,9 +122,9 @@ module Evidence
         gen_ai_activity = Evidence::Research::GenAI::Activity.find_by(name: 'First Activity')
         expect(gen_ai_activity).not_to be_nil
         expect(gen_ai_activity.text).to eq(Activity.first.passages.first.text)
-        expect(gen_ai_activity.because_text).to eq(RELEVANT_TEXTS[:because_text])
-        expect(gen_ai_activity.so_text).to eq(RELEVANT_TEXTS[:so_text])
-        expect(gen_ai_activity.but_text).to eq(RELEVANT_TEXTS[:but_text])
+        expect(gen_ai_activity.because_text).to eq(relevant_texts[:because_text])
+        expect(gen_ai_activity.so_text).to eq(relevant_texts[:so_text])
+        expect(gen_ai_activity.but_text).to eq(relevant_texts[:but_text])
 
         # Validate StemVault creation
         stem_vault = Evidence::Research::GenAI::StemVault.find_by(prompt_id: Activity.first.prompts.first.id)
@@ -143,7 +143,7 @@ module Evidence
               :title => activity.title,
               :notes => activity.notes,
               :ai_type => 'non-genai',
-              :relevant_texts => RELEVANT_TEXTS,
+              :relevant_texts => relevant_texts,
               :passages_attributes => [
                 { text: 'The climate is changing rapidly due to human activity.', image_link: 'climate.jpg', image_alt_text: 'Climate change graphic' }
               ],
@@ -154,8 +154,8 @@ module Evidence
               ]
             }
           })
-        }.to change { Evidence::Research::GenAI::Activity.count }.by(0)
-           .and change { Evidence::Research::GenAI::StemVault.count }.by(0)
+        }.to change(Evidence::Research::GenAI::Activity, :count).by(0)
+          .and change(Evidence::Research::GenAI::StemVault, :count).by(0)
       end
 
       it 'should make a change log record after creating the Activity record' do
@@ -333,8 +333,8 @@ module Evidence
             :scored_level => '5th grade',
             :target_level => 9,
             :title => 'New title',
-            :ai_type => AI_TYPE_GEN_AI,
-            :relevant_texts => RELEVANT_TEXTS,
+            :ai_type => Evidence::Activity::GEN_AI,
+            :relevant_texts => relevant_texts,
             :passages_attributes => [
               { id: passage.id, text: 'Updated passage text about climate change. Multiple sentences. Many thoughts.', image_link: 'updated_climate.jpg', image_alt_text: 'Updated climate image' }
             ],
@@ -349,9 +349,9 @@ module Evidence
         gen_ai_activity = Evidence::Research::GenAI::Activity.find_by(name: 'New title')
         expect(gen_ai_activity).not_to be_nil
         expect(gen_ai_activity.text).to eq(Activity.first.passages.first.text)
-        expect(gen_ai_activity.because_text).to eq(RELEVANT_TEXTS[:because_text])
-        expect(gen_ai_activity.so_text).to eq(RELEVANT_TEXTS[:so_text])
-        expect(gen_ai_activity.but_text).to eq(RELEVANT_TEXTS[:but_text])
+        expect(gen_ai_activity.because_text).to eq(relevant_texts[:because_text])
+        expect(gen_ai_activity.so_text).to eq(relevant_texts[:so_text])
+        expect(gen_ai_activity.but_text).to eq(relevant_texts[:but_text])
 
         stem_vault = Evidence::Research::GenAI::StemVault.find_by(prompt_id: Activity.first.prompts.first.id)
         expect(stem_vault).not_to be_nil
@@ -368,7 +368,7 @@ module Evidence
               :target_level => 9,
               :title => 'New title',
               :ai_type => 'non-genai',
-              :relevant_texts => RELEVANT_TEXTS,
+              :relevant_texts => relevant_texts,
               :passages_attributes => [
                 { id: passage.id, text: 'Updated passage text about climate change.', image_link: 'updated_climate.jpg', image_alt_text: 'Updated climate image' }
               ],
@@ -379,8 +379,8 @@ module Evidence
               ]
             }
           })
-        }.to change { Evidence::Research::GenAI::Activity.count }.by(0)
-           .and change { Evidence::Research::GenAI::StemVault.count }.by(0)
+        }.to change(Evidence::Research::GenAI::Activity, :count).by(0)
+          .and change(Evidence::Research::GenAI::StemVault, :count).by(0)
       end
 
       it 'should make a change log record after updating Passage text' do
