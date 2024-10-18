@@ -23,11 +23,15 @@ module Evidence
         private def label_examples = markdown_table_rows(label_example_data)
         private def rag_label_examples = markdown_table_rows(rag_example_data)
 
-        private def rag_example_data = rag_examples.map {|r| [r.response_text, r.label_transformed]}
+        private def rag_example_data = rag_examples.map {|r| [r.entry, r.label_transformed]}
+
+        private def prompt_ids = [prompt.id, Evidence::LabeledEntry::OFFSET_AUTOML_ENTRY + prompt.id]
+
+        private def dataset_prompt_id = Evidence::LabeledEntry::OFFSET_SCRAP_DATA + prompt.id
 
         def rag_examples
-          Evidence::PromptResponse
-            .closest_prompt_texts(prompt.id, entry, example_limit)
+          Evidence::LabeledEntry
+            .closest_prompt_texts(prompt_id: prompt.id, entry:, limit: example_limit, dataset_prompt_id:)
         end
 
         private def example_limit = options[KEY_LIMIT] || DEFAULT_RAG_EXAMPLE_LIMIT

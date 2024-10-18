@@ -32,6 +32,9 @@ module Evidence
     DISTANCE_METRIC = 'cosine'
     COLLAPSED_OPTIMAL_LABEL = 'Optimal'
 
+    OFFSET_AUTOML_ENTRY = 2_000
+    OFFSET_SCRAP_DATA = 10_000
+
     belongs_to :prompt
 
     has_neighbors :embedding
@@ -39,10 +42,17 @@ module Evidence
     validates :embedding, presence: true
     validates :label, presence: true
     validates :label_transformed, presence: true
-    validates :prompt, presence: true
+    validates :prompt_id, presence: true
     validates :entry, presence: true
 
     before_validation :set_embedding, :set_transformed_label, :set_entry
+
+    def self.closest_prompt_texts(entry:, prompt_id:, limit: 10, dataset_prompt_id: 0)
+      find_or_create_by(prompt_id: dataset_prompt_id, entry:)
+        .nearest_neighbors(:embedding, distance: DISTANCE_METRIC)
+        .where(prompt_id:)
+        .limit(limit)
+    end
 
     def nearest_neighbor
       nearest_neighbors(:embedding, distance: DISTANCE_METRIC)

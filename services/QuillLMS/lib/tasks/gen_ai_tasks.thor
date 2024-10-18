@@ -576,10 +576,90 @@ class GenAITasks < Thor
     labeled_data = FeedbackHistory
       .entry_label_sample(prompt_id: source_prompt_id)
       .select {|array| !array.first.in?(test_texts)} # remove exact matches to test set
-      .map { |array| LabeledData.new(entry: array[0], label: array[1], label_transformed: label_transform.call(array[1])) }
+      .map { |array| LabeledData.new(entry: array[0], label: array[1]) }
 
     store_labeled_data(labeled_data, prompt_id)
   end
+
+  LabelGapResult = Data.define(:labeled_data, :closest_distance)
+
+  # bundle exec thor gen_a_i_tasks:labeled_data_gap_filler 673
+  desc 'labeled_data_gap_filler prompt_id', 'add minimal embeddings for gaps in the labeled data'
+  def labeled_data_gap_filler(prompt_id_text)
+    prompt_id = prompt_id_text.to_i
+    test_texts = Evidence::LabeledEntry.where(prompt_id: 0).pluck(:entry)
+
+    # Fetch up to 1000 high confidence autoML labeled data that isn't in test sets
+    labeled_data = FeedbackHistory
+      .entry_label_sample(prompt_id:, confidence_limit: 0.98, max_length: 250, limit: 1000)
+      .select {|array| array[1] != "Label_0"}
+      .select {|array| !array.first.in?(test_texts)} # remove exact matches to test set
+      .map { |array| LabeledData.new(entry: array[0], label: array[1]) }
+
+    dataset_prompt_id = Evidence::LabeledEntry::OFFSET_SCRAP_DATA + prompt_id
+    automl_prompt_id = Evidence::LabeledEntry::OFFSET_AUTOML_ENTRY + prompt_id
+    # Calculate and store embeddings (used multiple times)
+    # store_labeled_data(labeled_data, dataset_prompt_id)
+
+    prompt_ids_to_search = [prompt_id, automl_prompt_id]
+
+    # Find closest match for each item
+    gap_data = labeled_data.map do |labeled_entry|
+      closest_distance = Evidence::LabeledEntry
+        .closest_prompt_texts(entry: labeled_entry.entry, prompt_id: prompt_ids_to_search, limit: 1, dataset_prompt_id:)
+        .first
+        .neighbor_distance
+
+      puts closest_distance
+
+      LabelGapResult.new(labeled_data: labeled_entry, closest_distance:)
+    end
+
+    # Start loop
+    index = 0
+    loop do
+      puts "Loop #{index}"
+
+      far_results = gap_data.select {|r| r.closest_distance > 0.1 }
+      puts "Far Result Count: #{far_results.length}"
+
+      # if all have an example within 0.8, break
+      break if far_results.empty?
+
+      # Take top of the longer distances, add them to data set
+      far_results
+        # .sort_by(&:closest_distance)
+        # .reverse
+        .sample(20)
+        .each do |result|
+          Evidence::LabeledEntry.find_or_create_by!(
+            prompt_id: automl_prompt_id,
+            entry: result.labeled_data.entry,
+            label: result.labeled_data.label
+          )
+        end
+
+      gap_data = far_results.map do |gap_result|
+        closest_distance = Evidence::LabeledEntry
+          .closest_prompt_texts(entry: gap_result.labeled_data.entry, prompt_id: prompt_ids_to_search, limit: 1, dataset_prompt_id:)
+          .first
+          .neighbor_distance
+
+        puts closest_distance
+
+        LabelGapResult.new(labeled_data: gap_result.labeled_data, closest_distance:)
+      end
+      index += 1
+    end
+
+    # Return amount of new labeled data added.
+    count_of_labels_added = Evidence::LabeledEntry.where(prompt_id: automl_prompt_id).count
+    print_line
+    puts "Labels Added for Prompt #{prompt_id} to fill gaps: #{count_of_labels_added}"
+    print_line
+  end
+
+
 
   # put helper methods in this block
   no_commands do
@@ -620,43 +700,35 @@ class GenAITasks < Thor
       puts "#{name} Correct: #{correct_count} / #{results.size}: #{correct_count / results.size.to_f}"
     end
 
-    LabeledData = Data.define(:entry, :label, :label_transformed)
+    LabeledData = Data.define(:entry, :label)
 
     private def store_labeled_data(data, prompt_id)
-      placeholder_feedback = 'placeholder feedback'
 
       data.each.with_index do |label_data, index|
         puts index
-        response_text = label_data.entry
+        entry = label_data.entry.strip
+        label = label_data.label
 
-        next if Evidence::PromptResponse.where(response_text:, prompt_id:).exists?
+        next if Evidence::LabeledEntry.where(entry:, prompt_id:).exists?
 
-        prompt_response = Evidence::PromptResponse.new(response_text:, prompt_id:)
-
-        feedback = Evidence::PromptResponseFeedback.create(
-          feedback: placeholder_feedback,
-          label: label_data.label,
-          label_transformed: label_data.label_transformed,
-          prompt_response:,
-        )
+        Evidence::LabeledEntry.create!(entry:, prompt_id:, label:)
       end
     end
 
     private def create_label_file(data, type, name, label_transform)
       CSV.open("#{labeled_folder}#{name}.csv", 'wb') do |csv|
         csv << LabeledData.members.map(&:to_s)
-        labeled_data_from_csv(data, type, label_transform).each { |data| csv << data.deconstruct }
+        labeled_data_from_csv(data, type).each { |data| csv << data.deconstruct }
       end
     end
 
-    private def labeled_data_from_csv(data, type, label_transform)
+    private def labeled_data_from_csv(data, type)
       data
         .select {|row| row['type'] == type}
         .map do |row|
           LabeledData.new(
             entry: row['entry'],
-            label: row['label'],
-            label_transformed: label_transform.call(row['label'])
+            label: row['label']
           )
         end
     end

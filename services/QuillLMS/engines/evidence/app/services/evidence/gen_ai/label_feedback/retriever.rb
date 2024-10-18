@@ -15,6 +15,7 @@ module Evidence
         FAR_THRESHOLD = 0.2
         BEYOND_AMOUNT = 5
 
+        # object returned by the run method
         Result = Data.define(:label, :closest_distance)
 
         attr_reader :prompt, :entry
@@ -27,10 +28,6 @@ module Evidence
         def run
           closest_distance = closest_example.neighbor_distance
           puts closest_distance
-
-          # if closest_distance <= NEARBY_THRESHOLD
-          #   return Result.new(label: closest_example.label_transformed, closest_distance:)
-          # end
 
           if closest_distance <= MATCH_THRESHOLD
             puts 'under threshold'
@@ -45,11 +42,16 @@ module Evidence
           Result.new(label: response[KEY_LABEL], closest_distance:)
         end
 
+        private def prompt_ids = [prompt.id, Evidence::LabeledEntry::OFFSET_AUTOML_ENTRY + prompt.id]
+
         private def closest_example
-          @closest_example ||= Evidence::PromptResponse.closest_prompt_texts(prompt.id, entry, 1).first
+          @closest_example ||= Evidence::LabeledEntry
+            .closest_prompt_texts(prompt_id: prompt.id, entry:, limit: 1).first
         end
 
-        private def system_prompt(limit) = Evidence::GenAI::LabelFeedback::PromptBuilder.run(prompt:, entry:, options: {limit:})
+        private def system_prompt(limit)
+          Evidence::GenAI::LabelFeedback::PromptBuilder.run(prompt:, entry:, options: {limit:})
+        end
       end
     end
   end
