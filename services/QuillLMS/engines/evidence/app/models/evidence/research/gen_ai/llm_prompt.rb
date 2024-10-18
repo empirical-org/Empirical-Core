@@ -76,13 +76,13 @@ module Evidence
           "#{prompt}\n\n{student_response: #{student_response}}\nProvide feedback in the following JSON format: #{GENERATIVE_SCHEMA}"
         end
 
-        def prompt_with_rag_label_examples_and_student_response(entry:, prompt_id:)
-          "#{prompt}\n\n#{rag_label_examples(entry:, prompt_id:)}\n\n{student_response: #{entry}}\nProvide feedback in the following JSON format: #{CLASSIFICATION_SCHEMA}"
+        def prompt_with_rag_label_examples_and_student_response(entry:, prompt_id:, label:)
+          "#{prompt}\n\n#{rag_label_examples(entry:, prompt_id:, label:)}\n\n{student_response: #{entry}}\nProvide feedback in the following JSON format: #{CLASSIFICATION_SCHEMA}"
         end
 
-        def rag_label_examples(entry:, prompt_id:)
+        def rag_label_examples(entry:, prompt_id:, label:)
           Evidence::LabeledEntry
-            .closest_prompt_texts(entry:, prompt_id:, limit: RAG_EXAMPLE_LIMIT)
+            .closest_prompt_texts(entry:, prompt_id:, label:, limit: RAG_EXAMPLE_LIMIT)
             .sort_by(&:first)
         end
 

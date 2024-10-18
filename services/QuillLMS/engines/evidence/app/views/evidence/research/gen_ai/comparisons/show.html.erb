@@ -62,7 +62,7 @@
               </ul>
             </div>
             <% if trial.classification? %>
-              <%= render 'classification_confusion_matrix', matrix: trial.confusion_matrix, labels: trial.labels %>
+              <%= render 'classification_confusion_matrix', matrix: trial.confusion_matrix, labels: trial.labels, trial_id: trial.id %>
             <% elsif trial.generative? %>
               <%= render 'generative_confusion_matrix', matrix: trial.confusion_matrix %>
             <% end %>

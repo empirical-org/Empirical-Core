@@ -21,7 +21,11 @@ module Evidence
           student_response = test_example.student_response
 
           if trial.classification?
-            prompt = trial.llm_prompt.prompt_with_rag_label_examples_and_student_response(entry: student_response, prompt_id: trial.stem_vault.prompt_id)
+            prompt = trial.llm_prompt.prompt_with_rag_label_examples_and_student_response(
+              entry: student_response,
+              label: test_example.curriculum_label,
+              prompt_id: trial.stem_vault.prompt_id
+            )
           elsif trial.generative?
             prompt = trial.llm_prompt.prompt_with_student_response(student_response:)
           end

@@ -73,7 +73,7 @@ module Evidence
             text = evidence_activity.passages.first.text
             activity = Evidence::Research::GenAI::Activity.find_or_create_by!(name:, text:)
             prompt = Evidence::Prompt.find(prompt_id)
-            stem_vault = StemVault.find_or_create_by!(activity:, conjunction: row['conjunction'].strip, stem: prompt.text)
+            stem_vault = StemVault.find_or_create_by!(activity:, conjunction: row['conjunction'].strip, stem: prompt.text, prompt_id:)
             stem_vault.update!(prompt:)
             stem_vault.set_confusion_matrix_and_labels!
             dataset = Dataset.create!(task_type: Dataset::CLASSIFICATION, stem_vault:)
