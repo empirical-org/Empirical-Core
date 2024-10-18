@@ -5,15 +5,20 @@
 # Table name: comprehension_activities
 #
 #  id                 :integer          not null, primary key
-#  title              :string(100)
-#  parent_activity_id :integer
-#  target_level       :integer
+#  ai_type            :string
+#  notes              :string
 #  scored_level       :string(100)
+#  target_level       :integer
+#  title              :string(100)
+#  version            :integer          default(1), not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  notes              :string
-#  version            :integer          default(1), not null
+#  parent_activity_id :integer
 #
+# Indexes
+#
+#  index_comprehension_activities_on_parent_activity_id  (parent_activity_id)
+
 require 'rails_helper'
 
 module Evidence
@@ -39,6 +44,8 @@ module Evidence
       it { should validate_presence_of(:notes) }
 
       it { should validate_length_of(:scored_level).is_at_most(100) }
+
+      it { should validate_inclusion_of(:ai_type).in?(Activity::AI_TYPES) }
 
       context 'version' do
         it 'a non-monotonically increasing version should be invalid' do
@@ -215,25 +222,25 @@ module Evidence
       end
     end
 
-    context '#invalid_highlights' do
+    context '#invalid_related_texts' do
       let(:activity) { create(:evidence_activity, :with_prompt_and_passage) }
       let(:rule) { create(:evidence_rule, prompts: [activity.prompts.first]) }
       let(:feedback) { create(:evidence_feedback, rule: rule) }
       let(:highlight) { create(:evidence_highlight, feedback: feedback, highlight_type: 'passage', text: activity.passages.first.text) }
 
       it 'should return an empty array if there are no invalid highlights or plagiarism_texts at all' do
-        expect(activity.invalid_highlights).to eq([])
+        expect(activity.invalid_related_texts).to eq([])
       end
 
       it 'should return an empty array if all highlights and plagiarism_texts are valid' do
         expect(highlight.invalid_activity_ids).to be_nil
-        expect(activity.invalid_highlights).to eq([])
+        expect(activity.invalid_related_texts).to eq([])
       end
 
       it 'should return an array of rule_ids and rule_types for invalid highlights' do
         highlight.update(text: 'text that definitely is not in the passage')
-        expect(activity.invalid_highlights.length).to be(1)
-        expect(activity.invalid_highlights).to include({
+        expect(activity.invalid_related_texts.length).to be(1)
+        expect(activity.invalid_related_texts).to include({
           rule_id: rule.id,
           rule_type: rule.rule_type,
           prompt_id: rule.prompts.first.id

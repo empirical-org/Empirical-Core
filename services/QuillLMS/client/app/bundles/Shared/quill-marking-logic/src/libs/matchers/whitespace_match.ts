@@ -1,9 +1,9 @@
 import * as _ from 'underscore'
-import {getOptimalResponses} from '../sharedResponseFunctions'
 import {stringNormalize} from 'quill-string-normalizer'
+
+import {getOptimalResponses} from '../sharedResponseFunctions'
 import {Response, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
-import {getTopOptimalResponse} from '../sharedResponseFunctions'
 import {feedbackStrings} from '../constants/feedback_strings'
 
 const EXTRA_WHITESPACE_ERROR = 1

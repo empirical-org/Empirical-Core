@@ -1,8 +1,7 @@
 import * as _ from 'underscore'
-import {Response, IncorrectSequence, FocusPoint} from '../../interfaces'
-import {getOptimalResponses} from '../sharedResponseFunctions'
-import {conceptResultTemplate} from '../helpers/concept_result_template'
 
+import {Response, IncorrectSequence, FocusPoint} from '../../interfaces'
+import {conceptResultTemplate} from '../helpers/concept_result_template'
 import {exactMatch} from '../matchers/exact_match';
 import {incorrectSequenceChecker} from '../matchers/incorrect_sequence_match'
 import {focusPointChecker} from '../matchers/focus_point_match';
@@ -16,7 +15,6 @@ import {spacingBeforePunctuationChecker} from '../matchers/spacing_before_punctu
 import {spacingAfterCommaChecker} from '../matchers/spacing_after_comma_match'
 import {requiredWordsChecker} from '../matchers/required_words_match'
 import {spacyPOSSentenceChecker} from '../matchers/spacy_pos_match'
-import {machineLearningSentenceChecker} from '../matchers/machine_learning_sentence_match'
 
 export async function checkSentenceFragment(hash:{
   question_uid: string,

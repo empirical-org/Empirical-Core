@@ -10,8 +10,8 @@ import { decode } from 'html-entities';
 import * as Immutable from 'immutable';
 import * as React from 'react';
 
-import { richButtonsPlugin, } from '../../index';
 import addLinkPluginPlugin from "../draftJSCustomPlugins/addLinkPlugin";
+import { richButtonsPlugin } from '../draftJSRichButtonsPlugin';
 
 const HIGHLIGHT = 'highlight'
 const HIGHLIGHTABLE = 'HIGHLIGHTABLE'

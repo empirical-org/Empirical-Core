@@ -3,9 +3,11 @@ import { stripHtml } from "string-strip-html";
 import clip from "text-clipper";
 import ReactHtmlParser from 'react-html-parser';
 
-import { BECAUSE, BUT, CHECKLIST, Feedback, INTRODUCTION, READ_AND_HIGHLIGHT, SO, getLatestAttempt } from '../../Shared/index';
 import { QuestionObject, Activity } from '../interfaces';
 import { PromptInterface } from '../../Staff/interfaces/evidenceInterfaces';
+import { getLatestAttempt } from './getLatestAttempt';
+import { Feedback } from '../components/renderForQuestions';
+import { BECAUSE, BUT, CHECKLIST, INTRODUCTION, READ_AND_HIGHLIGHT, SO } from '../utils/constants';
 
 export const getCurrentQuestion = ({ action, answeredQuestions, questionSet, unansweredQuestions }) => {
   const { data, question } = action;

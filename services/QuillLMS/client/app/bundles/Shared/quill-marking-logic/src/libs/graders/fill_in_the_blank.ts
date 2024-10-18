@@ -1,7 +1,5 @@
-import {Response, IncorrectSequence, FocusPoint, GradingObject} from '../../interfaces'
-import {getOptimalResponses} from '../sharedResponseFunctions'
+import {Response } from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
-
 import {exactMatch} from '../matchers/exact_match';
 import {caseInsensitiveChecker} from '../matchers/case_insensitive_match'
 
