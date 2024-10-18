@@ -69,7 +69,7 @@
 <hr>
 
 <div>
-  <% if @trial.completed? %>
+  <% if @trial.completed? && @dataset.classification? %>
     <div>
       <%= render 'classification_confusion_matrix_comparison',
       automl_matrix: @trial.stem_vault.confusion_matrix,

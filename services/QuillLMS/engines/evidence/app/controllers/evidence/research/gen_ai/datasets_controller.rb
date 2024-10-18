@@ -26,7 +26,7 @@ module Evidence
         private def stem_vault = @stem_vault ||= StemVault.find(params[:stem_vault_id])
 
         private def create_dataset_from_file
-          @dataset = stem_vault.datasets.new(dataset_params, task_type: Dataset::GENERATIVE)
+          @dataset = stem_vault.datasets.new(task_type: Dataset::GENERATIVE)
 
           if @dataset.save
             DatasetImporter.run(dataset: @dataset, file:)

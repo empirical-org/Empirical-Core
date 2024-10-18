@@ -21,6 +21,9 @@ module Evidence
       FactoryBot.define do
         factory :evidence_research_gen_ai_dataset, class: 'Evidence::Research::GenAI::Dataset' do
           stem_vault { association :evidence_research_gen_ai_stem_vault }
+
+          trait(:classification) { task_type { 'classification' } }
+          trait(:generative) { task_type { 'generative' } }
         end
       end
     end

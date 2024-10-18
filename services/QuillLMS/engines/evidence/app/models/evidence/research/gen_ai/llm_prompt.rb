@@ -20,7 +20,7 @@ module Evidence
     module GenAI
       class LLMPrompt < ApplicationRecord
         CLASSIFICATION_SCHEMA = { 'label': 'string' }.to_json
-        GENERATE_SCHEMA = { 'optimal': 'boolean', 'feedback': 'string' }.to_json
+        GENERATIVE_SCHEMA = { 'optimal': 'boolean', 'feedback': 'string' }.to_json
 
         RAG_EXAMPLE_LIMIT = 5
 
