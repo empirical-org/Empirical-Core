@@ -13,6 +13,7 @@ module Evidence
 
         class TrialNotFoundError < StandardError; end
 
+        # rubocop:disable Metrics/CyclomaticComplexity
         def perform(trial_id, test_example_id)
           trial = Trial.find(trial_id)
           test_example = trial.test_examples.find(test_example_id)
@@ -48,6 +49,7 @@ module Evidence
           trial.trial_errors << { error: e.message, test_example_id: test_example.id, raw_text: raw_text }.to_json
           trial.save!
         end
+        # rubocop:enable Metrics/CyclomaticComplexity
       end
     end
   end

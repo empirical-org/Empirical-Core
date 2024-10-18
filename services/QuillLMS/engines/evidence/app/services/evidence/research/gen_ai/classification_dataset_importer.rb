@@ -23,6 +23,7 @@ module Evidence
           @prompt_id = prompt_id
         end
 
+        # rubocop:disable Metrics/CyclomaticComplexity
         def run
           optimal_count = 0
           suboptimal_count = 0
@@ -55,6 +56,7 @@ module Evidence
               end
             end
           end
+          # rubocop:enable Metrics/CyclomaticComplexity
 
           Dataset
             .where(id: dataset.id)

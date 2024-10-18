@@ -17,6 +17,7 @@ module Evidence
           datetime.in_time_zone(time_zone).strftime('%m/%d/%y, %I:%M %p')
         end
 
+        # rubocop:disable Metrics/CyclomaticComplexity
         def llm_example_match_color(llm_example, task_type)
           if task_type == Dataset::CLASSIFICATION
             return LIGHT_GREEN if llm_example.rag_label == llm_example.test_example.rag_label
@@ -28,6 +29,7 @@ module Evidence
             return DARK_RED if llm_example.suboptimal?
           end
         end
+        # rubocop:enable Metrics/CyclomaticComplexity
 
         def percent_accuracy(numerator, denominator)
           return 0 if denominator.zero?
