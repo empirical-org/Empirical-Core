@@ -197,7 +197,7 @@ export function validateFormSection({
     case titleCase(TEXT):
       const passagePresent = activityPassages && activityPassages[0] && activityPassages[0].text && activityPassages[0].text !== BREAK_TAG;
       if (aiType === GEN_AI_AI_TYPE) {
-        const passageAndRelevantTextsPresentAndValid = passagePresent && relevantTexts.because_text?.length && relevantTexts.but_text?.length && relevantTexts.so_text?.length && invalidRelevantTexts.length === 0
+        const passageAndRelevantTextsPresentAndValid = passagePresent && relevantTexts?.because_text?.length && relevantTexts?.but_text?.length && relevantTexts?.so_text?.length && (!invalidRelevantTexts || invalidRelevantTexts.length === 0)
         return getCheckIcon(passageAndRelevantTextsPresentAndValid);
       } else {
         return getCheckIcon(passagePresent);

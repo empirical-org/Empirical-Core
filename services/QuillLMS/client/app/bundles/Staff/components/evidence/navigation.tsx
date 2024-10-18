@@ -20,15 +20,15 @@ const Navigation = ({ location, match }) => {
   const { activityId } = params;
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
 
-  let aiType;
+  const { data: activityData } = useQuery(
+    [`activity-${activityId}`, activityId],
+    fetchActivity,
+    {
+      enabled: activityId && activityId !== NEW, // Only fetch when activityId is valid
+    }
+  );
 
-  if (activityId && activityId !== NEW) {
-    const { data: activityData } = useQuery({
-      queryKey: [`activity-${activityId}`, activityId],
-      queryFn: fetchActivity,
-    });
-    aiType = activityData?.activity?.ai_type;
-  }
+  const aiType = activityData?.activity?.ai_type;
 
   function checkOverviewActive() {
     return location && pathname === "/activities";
