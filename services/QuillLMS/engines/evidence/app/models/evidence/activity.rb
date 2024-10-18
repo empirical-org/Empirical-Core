@@ -127,6 +127,7 @@ module Evidence
       evidence_research_gen_ai_activity = evidence_research_gen_ai_activities&.first
 
       return unless evidence_research_gen_ai_activity
+      
       evidence_research_gen_ai_activity.attributes.symbolize_keys.slice(:because_text, :so_text, :but_text)
     end
 

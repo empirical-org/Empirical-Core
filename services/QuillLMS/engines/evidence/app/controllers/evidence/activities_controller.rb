@@ -23,7 +23,7 @@ module Evidence
 
       if @activity.save
         @activity.create_default_regex_rules
-        handle_stem_vaults_for_prompts(@activity, relevant_texts)
+        handle_gen_ai_records(@activity, relevant_texts)
 
         changelog_params = {
           action: Evidence.change_log_class::EVIDENCE_ACTIONS[:create],
@@ -48,7 +48,7 @@ module Evidence
       relevant_texts = params_to_save.delete(:relevant_texts)
 
       if @activity.update(params_to_save)
-        handle_stem_vaults_for_prompts(@activity, relevant_texts)
+        handle_gen_ai_records(@activity, relevant_texts)
         head :no_content
       else
         render json: @activity.errors, status: :unprocessable_entity
@@ -165,19 +165,18 @@ module Evidence
       }
     end
 
-    private def handle_stem_vaults_for_prompts(activity, relevant_texts)
+    private def handle_gen_ai_records(activity, relevant_texts)
+      return unless activity.ai_type == Evidence::Activity::GEN_AI
+
       relevant_texts.keys.each do |relevant_text_key|
         conjunction = Evidence::Research::GenAI::StemVault::RELEVANT_TEXTS.key(relevant_text_key.to_sym)
         prompt = activity.prompts.find_by(conjunction:)
 
-        puts 'CONJUNCTION', conjunction
-        puts 'Evidence::Research::GenAI::StemVault::RELEVANT_TEXTS', Evidence::Research::GenAI::StemVault::RELEVANT_TEXTS
-
         gen_ai_activity = prompt.stem_vault&.activity || Evidence::Research::GenAI::Activity.find_or_initialize_by(
           name: activity.title,
-          text: activity.passages.first&.text,
         )
 
+        gen_ai_activity.text = activity.passages.first&.text
         gen_ai_activity[relevant_text_key] = relevant_texts[relevant_text_key]
 
         gen_ai_activity.save!

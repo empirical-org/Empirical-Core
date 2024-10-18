@@ -115,7 +115,7 @@ exports[`Activity Form component should render Activities 1`] = `
         Object {
           "added": <img
             alt="quill-circle-checkmark"
-            src="/images/green_check.svg"
+            src="/images/red_x.svg"
           />,
           "component": <ToggleComponentSection
             components={
@@ -143,6 +143,32 @@ exports[`Activity Form component should render Activities 1`] = `
                       text="..."
                     />
                   </div>
+                  <React.Fragment>
+                    <p
+                      className="text-editor-label"
+                    >
+                      Relevant Text - Because
+                    </p>
+                    <TextEditor
+                      handleTextChange={[Function]}
+                    />
+                    <p
+                      className="text-editor-label"
+                    >
+                      Relevant Text - But
+                    </p>
+                    <TextEditor
+                      handleTextChange={[Function]}
+                    />
+                    <p
+                      className="text-editor-label"
+                    >
+                      Relevant Text - So
+                    </p>
+                    <TextEditor
+                      handleTextChange={[Function]}
+                    />
+                  </React.Fragment>
                 </React.Fragment>,
               ]
             }
