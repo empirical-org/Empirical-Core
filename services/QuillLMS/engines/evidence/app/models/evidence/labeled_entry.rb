@@ -28,21 +28,30 @@ module Evidence
     # Dimension and model are coupled: https://platform.openai.com/docs/guides/embeddings
     DIMENSION = 1536
     MODEL = 'text-embedding-3-small'
+    RAG_TEST_EXAMPLES_PROMPT_ID_OFFSET = 10000
 
     DISTANCE_METRIC = 'cosine'
     COLLAPSED_OPTIMAL_LABEL = 'Optimal'
 
-    belongs_to :prompt
+    belongs_to :prompt, optional: true
 
     has_neighbors :embedding
 
     validates :embedding, presence: true
     validates :label, presence: true
     validates :label_transformed, presence: true
-    validates :prompt, presence: true
+    validates :prompt_id, presence: true
     validates :entry, presence: true
 
     before_validation :set_embedding, :set_transformed_label, :set_entry
+
+    def self.closest_prompt_texts(entry:, prompt_id:, label:, limit: 10)
+      find_or_create_by!(prompt_id: RAG_TEST_EXAMPLES_PROMPT_ID_OFFSET + prompt_id, entry:, label:)
+        .nearest_neighbors(:embedding, distance: DISTANCE_METRIC)
+        .where(prompt_id:)
+        .limit(limit)
+        .pluck(:entry, :label_transformed)
+    end
 
     def nearest_neighbor
       nearest_neighbors(:embedding, distance: DISTANCE_METRIC)

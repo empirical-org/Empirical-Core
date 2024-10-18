@@ -45,6 +45,7 @@ module Evidence
         delegate :vendor, :version, to: :llm
         delegate :llm_prompt_template_id, to: :llm_prompt
         delegate :test_examples_count, :optimal_count, :suboptimal_count, to: :dataset
+        delegate :classification?, :generative?, to: :dataset
 
         scope :completed, -> { where(status: COMPLETED) }
         scope :failed, -> { where(status: FAILED) }
@@ -55,7 +56,8 @@ module Evidence
           :g_eval_ids,
           :g_evals,
           :trial_start_time,
-          :evaluation_start_time
+          :evaluation_start_time,
+          :labels
 
         attr_readonly :llm_id, :llm_prompt_id, :dataset_id, :temperature
 
@@ -75,8 +77,8 @@ module Evidence
 
         def run = TrialRunner.run(self)
 
-        def optimal_correct = confusion_matrix ? confusion_matrix[0][0] : 0
-        def suboptimal_correct = confusion_matrix ? confusion_matrix[1][1] : 0
+        def optimal_correct = confusion_matrix ? confusion_matrix.try(:[], 0).try(:[], 0) : 0
+        def suboptimal_correct = confusion_matrix ? confusion_matrix.try(:[], 1).try(:[], 1) : 0
 
         def average_g_eval_score = scores.blank? ? 0 : (1.0 * scores.sum / scores.size).round(2)
         def scores = g_evals&.values&.flatten&.compact&.map(&:to_f)
@@ -87,7 +89,19 @@ module Evidence
           save!
         end
 
-        def set_confusion_matrix = update_results!(confusion_matrix: ConfusionMatrixBuilder.run(llm_examples))
+        def set_labels
+          update_results!(labels: (llm_examples.map(&:rag_label) + llm_examples.map { |e| e.test_example.rag_label }).uniq.sort)
+        end
+
+        def set_confusion_matrix
+          if classification?
+            update_results!(confusion_matrix: ClassificationConfusionMatrixBuilder.run(llm_examples:, labels:))
+          elsif generative?
+            update_results!(confusion_matrix: GenerativeConfusionMatrixBuilder.run(llm_examples:))
+          end
+        end
+
+        def set_evaluation_duration = update!(evaluation_duration: Time.zone.now - Time.zone.parse(evaluation_start_time))
         def set_evaluation_start_time = update!(evaluation_start_time: Time.zone.now)
         def set_trial_start_time = update!(trial_start_time: Time.zone.now)
         def set_trial_duration = update!(trial_duration: Time.zone.now - Time.zone.parse(trial_start_time))

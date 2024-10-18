@@ -128,7 +128,6 @@ namespace :local_data do
       blog_posts
       categories
       comprehension_activities
-      comprehension_automl_models
       comprehension_highlights
       comprehension_labels
       comprehension_passages
@@ -145,6 +144,7 @@ namespace :local_data do
       content_partner_activities
       criteria
       evidence_hints
+      evidence_automl_models
       file_uploads
       firebase_apps
       images

@@ -6,6 +6,8 @@ module Evidence
       class ActivitiesController < ApplicationController
         def index = @activities = Activity.all.order(created_at: :desc)
 
+        def rag_time = @activities = Activity.all.order(created_at: :desc)
+
         def new = @activity = Activity.new
 
         def create

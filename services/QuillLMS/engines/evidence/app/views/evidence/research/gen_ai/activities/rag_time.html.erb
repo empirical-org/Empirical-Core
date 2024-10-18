@@ -1,0 +1,45 @@
+<% @activities.each do |activity| %>
+  <% next if activity.datasets.classification.empty? %>
+  <% next unless activity.trials.completed.any? %>
+  <% activity.stem_vaults.each_slice(3) do |stem_vault_group| %>
+    <h3><%= link_to activity.name, research_gen_ai_activity_path(activity) %></h3>
+    <div class="matrix-row">
+      <% stem_vault_group.sort_by(&:conjunction).each do |stem_vault| %>
+        <% trial = stem_vault&.datasets&.classification&.map(&:trials)&.map(&:completed)&.flatten&.sort_by(&:created_at)&.last %>
+
+        <% if trial&.confusion_matrix %>
+          <div class="matrix-column">
+            <%= render 'classification_confusion_matrix_comparison',
+              automl_matrix: stem_vault.confusion_matrix,
+              automl_labels: stem_vault.labels,
+              conjunction: stem_vault.conjunction,
+              rag_matrix: trial.confusion_matrix,
+              rag_labels: trial.labels,
+              trial_id: trial.id,
+              trial_link: research_gen_ai_dataset_trial_path(trial.dataset, trial)
+            %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <hr>
+  <% end %>
+<% end %>
+
+<style>
+  .matrix-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .matrix-column {
+    flex: 0 1 calc(33.333% - 20px);
+    margin-bottom: 20px;
+  }
+  @media (max-width: 768px) {
+    .matrix-column {
+      flex: 0 1 100%;
+    }
+  }
+</style>

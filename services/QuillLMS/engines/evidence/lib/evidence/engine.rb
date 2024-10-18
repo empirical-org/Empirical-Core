@@ -7,6 +7,9 @@ rescue LoadError
   # from the gemspec are loaded (development and test environments).
 end
 
+require 'dotenv-rails'
+Dotenv::Railtie.load
+
 module Evidence
   class Engine < ::Rails::Engine
     config.eager_load_paths << "#{config.root}/lib"

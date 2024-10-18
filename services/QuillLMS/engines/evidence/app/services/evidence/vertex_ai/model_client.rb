@@ -20,6 +20,13 @@ module Evidence
           .reject(&:empty?)
           .uniq
       end
+
+      def get_last_model_evaluation(model_external_id:)
+        service_client
+          .list_model_evaluations(parent: parent + "/models/#{model_external_id}")
+          .to_a
+          .last
+      end
     end
   end
 end

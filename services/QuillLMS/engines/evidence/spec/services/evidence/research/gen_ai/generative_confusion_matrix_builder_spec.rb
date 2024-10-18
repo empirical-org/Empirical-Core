@@ -5,8 +5,8 @@ require 'rails_helper'
 module Evidence
   module Research
     module GenAI
-      RSpec.describe ConfusionMatrixBuilder, type: :service do
-        subject { described_class.run(llm_examples) }
+      RSpec.describe GenerativeConfusionMatrixBuilder, type: :service do
+        subject { described_class.run(llm_examples:) }
 
         context 'when there are no llm feedbacks' do
           let(:llm_examples) { [] }

@@ -63,6 +63,7 @@ Evidence::Engine.routes.draw do
 
       resources :activities, only: [:new, :create, :show, :index] do
         resources :stem_vaults, only: [:new, :create, :show, :index], shallow: true
+        get :rag_time, on: :collection
       end
 
       resources :auto_chain_of_thoughts, only: [:new, :create]

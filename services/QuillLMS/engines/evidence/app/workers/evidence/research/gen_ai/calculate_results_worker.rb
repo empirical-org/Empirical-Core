@@ -12,9 +12,10 @@ module Evidence
           return if ENV.fetch('STOP_ALL_GEN_AI_TRIALS', 'false') == 'true'
 
           trial = Trial.find(trial_id)
+          trial.set_labels if trial.classification?
           trial.set_confusion_matrix
           trial.set_evaluation_start_time
-          GEvalScoresFetcher.run(trial)
+          GEvalScoresFetcher.run(trial) if trial.generative?
         end
       end
     end

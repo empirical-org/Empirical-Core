@@ -39,6 +39,13 @@ module Evidence
 
         def self.assigned_status_column = :curriculum_assigned_status
 
+        def rag_label
+          return curriculum_label if curriculum_label.start_with?('Label_')
+          return 'Optimal' if curriculum_label.start_with?('Optimal')
+
+          curriculum_label
+        end
+
         private def dataset_unlocked
           errors.add(:dataset, LOCKED) if dataset&.locked
         end

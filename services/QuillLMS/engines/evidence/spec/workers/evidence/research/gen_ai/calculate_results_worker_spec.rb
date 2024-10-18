@@ -8,7 +8,8 @@ module Evidence
       RSpec.describe CalculateResultsWorker do
         subject { described_class.new.perform(trial.id) }
 
-        let(:trial) { create(:evidence_research_gen_ai_trial) }
+        let(:dataset) { create(:evidence_research_gen_ai_dataset, :generative) }
+        let(:trial) { create(:evidence_research_gen_ai_trial, dataset:) }
 
         before { stub_const('ENV', 'STOP_ALL_GEN_AI_TRIALS' => stop_all_gen_ai_trials) }
 

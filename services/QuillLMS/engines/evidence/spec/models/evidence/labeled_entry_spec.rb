@@ -29,7 +29,9 @@ module Evidence
     let(:dimension) { described_class::DIMENSION }
     let(:embedding) { Array.new(dimension) { rand(-1.0..1.0) } }
 
-    it { is_expected.to validate_presence_of(:prompt) }
+    it { belong_to(:prompt).optional }
+
+    it { is_expected.to validate_presence_of(:prompt_id) }
     it { is_expected.to validate_presence_of(:entry) }
     it { is_expected.to validate_presence_of(:embedding) }
     it { is_expected.to validate_presence_of(:label) }
@@ -184,7 +186,7 @@ module Evidence
           stddev = Math.sqrt(times.map { |time| (time - mean_time)**2 }.reduce(:+) / times.size)
 
           puts "\nBenchmarking for nearest neighbor cosine similarity"
-          puts "Model: #{klass::MODEL}, Dimension: #{klass::DIMENSION}, num_iterations: #{num_iterations}"
+          puts "Model: #{described_class::MODEL}, Dimension: #{described_class::DIMENSION}, num_iterations: #{num_iterations}"
           puts "Average response time: #{mean_time} seconds"
           puts "Standard deviation: #{stddev} seconds"
         end

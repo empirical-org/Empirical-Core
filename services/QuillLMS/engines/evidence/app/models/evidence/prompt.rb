@@ -39,6 +39,7 @@ module Evidence
     has_many :automl_models, inverse_of: :prompt
     has_many :prompts_rules
     has_many :rules, through: :prompts_rules, inverse_of: :prompts
+    has_many :stem_vaults, inverse_of: :prompt, class_name: 'Evidence::Research::GenAI::StemVault'
 
     after_create :assign_universal_rules
     before_validation :downcase_conjunction

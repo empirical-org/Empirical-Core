@@ -33,7 +33,7 @@ module Evidence
           'optimal_guidelines' => ->(builder, _) { builder.optimal_guidelines },
           'suboptimal_guidelines' => ->(builder, _) { builder.suboptimal_guidelines },
           'optimal_student_responses' => ->(builder, _) { builder.optimal_student_responses },
-          'suboptimal_student_responses' => ->(builder, _) { builder.suboptimal_student_responses }
+          'suboptimal_student_responses' => ->(builder, _) { builder.suboptimal_student_responses },
         }.freeze
 
         GENERAL_SUBSTITUTIONS = PromptTemplateVariable::NAMES.index_with do |_name|

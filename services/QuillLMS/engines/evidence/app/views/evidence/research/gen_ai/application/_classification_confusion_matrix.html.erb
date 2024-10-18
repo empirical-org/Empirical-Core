@@ -1,0 +1,113 @@
+<div id="confusionMatrixContainer_<%= trial_id %>">
+  <div style="text-align: right; margin-bottom: 10px;">
+    <span>Display counts</span>
+    <label class="switch">
+      <input type="checkbox" id="displayToggle_confusionMatrix_<%= trial_id %>" class="displayToggle">
+      <span class="slider round"></span>
+    </label>
+  </div>
+  <% if matrix && labels %>
+    <table id="confusionMatrix_<%= trial_id %>" style="table-layout: fixed; border-collapse: collapse; border: 1px solid black;">
+      <tr class='light-gray' style='text-align: center'>
+        <th style="text-align: center">True label</th>
+        <% labels.each do |label| %>
+          <th class='predicted-label' style="text-align: center; font-size: 0.7em;">
+            <%= label %>
+          </th>
+        <% end %>
+        <th style="text-align: center">Total</th>
+      </tr>
+      <% labels.each_with_index do |true_label, i| %>
+        <% row_sum = matrix[i].sum %>
+        <tr>
+          <td class='white true-label' style="text-align: center; font-size: 0.65em;">
+            <%= true_label %>
+          </td>
+          <% labels.each_with_index do |pred_label, j| %>
+            <td class='<%= i == j ? "light-green" : "light-red" %>' style="text-align: center;">
+              <span class="count" style="display: none;"><%= matrix[i][j] %></span>
+              <span class="percent">
+                <%= row_sum.zero? ? "0%" : "#{(100.0 * matrix[i][j] / row_sum).round}%" %>
+              </span>
+            </td>
+          <% end %>
+          <td class='white' style="text-align: center;"><%= row_sum %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>
+<style>
+  .predicted-label { font-size: 0.7em; }
+  .true-label { font-size: 0.65em; }
+  /* Switch styles */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    vertical-align: middle;
+    margin-left: 10px;
+  }
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+  }
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+  }
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+  .slider.round {
+    border-radius: 34px;
+  }
+  .slider.round:before {
+    border-radius: 50%;
+  }
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const toggles = document.querySelectorAll('.displayToggle');
+
+  toggles.forEach((toggle) => {
+    toggle.addEventListener('change', function() {
+      const showCounts = this.checked;
+      const trial_id = this.id.split('_').pop();
+      const table = document.getElementById(`confusionMatrix_${trial_id}`);
+
+      if (table) {
+        table.querySelectorAll('td').forEach(td => {
+          const countSpan = td.querySelector('.count');
+          const percentSpan = td.querySelector('.percent');
+          if (countSpan && percentSpan) {
+            countSpan.style.display = showCounts ? '' : 'none';
+            percentSpan.style.display = showCounts ? 'none' : '';
+          }
+        });
+      }
+    });
+  });
+});
+</script>
