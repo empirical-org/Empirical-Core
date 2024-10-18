@@ -184,17 +184,14 @@ module Evidence
 
         gen_ai_activity.save!
 
-        # Create or update the StemVault for this prompt
         stem_vault = Evidence::Research::GenAI::StemVault.find_or_initialize_by(
           prompt: prompt,
           activity: gen_ai_activity,
           conjunction: prompt.conjunction
         )
 
-        # Set the stem and conjunction in the StemVault (removing conjunction from the prompt text)
         stem_vault.stem = prompt.text.split(prompt.conjunction).first.strip
 
-        # Save the StemVault
         stem_vault.save!
       end
     end

@@ -11,18 +11,12 @@ import { DEFAULT_HIGHLIGHT_PROMPT } from '../../../../Shared/utils/constants';
 import { buildActivity, validateForm, validateFormSection } from '../../../helpers/evidence/miscHelpers';
 import { buildBlankPrompt, getActivityPrompt, getActivityPromptSetter, promptsByConjunction, trimmedPrompt } from '../../../helpers/evidence/promptHelpers';
 import { renderInvalidHighlightLinks } from '../../../helpers/evidence/renderHelpers';
-import { ActivityInterface, ClickEvent, InputEvent, PassagesInterface, PromptInterface, TextAreaEvent } from '../../../interfaces/evidenceInterfaces';
+import { ActivityInterface, ClickEvent, InputEvent, PassagesInterface, PromptInterface, RelevantTextsInterface, } from '../../../interfaces/evidenceInterfaces';
 
 interface ActivityFormProps {
   activity: ActivityInterface,
   requestErrors: string[],
   submitActivity: (activity: object) => void
-}
-
-interface RelevantTextsInterface {
-  because_text?: string,
-  so_text?: string,
-  but_text?: string
 }
 
 const relevantTextErrorMessage = <span className="all-errors-message">This text contains at least one sentence that is not the same as the text in the passage.</span>
@@ -43,7 +37,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
   const [activityBecausePrompt, setActivityBecausePrompt] = React.useState<PromptInterface>(becausePrompt);
   const [activityButPrompt, setActivityButPrompt] = React.useState<PromptInterface>(butPrompt);
   const [activitySoPrompt, setActivitySoPrompt] = React.useState<PromptInterface>(soPrompt);
-  const [relevantTexts, setRelevantTexts] = React.useState<RelevantTextsInterface>(relevant_texts || {})
+  const [relevantTexts, setRelevantTexts] = React.useState<RelevantTextsInterface|{}>(relevant_texts || {})
   const [errors, setErrors] = React.useState<{}>({});
   const [showHighlights, setShowHighlights] = React.useState(true)
 

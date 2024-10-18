@@ -81,14 +81,6 @@ module Evidence
       plagiarism_rule&.plagiarism_texts&.map(&:text) || []
     end
 
-    def relevant_text
-      evidence_research_gen_ai_activity = stem_vault&.activity
-
-      return unless evidence_research_gen_ai_activity
-
-      evidence_research_gen_ai_activity["#{conjunction}_text"]
-    end
-
     private def plagiarism_rule
       rules&.find_by(rule_type: Evidence::Rule::TYPE_PLAGIARISM)
     end
