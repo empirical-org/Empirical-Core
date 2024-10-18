@@ -90,11 +90,11 @@ module Evidence
 
           before do
             allow(trial).to receive(:llm_examples).and_return(llm_examples)
-            allow(ConfusionMatrixBuilder).to receive(:run).with(llm_examples).and_return(confusion_matrix)
+            allow(GenerativeConfusionMatrixBuilder).to receive(:run).with(llm_examples:).and_return(confusion_matrix)
           end
 
           it 'calls ConfusionMatrixBuilder.run with llm_examples' do
-            expect(ConfusionMatrixBuilder).to receive(:run).with(llm_examples)
+            expect(GenerativeConfusionMatrixBuilder).to receive(:run).with(llm_examples:)
             subject
           end
 

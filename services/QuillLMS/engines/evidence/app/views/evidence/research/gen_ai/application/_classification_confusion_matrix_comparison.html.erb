@@ -33,7 +33,8 @@
           # Get Optimal for RAG
           rag_optimal_index = rag_labels.index('Optimal')
           rag_optimal_value = rag_matrix[rag_optimal_index][rag_optimal_index]
-          rag_optimal_percent = (100.0 * rag_optimal_value / rag_matrix[rag_optimal_index].sum).round
+          rag_optimal_sum = rag_matrix[rag_optimal_index].sum
+          rag_optimal_percent = rag_optimal_sum.zero? ? 0 : (100.0 * rag_optimal_value / rag_optimal_sum).round
 
           difference = rag_optimal_percent - automl_optimal_percent
           color_intensity = [(difference.abs / 20.0), 0.5].min
