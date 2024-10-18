@@ -52,7 +52,7 @@ module Evidence
 
           context 'when one sentence is missing from the text' do
             let(:text) { "#{because_text} #{so_text}" }
-            
+
             it 'returns the key for the missing sentence' do
               expect(activity.invalid_relevant_texts).to contain_exactly(:but_text)
             end
