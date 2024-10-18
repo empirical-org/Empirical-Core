@@ -19,8 +19,13 @@ module Evidence
 
     # POST /activities.json
     def create
+      if activity_params[:relevant_texts]
+        relevant_texts = activity_params.delete(:relevant_texts)
+      end
+
       if @activity.save
         @activity.create_default_regex_rules
+        handle_gen_ai_records(@activity, relevant_texts) if relevant_texts
 
         changelog_params = {
           action: Evidence.change_log_class::EVIDENCE_ACTIONS[:create],
@@ -41,7 +46,14 @@ module Evidence
 
     # PATCH/PUT /activities/1.json
     def update
-      if @activity.update(activity_params)
+      params_to_save = activity_params
+
+      if params_to_save[:relevant_texts]
+        relevant_texts = params_to_save.delete(:relevant_texts)
+      end
+
+      if @activity.update(params_to_save)
+        handle_gen_ai_records(@activity, relevant_texts) if relevant_texts
         head :no_content
       else
         render json: @activity.errors, status: :unprocessable_entity
@@ -158,11 +170,37 @@ module Evidence
       }
     end
 
+    private def handle_gen_ai_records(activity, relevant_texts)
+      return unless activity.ai_type == Evidence::Activity::GEN_AI
+
+      relevant_texts.keys.each do |relevant_text_key|
+        conjunction = Evidence::Research::GenAI::StemVault::RELEVANT_TEXTS.key(relevant_text_key.to_sym)
+        prompt = activity.prompts.find_by(conjunction:)
+
+        gen_ai_activity = prompt.stem_vault&.activity || Evidence::Research::GenAI::Activity.find_or_initialize_by(name: activity.title)
+
+        gen_ai_activity.text = activity.passages.first&.text
+        gen_ai_activity[relevant_text_key] = relevant_texts[relevant_text_key]
+
+        gen_ai_activity.save!
+
+        stem_vault = Evidence::Research::GenAI::StemVault.find_or_initialize_by(
+          prompt: prompt,
+          activity: gen_ai_activity,
+          conjunction: prompt.conjunction
+        )
+
+        stem_vault.stem = prompt.text.split(prompt.conjunction).first.strip
+
+        stem_vault.save!
+      end
+    end
+
     private def set_activity
       if params[:id].present?
         @activity = Evidence::Activity.find(params[:id])
       else
-        @activity = Evidence::Activity.new(activity_params)
+        @activity = Evidence::Activity.new(activity_params.except(:relevant_texts))
         @activity.version = 1
       end
     end
@@ -195,7 +233,8 @@ module Evidence
         :flag,
         :ai_type,
         passages_attributes: [:id, :text, :image_link, :image_alt_text, :image_caption, :image_attribution, :highlight_prompt, :essential_knowledge_text],
-        prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :first_strong_example, :second_strong_example]
+        prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :first_strong_example, :second_strong_example],
+        relevant_texts: [:because_text, :so_text, :but_text]
       )
     end
 
