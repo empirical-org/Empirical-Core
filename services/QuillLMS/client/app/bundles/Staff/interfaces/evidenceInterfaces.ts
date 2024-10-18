@@ -10,6 +10,12 @@ export interface InvalidHighlight {
   prompt_id?: number
 }
 
+export interface RelevantTextsInterface {
+  because_text: string;
+  but_text: string;
+  so_text: string;
+}
+
 export interface ActivityInterface {
   id?: string,
   parent_activity_id?: string,
@@ -24,7 +30,9 @@ export interface ActivityInterface {
   prompts?: PromptInterface[],
   passage_attributes?: PassagesInterface[],
   prompt_attributes?: PromptInterface[],
-  invalid_related_texts?: InvalidHighlight[]
+  invalid_related_texts?: InvalidHighlight[];
+  invalid_relevant_texts?: string[];
+  relevant_texts?: RelevantTextsInterface
 }
 
 export interface PromptInterface {

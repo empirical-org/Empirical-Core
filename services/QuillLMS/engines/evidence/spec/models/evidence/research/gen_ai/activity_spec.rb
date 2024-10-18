@@ -26,13 +26,69 @@ module Evidence
 
         it { should validate_presence_of(:name) }
         it { should validate_presence_of(:text) }
-        it { should have_readonly_attribute(:name) }
-        it { should have_readonly_attribute(:text) }
-        it { should have_readonly_attribute(:because_text) }
-        it { should have_readonly_attribute(:but_text) }
-        it { should have_readonly_attribute(:so_text) }
 
         it { should have_many(:stem_vaults).dependent(:destroy) }
+
+        describe '#invalid_relevant_texts' do
+          let(:activity) do
+            described_class.new(
+              because_text: because_text,
+              but_text: but_text,
+              so_text: so_text,
+              text: text
+            )
+          end
+
+          let(:because_text) { "The sky is blue." }
+          let(:but_text) { "However, it may rain tomorrow." }
+          let(:so_text) { "So, bring an umbrella." }
+          let(:text) { "The sky is blue. However, it may rain tomorrow. So, bring an umbrella." }
+
+          context 'when all sentences are present in the text' do
+            it 'returns an empty array' do
+              expect(activity.invalid_relevant_texts).to eq([])
+            end
+          end
+
+          context 'when one sentence is missing from the text' do
+            let(:text) { "The sky is blue. So, bring an umbrella." } # but_text is missing
+            it 'returns the key for the missing sentence' do
+              expect(activity.invalid_relevant_texts).to contain_exactly(:but_text)
+            end
+          end
+
+          context 'when multiple sentences are missing from the text' do
+            let(:text) { "The sky is blue." } # but_text and so_text are missing
+            it 'returns the keys for the missing sentences' do
+              expect(activity.invalid_relevant_texts).to contain_exactly(:but_text, :so_text)
+            end
+          end
+
+          context 'when the sentences differ only by case or punctuation' do
+            let(:text) { "the sky is blue! however it may rain tomorrow... so bring an umbrella" }
+            it 'returns an empty array due to case and punctuation normalization' do
+              expect(activity.invalid_relevant_texts).to eq([])
+            end
+          end
+
+          context 'when the sentences contain HTML that is stripped' do
+            let(:because_text) { "<p>The sky is blue.</p>" }
+            let(:but_text) { "<div>However, it may rain tomorrow.</div>" }
+            let(:so_text) { "<span>So, bring an umbrella.</span>" }
+            let(:text) { "The sky is blue. However, it may rain tomorrow. So, bring an umbrella." }
+
+            it 'returns an empty array because HTML tags are stripped' do
+              expect(activity.invalid_relevant_texts).to eq([])
+            end
+          end
+
+          context 'when none of the sentences are present in the text' do
+            let(:text) { "This is completely unrelated text." }
+            it 'returns all relevant keys' do
+              expect(activity.invalid_relevant_texts).to contain_exactly(:because_text, :but_text, :so_text)
+            end
+          end
+        end
       end
     end
   end

@@ -111,7 +111,7 @@ module Evidence
       super(options.reverse_merge(
         only: [:id, :parent_activity_id, :title, :version, :notes, :target_level, :scored_level, :ai_type],
         include: [:passages, :prompts],
-        methods: [:invalid_related_texts, :flag, :relevant_texts]
+        methods: [:invalid_related_texts, :flag, :relevant_texts, :invalid_relevant_texts]
       ))
     end
 
@@ -123,11 +123,19 @@ module Evidence
       "evidence/#/activities/#{id}/settings"
     end
 
-    def relevant_texts
-      evidence_research_gen_ai_activity = evidence_research_gen_ai_activities&.first
+    def evidence_research_gen_ai_activity
+      evidence_research_gen_ai_activities&.first
+    end
 
+    def invalid_relevant_texts
       return unless evidence_research_gen_ai_activity
-      
+
+      evidence_research_gen_ai_activity.invalid_relevant_texts
+    end
+
+    def relevant_texts
+      return unless evidence_research_gen_ai_activity
+
       evidence_research_gen_ai_activity.attributes.symbolize_keys.slice(:because_text, :so_text, :but_text)
     end
 
