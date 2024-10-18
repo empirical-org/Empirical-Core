@@ -241,7 +241,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
     return {
       id: i,
       component,
-      added: validateFormSection({ label, activityPassages, activityBecausePrompt, activityButPrompt, activitySoPrompt, aiType, })
+      added: validateFormSection({ label, activityPassages, activityBecausePrompt, activityButPrompt, activitySoPrompt, aiType, relevantTexts, invalidRelevantTexts: invalid_relevant_texts })
     }
   });
 

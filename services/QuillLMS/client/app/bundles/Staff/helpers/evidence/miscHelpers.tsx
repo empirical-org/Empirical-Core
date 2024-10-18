@@ -190,13 +190,15 @@ export function validateFormSection({
   activityButPrompt,
   activitySoPrompt,
   aiType,
+  relevantTexts,
+  invalidRelevantTexts,
 }) {
   switch(label) {
     case titleCase(TEXT):
       const passagePresent = activityPassages && activityPassages[0] && activityPassages[0].text && activityPassages[0].text !== BREAK_TAG;
       if (aiType === GEN_AI_AI_TYPE) {
-        const passageAndRelevantTextsPresent = passagePresent && activityBecausePrompt.relevant_text && activityButPrompt.relevant_text && activitySoPrompt.relevant_text
-        return getCheckIcon(passageAndRelevantTextsPresent);
+        const passageAndRelevantTextsPresentAndValid = passagePresent && relevantTexts.because_text?.length && relevantTexts.but_text?.length && relevantTexts.so_text?.length && invalidRelevantTexts.length === 0
+        return getCheckIcon(passageAndRelevantTextsPresentAndValid);
       } else {
         return getCheckIcon(passagePresent);
       }
