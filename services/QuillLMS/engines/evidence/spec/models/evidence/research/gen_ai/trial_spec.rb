@@ -89,6 +89,7 @@ module Evidence
           let(:confusion_matrix) { [[2, 1], [0, 3]] }
 
           before do
+            allow(trial).to receive(:generative?).and_return(true)
             allow(trial).to receive(:llm_examples).and_return(llm_examples)
             allow(GenerativeConfusionMatrixBuilder).to receive(:run).with(llm_examples:).and_return(confusion_matrix)
           end

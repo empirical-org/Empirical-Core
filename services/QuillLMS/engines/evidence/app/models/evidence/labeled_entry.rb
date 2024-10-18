@@ -33,14 +33,14 @@ module Evidence
     DISTANCE_METRIC = 'cosine'
     COLLAPSED_OPTIMAL_LABEL = 'Optimal'
 
-    belongs_to :prompt
+    belongs_to :prompt, optional: true
 
     has_neighbors :embedding
 
     validates :embedding, presence: true
     validates :label, presence: true
     validates :label_transformed, presence: true
-    validates :prompt, presence: true
+    validates :prompt_id, presence: true
     validates :entry, presence: true
 
     before_validation :set_embedding, :set_transformed_label, :set_entry
