@@ -22,8 +22,6 @@ module Evidence
         validates :name, presence: true
         validates :text, presence: true
 
-        attr_readonly :name, :text, :because_text, :but_text, :so_text
-
         def to_s = name
       end
     end
