@@ -18,7 +18,7 @@ module Evidence
     module GenAI
       class Activity < ApplicationRecord
         include TextFormatter
-        
+
         has_many :stem_vaults, dependent: :destroy
 
         validates :name, presence: true

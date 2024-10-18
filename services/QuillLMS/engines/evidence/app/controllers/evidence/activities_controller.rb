@@ -19,11 +19,13 @@ module Evidence
 
     # POST /activities.json
     def create
-      relevant_texts = @activity.delete(:relevant_texts)
+      if activity_params[:relevant_texts]
+        relevant_texts = activity_params.delete(:relevant_texts)
+      end
 
       if @activity.save
         @activity.create_default_regex_rules
-        handle_gen_ai_records(@activity, relevant_texts)
+        handle_gen_ai_records(@activity, relevant_texts) if relevant_texts
 
         changelog_params = {
           action: Evidence.change_log_class::EVIDENCE_ACTIONS[:create],
@@ -45,10 +47,13 @@ module Evidence
     # PATCH/PUT /activities/1.json
     def update
       params_to_save = activity_params
-      relevant_texts = params_to_save.delete(:relevant_texts)
+
+      if params_to_save[:relevant_texts]
+        relevant_texts = params_to_save.delete(:relevant_texts)
+      end
 
       if @activity.update(params_to_save)
-        handle_gen_ai_records(@activity, relevant_texts)
+        handle_gen_ai_records(@activity, relevant_texts) if relevant_texts
         head :no_content
       else
         render json: @activity.errors, status: :unprocessable_entity
@@ -172,9 +177,7 @@ module Evidence
         conjunction = Evidence::Research::GenAI::StemVault::RELEVANT_TEXTS.key(relevant_text_key.to_sym)
         prompt = activity.prompts.find_by(conjunction:)
 
-        gen_ai_activity = prompt.stem_vault&.activity || Evidence::Research::GenAI::Activity.find_or_initialize_by(
-          name: activity.title,
-        )
+        gen_ai_activity = prompt.stem_vault&.activity || Evidence::Research::GenAI::Activity.find_or_initialize_by(name: activity.title)
 
         gen_ai_activity.text = activity.passages.first&.text
         gen_ai_activity[relevant_text_key] = relevant_texts[relevant_text_key]
@@ -200,7 +203,7 @@ module Evidence
       if params[:id].present?
         @activity = Evidence::Activity.find(params[:id])
       else
-        @activity = Evidence::Activity.new(activity_params)
+        @activity = Evidence::Activity.new(activity_params.except(:relevant_texts))
         @activity.version = 1
       end
     end

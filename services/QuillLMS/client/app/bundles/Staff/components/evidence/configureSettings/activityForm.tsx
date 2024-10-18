@@ -159,21 +159,21 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
             key="because-relevant-text"
             text={relevantTexts.because_text}
           />
-          {invalid_relevant_texts.includes('because_text') && relevantTextErrorMessage}
+          {invalid_relevant_texts?.includes('because_text') && relevantTextErrorMessage}
           <p className="text-editor-label">Relevant Text - But</p>
           <TextEditor
             handleTextChange={handleSetButRelevantText}
             key="but-relevant-text"
             text={relevantTexts.but_text}
           />
-          {invalid_relevant_texts.includes('but_text') && relevantTextErrorMessage}
+          {invalid_relevant_texts?.includes('but_text') && relevantTextErrorMessage}
           <p className="text-editor-label">Relevant Text - So</p>
           <TextEditor
             handleTextChange={handleSetSoRelevantText}
             key="so-relevant-text"
             text={relevantTexts.so_text}
           />
-          {invalid_relevant_texts.includes('so_text') && relevantTextErrorMessage}
+          {invalid_relevant_texts?.includes('so_text') && relevantTextErrorMessage}
         </React.Fragment>
       )}
     </React.Fragment>

@@ -6,6 +6,14 @@ module Evidence
   RSpec.describe(ActivitiesController, :type => :controller) do
     before { @routes = Engine.routes }
 
+    RELEVANT_TEXTS = {
+      because_text: 'The earth is warming because of greenhouse gases.',
+      so_text: 'We must take action to reduce emissions.',
+      but_text: 'Not everyone agrees on the solution.'
+    }.freeze
+
+    AI_TYPE_GEN_AI = Evidence::Activity::GEN_AI
+
     context '#increment_version' do
       it 'should increment version and persist new changelog with note' do
         changelog_note_text = 'a note'
@@ -88,6 +96,66 @@ module Evidence
         expect(parsed_response['notes']).to(eq('First Activity - Notes'))
         expect(parsed_response['version']).to(eq(1))
         expect(Activity.count).to(eq(1))
+      end
+
+      it 'should create GenAI records when ai_type is GenAI, relevant_texts, and passage are provided' do
+        post(:create, :params => {
+          :activity => {
+            :parent_activity_id => activity.parent_activity_id,
+            :scored_level => activity.scored_level,
+            :target_level => activity.target_level,
+            :title => activity.title,
+            :notes => activity.notes,
+            :ai_type => AI_TYPE_GEN_AI,
+            :relevant_texts => RELEVANT_TEXTS,
+            :passages_attributes => [
+              { text: 'The climate is changing rapidly due to human activity.', image_link: 'climate.jpg', image_alt_text: 'Climate change graphic' }
+            ],
+            :prompts_attributes => [
+              { text: 'Greenhouse gases trap heat.', conjunction: 'because' },
+              { text: 'This leads to climate change.', conjunction: 'so' },
+              { text: 'But some deny this connection.', conjunction: 'but' }
+            ]
+          }
+        })
+
+        gen_ai_activity = Evidence::Research::GenAI::Activity.find_by(name: 'First Activity')
+        expect(gen_ai_activity).not_to be_nil
+        expect(gen_ai_activity.text).to eq(Activity.first.passages.first.text)
+        expect(gen_ai_activity.because_text).to eq(RELEVANT_TEXTS[:because_text])
+        expect(gen_ai_activity.so_text).to eq(RELEVANT_TEXTS[:so_text])
+        expect(gen_ai_activity.but_text).to eq(RELEVANT_TEXTS[:but_text])
+
+        # Validate StemVault creation
+        stem_vault = Evidence::Research::GenAI::StemVault.find_by(prompt_id: Activity.first.prompts.first.id)
+        expect(stem_vault).not_to be_nil
+        expect(stem_vault.stem).to eq(Activity.first.prompts.first.text.split('because').first.strip)
+      end
+
+      # GenAI test: should not create GenAI records when ai_type is not GenAI
+      it 'should not create GenAI records when ai_type is not GenAI' do
+        expect {
+          post(:create, :params => {
+            :activity => {
+              :parent_activity_id => activity.parent_activity_id,
+              :scored_level => activity.scored_level,
+              :target_level => activity.target_level,
+              :title => activity.title,
+              :notes => activity.notes,
+              :ai_type => 'non-genai',
+              :relevant_texts => RELEVANT_TEXTS,
+              :passages_attributes => [
+                { text: 'The climate is changing rapidly due to human activity.', image_link: 'climate.jpg', image_alt_text: 'Climate change graphic' }
+              ],
+              :prompts_attributes => [
+                { text: 'Greenhouse gases trap heat.', conjunction: 'because' },
+                { text: 'This leads to climate change.', conjunction: 'so' },
+                { text: 'But some deny this connection.', conjunction: 'but' }
+              ]
+            }
+          })
+        }.to change { Evidence::Research::GenAI::Activity.count }.by(0)
+           .and change { Evidence::Research::GenAI::StemVault.count }.by(0)
       end
 
       it 'should make a change log record after creating the Activity record' do
@@ -255,6 +323,64 @@ module Evidence
         expect(activity.scored_level).to(eq('5th grade'))
         expect(activity.target_level).to(eq(9))
         expect(activity.title).to(eq('New title'))
+      end
+
+      it 'should update GenAI records when ai_type is GenAI, relevant_texts, and passage are provided' do
+        put(:update, :params => {
+          :id => activity.id,
+          :activity => {
+            :parent_activity_id => 2,
+            :scored_level => '5th grade',
+            :target_level => 9,
+            :title => 'New title',
+            :ai_type => AI_TYPE_GEN_AI,
+            :relevant_texts => RELEVANT_TEXTS,
+            :passages_attributes => [
+              { id: passage.id, text: 'Updated passage text about climate change. Multiple sentences. Many thoughts.', image_link: 'updated_climate.jpg', image_alt_text: 'Updated climate image' }
+            ],
+            :prompts_attributes => [
+              { id: prompt.id, text: 'Updated text because...', conjunction: 'because' },
+              { text: 'So we must...', conjunction: 'so' },
+              { text: 'But some still deny...', conjunction: 'but' }
+            ]
+          }
+        })
+
+        gen_ai_activity = Evidence::Research::GenAI::Activity.find_by(name: 'New title')
+        expect(gen_ai_activity).not_to be_nil
+        expect(gen_ai_activity.text).to eq(Activity.first.passages.first.text)
+        expect(gen_ai_activity.because_text).to eq(RELEVANT_TEXTS[:because_text])
+        expect(gen_ai_activity.so_text).to eq(RELEVANT_TEXTS[:so_text])
+        expect(gen_ai_activity.but_text).to eq(RELEVANT_TEXTS[:but_text])
+
+        stem_vault = Evidence::Research::GenAI::StemVault.find_by(prompt_id: Activity.first.prompts.first.id)
+        expect(stem_vault).not_to be_nil
+        expect(stem_vault.stem).to eq(Activity.first.prompts.first.text.split('because').first.strip)
+      end
+
+      it 'should not update GenAI records when ai_type is not GenAI' do
+        expect {
+          put(:update, :params => {
+            :id => activity.id,
+            :activity => {
+              :parent_activity_id => 2,
+              :scored_level => '5th grade',
+              :target_level => 9,
+              :title => 'New title',
+              :ai_type => 'non-genai',
+              :relevant_texts => RELEVANT_TEXTS,
+              :passages_attributes => [
+                { id: passage.id, text: 'Updated passage text about climate change.', image_link: 'updated_climate.jpg', image_alt_text: 'Updated climate image' }
+              ],
+              :prompts_attributes => [
+                { id: prompt.id, text: 'Updated text because...', conjunction: 'because' },
+                { text: 'So we must...', conjunction: 'so' },
+                { text: 'But some still deny...', conjunction: 'but' }
+              ]
+            }
+          })
+        }.to change { Evidence::Research::GenAI::Activity.count }.by(0)
+           .and change { Evidence::Research::GenAI::StemVault.count }.by(0)
       end
 
       it 'should make a change log record after updating Passage text' do
