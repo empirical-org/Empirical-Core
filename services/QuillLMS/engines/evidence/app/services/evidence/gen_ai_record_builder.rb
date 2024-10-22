@@ -2,7 +2,6 @@
 
 module Evidence
   class GenAiRecordBuilder < ApplicationService
-
     def initialize(activity, relevant_texts)
       @activity = activity
       @relevant_texts = relevant_texts
@@ -47,6 +46,5 @@ module Evidence
       stem_vault.save!
       stem_vault
     end
-
   end
 end

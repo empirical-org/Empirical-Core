@@ -38,7 +38,6 @@ module Evidence
         private def strip_and_downcase(text) = unescape_html_strip_tags_and_punctuation_and_downcase(text)
 
         private def stripped_passage = @stripped_passage ||= strip_and_downcase(text)
-
       end
     end
   end

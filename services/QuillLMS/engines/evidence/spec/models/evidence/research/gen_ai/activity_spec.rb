@@ -38,13 +38,12 @@ module Evidence
               text:
             )
           end
-
-          subject { activity.invalid_relevant_text_keys }
-
           let(:because_text) { 'The sky is blue.' }
           let(:but_text) { 'However, it may rain tomorrow.' }
           let(:so_text) { 'So, bring an umbrella.' }
           let(:text) { 'The sky is blue. However, it may rain tomorrow. So, bring an umbrella.' }
+
+          subject { activity.invalid_relevant_text_keys }
 
           context 'when all sentences are present in the text' do
             it { is_expected.to eq [] }
