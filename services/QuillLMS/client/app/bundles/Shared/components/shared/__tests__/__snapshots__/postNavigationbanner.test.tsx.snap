@@ -3,7 +3,7 @@
 exports[`PostNavigationBanner it should render 1`] = `
 <DocumentFragment>
   <div
-    class="banner-container green"
+    class="banner-container green green"
   >
     <div
       class="left-side-container"
@@ -31,7 +31,7 @@ exports[`PostNavigationBanner it should render 1`] = `
         class="buttons-container"
       >
         <a
-          class="quill-button-archived fun primary contained focus-on-light"
+          class="quill-button green extra-small contained focus-on-light"
           href="www.test1.com"
           rel="noopener noreferrer"
           target="_blank"
@@ -39,12 +39,12 @@ exports[`PostNavigationBanner it should render 1`] = `
           Learn more 
         </a>
         <button
-          class="quill-button-archived fun primary contained focus-on-light"
+          class="quill-button green extra-small contained focus-on-light"
         >
           View activities
         </button>
         <a
-          class="nonstandard-banner-button focus-on-light"
+          class="nonstandard-banner-button extra-small contained focus-on-light"
           href="www.test2.com"
           rel="noopener noreferrer"
           target="_blank"
@@ -56,7 +56,7 @@ exports[`PostNavigationBanner it should render 1`] = `
           />
         </a>
         <a
-          class="nonstandard-banner-button focus-on-light"
+          class="nonstandard-banner-button extra-small contained focus-on-light"
           href="www.test3.com"
           rel="noopener noreferrer"
           target="_blank"
@@ -81,7 +81,7 @@ exports[`PostNavigationBanner it should render 1`] = `
 exports[`PostNavigationBanner should render the buttons as expected 1`] = `
 <DocumentFragment>
   <div
-    class="banner-container green"
+    class="banner-container green green"
   >
     <div
       class="left-side-container"
@@ -109,7 +109,7 @@ exports[`PostNavigationBanner should render the buttons as expected 1`] = `
         class="buttons-container"
       >
         <a
-          class="quill-button-archived fun primary contained focus-on-light"
+          class="quill-button green extra-small contained focus-on-light"
           href="www.test1.com"
           rel="noopener noreferrer"
           target="_blank"
@@ -117,12 +117,12 @@ exports[`PostNavigationBanner should render the buttons as expected 1`] = `
           Learn more 
         </a>
         <button
-          class="quill-button-archived fun primary contained focus-on-light"
+          class="quill-button green extra-small contained focus-on-light"
         >
           View activities
         </button>
         <a
-          class="nonstandard-banner-button focus-on-light"
+          class="nonstandard-banner-button extra-small contained focus-on-light"
           href="www.test2.com"
           rel="noopener noreferrer"
           target="_blank"
@@ -134,7 +134,7 @@ exports[`PostNavigationBanner should render the buttons as expected 1`] = `
           />
         </a>
         <a
-          class="nonstandard-banner-button focus-on-light"
+          class="nonstandard-banner-button extra-small contained focus-on-light"
           href="www.test3.com"
           rel="noopener noreferrer"
           target="_blank"
