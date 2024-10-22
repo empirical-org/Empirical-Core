@@ -47,7 +47,7 @@ Evidence::Engine.routes.draw do
       resources :llm_prompts, only: [:show]
       resources :llm_prompt_templates, only: [:new, :create, :show, :index, :edit, :update]
 
-      resources :stem_vaults, only: [] do
+      resources :stem_vaults, only: [:stem_vaults_for_evidence_activity] do
         resources :guidelines, only: [:new, :create] do
           member { patch :hide }
         end
