@@ -239,6 +239,38 @@
   }
 }
 
+#buttons {
+  .upper-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    pre {
+      width: 100%;
+      max-width: 650px;
+      text-align: center;
+      line-height: 0;
+      padding: 24px;
+    }
+    .left-side-container, .right-side-container {
+      min-width: 200px;
+      .dropdown-container:first-of-type {
+        margin-bottom: 16px;
+      }
+    }
+  }
+  .customization-options-container {
+    display: flex;
+    margin: 48px 0px;
+    .left-side-container {
+      margin-right: 24px;
+    }
+  }
+  .customizable-button-container {
+    min-height: 64px;
+    margin-bottom: 48px;
+  }
+}
+
 #checkboxes, #radio-buttons, #lists, #buttons {
   h2 {
     font-weight: 700;
@@ -525,6 +557,7 @@
     quill-black-transparent-30: $quill-black-transparent-30,
     quill-black-transparent-20: $quill-black-transparent-20,
     quill-black-transparent-10: $quill-black-transparent-10,
+    quill-black-transparent-5: $quill-black-transparent-5,
     quill-white-transparent-90: $quill-white-transparent-90,
     quill-white-transparent-80: $quill-white-transparent-80,
     quill-white-transparent-70: $quill-white-transparent-70,
@@ -534,6 +567,7 @@
     quill-white-transparent-30: $quill-white-transparent-30,
     quill-white-transparent-20: $quill-white-transparent-20,
     quill-white-transparent-10: $quill-white-transparent-10,
+    quill-white-transparent-5: $quill-white-transparent-5,
     quill-green-transparent-90: $quill-green-transparent-90,
     quill-green-transparent-80: $quill-green-transparent-80,
     quill-green-transparent-70: $quill-green-transparent-70,
@@ -543,6 +577,7 @@
     quill-green-transparent-30: $quill-green-transparent-30,
     quill-green-transparent-20: $quill-green-transparent-20,
     quill-green-transparent-10: $quill-green-transparent-10,
+    quill-green-transparent-5: $quill-green-transparent-5,
 
     quill-green: $quill-green,
     quill-green-50: $quill-green-50,

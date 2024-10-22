@@ -1,54 +1,128 @@
 import * as React from "react";
 import _ from 'lodash';
-import { DISABLED, HOVER } from "../../../Shared";
+import { DropdownInput } from "../../../Shared";
 
-const DEFAULT = 'default'
-const BUTTON = 'Button'
-const SIZES = [{ label: 'Extra Small (XS)', value: 'extra-small' }, { label: 'Small', value: 'small' }, { label: 'Medium', value: 'medium' }, { label: 'Large', value: 'large' }, { label: 'Extra Large (XL)', value: 'extra-large' }, ]
-const STATES = [DEFAULT, HOVER, DISABLED]
-const COLORS = ['green', 'gold', 'maroon', 'blue', 'teal', 'viridian', 'purple', 'violet', 'red', 'grey']
 const WHITE_STAR_ICON_SRC = 'https://assets.quill.org/images/icons/xs/star-white.svg'
 const GREEN_STAR_ICON_SRC = 'https://assets.quill.org/images/icons/xs/star-green.svg'
 
+const BUTTON = 'Button'
+const SIZE = 'size'
+const COLOR = 'color'
+const VARIANT = 'variant'
+const ICON = 'icon'
+const DISABLED = 'disabled'
+
+const sizeOptions = [
+  { label: 'Extra Small (XS)', value: 'extra-small' },
+  { label: 'Small', value: 'small' },
+  { label: 'Medium', value: 'medium' },
+  { label: 'Large', value: 'large' },
+  { label: 'Extra Large (XL)', value: 'extra-large' }
+]
+
+const colorOptions = [
+  { label: 'Green', value: 'green'},
+  { label: 'Gold', value: 'gold'},
+  { label: 'Maroon', value: 'maroon'},
+  { label: 'Blue', value: 'blue'},
+  { label: 'Teal', value: 'teal'},
+  { label: 'Viridian', value: 'viridian'},
+  { label: 'Purple', value: 'purple'},
+  { label: 'Violet', value: 'violet'},
+  { label: 'Red', value: 'red'},
+  { label: 'Grey', value: 'grey'}
+]
+
+const variantOptions = [
+  { label: 'Contained', value: 'contained' },
+  { label: 'Outlined', value: 'outlined' },
+  { label: 'Borderless', value: 'borderless' }
+]
+
+const iconOptions = [
+  { value: '', label: 'Without icon' },
+  { value: 'icon', label: 'With icon' }
+]
+
+
+const disabledOptions = [
+  { value: '', label: 'False' },
+  { value: 'disabled', label: 'True' }
+]
+
 const Buttons = () => {
+  const [size, setSize] = React.useState<any>(sizeOptions[0]);
+  const [color, setColor] = React.useState<any>(colorOptions[0]);
+  const [variant, setVariant] = React.useState<any>(variantOptions[0]);
+  const [hasIcon, setHasIcon] = React.useState<any>(iconOptions);
+  const [isDisabled, setIsDisabled] = React.useState<any>(disabledOptions);
+
+  const setterFunctions = {
+    [SIZE]: setSize,
+    [COLOR]: setColor,
+    [VARIANT]: setVariant,
+    [ICON]: setHasIcon,
+    [DISABLED]: setIsDisabled,
+  }
+
+  function changeSavedValues(key, option) {
+    const setterFunction = setterFunctions[key]
+    setterFunction(option)
+  }
+
+  const iconStyle = hasIcon.value ? 'icon' : ''
+  const disabledStyle = isDisabled.value ? 'disabled' : ''
+  const buttonStyle = `quill-button ${size.value} ${color.value} ${variant.value} ${iconStyle} ${disabledStyle}`.trim().replace(/\s+/g, ' ')
+
   return (
     <div id="buttons">
       <h2 className="style-guide-h2">Buttons (New)</h2>
+      <div className="element-row first">
+        <div className="upper-container">
+          <pre>
+            {`
+<button className="${buttonStyle}">Button</button>`}
+          </pre>
+          <div className="customization-options-container">
+            <div className="left-side-container">
+              <DropdownInput
+                handleChange={(e) => { changeSavedValues(SIZE, e) }}
+                isSearchable={true}
+                label="Size"
+                options={sizeOptions}
+                value={size}
+              />
+              <DropdownInput
+                handleChange={(e) => { changeSavedValues(COLOR, e) }}
+                isSearchable={true}
+                label="Color"
+                options={colorOptions}
+                value={color}
+              />
+            </div>
+            <div className="right-side-container">
+              <DropdownInput
+                handleChange={(e) => { changeSavedValues(VARIANT, e) }}
+                isSearchable={true}
+                label="Variant"
+                options={variantOptions}
+                value={variant}
+              />
+              <DropdownInput
+                handleChange={(e) => { changeSavedValues(DISABLED, e) }}
+                isSearchable={true}
+                label="Disabled"
+                options={disabledOptions}
+                value={isDisabled}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="customizable-button-container">
+          <button className={buttonStyle}>{BUTTON}</button>
+        </div>
+      </div>
       <div className="variations-container">
-        <h4 className="style-guide-h4">Sizes</h4>
-        <div className="options-container">
-          {SIZES.map(({ label, value }) => {
-            return (
-              <div className="option-container">
-                <p className="option-label">{label}</p>
-                <div className="quill-button-container">
-                  <button className={`quill-button focus-on-light ${value} contained`}>{BUTTON}</button>
-                </div>
-                <p className="option-label">{`quill-button ${value} contained`}</p>
-              </div>
-            )
-          })}
-        </div>
-        <h4 className="style-guide-h4">States</h4>
-        <div className="options-container">
-          {STATES.map(state => {
-            let style = ''
-            if (state === HOVER) { style = 'hover' }
-            if (state === DISABLED) { style = 'disabled' }
-            return (
-              <div className="option-container">
-                <p className="option-label">{_.capitalize(state)}</p>
-                <div className="quill-button-container states">
-                  <button className={`quill-button focus-on-light small contained ${style}`} disabled={state === DISABLED}>{BUTTON}</button>
-                  <button className={`quill-button focus-on-light small outlined ${style}`} disabled={state === DISABLED}>{BUTTON}</button>
-                  <button className={`quill-button focus-on-light small outlined grey ${style}`} disabled={state === DISABLED}>{BUTTON}</button>
-                </div>
-                {state === DISABLED && <p className="option-label">{`quill-button small contained ${style}`}</p>}
-              </div>
-            )
-          })}
-        </div>
-        <h4 className="style-guide-h4">Icon</h4>
         <div className="options-container">
           <div className="option-container">
             <p className="option-label">With Icon</p>
@@ -64,50 +138,6 @@ const Buttons = () => {
             </div>
             <p className="option-label">quill-button small contained icon</p>
           </div>
-          <div className="option-container">
-            <p className="option-label">Without Icon</p>
-            <div className="quill-button-container states">
-              <button className="quill-button focus-on-light small contained">{BUTTON}</button>
-              <button className="quill-button focus-on-light small outlined">{BUTTON}</button>
-            </div>
-          </div>
-        </div>
-        <h4 className="style-guide-h4">Variants</h4>
-        <div className="options-container">
-          <div className="option-container">
-            <p className="option-label">Contained</p>
-            <div className="quill-button-container variants">
-              {COLORS.map(color => (
-                <button className={`quill-button focus-on-light small contained ${color}`}>{BUTTON}</button>
-              ))}
-            </div>
-            <p className="option-label">{'quill-button small contained {color}'}</p>
-          </div>
-          <div className="option-container">
-            <p className="option-label">Outlined</p>
-            <div className="quill-button-container variants">
-              {COLORS.map(color => (
-                <button className={`quill-button focus-on-light small outlined ${color}`}>{BUTTON}</button>
-              ))}
-            </div>
-            <p className="option-label">{'quill-button small outlined {color}'}</p>
-          </div>
-        </div>
-        <h4 className="style-guide-h4">Colors</h4>
-        <div className="options-container">
-          {COLORS.map((color, i) => {
-            const label = i === 0 ? 'Default (Green)' : _.capitalize(color)
-            return (
-              <div className="option-container">
-                <p className="option-label">{label}</p>
-                <div className="quill-button-container colors">
-                  <button className={`quill-button focus-on-light small contained ${color}`}>{BUTTON}</button>
-                  <button className={`quill-button focus-on-light small contained hover ${color}`}>{BUTTON}</button>
-                </div>
-                <p className="option-label">{`quill-button small contained ${color}`}</p>
-              </div>
-            )
-          })}
         </div>
       </div>
     </div>
