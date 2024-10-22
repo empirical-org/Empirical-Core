@@ -14,7 +14,7 @@ module Evidence
   module Research
     module GenAI
       FactoryBot.define do
-        factory :evidence_research_gen_ai_llm_prompt_relevant_text, class: 'Evidence::LLMPromptResearch::GenAI::RelevantText' do
+        factory :evidence_research_gen_ai_llm_prompt_relevant_text, class: 'Evidence::Research::GenAI::LLMPromptRelevantText' do
           llm_prompt { association :evidence_research_gen_ai_llm_prompt }
           relevant_text { association :evidence_research_gen_ai_relevant_text }
         end
