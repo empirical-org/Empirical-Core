@@ -3636,7 +3636,6 @@ CREATE TABLE public.evidence_research_gen_ai_stem_vaults (
     conjunction character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    automl_data jsonb DEFAULT '{}'::jsonb NOT NULL,
     prompt_id integer
 );
 
@@ -11878,7 +11877,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20241022194330'),
 ('20241022194329'),
 ('20241016130048'),
-('20241004133706'),
 ('20241002164211'),
 ('20240926201615'),
 ('20240925185730'),

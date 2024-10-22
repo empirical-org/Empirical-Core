@@ -5,7 +5,6 @@
 # Table name: evidence_research_gen_ai_stem_vaults
 #
 #  id          :bigint           not null, primary key
-#  automl_data :jsonb            not null
 #  conjunction :string           not null
 #  stem        :text             not null
 #  created_at  :datetime         not null
