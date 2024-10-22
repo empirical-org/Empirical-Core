@@ -25,6 +25,7 @@ Rails.autoloaders.each do |autoloader|
     'llm_prompt_builder' => 'LLMPromptBuilder',
     'llm_prompt_guideline' => 'LLMPromptGuideline',
     'llm_prompt_prompt_example' => 'LLMPromptPromptExample',
+    'llm_prompt_relevant_text' => 'LLMPromptRelevantText',
     'llm_prompt_template' => 'LLMPromptTemplate',
     'llm_prompt_templates_controller' => 'LLMPromptTemplatesController',
     'llms' => 'LLMs',
