@@ -17,8 +17,8 @@ module Evidence
     module GenAI
       FactoryBot.define do
         factory :evidence_research_gen_ai_dataset_relevant_text, class: 'Evidence::Research::GenAI::DatasetRelevantText' do
-          text { 'This is the text' }
-          notes { 'These are the notes' }
+          dataset { association :evidence_research_gen_ai_dataset }
+          relevant_text { association :evidence_research_gen_ai_relevant_text }
         end
       end
     end
