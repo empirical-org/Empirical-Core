@@ -21,7 +21,7 @@ module Evidence
     def create
       if @activity.save
         @activity.create_default_regex_rules
-        handle_gen_ai_records(@activity, relevant_texts) if relevant_texts
+        Evidence::GenAiRecordBuilder.run(@activity, relevant_texts) if relevant_texts
 
         changelog_params = {
           action: Evidence.change_log_class::EVIDENCE_ACTIONS[:create],
@@ -43,7 +43,7 @@ module Evidence
     # PATCH/PUT /activities/1.json
     def update
       if @activity.update(activity_params)
-        handle_gen_ai_records(@activity, relevant_texts) if relevant_texts
+        Evidence::GenAiRecordBuilder.run(@activity, relevant_texts) if relevant_texts
         head :no_content
       else
         render json: @activity.errors, status: :unprocessable_entity
@@ -158,32 +158,6 @@ module Evidence
       render json: {
         invalid_related_texts: @activity.invalid_related_texts
       }
-    end
-
-    private def handle_gen_ai_records(activity, relevant_texts)
-      return unless activity.gen_ai?
-
-      relevant_texts.keys.each do |relevant_text_key|
-        conjunction = Evidence::Research::GenAI::StemVault::RELEVANT_TEXTS.key(relevant_text_key.to_sym)
-        prompt = activity.prompts.find_by(conjunction:)
-
-        gen_ai_activity = prompt.stem_vault&.activity || Evidence::Research::GenAI::Activity.find_or_initialize_by(name: activity.title)
-
-        gen_ai_activity.text = activity.passages.first&.text
-        gen_ai_activity[relevant_text_key] = relevant_texts[relevant_text_key]
-
-        gen_ai_activity.save!
-
-        stem_vault = Evidence::Research::GenAI::StemVault.find_or_initialize_by(
-          prompt: prompt,
-          activity: gen_ai_activity,
-          conjunction: prompt.conjunction
-        )
-
-        stem_vault.stem = prompt.text.split(prompt.conjunction).first.strip
-
-        stem_vault.save!
-      end
     end
 
     private def set_activity
