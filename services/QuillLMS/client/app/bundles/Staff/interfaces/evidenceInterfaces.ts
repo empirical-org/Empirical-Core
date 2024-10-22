@@ -31,7 +31,7 @@ export interface ActivityInterface {
   passage_attributes?: PassagesInterface[],
   prompt_attributes?: PromptInterface[],
   invalid_related_texts?: InvalidHighlight[];
-  invalid_relevant_texts?: string[];
+  invalid_relevant_text_keys?: string[];
   relevant_texts?: RelevantTextsInterface
 }
 

@@ -19,10 +19,6 @@ module Evidence
 
     # POST /activities.json
     def create
-      if activity_params[:relevant_texts]
-        relevant_texts = activity_params.delete(:relevant_texts)
-      end
-
       if @activity.save
         @activity.create_default_regex_rules
         handle_gen_ai_records(@activity, relevant_texts) if relevant_texts
@@ -46,13 +42,7 @@ module Evidence
 
     # PATCH/PUT /activities/1.json
     def update
-      params_to_save = activity_params
-
-      if params_to_save[:relevant_texts]
-        relevant_texts = params_to_save.delete(:relevant_texts)
-      end
-
-      if @activity.update(params_to_save)
+      if @activity.update(activity_params)
         handle_gen_ai_records(@activity, relevant_texts) if relevant_texts
         head :no_content
       else
@@ -171,7 +161,7 @@ module Evidence
     end
 
     private def handle_gen_ai_records(activity, relevant_texts)
-      return unless activity.ai_type == Evidence::Activity::GEN_AI
+      return unless activity.gen_ai?
 
       relevant_texts.keys.each do |relevant_text_key|
         conjunction = Evidence::Research::GenAI::StemVault::RELEVANT_TEXTS.key(relevant_text_key.to_sym)
@@ -200,7 +190,7 @@ module Evidence
       if params[:id].present?
         @activity = Evidence::Activity.find(params[:id])
       else
-        @activity = Evidence::Activity.new(activity_params.except(:relevant_texts))
+        @activity = Evidence::Activity.new(activity_params)
         @activity.version = 1
       end
     end
@@ -233,10 +223,17 @@ module Evidence
         :flag,
         :ai_type,
         passages_attributes: [:id, :text, :image_link, :image_alt_text, :image_caption, :image_attribution, :highlight_prompt, :essential_knowledge_text],
-        prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :first_strong_example, :second_strong_example],
-        relevant_texts: [:because_text, :so_text, :but_text]
+        prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :first_strong_example, :second_strong_example]
       )
     end
+
+    private def relevant_text_params
+      params.require(:activity).permit(
+        [relevant_texts: [:because_text, :but_text, :so_text]]
+      )
+    end
+
+    private def relevant_texts = relevant_text_params['relevant_texts']&.to_h || {} # rubocop:disable Lint/RedundantSafeNavigation
 
     private def clean_label_configs(configs_hash)
       configs_hash.transform_values do |configs|

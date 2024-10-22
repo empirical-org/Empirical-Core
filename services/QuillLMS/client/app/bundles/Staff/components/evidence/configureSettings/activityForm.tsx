@@ -22,7 +22,7 @@ interface ActivityFormProps {
 const relevantTextErrorMessage = <span className="all-errors-message">This text contains at least one sentence that is not the same as the text in the passage.</span>
 
 const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormProps) => {
-  const { id, parent_activity_id, invalid_related_texts, passages, prompts, title, notes, flag, ai_type, relevant_texts, invalid_relevant_texts, } = activity;
+  const { id, parent_activity_id, invalid_related_texts, passages, prompts, title, notes, flag, ai_type, relevant_texts, invalid_relevant_text_keys, } = activity;
   const formattedPassage = passages && passages.length ? passages : [{ text: '', highlight_prompt: DEFAULT_HIGHLIGHT_PROMPT, essential_knowledge_text: '' }];
   const formattedPrompts = promptsByConjunction(prompts);
   const becausePrompt = formattedPrompts && formattedPrompts[BECAUSE] ? formattedPrompts[BECAUSE] : buildBlankPrompt(BECAUSE);
@@ -153,21 +153,21 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
             key="because-relevant-text"
             text={relevantTexts.because_text}
           />
-          {invalid_relevant_texts?.includes('because_text') && relevantTextErrorMessage}
+          {invalid_relevant_text_keys?.includes('because_text') && relevantTextErrorMessage}
           <p className="text-editor-label">Relevant Text - But</p>
           <TextEditor
             handleTextChange={handleSetButRelevantText}
             key="but-relevant-text"
             text={relevantTexts.but_text}
           />
-          {invalid_relevant_texts?.includes('but_text') && relevantTextErrorMessage}
+          {invalid_relevant_text_keys?.includes('but_text') && relevantTextErrorMessage}
           <p className="text-editor-label">Relevant Text - So</p>
           <TextEditor
             handleTextChange={handleSetSoRelevantText}
             key="so-relevant-text"
             text={relevantTexts.so_text}
           />
-          {invalid_relevant_texts?.includes('so_text') && relevantTextErrorMessage}
+          {invalid_relevant_text_keys?.includes('so_text') && relevantTextErrorMessage}
         </React.Fragment>
       )}
     </React.Fragment>
@@ -235,7 +235,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
     return {
       id: i,
       component,
-      added: validateFormSection({ label, activityPassages, activityBecausePrompt, activityButPrompt, activitySoPrompt, aiType, relevantTexts, invalidRelevantTexts: invalid_relevant_texts })
+      added: validateFormSection({ label, activityPassages, activityBecausePrompt, activityButPrompt, activitySoPrompt, aiType, relevantTexts, invalidRelevantTexts: invalid_relevant_text_keys })
     }
   });
 

@@ -26,25 +26,19 @@ module Evidence
 
         def to_s = name
 
-        def invalid_relevant_texts
-          invalid_keys = []
-          relevant_texts = {
-            because_text: because_text,
-            but_text: but_text,
-            so_text: so_text
-          }
-
-          stripped_passage = unescape_html_strip_tags_and_punctuation_and_downcase(text)
-
-          relevant_texts.each do |key, value|
+        def invalid_relevant_text_keys
+          relevant_texts.each_with_object([]) do |(key, value), invalid_keys|
             sentences = value.split(/(?<=[.!?])/).map(&:strip)
-            sentences.each do |sentence|
-              invalid_keys << key unless stripped_passage.include?(unescape_html_strip_tags_and_punctuation_and_downcase(sentence))
-            end
-          end
-
-          invalid_keys.uniq
+            invalid_keys << key if sentences.any? { |sentence| !stripped_passage.include?(strip_and_downcase(sentence)) }
+          end.uniq
         end
+
+        private def relevant_texts = { because_text:, but_text:, so_text: }
+
+        private def strip_and_downcase(text) = unescape_html_strip_tags_and_punctuation_and_downcase(text)
+
+        private def stripped_passage = @stripped_passage ||= strip_and_downcase(text)
+
       end
     end
   end

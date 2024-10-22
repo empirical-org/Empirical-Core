@@ -111,7 +111,7 @@ module Evidence
       super(options.reverse_merge(
         only: [:id, :parent_activity_id, :title, :version, :notes, :target_level, :scored_level, :ai_type],
         include: [:passages, :prompts],
-        methods: [:invalid_related_texts, :flag, :relevant_texts, :invalid_relevant_texts]
+        methods: [:invalid_related_texts, :flag, :relevant_texts, :invalid_relevant_text_keys]
       ))
     end
 
@@ -127,10 +127,14 @@ module Evidence
       evidence_research_gen_ai_activities&.first
     end
 
-    def invalid_relevant_texts
+    def gen_ai? = ai_type == GEN_AI
+    def rag? = ai_type == RAG
+    def automl? = ai_type == AUTOML
+
+    def invalid_relevant_text_keys
       return unless evidence_research_gen_ai_activity
 
-      evidence_research_gen_ai_activity.invalid_relevant_texts
+      evidence_research_gen_ai_activity.invalid_relevant_text_keys
     end
 
     def relevant_texts
