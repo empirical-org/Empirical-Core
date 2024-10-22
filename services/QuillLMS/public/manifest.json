@@ -42,6 +42,6 @@
         "purpose": "any"
       }
     ],
-    "start_url": "https://www.quill.org/",
-    "display": "minimal-ui"
+    "start_url": "https://cissy.quill.org/",
+    "display": "standalone"
 }

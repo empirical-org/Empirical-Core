@@ -36,6 +36,8 @@
   <meta property="twitter:image"         content="<%= @image_link || "https:#{image_url('share/facebook.png')}" %>" />
   <meta name="description" content="<%= @description || @content %>">
   <meta name="og:description" content="<%= @description || @content %>">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="apple-touch-icon" href="<%= ENV['CDN_URL'].gsub(/[‘’]/, '') + "/images/logos/apple-touch-icon.png" %>">
   <link rel="canonical" href="https://www.quill.org<%= request.path %>">
   <link rel="manifest" href="manifest.json" />
