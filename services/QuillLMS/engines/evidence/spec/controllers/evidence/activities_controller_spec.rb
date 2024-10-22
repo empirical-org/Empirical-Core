@@ -98,7 +98,9 @@ module Evidence
         expect(Activity.count).to(eq(1))
       end
 
-      it 'should create GenAI records when ai_type is GenAI, relevant_texts, and passage are provided' do
+      it 'should call the GenAiRecordBuilder when ai_type is GenAI, relevant_texts, and passage are provided' do
+        expect(GenAiRecordBuilder).to receive(:run)
+
         post(:create, :params => {
           :activity => {
             :parent_activity_id => activity.parent_activity_id,
@@ -118,21 +120,8 @@ module Evidence
             ]
           }
         })
-
-        gen_ai_activity = Evidence::Research::GenAI::Activity.find_by(name: 'First Activity')
-        expect(gen_ai_activity).not_to be_nil
-        expect(gen_ai_activity.text).to eq(Activity.first.passages.first.text)
-        expect(gen_ai_activity.because_text).to eq(relevant_texts[:because_text])
-        expect(gen_ai_activity.so_text).to eq(relevant_texts[:so_text])
-        expect(gen_ai_activity.but_text).to eq(relevant_texts[:but_text])
-
-        # Validate StemVault creation
-        stem_vault = Evidence::Research::GenAI::StemVault.find_by(prompt_id: Activity.first.prompts.first.id)
-        expect(stem_vault).not_to be_nil
-        expect(stem_vault.stem).to eq(Activity.first.prompts.first.text.split('because').first.strip)
       end
 
-      # GenAI test: should not create GenAI records when ai_type is not GenAI
       it 'should not create GenAI records when ai_type is not GenAI' do
         expect {
           post(:create, :params => {
@@ -325,7 +314,9 @@ module Evidence
         expect(activity.title).to(eq('New title'))
       end
 
-      it 'should update GenAI records when ai_type is GenAI, relevant_texts, and passage are provided' do
+      it 'should call the GenAiRecordBuilder records when ai_type is GenAI, relevant_texts, and passage are provided' do
+        expect(GenAiRecordBuilder).to receive(:run)
+
         put(:update, :params => {
           :id => activity.id,
           :activity => {
@@ -345,17 +336,6 @@ module Evidence
             ]
           }
         })
-
-        gen_ai_activity = Evidence::Research::GenAI::Activity.find_by(name: 'New title')
-        expect(gen_ai_activity).not_to be_nil
-        expect(gen_ai_activity.text).to eq(Activity.first.passages.first.text)
-        expect(gen_ai_activity.because_text).to eq(relevant_texts[:because_text])
-        expect(gen_ai_activity.so_text).to eq(relevant_texts[:so_text])
-        expect(gen_ai_activity.but_text).to eq(relevant_texts[:but_text])
-
-        stem_vault = Evidence::Research::GenAI::StemVault.find_by(prompt_id: Activity.first.prompts.first.id)
-        expect(stem_vault).not_to be_nil
-        expect(stem_vault.stem).to eq(Activity.first.prompts.first.text.split('because').first.strip)
       end
 
       it 'should not update GenAI records when ai_type is not GenAI' do

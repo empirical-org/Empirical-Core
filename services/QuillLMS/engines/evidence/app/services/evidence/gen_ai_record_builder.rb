@@ -44,7 +44,6 @@ module Evidence
       )
 
       stem_vault.stem = prompt.text.split(prompt.conjunction).first.strip
-
       stem_vault.save!
       stem_vault
     end
