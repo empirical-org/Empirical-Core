@@ -38,7 +38,7 @@
   <meta name="og:description" content="<%= @description || @content %>">
   <link rel="apple-touch-icon" href="<%= ENV['CDN_URL'].gsub(/[‘’]/, '') + "/images/logos/apple-touch-icon.png" %>">
   <link rel="canonical" href="https://www.quill.org<%= request.path %>">
-  <link rel="manifest" href="<%= ENV['DEFAULT_URL'] + "/manifest.json" %>" />
+  <link rel="manifest" href="/manifest.json" />
 
   <script defer src="<%= ENV['FONT_AWESOME_KIT_LINK'] %>" crossorigin="anonymous" integrity="sha384-p7JrABPXxZLpj1XoHTzkPyVs8ekVssRFXc4B7XU6Z1c8XVDA7sVPem/lQ9UouxqE"></script>
   <!-- Inspectlet tracking -->
