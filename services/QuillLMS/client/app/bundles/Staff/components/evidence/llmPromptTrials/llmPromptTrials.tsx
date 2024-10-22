@@ -1,18 +1,16 @@
 import * as React from "react";
 import { useQuery } from 'react-query';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { stripHtml } from "string-strip-html";
+import { RouteComponentProps } from 'react-router-dom';
 import moment from 'moment';
 
-import { BECAUSE, BUT, PLAGIARISM, SO } from '../../../../../constants/evidence';
-import { DataTable, Error, Spinner } from '../../../../Shared/index';
+import { BECAUSE, BUT, SO } from '../../../../../constants/evidence';
+import { DataTable, Spinner } from '../../../../Shared/index';
 import { titleCase } from "../../../helpers/evidence/miscHelpers";
-import { promptsByConjunction } from "../../../helpers/evidence/promptHelpers";
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { getPromptIdString } from '../../../helpers/evidence/ruleHelpers';
-import { ActivityRouteProps, StemVaultInterface } from '../../../interfaces/evidenceInterfaces';
+import { ActivityRouteProps, StemVaultInterface, DatasetInterface } from '../../../interfaces/evidenceInterfaces';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
-import { fetchStemVaultsForEvidenceActivity } from '../../../utils/evidence/genAIAPIs';
+import { fetchStemVaultsForEvidenceActivity, uploadDataset, } from '../../../utils/evidence/genAIAPIs';
 
 const dataTableFields = [
   {
@@ -57,14 +55,15 @@ const dataTableFields = [
   },
 ]
 
-const DatasetTable = ({ datasets, }) => {
+const DatasetTable = ({ datasets, }: { datasets: DatasetInterface[]}) => {
   function rows() {
     return datasets.map(dataset => {
-      const { optimal_count, suboptimal_count, version, created_at, notes, trial_count, } = dataset
+      const { id, optimal_count, suboptimal_count, version, created_at, notes, trial_count, } = dataset
 
       return {
+        id,
         datasetVersion: `Dataset ${version}`,
-        created: moment(created_at).format("MM/DD/YY HH:MM A"),
+        created: moment(created_at).format("MM/DD/YY"),
         notes,
         totalTestResponsesCount: optimal_count + suboptimal_count,
         optimalTestResponsesCount: optimal_count,
@@ -81,6 +80,68 @@ const DatasetTable = ({ datasets, }) => {
       headers={dataTableFields}
       rows={rows()}
     />
+  )
+}
+
+const NewDatasetModal = ({ stemVault, closeModal, }) => {
+  // const AdminVerificationModal = ({ confirmFunction, headerText, bodyText, closeModal, }) => (
+  const [file, setFile] = React.useState();
+  const [notes, setNotes] = React.useState('');
+
+  function handleOnChange(e) {
+    setFile(e.target.files[0]);
+  };
+
+  function errorFunction(e) {
+    debugger;
+  }
+
+  function uploadData() {
+    uploadDataset(stemVault, file, notes, closeModal, errorFunction)
+  }
+
+  return (
+    <div className="modal-container new-dataset-modal-container">
+      <div className="modal-background" />
+      <div className="new-dataset-modal quill-modal modal-body">
+        <div className="top-section">
+          <h3>New Dataset</h3>
+          <input
+            type="file"
+            accept=".csv"
+            onChange={handleOnChange}
+        />
+
+        </div>
+        <div className="button-section">
+          <button className="quill-button medium outlined focus-on-light" onClick={closeModal} type="button">Cancel</button>
+          <button className="quill-button medium contained focus-on-light" onClick={uploadData} type="button">Upload</button>
+        </div>
+      </div>
+    </div>
+  )
+  // export default AdminVerificationModal
+
+}
+
+const StemVaultSection = ({ stemVault, }: { stemVault: StemVaultInterface, }) => {
+  const [showNewDatasetModal, setShowNewDatasetModal] = React.useState<boolean>(false)
+
+  const { conjunction, datasets, } = stemVault
+
+  function openNewDatasetModal() { setShowNewDatasetModal(true) }
+
+  function closeNewDatasetModal() { setShowNewDatasetModal(false) }
+
+  return (
+    <section>
+      {showNewDatasetModal && <NewDatasetModal closeModal={closeNewDatasetModal} confirmFunction={() => {}} stemVault={stemVault}  />}
+      <h5>
+        <span>{titleCase(conjunction)} Datasets</span>
+        <button className="quill-button small outlined" onClick={openNewDatasetModal} type="button">New</button>
+      </h5>
+      <DatasetTable datasets={datasets} />
+    </section>
   )
 }
 
@@ -117,15 +178,16 @@ const LLMPromptTrials: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
 
   if (!stemVaults) { return <Spinner /> }
 
+  const becauseStemVault = stemVaults.find(sv => sv.conjunction === BECAUSE)
+  const butStemVault = stemVaults.find(sv => sv.conjunction === BUT)
+  const soStemVault = stemVaults.find(sv => sv.conjunction === SO)
+
   return (
     <div className="llm-prompt-trials-container">
       {renderHeader(activityData, 'LLM Prompt Datasets')}
-      <h5>Because Datasets</h5>
-      <DatasetTable datasets={stemVaults.find(sv => sv.conjunction === BECAUSE).datasets} />
-      <h5>But Datasets</h5>
-      <DatasetTable datasets={stemVaults.find(sv => sv.conjunction === BUT).datasets} />
-      <h5>So Datasets</h5>
-      <DatasetTable datasets={stemVaults.find(sv => sv.conjunction === SO).datasets} />
+      <StemVaultSection stemVault={becauseStemVault} />
+      <StemVaultSection stemVault={butStemVault} />
+      <StemVaultSection stemVault={soStemVault} />
     </div>
   )
 }

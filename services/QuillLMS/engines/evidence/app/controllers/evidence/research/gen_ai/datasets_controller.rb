@@ -9,6 +9,10 @@ module Evidence
         end
 
         def create
+          puts 'file_upload?', file_upload?
+          puts 'dataset_params', dataset_params
+          puts 'params', params
+          puts 'params[:research_gen_ai_dataset][:file]', params[:research_gen_ai_dataset][:file]
           if data_subset?
             redirect_to DataSubsetBuilder.run(parent_id:, test_example_ids:)
           elsif file_upload?

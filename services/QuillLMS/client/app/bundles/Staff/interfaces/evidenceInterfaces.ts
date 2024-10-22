@@ -17,6 +17,7 @@ export interface RelevantTextsInterface {
 }
 
 export interface DatasetInterface {
+  id: number;
   optimal_count: number;
   suboptimal_count: number;
   version: number;
