@@ -43,6 +43,13 @@ module Evidence
 
         delegate :name, :because_text, :but_text, :so_text, to: :activity
 
+        def serializable_hash(options = nil)
+          options ||= {}
+          super(options.reverse_merge(
+            include: [:datasets],
+          ))
+        end
+
         def full_text = activity.text
 
         def relevant_text = send(RELEVANT_TEXTS[conjunction])

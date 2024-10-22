@@ -42,7 +42,7 @@ module Evidence
         conjunction: prompt.conjunction
       )
 
-      stem_vault.stem = prompt.text.split(prompt.conjunction).first.strip
+      stem_vault.stem = prompt.text.rpartition(prompt.conjunction).first.strip
       stem_vault.save!
       stem_vault
     end

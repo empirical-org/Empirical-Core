@@ -2,7 +2,7 @@
 
 module Evidence
   class ActivitiesController < ApiController
-    before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :seed_data, :change_logs, :labeled_synthetic_data, :topic_optimal_info, :invalid_related_texts]
+    before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :seed_data, :change_logs, :labeled_synthetic_data, :topic_optimal_info, :invalid_related_texts, :stem_vaults]
     before_action :set_lms_user_id, only: [:create, :destroy, :update]
 
     # GET /activities.json
@@ -66,6 +66,10 @@ module Evidence
       }
       Evidence.change_log_class.create!(changelog_params)
       head :no_content
+    end
+
+    def stem_vaults
+      render json: @activity.stem_vaults
     end
 
     # DELETE /activities/1.json

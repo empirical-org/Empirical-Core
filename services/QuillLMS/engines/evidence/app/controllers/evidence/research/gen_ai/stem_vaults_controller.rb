@@ -26,15 +26,7 @@ module Evidence
           @suboptimal_guidelines = @stem_vault.guidelines.suboptimal.visible
         end
 
-        def stem_vaults_for_evidence_activity
-          render json: {
-            stem_vaults: evidence_activity.stem_vaults.include(:datasets)
-          }
-        end
-
         private def activity = @activity ||= Activity.find(params[:activity_id])
-
-        private def evidence_activity = @evidence_activity ||= Evidence::Activity.find(params[:evidence_activity_id])
 
         private def stem_vault_params
           params

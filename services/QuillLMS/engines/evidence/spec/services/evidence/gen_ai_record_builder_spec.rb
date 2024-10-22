@@ -59,7 +59,7 @@ module Evidence
       it 'should update the stem vault for each prompt' do
         prompts.each do |prompt|
           stem_vault = Evidence::Research::GenAI::StemVault.find_by(prompt_id: prompt.id)
-          expect(stem_vault.reload.stem).to eq(prompt.text.split(prompt.conjunction).first.strip)
+          expect(stem_vault.reload.stem).to eq(prompt.text.rpartition(prompt.conjunction).first.strip)
         end
       end
     end

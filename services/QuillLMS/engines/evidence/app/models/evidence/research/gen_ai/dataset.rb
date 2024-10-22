@@ -44,8 +44,16 @@ module Evidence
 
         before_validation :set_version
 
+        def serializable_hash(options = nil)
+          options ||= {}
+          super(options.reverse_merge(
+            methods: [:trial_count]
+          ))
+        end
+
         def whole? = parent_id.nil?
         def subset? = parent_id.present?
+        def trial_count = trials.count
 
         def set_version
           existing_version = self.class.where(parent_id:, stem_vault:).order(version: :desc).first&.version
