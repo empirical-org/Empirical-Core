@@ -10,7 +10,7 @@ exports[`StemVaultSection matches snapshot 1`] = `
         Because Datasets
       </span>
       <button
-        class="quill-button small outlined"
+        class="quill-button extra-small outlined"
         type="button"
       >
         New

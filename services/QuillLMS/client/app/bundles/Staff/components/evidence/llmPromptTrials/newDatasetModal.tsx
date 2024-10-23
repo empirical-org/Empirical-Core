@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { TextArea, DarkButtonLoadingSpinner, } from '../../../../Shared/index';
+import { TextArea, LightButtonLoadingSpinner, } from '../../../../Shared/index';
 import { uploadDataset, } from '../../../utils/evidence/genAIAPIs';
 
 const NewDatasetModal = ({ stemVault, closeModal, }) => {
@@ -48,7 +48,7 @@ const NewDatasetModal = ({ stemVault, closeModal, }) => {
         </div>
         <div className="button-section">
           <button className="quill-button medium outlined focus-on-light" onClick={closeModal} type="button">Cancel</button>
-          <button className="quill-button medium contained focus-on-light" disabled={uploading} onClick={uploadData} type="button">{uploading ? <DarkButtonLoadingSpinner /> : 'Upload'}</button>
+          <button className="quill-button medium contained focus-on-light" disabled={uploading} onClick={uploadData} type="button">{uploading ? <LightButtonLoadingSpinner /> : 'Upload'}</button>
         </div>
       </div>
     </div>
