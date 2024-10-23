@@ -746,6 +746,5 @@ module Evidence
         expect(parsed_response).to eq(expected_response)
       end
     end
-
   end
 end

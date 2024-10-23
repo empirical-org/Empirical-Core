@@ -22,7 +22,7 @@ const mockStemVault = {
 
 const renderComponent = (closeModal: jest.Mock) => {
   return render(
-    <NewDatasetModal stemVault={mockStemVault} closeModal={closeModal} />
+    <NewDatasetModal closeModal={closeModal} stemVault={mockStemVault} />
   );
 };
 
