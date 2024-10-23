@@ -14,14 +14,14 @@ jest.mock('../newDatasetModal', () => jest.fn(({ closeModal }) => (
 const mockStemVault: StemVaultInterface = {
   activity_id: 1,
   conjunction: 'because',
-  created_at: '2023-01-01T00:00:00Z',
+  created_at: '2023-01-01T12:00:00Z',
   datasets: [
     {
       id: 1,
       optimal_count: 10,
       suboptimal_count: 5,
       version: 1,
-      created_at: '2023-01-01T00:00:00Z',
+      created_at: '2023-01-01T12:00:00Z',
       notes: 'Sample dataset notes',
       trial_count: 3,
     },
@@ -29,7 +29,7 @@ const mockStemVault: StemVaultInterface = {
   id: 1,
   prompt_id: 1,
   stem: 'Sample Stem',
-  updated_at: '2023-01-02T00:00:00Z',
+  updated_at: '2023-01-02T12:00:00Z',
 };
 
 const renderComponent = (stemVault: StemVaultInterface) => {
