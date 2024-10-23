@@ -1,13 +1,35 @@
 .llm-prompt-trials-container {
-  .modal-background {
-    z-index: 2;
-  }
   h5 {
     margin-bottom: 16px;
     span {
       font-weight: 600;
       margin-right: 8px;
       font-size: 16px;
+    }
+  }
+
+  .modal-background {
+    z-index: 2;
+  }
+
+  .new-dataset-modal {
+    width: 500px;
+    h3 {
+      font-weight: 600;
+      margin-top: 0px;
+      margin-bottom: 16px;
+      font-size: 20px;
+    }
+
+    input {
+      margin: 12px 0px;
+    }
+
+    .button-section {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      gap: 12px;
     }
   }
 }

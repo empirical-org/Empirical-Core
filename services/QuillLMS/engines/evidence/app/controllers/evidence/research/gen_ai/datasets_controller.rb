@@ -9,7 +9,7 @@ module Evidence
         end
 
         def create
-          # we can clean this up once we have full functionality in the Evidence CMS and no longer need the erb tool
+          # TODO: clean this up once we have full functionality in the Evidence CMS and no longer need the erb tool
           respond_to do |format|
             format.html do
               if data_subset?
