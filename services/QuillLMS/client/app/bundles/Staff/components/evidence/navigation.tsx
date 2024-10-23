@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 
 import SubmissionModal from "./shared/submissionModal";
 import { fetchActivity } from "../../utils/evidence/activityAPIs";
-import { GEN_AI_AI_TYPE } from "../../../../constants/evidence";
+import { GEN_AI_AI_TYPE, BECAUSE, BUT, SO, } from "../../../../constants/evidence";
 
 const NEW = "new";
 const RULES_ANALYSIS_PATH = "rules-analysis"
@@ -12,7 +12,7 @@ const SEMANTIC_LABELS_PATH = "semantic-labels"
 const RULES_INDEX_PATH = "rules-index"
 const LLM_PROMPT_TRIALS_PATH = "llm-prompt-trials"
 
-const subLinkPaths = ["because", "but", "so"];
+const subLinkPaths = [BECAUSE, BUT, SO];
 
 const Navigation = ({ location, match }) => {
   const { pathname } = location;
