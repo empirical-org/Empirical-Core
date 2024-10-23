@@ -149,13 +149,16 @@ const greenNumbers = [null, 50, 20, 15, 10, 5, 1]
 const colorNumbers = [null, 50, 20, 10, 5, 1]
 const transparentColorNumbers = [90, 80, 70, 60, 50, 40, 30, 20, 10, 5]
 
-const renderElement =(title, variableName) => (
-  <div className="element" key={variableName}>
-    <span>{title}</span>
-    <code>${variableName}</code>
-    <div className={variableName} />
-  </div>
-)
+const renderElement =(title, variableName) => {
+  const className = variableName.includes('quill-white-transparent') ? 'element white-transparent' : 'element'
+  return(
+    <div className={className} key={variableName}>
+      <span>{title}</span>
+      <code>${variableName}</code>
+      <div className={variableName} />
+    </div>
+  )
+}
 
 
 const ColorPalette = () => {

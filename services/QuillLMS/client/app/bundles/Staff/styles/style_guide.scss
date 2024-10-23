@@ -532,6 +532,13 @@
     border-bottom: 1px solid $quill-grey-10;
     border-right: 1px solid $quill-grey-10;
     position: relative;
+    &.white-transparent {
+      background-color: $quill-grey-90;
+      color: $quill-white;
+      code {
+        background-color: $quill-grey-90;
+      }
+    }
     div {
       width: 40px;
       height: 40px;
