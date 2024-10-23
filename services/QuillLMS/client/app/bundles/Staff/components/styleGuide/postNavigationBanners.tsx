@@ -78,7 +78,6 @@ const PostNavigationBanners = () => {
     buttons={[
       {
         href: "",
-        standardButtonStyle: false,
         text: "Archive Classes",
         target: "_blank"
       }
@@ -107,7 +106,6 @@ const PostNavigationBanners = () => {
             buttons={[
               {
                 href: "",
-                standardButtonStyle: false,
                 text: "Archive Classes",
                 target: "_blank"
               }
@@ -142,13 +140,13 @@ const PostNavigationBanners = () => {
       },
       {
         href: "",
-        standardButtonStyle: false,
+        className: "extra-small outlined",
         text: "See tool demo",
         target: "_blank"
       },
       {
         href: "",
-        standardButtonStyle: false,
+        className: "extra-small outlined",
         text: "Get the Teacher Handbook",
         target: "_blank"
       },
@@ -179,25 +177,23 @@ const PostNavigationBanners = () => {
               {
                 href: "",
                 text: "Learn more",
-                standardButtonStyle: true,
                 target: "_blank"
               },
               {
                 href: "",
                 text: "View activities",
-                standardButtonStyle: true,
                 target: "_blank"
               },
               {
                 href: "",
                 text: "See tool demo",
-                standardButtonStyle: false,
+                className: "extra-small outlined",
                 target: "_blank"
               },
               {
                 href: "",
                 text: "Get the Teacher Handbook",
-                standardButtonStyle: false,
+                className: "extra-small outlined",
                 target: "_blank"
               },
             ]}
@@ -221,14 +217,12 @@ const PostNavigationBanners = () => {
       {
         href: "",
         className: "extra-small contained",
-        standardButtonStyle: true,
         text: "Action",
         target: "_blank"
       },
       {
         href: "",
         className: "extra-small outlined ${shadeOption === DARK_MODE ? 'transparent' : ''}",
-        standardButtonStyle: true,
         text: "Action",
         target: "_blank"
       }
@@ -256,14 +250,12 @@ const PostNavigationBanners = () => {
               {
                 href: "",
                 className: "extra-small contained",
-                standardButtonStyle: true,
                 text: "Action",
                 target: "_blank"
               },
               {
                 href: "",
                 className: `extra-small outlined ${shadeOption === DARK_MODE ? 'transparent' : ''}`,
-                standardButtonStyle: true,
                 text: "Action",
                 target: "_blank"
               }
@@ -282,7 +274,7 @@ const PostNavigationBanners = () => {
     bodyText="Quickly archive last year's classes."
     buttons={[
       {
-        className: "nonstandard-banner-button",
+        className: "extra-small outlined",
         href: "",
         text: "Archive Classes",
         target: "_blank"
@@ -318,7 +310,7 @@ const PostNavigationBanners = () => {
           buttons={[
             {
               href: "",
-              standardButtonStyle: true,
+              className: "extra-small outlined",
               text: "Explore Premium",
               target: "_blank"
             }

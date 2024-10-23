@@ -15,24 +15,22 @@ const mockProps = {
     {
       href: "www.test1.com",
       text: "Learn more",
-      standardButtonStyle: true,
       target: "_blank"
     },
     {
       text: "View activities",
-      standardButtonStyle: true,
       onClick: jest.fn()
     },
     {
       href: "www.test2.com",
       text: "See tool demo",
-      standardButtonStyle: false,
+      className: "extra-small outlined",
       target: "_blank"
     },
     {
       href: "www.test3.com",
       text: "Get the Teacher Handbook",
-      standardButtonStyle: false,
+      className: "extra-small outlined",
       target: "_blank"
     }
   ],

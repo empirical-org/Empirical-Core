@@ -46,31 +46,6 @@
       .quill-button {
         margin-right: 8px;
       }
-      .nonstandard-banner-button {
-        display: flex;
-        align-items: center;
-        color: $quill-grey-50;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 20px;
-        margin-right: 10px;
-        padding: 2px;
-        text-decoration: none;
-        border-radius: 4px;
-        &:hover {
-          color: $quill-grey-20;
-          img {
-            opacity: 0.4;
-          }
-        }
-        &:first-of-type {
-          margin-left: -2px;
-        }
-        img {
-          margin-left: 5px;
-        }
-      }
     }
   }
   .close-button {
@@ -103,9 +78,6 @@
           background-color: transparent;
           border: 1px solid rgba(255, 255, 255, 0.3);
         }
-      }
-      .nonstandard-banner-button {
-        color: $quill-white !important;
       }
     }
   }
@@ -233,15 +205,27 @@
     background-color: $quill-gold-1;
     border: 1px solid $quill-gold-dark-10;
 
-    .tag,
-    .quill-button {
+    .tag {
       background-color: $quill-gold-dark-50 !important;
     }
 
-    .quill-button:hover {
-      background-color: $quill-gold-20 !important;
+    .quill-button {
+      &.contained {
+        background-color: $quill-gold-dark-50;
+        color: $quill-white;
+        &:hover {
+          background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-gold-dark-50;
+        }
+      }
+      &.outlined {
+        border: 1px solid $quill-gold-dark-10;
+        background-color: $quill-white;
+        color: $quill-gold-dark;
+        &:hover {
+          background-color: $quill-gold-dark-1 !important;
+        }
+      }
     }
-
     .secondary-header {
       color: $quill-gold-dark-50;
     }
@@ -250,13 +234,27 @@
     background-color: $quill-maroon-1;
     border: 1px solid $quill-maroon-20;
 
-    .tag,
-    .quill-button {
+    .tag {
       background-color: $quill-maroon !important;
     }
+    .quill-button {
+      &.contained {
+        background-color: $quill-maroon-50;
+        color: $quill-white;
+        &:hover {
+          background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-maroon-50;
+        }
+      }
 
-    .quill-button:hover {
-      background-color: $quill-maroon-50 !important;
+      &.outlined {
+        border: 1px solid $quill-maroon-10;
+        background-color: $quill-white;
+        color: $quill-maroon;
+
+        &:hover {
+          background-color: $quill-maroon-1 !important;
+        }
+      }
     }
 
     .secondary-header {

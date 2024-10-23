@@ -11,7 +11,6 @@ const PremiumFooterAppClient = () => {
       buttons={[
         {
           href: "/premium",
-          standardButtonStyle: true,
           text: "Explore Premium",
           target: ""
         }

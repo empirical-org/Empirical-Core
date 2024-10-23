@@ -19,7 +19,6 @@ const SchoolYearUpdatesCard = ({ handleCloseCard, }) => {
       buttons={[
         {
           href: '/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics',
-          standardButtonStyle: true,
           text: "Learn more about Quill’s latest updates",
           target: "_blank"
         }
