@@ -8,10 +8,12 @@
     }
   }
 
-  section {
-    padding: 20px 0px;
-    &.stem-vault-section:first-of-type {
-      padding-top: 0px;
+  .stem-vault-section {
+    padding: 0px;
+    margin-top: 32px;
+    &:last-of-type {
+      border-bottom: none;
+      margin-bottom: 32px;
     }
   }
 
