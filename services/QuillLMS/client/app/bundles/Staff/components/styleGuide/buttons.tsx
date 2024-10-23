@@ -30,7 +30,8 @@ const colorOptions = [
   { label: 'Purple', value: 'purple'},
   { label: 'Violet', value: 'violet'},
   { label: 'Red', value: 'red'},
-  { label: 'Grey', value: 'grey'}
+  { label: 'Grey', value: 'grey'},
+  { label: 'White', value: 'white'},
 ]
 
 const variantOptions = [
@@ -73,11 +74,12 @@ const Buttons = () => {
   const iconStyle = hasIcon.value ? 'icon' : ''
   const disabledStyle = isDisabled.value ? 'disabled' : ''
   const buttonStyle = `quill-button ${size.value} ${color.value} ${variant.value} ${iconStyle} ${disabledStyle}`.trim().replace(/\s+/g, ' ')
+  const containerStyle = color.value === 'white' || variant.value === 'borderless' ? 'dark' : ''
 
   return (
     <div id="buttons">
       <h2 className="style-guide-h2">Buttons (New)</h2>
-      <div className="element-row first">
+      <div className="element-row">
         <div className="upper-container">
           <pre>
             {`
@@ -118,7 +120,7 @@ const Buttons = () => {
             </div>
           </div>
         </div>
-        <div className="customizable-button-container">
+        <div className={`customizable-button-container ${containerStyle}`}>
           <button className={buttonStyle}>{BUTTON}</button>
         </div>
       </div>

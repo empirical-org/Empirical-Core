@@ -240,34 +240,44 @@
 }
 
 #buttons {
-  .upper-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    pre {
-      width: 100%;
-      max-width: 650px;
-      text-align: center;
-      line-height: 0;
-      padding: 24px;
-    }
-    .left-side-container, .right-side-container {
-      min-width: 200px;
-      .dropdown-container:first-of-type {
-        margin-bottom: 16px;
+  .element-row {
+    width: 100%;
+    max-width: 650px;
+    .upper-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      pre {
+        text-align: center;
+        line-height: 0;
+        padding: 24px;
+      }
+      .left-side-container, .right-side-container {
+        min-width: 200px;
+        .dropdown-container:first-of-type {
+          margin-bottom: 16px;
+        }
       }
     }
-  }
-  .customization-options-container {
-    display: flex;
-    margin: 48px 0px;
-    .left-side-container {
-      margin-right: 24px;
+    .customization-options-container {
+      display: flex;
+      margin: 48px 0px;
+      .left-side-container {
+        margin-right: 24px;
+      }
     }
-  }
-  .customizable-button-container {
-    min-height: 64px;
-    margin-bottom: 48px;
+    .customizable-button-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100px;
+      margin-bottom: 48px;
+      width: 100%;
+      max-width: 650px;
+      &.dark {
+        background-color: $quill-grey-10;
+      }
+    }
   }
 }
 
