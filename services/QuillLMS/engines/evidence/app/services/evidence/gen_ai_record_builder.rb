@@ -29,7 +29,7 @@ module Evidence
     end
 
     def create_or_update_gen_ai_activity(prompt, relevant_text_key)
-      gen_ai_activity = prompt.stem_vault&.activity || Evidence::Research::GenAI::Activity.find_or_initialize_by(name: activity.title)
+      gen_ai_activity = prompt.stem_vaults&.activity || Evidence::Research::GenAI::Activity.find_or_initialize_by(name: activity.title)
       gen_ai_activity.text = activity.passages.first&.text
       gen_ai_activity[relevant_text_key] = relevant_texts[relevant_text_key]
 
