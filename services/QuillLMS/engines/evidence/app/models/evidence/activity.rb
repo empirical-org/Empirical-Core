@@ -123,9 +123,7 @@ module Evidence
       "evidence/#/activities/#{id}/settings"
     end
 
-    def evidence_research_gen_ai_activity
-      evidence_research_gen_ai_activities&.first
-    end
+    def evidence_research_gen_ai_activity = evidence_research_gen_ai_activities&.first
 
     def gen_ai? = ai_type == GEN_AI
     def rag? = ai_type == RAG

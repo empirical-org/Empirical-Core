@@ -207,7 +207,7 @@ module Evidence
       )
     end
 
-    private def relevant_texts = relevant_text_params['relevant_texts']&.to_h || {} # rubocop:disable Lint/RedundantSafeNavigation
+    private def relevant_texts = relevant_text_params['relevant_texts']&.to_h # rubocop:disable Lint/RedundantSafeNavigation
 
     private def clean_label_configs(configs_hash)
       configs_hash.transform_values do |configs|
