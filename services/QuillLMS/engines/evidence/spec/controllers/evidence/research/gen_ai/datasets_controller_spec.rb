@@ -50,6 +50,7 @@ module Evidence
           context 'with file upload (JSON request)' do
             let(:request_format) { :json }
             let(:file) { fixture_file_upload('evidence/research/gen_ai/dataset.csv', 'text/csv') }
+            let(:notes) { "These are my notes." }
             let(:attributes) { { research_gen_ai_dataset: { file: } } }
 
             it { expect { subject }.to change(Evidence::Research::GenAI::Dataset, :count).by(1) }

@@ -58,7 +58,7 @@ module Evidence
 
         private def file_upload? = file.present?
         private def file = dataset_params[:file]
-        private def dataset_params = params.require(:research_gen_ai_dataset).permit(:file)
+        private def dataset_params = params.require(:research_gen_ai_dataset).permit(:file, :notes)
 
         private def data_subset? = test_example_ids.present? && parent_id.present?
         private def test_example_ids = data_subset_params[:test_example_ids]
