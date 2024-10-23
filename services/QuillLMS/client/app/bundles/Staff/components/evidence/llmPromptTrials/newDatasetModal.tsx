@@ -1,22 +1,29 @@
 import * as React from "react";
 
-import { TextArea, } from '../../../../Shared/index';
+import { TextArea, DarkButtonLoadingSpinner, } from '../../../../Shared/index';
 import { uploadDataset, } from '../../../utils/evidence/genAIAPIs';
 
 const NewDatasetModal = ({ stemVault, closeModal, }) => {
   const [file, setFile] = React.useState();
   const [notes, setNotes] = React.useState('');
   const [error, setError] = React.useState(null)
+  const [uploading, setUploading] = React.useState(false)
 
   function handleSetNotes(e) { setNotes(e.target.value) }
 
   function handleOnChange(e) { setFile(e.target.files[0]); };
 
-  function uploadData() { uploadDataset(stemVault, file, notes, successFunction, errorFunction) }
+  function uploadData() {
+    setUploading(true)
+    uploadDataset(stemVault, file, notes, successFunction, errorFunction)
+  }
 
   function successFunction() { window.location.reload() }
 
-  function errorFunction(errorMessage: string) { setError(errorMessage) }
+  function errorFunction(errorMessage: string) {
+    setUploading(false)
+    setError(errorMessage)
+  }
 
   return (
     <div className="modal-container new-dataset-modal-container">
@@ -41,7 +48,7 @@ const NewDatasetModal = ({ stemVault, closeModal, }) => {
         </div>
         <div className="button-section">
           <button className="quill-button medium outlined focus-on-light" onClick={closeModal} type="button">Cancel</button>
-          <button className="quill-button medium contained focus-on-light" onClick={uploadData} type="button">Upload</button>
+          <button className="quill-button medium contained focus-on-light" disabled={uploading} onClick={uploadData} type="button">{uploading ? <DarkButtonLoadingSpinner /> : 'Upload'}</button>
         </div>
       </div>
     </div>
