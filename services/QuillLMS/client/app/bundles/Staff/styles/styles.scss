@@ -54,3 +54,15 @@ h1, .h1, h2, .h2, h3, .h3 {
   margin-top: 20px;
   margin-bottom: 10px;
 }
+
+.center-content {
+  text-align: center !important;
+  span {
+    width: 100%;
+  }
+}
+
+.allow-wrap {
+  white-space: pre-wrap;
+  padding: 8px 0px;
+}

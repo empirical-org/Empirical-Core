@@ -16,42 +16,54 @@ const dataTableFields = [
   {
     name: 'Dataset',
     attribute: 'datasetVersion',
-    width: '100px'
+    width: '70px',
   },
   {
     name: 'Created',
     attribute: 'created',
-    width: '100px'
+    width: '70px',
   },
   {
     name: 'Notes',
     attribute: 'notes',
-    width: '100px'
+    width: '400px',
+    noTooltip: true,
+    rowSectionClassName: 'allow-wrap'
   },
   {
     name: 'Total Test Responses',
     attribute: 'totalTestResponsesCount',
-    width: '100px'
+    width: '54px',
+    headerClassName: 'center-content',
+    rowSectionClassName: 'center-content'
   },
   {
     name: 'Optimal Test Responses',
     attribute: 'optimalTestResponsesCount',
-    width: '100px'
+    width: '71px',
+    headerClassName: 'center-content',
+    rowSectionClassName: 'center-content'
   },
   {
     name: 'Suboptimal Test Responses',
     attribute: 'suboptimalTestResponsesCount',
-    width: '100px'
+    width: '85px',
+    headerClassName: 'center-content',
+    rowSectionClassName: 'center-content'
   },
   {
     name: 'Trials',
     attribute: 'trialsCount',
-    width: '100px'
+    width: '30px',
+    headerClassName: 'center-content',
+    rowSectionClassName: 'center-content'
   },
   {
     name: 'Access',
     attribute: 'viewButton',
-    width: '100px'
+    headerClassName: 'center-content',
+    width: '70px',
+    noTooltip: true
   },
 ]
 

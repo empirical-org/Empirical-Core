@@ -9,14 +9,18 @@ module Evidence
         end
 
         def create
-          puts 'file_upload?', file_upload?
-          puts 'dataset_params', dataset_params
-          puts 'params', params
-          puts 'params[:research_gen_ai_dataset][:file]', params[:research_gen_ai_dataset][:file]
-          if data_subset?
-            redirect_to DataSubsetBuilder.run(parent_id:, test_example_ids:)
-          elsif file_upload?
-            create_dataset_from_file
+          # we can clean this up once we have full functionality in the Evidence CMS and no longer need the erb tool
+          respond_to do |format|
+            format.html do
+              if data_subset?
+                redirect_to DataSubsetBuilder.run(parent_id:, test_example_ids:)
+              elsif file_upload?
+                create_dataset_from_file
+              end
+            end
+            format.json do
+
+            end
           end
         end
 
@@ -29,7 +33,7 @@ module Evidence
 
         private def stem_vault = @stem_vault ||= StemVault.find(params[:stem_vault_id])
 
-        private def create_dataset_from_file
+        private def create_dataset_from_file_for_html_request
           @dataset = stem_vault.datasets.new(dataset_params)
 
           if @dataset.save
@@ -37,6 +41,17 @@ module Evidence
             redirect_to @dataset
           else
             render :new
+          end
+        end
+
+        private def create_dataset_from_file_for_json_request
+          @dataset = stem_vault.datasets.new(dataset_params)
+
+          if @dataset.save
+            DatasetImporter.run(dataset: @dataset, file:)
+            render json: {}
+          else
+            render json: { errors: @dataset.errors }
           end
         end
 

@@ -2,4 +2,12 @@
   .modal-background {
     z-index: 2;
   }
+  h5 {
+    margin-bottom: 16px;
+    span {
+      font-weight: 600;
+      margin-right: 8px;
+      font-size: 16px;
+    }
+  }
 }
