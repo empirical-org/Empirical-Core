@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import StemVaultSection from '../StemVaultSection';
+import StemVaultSection from '../stemVaultSection';
 import { StemVaultInterface } from '../../../../interfaces/evidenceInterfaces';
 
 jest.mock('../newDatasetModal', () => jest.fn(({ closeModal }) => (

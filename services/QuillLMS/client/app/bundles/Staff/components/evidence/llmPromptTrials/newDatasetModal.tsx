@@ -26,18 +26,18 @@ const NewDatasetModal = ({ stemVault, closeModal, }) => {
           <h3>New Dataset</h3>
           {error && <span className="all-errors-message">{error}</span>}
           <input
-            aria-label="file"
-            type="file"
             accept=".csv"
+            aria-label="file"
             onChange={handleOnChange}
-        />
-        <TextArea
-          handleChange={handleSetNotes}
-          id="notes"
-          label='Notes'
-          timesSubmitted={0}
-          value={notes}
-        />
+            type="file"
+          />
+          <TextArea
+            handleChange={handleSetNotes}
+            id="notes"
+            label='Notes'
+            timesSubmitted={0}
+            value={notes}
+          />
         </div>
         <div className="button-section">
           <button className="quill-button medium outlined focus-on-light" onClick={closeModal} type="button">Cancel</button>

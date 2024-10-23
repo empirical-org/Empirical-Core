@@ -16,9 +16,9 @@ module Evidence
 
     let(:activity) { create(:evidence_activity) }
     let!(:passage) { create(:evidence_passage, activity:) }
-    let(:because_prompt) { create(:evidence_prompt, conjunction: 'because', activity:) }
-    let(:but_prompt) { create(:evidence_prompt, conjunction: 'but', activity:) }
-    let(:so_prompt) { create(:evidence_prompt, conjunction: 'so', activity:) }
+    let(:because_prompt) { create(:evidence_prompt, conjunction: 'because', text: 'Greenhouse gases are warming the earth, because', activity:) }
+    let(:but_prompt) { create(:evidence_prompt, conjunction: 'but', text: 'Greenhouse gases are warming the earth, but', activity:) }
+    let(:so_prompt) { create(:evidence_prompt, conjunction: 'so', text: 'Greenhouse gases are warming the earth, so', activity:) }
     let!(:prompts) { [because_prompt, but_prompt, so_prompt] }
 
     before { subject }
@@ -37,7 +37,7 @@ module Evidence
         prompts.each do |prompt|
           stem_vault = Evidence::Research::GenAI::StemVault.find_by(prompt_id: prompt.id)
           expect(stem_vault).not_to be_nil
-          expect(stem_vault.stem).to eq(prompt.text.split(prompt.conjunction).first.strip)
+          expect(stem_vault.stem).to eq(prompt.text.rpartition(prompt.conjunction).first.strip)
         end
       end
     end

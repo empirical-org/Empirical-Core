@@ -46,7 +46,7 @@ module Evidence
         def serializable_hash(options = nil)
           options ||= {}
           super(options.reverse_merge(
-            include: [:datasets],
+            include: [:datasets]
           ))
         end
 

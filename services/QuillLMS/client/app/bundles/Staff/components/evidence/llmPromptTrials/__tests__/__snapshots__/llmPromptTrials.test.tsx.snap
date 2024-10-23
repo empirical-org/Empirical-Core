@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LLMPromptTrials LLMPromptTrials matches snapshot 1`] = `
+exports[`LLMPromptTrials matches snapshot 1`] = `
 <DocumentFragment>
   <div
     class="llm-prompt-trials-container"
