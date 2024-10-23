@@ -403,7 +403,9 @@ exports[`SalesForm Component should match snapshot 1`] = `
               className="input-container textfield-container  inactive form-input"
               onClick={[Function]}
             >
-              <label>
+              <label
+                htmlFor="Comments"
+              >
                 Comments (optional)
               </label>
               <textarea
