@@ -108,7 +108,7 @@ const NewDatasetModal = ({ stemVault, closeModal, }) => {
 
   function successFunction() { window.location.reload() }
 
-  function errorFunction(errorMessage) {
+  function errorFunction(errorMessage: string) {
     setError(errorMessage)
   }
 
@@ -150,8 +150,8 @@ const StemVaultSection = ({ stemVault, }: { stemVault: StemVaultInterface, }) =>
   function closeNewDatasetModal() { setShowNewDatasetModal(false) }
 
   return (
-    <section>
-      {showNewDatasetModal && <NewDatasetModal closeModal={closeNewDatasetModal} confirmFunction={() => {}} stemVault={stemVault}  />}
+    <section className="stem-vault-section">
+      {showNewDatasetModal && <NewDatasetModal closeModal={closeNewDatasetModal} stemVault={stemVault}  />}
       <h5>
         <span>{titleCase(conjunction)} Datasets</span>
         <button className="quill-button small outlined" onClick={openNewDatasetModal} type="button">New</button>
@@ -163,7 +163,7 @@ const StemVaultSection = ({ stemVault, }: { stemVault: StemVaultInterface, }) =>
 
 const LLMPromptTrials: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const { params } = match;
-  const { activityId } = params;
+  const { activityId, promptConjunction } = params;
 
   const [promptIds, setPromptIds] = React.useState<string>(null);
   const [stemVaults, setStemVaults] = React.useState<StemVaultInterface[]>(null)
@@ -194,16 +194,17 @@ const LLMPromptTrials: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
 
   if (!stemVaults) { return <Spinner /> }
 
-  const becauseStemVault = stemVaults.find(sv => sv.conjunction === BECAUSE)
-  const butStemVault = stemVaults.find(sv => sv.conjunction === BUT)
-  const soStemVault = stemVaults.find(sv => sv.conjunction === SO)
+  const conjunctionsToShow = promptConjunction ? [promptConjunction] : [BECAUSE, BUT, SO]
+
+  const stemVaultSections = conjunctionsToShow.map((conjunction) => {
+    const stemVault = stemVaults.find(sv => sv.conjunction === conjunction)
+    return (<StemVaultSection stemVault={stemVault} />)
+  })
 
   return (
     <div className="llm-prompt-trials-container">
       {renderHeader(activityData, 'LLM Prompt Datasets')}
-      <StemVaultSection stemVault={becauseStemVault} />
-      <StemVaultSection stemVault={butStemVault} />
-      <StemVaultSection stemVault={soStemVault} />
+      {stemVaultSections}
     </div>
   )
 }

@@ -49,6 +49,7 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, lo
           <Route component={VersionHistory} path='/activities/:activityId/version-history' />
           <Route component={SeedDataForm} path='/activities/:activityId/synthetic/seed-data' />
           <Route component={LabeledDataUploadForm} path='/activities/:activityId/synthetic/labeled-data-upload' />
+          <Route component={LLMPromptTrials} path='/activities/:activityId/llm-prompt-trials/:promptConjunction' />
           <Route component={LLMPromptTrials} path='/activities/:activityId/llm-prompt-trials' />
         </Switch>
       </div>
