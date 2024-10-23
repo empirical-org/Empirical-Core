@@ -49,7 +49,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update_classroom_unit_assigned_students
-    activities_data = UnitActivity.where(unit_id: params[:id]).order(:order_number).pluck(:activity_id).map { |id| { id: id } }
+    activities_data = UnitActivity.where(unit_id: params[:id]).where(visible: true).order(:order_number).pluck(:activity_id).map { |id| { id: id } }
 
     if activities_data.any?
       classroom_data = params[:unit][:classrooms].as_json.map(&:deep_symbolize_keys)
