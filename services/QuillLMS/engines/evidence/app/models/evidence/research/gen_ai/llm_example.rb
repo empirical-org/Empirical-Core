@@ -42,6 +42,13 @@ module Evidence
         def suboptimal_match? = test_suboptimal? && suboptimal?
         def test_optimal? = test_example.optimal?
         def test_suboptimal? = test_example.suboptimal?
+
+        def rag_label
+          return llm_feedback if llm_feedback.start_with?('Label_')
+          return 'Optimal' if llm_feedback.start_with?('Optimal')
+
+          llm_feedback
+        end
       end
     end
   end

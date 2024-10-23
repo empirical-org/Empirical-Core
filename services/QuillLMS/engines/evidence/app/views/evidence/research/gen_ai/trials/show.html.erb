@@ -4,6 +4,8 @@
   / <%= link_to "#{@dataset} Trials", @dataset %>
 <% end %>
 
+<% task_type = @dataset.task_type %>
+
 <div class="container">
   <div class="column">
     <p><%= datetime_helper(@trial.created_at) %></p>
@@ -52,9 +54,11 @@
           <%= render 'histogram', histogram: @histogram %>
         <% end %>
 
-        <div style="width: 500px">
-          <%= render 'confusion_matrix', matrix: @trial.confusion_matrix %>
-        </div>
+        <% if @trial.generative? %>
+          <div style="width: 500px">
+            <%= render 'generative_confusion_matrix', matrix: @trial.confusion_matrix %>
+          </div>
+        <% end %>
       <% end %>
     <% elsif @trial.failed? %>
       <p>The trial had some errors.</p>
@@ -65,10 +69,26 @@
 <hr>
 
 <div>
+  <% if @trial.completed? && @dataset.classification? %>
+    <div>
+      <%= render 'classification_confusion_matrix_comparison',
+      automl_matrix: @trial.stem_vault.confusion_matrix,
+      automl_labels: @trial.stem_vault.labels,
+      conjunction: @trial.stem_vault.conjunction,
+      rag_matrix: @trial.confusion_matrix,
+      rag_labels: @trial.labels,
+      trial_id: @trial.id
+      %>
+    </div>
+    <div>
+      <%= render 'classification_confusion_matrix', matrix: @trial.confusion_matrix, labels: @trial.labels, trial_id: @trial.id %>
+    </div>
+  <% end %>
   <% if @trial.api_call_times %>
     <table>
       <thead>
         <tr>
+          <th>#</th>
           <th class='match-column'>Match</th>
           <% if @trial.g_evals %>
             <% @g_evals.each do |g_eval| %>
@@ -76,23 +96,36 @@
             <% end %>
           <% end %>
           <th>Student Response</th>
-          <th class='feedback-column'>Curriculum Feedback</th>
-          <th class='feedback-column'>LLM Feedback</th>
+          <% if @trial.classification? %>
+            <th class='feedback-column'>Curriculum Label</th>
+            <th class='feedback-column'>LLM Label</th>
+          <% elsif @trial.generative? %>
+            <th class='feedback-column'>Curriculum Feedback</th>
+            <th class='feedback-column'>LLM Feedback</th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
         <% @trial.llm_examples.each.with_index do |llm_example, index| %>
           <tr>
-            <% background_color = llm_example_match_color(llm_example) %>
+            <td><%= index + 1 %></td>
+            <% background_color = llm_example_match_color(llm_example, task_type) %>
             <td class=<%= background_color %>></td>
-            <% if @trial.g_evals %>
-              <% @trial.g_evals.keys.each do |g_eval_id| %>
-                <td><%= @trial.g_evals[g_eval_id][index]&.to_i %></td>
+            <% if @trial.generative? %>
+              <% if @trial.g_evals %>
+                <% @trial.g_evals.keys.each do |g_eval_id| %>
+                  <td><%= @trial.g_evals[g_eval_id][index]&.to_i %></td>
+                <% end %>
               <% end %>
             <% end %>
             <td><%= llm_example.student_response %></td>
-            <td><%= llm_example.curriculum_proposed_feedback %></td>
-            <td><%= llm_example.llm_feedback  %></td>
+            <% if @trial.classification? %>
+              <td><%= llm_example.test_example.rag_label %></td>
+              <td><%= llm_example.rag_label %></td>
+            <% elsif @trial.generative? %>
+              <td><%= llm_example.curriculum_proposed_feedback %></td>
+              <td><%= llm_example.llm_feedback  %></td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>

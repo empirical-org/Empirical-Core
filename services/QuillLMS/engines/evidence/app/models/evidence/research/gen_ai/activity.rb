@@ -20,6 +20,8 @@ module Evidence
         include TextFormatter
 
         has_many :stem_vaults, dependent: :destroy
+        has_many :trials, through: :stem_vaults
+        has_many :datasets, through: :trials
 
         validates :name, presence: true
         validates :text, presence: true
