@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import moment from 'moment';
 
 import { BECAUSE, BUT, SO } from '../../../../../constants/evidence';
-import { DataTable, Spinner } from '../../../../Shared/index';
+import { DataTable, Spinner, TextArea, } from '../../../../Shared/index';
 import { titleCase } from "../../../helpers/evidence/miscHelpers";
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { getPromptIdString } from '../../../helpers/evidence/ruleHelpers';
@@ -96,20 +96,20 @@ const DatasetTable = ({ datasets, }: { datasets: DatasetInterface[]}) => {
 }
 
 const NewDatasetModal = ({ stemVault, closeModal, }) => {
-  // const AdminVerificationModal = ({ confirmFunction, headerText, bodyText, closeModal, }) => (
   const [file, setFile] = React.useState();
   const [notes, setNotes] = React.useState('');
+  const [error, setError] = React.useState(null)
 
-  function handleOnChange(e) {
-    setFile(e.target.files[0]);
-  };
+  function handleSetNotes(e: InputEvent) { setNotes(e.target.value) }
 
-  function errorFunction(e) {
-    debugger;
-  }
+  function handleOnChange(e) { setFile(e.target.files[0]); };
 
-  function uploadData() {
-    uploadDataset(stemVault, file, notes, closeModal, errorFunction)
+  function uploadData() { uploadDataset(stemVault, file, notes, successFunction, errorFunction) }
+
+  function successFunction() { window.location.reload() }
+
+  function errorFunction(errorMessage) {
+    setError(errorMessage)
   }
 
   return (
@@ -118,12 +118,18 @@ const NewDatasetModal = ({ stemVault, closeModal, }) => {
       <div className="new-dataset-modal quill-modal modal-body">
         <div className="top-section">
           <h3>New Dataset</h3>
+          {error && <span className="all-errors-message">{error}</span>}
           <input
             type="file"
             accept=".csv"
             onChange={handleOnChange}
         />
-
+        <TextArea
+          handleChange={handleSetNotes}
+          label='Notes'
+          timesSubmitted={0}
+          value={notes}
+        />
         </div>
         <div className="button-section">
           <button className="quill-button medium outlined focus-on-light" onClick={closeModal} type="button">Cancel</button>
@@ -132,8 +138,6 @@ const NewDatasetModal = ({ stemVault, closeModal, }) => {
       </div>
     </div>
   )
-  // export default AdminVerificationModal
-
 }
 
 const StemVaultSection = ({ stemVault, }: { stemVault: StemVaultInterface, }) => {

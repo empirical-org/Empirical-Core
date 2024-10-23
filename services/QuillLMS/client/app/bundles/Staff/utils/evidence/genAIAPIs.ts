@@ -20,29 +20,31 @@ export const fetchStemVaultsForEvidenceActivity = async ({ queryKey }) => {
   };
 }
 
-export const uploadDataset = async (stemVault, file, notes) => {
-  const formData = new FormData(); // Create a FormData instance
-  formData.append('research_gen_ai_dataset[file]', file); // Add the file to the FormData
-  formData.append('research_gen_ai_dataset[notes]', notes); // Add the notes field
+// we have to use a custom fetch request here because we need to use formData to submit the CSV, which requires non-standard headers (automatically formatted by formData)
+export const uploadDataset = async (stemVault, file, notes, successFunction, errorFunction) => {
+  const formData = new FormData();
+  formData.append('research_gen_ai_dataset[file]', file);
+  formData.append('research_gen_ai_dataset[notes]', notes);
 
   try {
     const response = await fetch(
       `${researchGenAIBaseUrl}/stem_vaults/${stemVault.id}/datasets`,
       {
         method: 'POST',
-        body: formData, // Pass the FormData object in the body
-        // No need to set headers; fetch automatically sets the correct headers for FormData
+        body: formData,
+        headers: {
+          'Accept': 'application/json',
+        },
       }
     );
 
     if (response.ok) {
-      // Handle success
-      console.log('YAY YAY YAY AYAY YAYAY')
+      successFunction()
     } else {
-      // Handle error
-      console.error('Failed to upload dataset', await response.json());
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.error.file.toString());
     }
   } catch (error) {
-    console.error('An error occurred while uploading dataset:', error);
+    errorFunction(error.toString());
   }
 };

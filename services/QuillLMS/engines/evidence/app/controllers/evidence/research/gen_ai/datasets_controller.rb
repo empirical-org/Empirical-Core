@@ -15,11 +15,12 @@ module Evidence
               if data_subset?
                 redirect_to DataSubsetBuilder.run(parent_id:, test_example_ids:)
               elsif file_upload?
-                create_dataset_from_file
+                create_dataset_from_file_for_html_request
               end
             end
-            format.json do
 
+            format.json do
+              create_dataset_from_file_for_json_request
             end
           end
         end
@@ -49,9 +50,9 @@ module Evidence
 
           if @dataset.save
             DatasetImporter.run(dataset: @dataset, file:)
-            render json: {}
+            render json: { id: @dataset.id }
           else
-            render json: { errors: @dataset.errors }
+            render json: { error: @dataset.errors }, status: 400
           end
         end
 
