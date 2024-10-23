@@ -69,6 +69,18 @@ module Evidence
           it { expect(subject.optimal_count).to eq(optimal_test_examples.count) }
           it { expect(subject.suboptimal_count).to eq(0) }
         end
+
+        context 'when parent dataset is classification' do
+          let!(:dataset) { create(:evidence_research_gen_ai_dataset, :classification) }
+
+          it { is_expected.to be_classification }
+        end
+
+        context 'when parent dataset is generative' do
+          let!(:dataset) { create(:evidence_research_gen_ai_dataset, :generative) }
+
+          it { is_expected.to be_generative }
+        end
       end
     end
   end
