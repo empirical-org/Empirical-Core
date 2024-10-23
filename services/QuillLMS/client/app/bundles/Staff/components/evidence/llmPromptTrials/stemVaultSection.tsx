@@ -104,7 +104,7 @@ const StemVaultSection = ({ stemVault, }: { stemVault: StemVaultInterface, }) =>
       {showNewDatasetModal && <NewDatasetModal closeModal={closeNewDatasetModal} stemVault={stemVault}  />}
       <h5>
         <span>{titleCase(conjunction)} Datasets</span>
-        <button className="quill-button small outlined" onClick={openNewDatasetModal} type="button">New</button>
+        <button className="quill-button extra-small outlined" onClick={openNewDatasetModal} type="button">New</button>
       </h5>
       <DatasetTable datasets={datasets} />
     </section>
