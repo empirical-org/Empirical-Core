@@ -40,7 +40,8 @@ class Auth::GoogleController < ApplicationController
   end
 
   private def check_for_authorization
-    user = User.find_by('google_id = ? OR email = ?', @profile.google_id&.to_s, @profile.email&.downcase)
+    # I'd have to think more about this one since email might be nil now
+    user = User.find_by('google_id = ? OR email = ?', @profile.google_id&.to_s, @profile.email.downcase)
     return if user.nil? || user.sales_contact? || user.google_authorized?
 
     session[ApplicationController::GOOGLE_OFFLINE_ACCESS_EXPIRED] = true

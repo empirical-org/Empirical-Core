@@ -10,16 +10,14 @@ module GoogleIntegration
 
     def initialize(data)
       @classroom = data[:classroom]
-      @email = data[:email].downcase
+      @email = data[:email]&.downcase
       @name = data[:name]
       @first_name = data[:first_name]
       @last_name = data[:last_name] || ''
       @user_external_id = data[:user_external_id]
     end
 
-    def run
-      student
-    end
+    def run = student
 
     private def password
       return last_name if last_name.present?
@@ -30,18 +28,16 @@ module GoogleIntegration
     private def student
       ::User.create!(
         account_type: ACCOUNT_TYPE,
-        email: email,
+        email:,
         google_id: user_external_id,
-        name: name,
-        password: password,
+        name:,
+        password:,
         role: ROLE,
         signed_up_with_google: SIGNED_UP_WITH_GOOGLE,
-        username: username
+        username:
       )
     end
 
-    private def username
-      ::GenerateUsername.run(first_name, last_name, classroom.code)
-    end
+    private def username = ::GenerateUsername.run(first_name, last_name, classroom.code)
   end
 end
