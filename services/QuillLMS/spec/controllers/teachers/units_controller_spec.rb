@@ -27,8 +27,10 @@ describe Teachers::UnitsController, type: :controller do
 
   let!(:diagnostic) { create(:diagnostic) }
   let!(:diagnostic_activity) { create(:diagnostic_activity) }
+  let!(:connect_activity) { create(:connect_activity) }
   let!(:activities_unit_template) { create(:activities_unit_template, activity: diagnostic_activity, unit_template: unit_template) }
   let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity, due_date: Time.current, publish_date: 1.hour.ago) }
+  let!(:non_visible_unit_activity) { create(:unit_activity, unit: unit, activity: connect_activity, due_date: Time.current, publish_date: 1.hour.ago, visible: false) }
 
   let!(:completed_activity_session) do
     create(:activity_session,
@@ -383,6 +385,23 @@ describe Teachers::UnitsController, type: :controller do
         classrooms: [{ id: classroom.id, student_ids: [] }]
       } }
       expect(response.status).to eq(422)
+    end
+
+    it 'passes only visible unit activities to the updater' do
+      classroom_data = [{ id: classroom.id.to_s, student_ids: [student.id.to_s] }]
+
+      expect(Units::Updater).to receive(:run).with(
+        unit.id.to_s,
+        [{ id: unit_activity.activity_id }],
+        classroom_data,
+        teacher.id
+      )
+
+      put :update_classroom_unit_assigned_students, params: { id: unit.id, unit: {
+        classrooms: [{ id: classroom.id, student_ids: [student.id] }]
+      } }
+
+      expect(response.status).to eq(200)
     end
   end
 

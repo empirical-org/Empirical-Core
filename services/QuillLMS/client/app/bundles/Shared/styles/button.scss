@@ -106,10 +106,10 @@ a.quill-button {
       }
     }
     &.white {
-      color: $quill-green !important;
+      color: $quill-grey-90 !important;
       background-color: $quill-white;
       &:hover {
-        background-color: $quill-grey-1;
+        background-color: $quill-white-transparent-90;
       }
     }
   }
@@ -187,6 +187,96 @@ a.quill-button {
       &:hover {
         background-color: $quill-grey-1;
       }
+    }
+    &.white {
+      background-color: transparent;
+      color: $quill-white;
+      border: 1px solid $quill-white;
+      &:hover {
+        background-color: $quill-white-transparent-5;
+      }
+    }
+  }
+  &.borderless {
+    background-color: transparent;
+    border: none;
+    &.green {
+      color: $quill-green;
+      &:hover {
+        background-color: $quill-green-transparent-10;
+      }
+    }
+    &.gold {
+      color: $quill-gold-dark;
+      &:hover {
+        background-color: $quill-white-transparent-10;
+      }
+    }
+
+    &.maroon {
+      color: $quill-maroon;
+      &:hover {
+        background-color: $quill-white-transparent-10;
+      }
+    }
+
+    &.blue {
+      color: $quill-blue;
+      &:hover {
+        background-color: $quill-white-transparent-10;
+      }
+    }
+
+    &.teal {
+      color: $quill-teal;
+      &:hover {
+        background-color: $quill-white-transparent-10;
+      }
+    }
+
+    &.viridian {
+      color: $quill-viridian;
+      &:hover {
+        background-color: $quill-white-transparent-10;
+      }
+    }
+
+    &.purple {
+      color: $quill-purple;
+      &:hover {
+        background-color: $quill-white-transparent-10;
+      }
+    }
+
+    &.violet {
+      color: $quill-violet;
+      &:hover {
+        background-color: $quill-white-transparent-10;
+      }
+    }
+
+    &.red {
+      color: $quill-red;
+      &:hover {
+        background-color: $quill-white-transparent-10;
+      }
+    }
+
+    &.grey {
+      color: $quill-grey-90;
+      &:hover {
+        background-color: $quill-black-transparent-5;
+      }
+    }
+
+    &.white {
+      color: $quill-white;
+      &:hover {
+        background-color: $quill-white-transparent-5;
+      }
+    }
+    &.disabled {
+      color: $quill-grey-30 !important;
     }
   }
   &.extra-small {
