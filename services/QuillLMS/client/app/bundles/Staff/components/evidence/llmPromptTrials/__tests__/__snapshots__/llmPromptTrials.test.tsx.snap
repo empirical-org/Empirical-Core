@@ -22,7 +22,7 @@ exports[`LLMPromptTrials matches snapshot 1`] = `
           Because Datasets
         </span>
         <button
-          class="quill-button small outlined"
+          class="quill-button extra-small outlined"
           type="button"
         >
           New
@@ -122,7 +122,7 @@ exports[`LLMPromptTrials matches snapshot 1`] = `
           But Datasets
         </span>
         <button
-          class="quill-button small outlined"
+          class="quill-button extra-small outlined"
           type="button"
         >
           New
@@ -222,7 +222,7 @@ exports[`LLMPromptTrials matches snapshot 1`] = `
           So Datasets
         </span>
         <button
-          class="quill-button small outlined"
+          class="quill-button extra-small outlined"
           type="button"
         >
           New
