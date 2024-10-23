@@ -1047,7 +1047,6 @@ CREATE TABLE public.evidence_research_gen_ai_datasets (
     updated_at timestamp(6) without time zone NOT NULL,
     version integer NOT NULL,
     parent_id integer,
-    task_type character varying,
     notes text
 );
 
@@ -2724,7 +2723,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20241022191325'),
 ('20241016125929'),
 ('20241002153807'),
-('20240926201306'),
 ('20240925184213'),
 ('20240918144745'),
 ('20240828221309'),
