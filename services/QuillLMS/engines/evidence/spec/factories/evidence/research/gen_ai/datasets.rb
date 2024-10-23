@@ -6,6 +6,7 @@
 #
 #  id               :bigint           not null, primary key
 #  locked           :boolean          default(FALSE), not null
+#  notes            :text
 #  optimal_count    :integer          default(0), not null
 #  suboptimal_count :integer          default(0), not null
 #  version          :integer          not null
@@ -20,6 +21,9 @@ module Evidence
       FactoryBot.define do
         factory :evidence_research_gen_ai_dataset, class: 'Evidence::Research::GenAI::Dataset' do
           stem_vault { association :evidence_research_gen_ai_stem_vault }
+
+          trait(:classification) { task_type { 'classification' } }
+          trait(:generative) { task_type { 'generative' } }
         end
       end
     end

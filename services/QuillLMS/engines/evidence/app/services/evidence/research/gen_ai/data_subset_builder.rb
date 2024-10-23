@@ -20,9 +20,10 @@ module Evidence
           data_subset.reload
         end
 
-        private def data_subset = @data_subset ||= Dataset.create!(parent_id:, stem_vault_id:)
+        private def data_subset = @data_subset ||= Dataset.create!(parent_id:, stem_vault_id:, task_type:)
         private def parent_dataset = @parent_dataset ||= Dataset.find(parent_id)
         private def stem_vault_id = parent_dataset.stem_vault_id
+        private def task_type = parent_dataset.task_type
 
         private def copy_prompt_examples
           parent_dataset.prompt_examples.find_each do |prompt_example|
