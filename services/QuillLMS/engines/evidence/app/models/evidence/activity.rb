@@ -131,17 +131,8 @@ module Evidence
     def rag? = ai_type == RAG
     def automl? = ai_type == AUTOML
 
-    def invalid_relevant_text_keys
-      return unless evidence_research_gen_ai_activity
-
-      evidence_research_gen_ai_activity.invalid_relevant_text_keys
-    end
-
-    def relevant_texts
-      return unless evidence_research_gen_ai_activity
-
-      evidence_research_gen_ai_activity.attributes.symbolize_keys.slice(:because_text, :so_text, :but_text)
-    end
+    def invalid_relevant_text_keys = evidence_research_gen_ai_activity&.invalid_relevant_text_keys
+    def relevant_texts = evidence_research_gen_ai_activity&.relevant_texts
 
     private def update_parent_activity_name
       parent_activity&.update(name: title)

@@ -33,7 +33,7 @@ module Evidence
           end.uniq
         end
 
-        private def relevant_texts = { because_text:, but_text:, so_text: }
+        def relevant_texts = { because_text:, but_text:, so_text: }
 
         private def strip_and_downcase(text) = unescape_html_strip_tags_and_punctuation_and_downcase(text)
 
