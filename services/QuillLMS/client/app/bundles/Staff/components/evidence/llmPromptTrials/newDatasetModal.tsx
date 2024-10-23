@@ -16,9 +16,7 @@ const NewDatasetModal = ({ stemVault, closeModal, }) => {
 
   function successFunction() { window.location.reload() }
 
-  function errorFunction(errorMessage: string) {
-    setError(errorMessage)
-  }
+  function errorFunction(errorMessage: string) { setError(errorMessage) }
 
   return (
     <div className="modal-container new-dataset-modal-container">
@@ -28,12 +26,14 @@ const NewDatasetModal = ({ stemVault, closeModal, }) => {
           <h3>New Dataset</h3>
           {error && <span className="all-errors-message">{error}</span>}
           <input
+            aria-label="file"
             type="file"
             accept=".csv"
             onChange={handleOnChange}
         />
         <TextArea
           handleChange={handleSetNotes}
+          id="notes"
           label='Notes'
           timesSubmitted={0}
           value={notes}
