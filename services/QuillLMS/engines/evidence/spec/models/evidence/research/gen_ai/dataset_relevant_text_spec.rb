@@ -30,6 +30,52 @@ module Evidence
 
         it { should have_readonly_attribute(:dataset_id) }
         it { should have_readonly_attribute(:relevant_text_id) }
+
+        context 'callbacks' do
+          describe '#update_other_defaults' do
+            let(:dataset) { create(:evidence_research_gen_ai_dataset) }
+            let(:other_dataset) { create(:evidence_research_gen_ai_dataset) }
+            let!(:relevant_text1) { create(:evidence_research_gen_ai_relevant_text) }
+            let!(:relevant_text2) { create(:evidence_research_gen_ai_relevant_text) }
+            let!(:relevant_text3) { create(:evidence_research_gen_ai_relevant_text) }
+
+            context 'when creating a new record' do
+              let!(:existing1) { create(factory, dataset:, relevant_text: relevant_text1, default: true) }
+              let!(:existing2) { create(factory, dataset:, relevant_text: relevant_text2, default: true) }
+
+              it 'sets other records default to false when creating a new default record' do
+                new_record = create(factory, dataset:, relevant_text: relevant_text3, default: true)
+
+                expect(existing1.reload.default).to be false
+                expect(existing2.reload.default).to be false
+                expect(new_record.reload.default).to be true
+              end
+
+              it 'does not affect records from other datasets' do
+                other_record = create(factory, dataset: other_dataset, relevant_text: relevant_text1, default: true)
+                create(factory, dataset:, relevant_text: relevant_text2, default: true)
+
+                expect(other_record.reload.default).to be true
+              end
+            end
+
+            context 'when updating an existing record' do
+              let!(:existing1) { create(factory, dataset:, relevant_text: relevant_text1, default: true) }
+              let!(:existing2) { create(factory, dataset:, relevant_text: relevant_text2, default: false) }
+              let!(:existing3) { create(factory, dataset:, relevant_text: relevant_text3, default: false) }
+
+              it 'updates other records when setting an existing record to default' do
+                existing2.update!(default: true)
+
+                expect(existing1.reload.default).to be false
+                expect(existing2.reload.default).to be true
+                expect(existing3.reload.default).to be false
+              end
+
+              it { expect { existing1.update(default: false) }.not_to change { existing2.reload.default } }
+            end
+          end
+        end
       end
     end
   end

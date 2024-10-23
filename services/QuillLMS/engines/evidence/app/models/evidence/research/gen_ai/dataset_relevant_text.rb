@@ -22,6 +22,15 @@ module Evidence
         validates :relevant_text_id, presence: true
 
         attr_readonly :dataset_id, :relevant_text_id
+        before_save :update_other_defaults, if: :will_save_change_to_default?
+
+        private def update_other_defaults
+          return unless default?
+
+          scope = self.class.where(dataset_id:)
+          scope = scope.where.not(id:) unless new_record?
+          scope.update_all(default: false)
+        end
       end
     end
   end
