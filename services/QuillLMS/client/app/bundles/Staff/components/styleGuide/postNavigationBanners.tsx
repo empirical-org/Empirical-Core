@@ -274,7 +274,6 @@ const PostNavigationBanners = () => {
     bodyText="Quickly archive last year's classes."
     buttons={[
       {
-        className: "extra-small outlined",
         href: "",
         text: "Archive Classes",
         target: "_blank"
@@ -310,7 +309,6 @@ const PostNavigationBanners = () => {
           buttons={[
             {
               href: "",
-              className: "extra-small outlined",
               text: "Explore Premium",
               target: "_blank"
             }

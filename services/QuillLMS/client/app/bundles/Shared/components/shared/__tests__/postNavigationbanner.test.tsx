@@ -47,7 +47,7 @@ describe('PostNavigationBanner', () => {
     expect(asFragment()).toMatchSnapshot();
     expect(screen.getByRole('link', { name: 'Learn more' })).toHaveAttribute('href', 'www.test1.com')
     expect(screen.getByRole('button', { name: 'View activities' })).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'See tool demo Arrow pointing right icon' })).toHaveAttribute('href', 'www.test2.com')
-    expect(screen.getByRole('link', { name: 'Get the Teacher Handbook Arrow pointing right icon' })).toHaveAttribute('href', 'www.test3.com')
+    expect(screen.getByRole('link', { name: 'See tool demo' })).toHaveAttribute('href', 'www.test2.com')
+    expect(screen.getByRole('link', { name: 'Get the Teacher Handbook' })).toHaveAttribute('href', 'www.test3.com')
   })
 })
