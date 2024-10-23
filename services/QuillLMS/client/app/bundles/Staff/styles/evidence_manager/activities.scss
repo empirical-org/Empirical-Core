@@ -10,6 +10,9 @@
     .dropdown-container {
       min-width: 200px;
     }
+    .input-container .dropdown .dropdown__menu-list {
+      min-height: min-content;
+    }
   }
 
   .activities-table, .tabs-container {
@@ -26,9 +29,6 @@
       .data-table-row {
         span {
           text-align: left !important;
-          a {
-            color: #00c2a2;
-          }
           .a:hover {
             cursor: pointer;
             color: #19a08a;
@@ -36,6 +36,12 @@
         }
       }
     }
+  }
+
+  .activities-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
   }
 
   .center-content {
