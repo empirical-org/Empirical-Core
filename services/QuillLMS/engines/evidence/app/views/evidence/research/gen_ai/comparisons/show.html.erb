@@ -4,6 +4,8 @@
   / <%= link_to "#{@dataset} Trials", @dataset %>
 <% end %>
 
+<% task_type = @dataset.task_type %>
+
 <div class="container">
   <div class="column">
     <p><%= datetime_helper(@comparison.created_at) %></p>
@@ -59,7 +61,11 @@
                 <li>Temperature: <%= trial.temperature %></li>
               </ul>
             </div>
-            <%= render 'confusion_matrix', matrix: trial.confusion_matrix %>
+            <% if trial.classification? %>
+              <%= render 'classification_confusion_matrix', matrix: trial.confusion_matrix, labels: trial.labels, trial_id: trial.id %>
+            <% elsif trial.generative? %>
+              <%= render 'generative_confusion_matrix', matrix: trial.confusion_matrix %>
+            <% end %>
           </th>
         <% end %>
       </tr>
@@ -85,7 +91,7 @@
               <% llm_example_index = trial.llm_examples.index(llm_example) %>
               <% g_eval_id = trial.g_evals&.keys&.first %>
               <% g_eval_score = trial.g_evals&.dig(g_eval_id, llm_example_index)&.to_i || '' %>
-              <td class="dark-border-top-bottom-left <%= llm_example_match_color(llm_example) %>">
+              <td class="dark-border-top-bottom-left <%= llm_example_match_color(llm_example, task_type) %>">
                 <%= llm_example.optimal? ? :O : :S %>
               </td>
               <td class='dark-border-top-bottom'>
