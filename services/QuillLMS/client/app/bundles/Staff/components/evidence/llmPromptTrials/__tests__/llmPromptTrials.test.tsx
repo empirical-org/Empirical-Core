@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter, Route } from 'react-router-dom';
 
-import LLMPromptTrials from '../LLMPromptTrials';
+import LLMPromptTrials from '../llmPromptTrials';
 
 import { BECAUSE, BUT, SO } from '../../../../../../constants/evidence';
 
