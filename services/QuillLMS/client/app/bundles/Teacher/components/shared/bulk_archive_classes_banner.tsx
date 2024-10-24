@@ -1,8 +1,7 @@
 import * as React from 'react'
 
 import BulkArchiveClassesModal from './bulk_archive_classes_modal'
-
-const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
+import { PostNavigationBanner } from '../../../Shared'
 
 const JULY = 6
 const AUGUST = 7
@@ -43,13 +42,23 @@ const BulkArchiveClassesBanner = ({ classes, onSuccess, userId, }) => {
   return (
     <React.Fragment>
       {modalIsOpen && <BulkArchiveClassesModal classes={classes} onCloseModal={handleCloseModal} onSuccess={onSuccess} /> }
-      <section className="bulk-archive-classes-banner">
-        <span><strong>Start of a new school year?</strong>&nbsp;Quickly archive last year’s classes.</span>
-        <span>
-          <button className="quill-button-archived medium outlined secondary" onClick={handleOpenModal} type="button">Archive classes</button>
-          <button className="pass-through-button" onClick={handleCloseBanner} type="button"><img alt="X icon" src={closeIconSrc} /></button>
-        </span>
-      </section>
+      <PostNavigationBanner
+        bannerColor="grey"
+        bannerStyle="minimal archive-classrooms"
+        bodyText="Quickly archive last year's classes."
+        buttons={[
+          {
+            onClick: handleOpenModal,
+            text: "Archive Classes",
+          },
+          {
+            className: "small outlined",
+            onClick: handleCloseBanner,
+            text: "Close",
+          }
+        ]}
+        primaryHeaderText="Start of a new school year?"
+      />
     </React.Fragment>
   )
 }
