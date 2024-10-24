@@ -12,7 +12,7 @@ import { ActivityRouteProps, StemVaultInterface, } from '../../../interfaces/evi
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { fetchStemVaultsForEvidenceActivity, } from '../../../utils/evidence/genAIAPIs';
 
-const LLMPromptTrials: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
+const LLMPromptDatasets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const { params } = match;
   const { activityId, promptConjunction } = params;
 
@@ -49,15 +49,16 @@ const LLMPromptTrials: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
 
   const stemVaultSections = conjunctionsToShow.map((conjunction) => {
     const stemVault = stemVaults.find(sv => sv.conjunction === conjunction)
-    return (<StemVaultSection stemVault={stemVault} />)
+    const individualDatasetLinkBase = `/cms/evidence#/activities/${activityId}/llm-prompt-datasets/${conjunction}/dataset`
+    return (<StemVaultSection individualDatasetLinkBase={individualDatasetLinkBase} stemVault={stemVault} />)
   })
 
   return (
-    <div className="llm-prompt-trials-container">
+    <div className="llm-prompt-datasets-container">
       {renderHeader(activityData, 'LLM Prompt Datasets')}
       {stemVaultSections}
     </div>
   )
 }
 
-export default LLMPromptTrials
+export default LLMPromptDatasets

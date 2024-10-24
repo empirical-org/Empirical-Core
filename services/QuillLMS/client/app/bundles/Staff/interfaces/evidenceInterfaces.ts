@@ -1,7 +1,8 @@
 export interface ActivityRouteProps {
   activityId: string,
   type?: string,
-  promptConjunction?: string
+  promptConjunction?: string,
+  datasetId?: string
 }
 
 export interface InvalidHighlight {

@@ -1,11 +1,9 @@
 import * as React from "react";
 import moment from 'moment';
 
-import NewDatasetModal from './newDatasetModal'
-
 import { DataTable, } from '../../../../Shared/index';
-import { titleCase } from "../../../helpers/evidence/miscHelpers";
-import { StemVaultInterface, DatasetInterface } from '../../../interfaces/evidenceInterfaces';
+
+import { DatasetInterface } from '../../../interfaces/evidenceInterfaces';
 
 const dataTableFields = [
   {
@@ -62,7 +60,7 @@ const dataTableFields = [
   },
 ]
 
-const DatasetTable = ({ datasets, }: { datasets: DatasetInterface[]}) => {
+const DatasetTable = ({ datasets, individualDatasetLinkBase, }: { datasets: DatasetInterface[], individualDatasetLinkBase: string }) => {
   function rows() {
     return datasets.map(dataset => {
       const { id, optimal_count, suboptimal_count, version, created_at, notes, trial_count, } = dataset
@@ -76,7 +74,7 @@ const DatasetTable = ({ datasets, }: { datasets: DatasetInterface[]}) => {
         optimalTestResponsesCount: optimal_count,
         trialsCount: trial_count,
         suboptimalTestResponsesCount: suboptimal_count,
-        viewButton: <a className="quill-button extra-small outlined" href="/">View</a>
+        viewButton: <a className="quill-button extra-small outlined" href={`${individualDatasetLinkBase}/${id}`}>View</a>
       }
     })
   }
@@ -90,25 +88,4 @@ const DatasetTable = ({ datasets, }: { datasets: DatasetInterface[]}) => {
   )
 }
 
-const StemVaultSection = ({ stemVault, }: { stemVault: StemVaultInterface, }) => {
-  const [showNewDatasetModal, setShowNewDatasetModal] = React.useState<boolean>(false)
-
-  const { conjunction, datasets, } = stemVault
-
-  function openNewDatasetModal() { setShowNewDatasetModal(true) }
-
-  function closeNewDatasetModal() { setShowNewDatasetModal(false) }
-
-  return (
-    <section className="stem-vault-section">
-      {showNewDatasetModal && <NewDatasetModal closeModal={closeNewDatasetModal} stemVault={stemVault}  />}
-      <h5>
-        <span>{titleCase(conjunction)} Datasets</span>
-        <button className="quill-button extra-small outlined" onClick={openNewDatasetModal} type="button">New</button>
-      </h5>
-      <DatasetTable datasets={datasets} />
-    </section>
-  )
-}
-
-export default StemVaultSection
+export default DatasetTable

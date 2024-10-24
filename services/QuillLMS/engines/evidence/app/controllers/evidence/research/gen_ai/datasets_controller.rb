@@ -26,10 +26,22 @@ module Evidence
         end
 
         def show
+          # TODO: clean this up once we have full functionality in the Evidence CMS and no longer need the erb tool
           @dataset = Dataset.find(params[:id])
           @data_subsets = @dataset.data_subsets.order(id: :desc)
           @stem_vault = @dataset.stem_vault
           @trials = @dataset.trials.order(id: :desc)
+          respond_to do |format|
+            format.json do
+              render json: {
+                dataset: @dataset,
+                data_subsets: @data_subsets,
+                stem_vault: @stem_vault,
+                trials: @trials,
+                # relevant_texts: RelevantText.where(stem_vault_id: @stem_vault.id),
+              }
+            end
+          end
         end
 
         private def stem_vault = @stem_vault ||= StemVault.find(params[:stem_vault_id])
