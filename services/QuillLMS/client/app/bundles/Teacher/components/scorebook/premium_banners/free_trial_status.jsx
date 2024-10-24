@@ -31,7 +31,7 @@ const FreeTrialStatus = ({ status, originPage, upgradeToPremiumNow, lastSubscrip
         upgradeButton(),
         {
           href: "/premium",
-          className: 'extra-small outlined',
+          className: 'small outlined',
           text: "Check out our pricing plans.",
           target: ""
         }

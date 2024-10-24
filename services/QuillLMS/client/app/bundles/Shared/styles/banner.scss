@@ -45,6 +45,9 @@
       margin-top: 24px;
       .quill-button {
         margin-right: 8px;
+        &:focus {
+          outline-offset: 4px;
+        }
       }
     }
   }

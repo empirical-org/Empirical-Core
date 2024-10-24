@@ -331,7 +331,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
             className="buttons-container"
           >
             <a
-              className="quill-button green extra-small contained focus-on-light"
+              className="quill-button green small contained focus-on-light"
               href="/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics"
               key="button-0"
               rel="noopener noreferrer"
@@ -526,7 +526,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
             className="buttons-container"
           >
             <a
-              className="quill-button green extra-small contained focus-on-light"
+              className="quill-button green small contained focus-on-light"
               href="/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics"
               key="button-0"
               rel="noopener noreferrer"
@@ -889,7 +889,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
             className="buttons-container"
           >
             <a
-              className="quill-button green extra-small contained focus-on-light"
+              className="quill-button green small contained focus-on-light"
               href="/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics"
               key="button-0"
               rel="noopener noreferrer"
@@ -1084,7 +1084,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
             className="buttons-container"
           >
             <a
-              className="quill-button green extra-small contained focus-on-light"
+              className="quill-button green small contained focus-on-light"
               href="/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics"
               key="button-0"
               rel="noopener noreferrer"
@@ -1447,7 +1447,7 @@ exports[`PromotionalCard container SchoolYearUpdatesCard rendering behavior when
             className="buttons-container"
           >
             <a
-              className="quill-button green extra-small contained focus-on-light"
+              className="quill-button green small contained focus-on-light"
               href="/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics"
               key="button-0"
               rel="noopener noreferrer"

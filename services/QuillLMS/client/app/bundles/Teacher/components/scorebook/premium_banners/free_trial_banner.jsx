@@ -37,7 +37,7 @@ export default class FreeTrialBanner extends React.Component {
           },
           {
             href: "/premium",
-            className: 'extra-small outlined',
+            className: 'small outlined',
             text: "Learn more about Premium",
             target: ""
           }

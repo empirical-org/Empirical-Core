@@ -24,13 +24,13 @@ const mockProps = {
     {
       href: "www.test2.com",
       text: "See tool demo",
-      className: "extra-small outlined",
+      className: "small outlined",
       target: "_blank"
     },
     {
       href: "www.test3.com",
       text: "Get the Teacher Handbook",
-      className: "extra-small outlined",
+      className: "small outlined",
       target: "_blank"
     }
   ],

@@ -43,7 +43,7 @@ export const PostNavigationBanner = ({ tagText, primaryHeaderText, secondaryHead
             if(className) {
               buttonClass += className
             } else {
-              buttonClass += "extra-small contained"
+              buttonClass += "small contained"
             }
             if(button.onClick) {
               return <button className={`${buttonClass} ${focusClass}`} key={`button-${i}`} onClick={onClick}>{text}</button>
@@ -71,7 +71,7 @@ export const PostNavigationBanner = ({ tagText, primaryHeaderText, secondaryHead
             if (className) {
               buttonClass += className
             } else {
-              buttonClass += "extra-small contained"
+              buttonClass += "small contained"
             }
             if(button.onClick) {
               return <button className={`${buttonClass} ${focusClass}`} key={`button-${i}`} onClick={onClick}>{text}</button>

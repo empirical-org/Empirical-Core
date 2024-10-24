@@ -140,13 +140,13 @@ const PostNavigationBanners = () => {
       },
       {
         href: "",
-        className: "extra-small outlined",
+        className: "small outlined",
         text: "See tool demo",
         target: "_blank"
       },
       {
         href: "",
-        className: "extra-small outlined",
+        className: "small outlined",
         text: "Get the Teacher Handbook",
         target: "_blank"
       },
@@ -187,13 +187,13 @@ const PostNavigationBanners = () => {
               {
                 href: "",
                 text: "See tool demo",
-                className: "extra-small outlined",
+                className: "small outlined",
                 target: "_blank"
               },
               {
                 href: "",
                 text: "Get the Teacher Handbook",
-                className: "extra-small outlined",
+                className: "small outlined",
                 target: "_blank"
               },
             ]}
@@ -216,13 +216,13 @@ const PostNavigationBanners = () => {
     buttons={[
       {
         href: "",
-        className: "extra-small contained",
+        className: "small contained",
         text: "Action",
         target: "_blank"
       },
       {
         href: "",
-        className: "extra-small outlined ${shadeOption === DARK_MODE ? 'transparent' : ''}",
+        className: "small outlined ${shadeOption === DARK_MODE ? 'transparent' : ''}",
         text: "Action",
         target: "_blank"
       }
@@ -249,13 +249,13 @@ const PostNavigationBanners = () => {
             buttons={[
               {
                 href: "",
-                className: "extra-small contained",
+                className: "small contained",
                 text: "Action",
                 target: "_blank"
               },
               {
                 href: "",
-                className: `extra-small outlined ${shadeOption === DARK_MODE ? 'transparent' : ''}`,
+                className: `small outlined ${shadeOption === DARK_MODE ? 'transparent' : ''}`,
                 text: "Action",
                 target: "_blank"
               }
