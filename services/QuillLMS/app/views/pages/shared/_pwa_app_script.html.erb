@@ -1,0 +1,12 @@
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    if (window.matchMedia('(display-mode: minimal-ui)').matches) {
+      function removeTargetFromLinks() {
+        document.querySelectorAll('a[target=_blank]').forEach(function(a) {a.removeAttribute('target');});
+      }
+      removeTargetFromLinks();
+      const observer = new MutationObserver(removeTargetFromLinks);
+      observer.observe(document.body, { childList: true, subtree: true });
+    }
+  });
+</script>
