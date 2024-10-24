@@ -1047,8 +1047,8 @@ CREATE TABLE public.evidence_research_gen_ai_datasets (
     updated_at timestamp(6) without time zone NOT NULL,
     version integer NOT NULL,
     parent_id integer,
-    notes text,
-    task_type character varying
+    task_type character varying,
+    notes text
 );
 
 
@@ -1493,7 +1493,8 @@ CREATE TABLE public.evidence_research_gen_ai_relevant_texts (
     text text NOT NULL,
     notes text DEFAULT ''::text,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    stem_vault_id integer
 );
 
 
@@ -1527,8 +1528,8 @@ CREATE TABLE public.evidence_research_gen_ai_stem_vaults (
     conjunction character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    prompt_id integer,
-    automl_data jsonb DEFAULT '{}'::jsonb NOT NULL
+    automl_data jsonb DEFAULT '{}'::jsonb NOT NULL,
+    prompt_id integer
 );
 
 
@@ -1671,7 +1672,8 @@ CREATE TABLE public.evidence_research_gen_ai_trials (
     trial_duration double precision,
     evaluation_duration double precision,
     number integer NOT NULL,
-    temperature double precision NOT NULL
+    temperature double precision NOT NULL,
+    notes text
 );
 
 
@@ -2719,6 +2721,8 @@ ALTER TABLE ONLY public.comprehension_regex_rules
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20241024134904'),
+('20241024133220'),
 ('20241022191816'),
 ('20241022191551'),
 ('20241022191503'),
