@@ -4,13 +4,13 @@
 #
 # Table name: evidence_research_gen_ai_relevant_texts
 #
-#  id         :bigint           not null, primary key
-#  notes      :text             default("")
-#  text       :text             not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id            :bigint           not null, primary key
+#  notes         :text             default("")
+#  text          :text             not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  stem_vault_id :integer
 #
-
 require 'rails_helper'
 
 module Evidence
