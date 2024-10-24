@@ -172,6 +172,46 @@ module Evidence
       end
     end
 
+    context '.closest_prompt_texts' do
+      subject { described_class.closest_prompt_texts(entry:, prompt_id:, label:, limit:) }
+
+      let(:limit) { 5 }
+      let(:prompt_id) { 1 }
+      let(:entry) { 'This is a test entry' }
+      let(:embedding) { [0.1] * Evidence::LabeledEntry::DIMENSION }
+
+      before { allow(Evidence::OpenAI::EmbeddingFetcher).to receive(:run).and_return(embedding) }
+
+      context 'when entries exist with same prompt_id and entry but different labels' do
+        let(:label1) { 'Label1' }
+        let(:label2) { 'Label2' }
+        let(:label) { label1 }
+
+        before do
+          create(factory, prompt_id:, entry:, label: label1, embedding:)
+          create(factory, prompt_id:, entry:, label: label2, embedding:)
+        end
+
+        it { is_expected.to eq [[entry, label1], [entry, label2]] }
+        it { expect { subject }.to change(described_class, :count).by(1) }
+
+        context 'test entry already exists' do
+          let(:test_prompt_id) { described_class::RAG_TEST_EXAMPLES_PROMPT_ID_OFFSET + prompt_id }
+
+          before { create(factory, prompt_id: test_prompt_id, entry:, label:, embedding:) }
+
+          it { is_expected.to eq [[entry, label1], [entry, label2]] }
+          it { expect { subject }.not_to change(described_class, :count) }
+        end
+
+        context 'when limit is set' do
+          let(:limit) { 1 }
+
+          it { is_expected.to eq [[entry, label1]] }
+        end
+      end
+    end
+
     context 'benchmarking', :benchmarking do
       let(:num_iterations) { 1000 }
       let(:labeled_entries) { create_list(factory, num_iterations) }
