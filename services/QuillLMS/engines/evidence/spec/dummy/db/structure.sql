@@ -2533,6 +2533,13 @@ CREATE INDEX comprehension_turking_sessions_turking_id ON public.comprehension_t
 
 
 --
+-- Name: idx_on_prompt_id_entry_label_e61aa4cb93; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX idx_on_prompt_id_entry_label_e61aa4cb93 ON public.evidence_labeled_entries USING btree (prompt_id, entry, label);
+
+
+--
 -- Name: index_change_logs_on_changed_record_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2723,6 +2730,7 @@ SET search_path TO "$user", public;
 INSERT INTO "schema_migrations" (version) VALUES
 ('20241024134904'),
 ('20241024133220'),
+('20241024165314'),
 ('20241022191816'),
 ('20241022191551'),
 ('20241022191503'),
