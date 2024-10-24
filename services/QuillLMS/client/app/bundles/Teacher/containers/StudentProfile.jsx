@@ -29,11 +29,8 @@ class StudentProfile extends React.Component {
     if (classroomId) {
       handleClassroomClick(classroomId);
       fetchStudentProfile(classroomId)
-      fetchStudentsClassrooms();
-    } else {
-      fetchStudentProfile();
-      fetchStudentsClassrooms();
     }
+    fetchStudentsClassrooms();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -63,9 +60,9 @@ class StudentProfile extends React.Component {
   }
 
   handleClassroomTabClick = (classroomId) => {
-    const { loading, handleClassroomClick, history, fetchStudentProfile, } = this.props;
+    const { classroomsLoaded, handleClassroomClick, history, fetchStudentProfile, } = this.props;
 
-    if (!loading) {
+    if (classroomsLoaded) {
       const newUrl = `/classrooms/${classroomId}`;
       history.push(newUrl);
       handleClassroomClick(classroomId);
@@ -105,20 +102,22 @@ class StudentProfile extends React.Component {
     }
   }
 
+  shouldDisplaySelectAClassroom = (selectedClassroomId, classroomsLoaded, location) => {
+    return (!selectedClassroomId && classroomsLoaded && location === "/classes")
+  }
+
   render() {
     const {
       classrooms,
-      notifications,
-      numberOfClassroomTabs,
+      classroomsLoaded,
+      history,
       student,
       selectedClassroomId,
-      showDropdown,
       nextActivitySession,
       loading,
       scores,
       activeClassworkTab,
       isBeingPreviewed,
-      history,
       metrics,
       exactScoresDataPending,
       exactScoresData,
@@ -126,9 +125,11 @@ class StudentProfile extends React.Component {
       completedEvidenceActivityPriorToScoring
     } = this.props;
 
-    if (loading) { return <LoadingIndicator /> }
+    if (this.shouldDisplaySelectAClassroom(selectedClassroomId, classroomsLoaded, history?.location?.pathname)) {
+      return (<SelectAClassroom classrooms={classrooms} isBeingPreviewed={isBeingPreviewed} onClickCard={this.handleClassroomTabClick} />)
+    }
 
-    if (!selectedClassroomId) { return (<SelectAClassroom classrooms={classrooms} isBeingPreviewed={isBeingPreviewed} onClickCard={this.handleClassroomTabClick} />)}
+    if (loading) { return <LoadingIndicator /> }
 
     return (
       <div className="student-profile-container">

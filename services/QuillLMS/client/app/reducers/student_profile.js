@@ -25,7 +25,7 @@ export default (state, action) => {
         selectedClassroomId: action.selectedClassroomId
       });
     case 'RECEIVE_STUDENTS_CLASSROOMS':
-      return Object.assign({}, state, { classrooms: action.classrooms });
+      return Object.assign({}, state, { classrooms: action.classrooms, classroomsLoaded: true });
     case 'RECEIVE_STUDENT_PROFILE':
       return Object.assign({}, state, {
         loading: false,
