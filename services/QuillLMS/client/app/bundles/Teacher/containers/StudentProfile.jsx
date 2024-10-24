@@ -29,10 +29,8 @@ class StudentProfile extends React.Component {
     if (classroomId) {
       handleClassroomClick(classroomId);
       fetchStudentProfile(classroomId)
-      fetchStudentsClassrooms();
-    } else {
-      fetchStudentsClassrooms();
     }
+    fetchStudentsClassrooms();
   }
 
   componentDidUpdate(prevProps, prevState) {
