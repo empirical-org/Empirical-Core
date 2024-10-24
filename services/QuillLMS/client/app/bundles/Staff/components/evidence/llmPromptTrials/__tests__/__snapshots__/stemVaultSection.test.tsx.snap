@@ -1,0 +1,164 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StemVaultSection matches snapshot 1`] = `
+<DocumentFragment>
+  <section
+    class="stem-vault-section"
+  >
+    <h5>
+      <span>
+        Because Datasets
+      </span>
+      <button
+        class="quill-button extra-small outlined"
+        type="button"
+      >
+        New
+      </button>
+    </h5>
+    <table
+      class="data-table dataset-table"
+    >
+      <thead>
+        <tr
+          class="data-table-headers"
+        >
+          <th
+            class="data-table-header undefined"
+            scope="col"
+            style="width: 70px; min-width: 70px; text-align: left;"
+          >
+            <span>
+              Dataset
+            </span>
+          </th>
+          <th
+            class="data-table-header undefined"
+            scope="col"
+            style="width: 70px; min-width: 70px; text-align: left;"
+          >
+            <span>
+              Created
+            </span>
+          </th>
+          <th
+            class="data-table-header undefined"
+            scope="col"
+            style="width: 400px; min-width: 400px; text-align: left;"
+          >
+            <span>
+              Notes
+            </span>
+          </th>
+          <th
+            class="data-table-header center-content"
+            scope="col"
+            style="width: 54px; min-width: 54px; text-align: right;"
+          >
+            <span>
+              Total Test Responses
+            </span>
+          </th>
+          <th
+            class="data-table-header center-content"
+            scope="col"
+            style="width: 71px; min-width: 71px; text-align: right;"
+          >
+            <span>
+              Optimal Test Responses
+            </span>
+          </th>
+          <th
+            class="data-table-header center-content"
+            scope="col"
+            style="width: 85px; min-width: 85px; text-align: right;"
+          >
+            <span>
+              Suboptimal Test Responses
+            </span>
+          </th>
+          <th
+            class="data-table-header center-content"
+            scope="col"
+            style="width: 30px; min-width: 30px; text-align: right;"
+          >
+            <span>
+              Trials
+            </span>
+          </th>
+          <th
+            class="data-table-header center-content"
+            scope="col"
+            style="width: 70px; min-width: 70px; text-align: left;"
+          >
+            <span>
+              Access
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class="data-table-body"
+      >
+        <tr
+          class="data-table-row  "
+        >
+          <td
+            class="data-table-row-section undefined"
+            style="width: 70px; min-width: 70px; text-align: left;"
+          >
+            Dataset 1
+          </td>
+          <td
+            class="data-table-row-section undefined"
+            style="width: 70px; min-width: 70px; text-align: left;"
+          >
+            01/01/23
+          </td>
+          <td
+            class="data-table-row-section allow-wrap"
+            style="width: 400px; min-width: 400px; text-align: left;"
+          >
+            Sample dataset notes
+          </td>
+          <td
+            class="data-table-row-section center-content"
+            style="width: 54px; min-width: 54px; text-align: right;"
+          >
+            15
+          </td>
+          <td
+            class="data-table-row-section center-content"
+            style="width: 71px; min-width: 71px; text-align: right;"
+          >
+            10
+          </td>
+          <td
+            class="data-table-row-section center-content"
+            style="width: 85px; min-width: 85px; text-align: right;"
+          >
+            5
+          </td>
+          <td
+            class="data-table-row-section center-content"
+            style="width: 30px; min-width: 30px; text-align: right;"
+          >
+            3
+          </td>
+          <td
+            class="data-table-row-section undefined"
+            style="width: 70px; min-width: 70px; text-align: left;"
+          >
+            <a
+              class="quill-button extra-small outlined"
+              href="/"
+            >
+              View
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</DocumentFragment>
+`;

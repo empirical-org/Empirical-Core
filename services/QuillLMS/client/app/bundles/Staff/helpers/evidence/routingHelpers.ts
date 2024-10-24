@@ -1,7 +1,7 @@
 import fetchDefaults from "fetch-defaults";
 
 const mainApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/`;
-const evidenceBaseUrl = `${mainApiBaseUrl}evidence/`;
+export const evidenceBaseUrl = `${mainApiBaseUrl}evidence/`;
 
 const headerHash = {
   headers: {

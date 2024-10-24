@@ -31,6 +31,7 @@
 @import './evidence_manager/change_log.scss';
 @import './evidence_manager/hint.scss';
 @import './evidence_manager/health_dashboard.scss';
+@import './evidence_manager/llm_prompt_trials.scss';
 @import './evidence_manager/model.scss';
 @import './evidence_manager/rule_form.scss';
 @import './evidence_manager/rules.scss';
@@ -52,4 +53,16 @@
 h1, .h1, h2, .h2, h3, .h3 {
   margin-top: 20px;
   margin-bottom: 10px;
+}
+
+.center-content {
+  text-align: center !important;
+  span {
+    width: 100%;
+  }
+}
+
+.allow-wrap {
+  white-space: pre-wrap;
+  padding: 8px 0px;
 }

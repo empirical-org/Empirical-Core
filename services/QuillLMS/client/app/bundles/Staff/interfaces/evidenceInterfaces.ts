@@ -16,6 +16,27 @@ export interface RelevantTextsInterface {
   so_text: string;
 }
 
+export interface DatasetInterface {
+  id: number;
+  optimal_count: number;
+  suboptimal_count: number;
+  version: number;
+  created_at: string;
+  notes: string;
+  trial_count: number;
+}
+
+export interface StemVaultInterface {
+  activity_id: number;
+  conjunction: string;
+  created_at: string;
+  datasets: DatasetInterface[];
+  id: number;
+  prompt_id: number;
+  stem: string;
+  updated_at: string;
+}
+
 export interface ActivityInterface {
   id?: string,
   parent_activity_id?: string,

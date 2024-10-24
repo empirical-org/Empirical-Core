@@ -129,7 +129,7 @@ export class TextArea extends React.Component<InputProps, InputState> {
             onClick={this.activateInput}
             ref={node => this.node = node}
           >
-            <label>{label}</label>
+            <label htmlFor={id}>{label}</label>
             <textarea
               disabled={disabled}
               id={id}
@@ -150,7 +150,7 @@ export class TextArea extends React.Component<InputProps, InputState> {
             onClick={this.acknowledgeError}
             ref={node => this.node = node}
           >
-            <label>{label}</label>
+            <label htmlFor={id}>{label}</label>
             <textarea
               id={id}
               maxLength={characterLimit ? characterLimit : 10000}
@@ -172,7 +172,7 @@ export class TextArea extends React.Component<InputProps, InputState> {
           onClick={this.activateInput}
           ref={node => this.node = node}
         >
-          <label>{label}</label>
+          <label htmlFor={id}>{label}</label>
           <textarea
             defaultValue={value}
             disabled={disabled}
@@ -191,7 +191,7 @@ export class TextArea extends React.Component<InputProps, InputState> {
           className={sharedClasses}
           ref={node => this.node = node}
         >
-          <label>{label}</label>
+          <label htmlFor={id}>{label}</label>
           <textarea
             id={id}
             maxLength={characterLimit ? characterLimit : 10000}
