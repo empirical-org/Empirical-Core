@@ -5,7 +5,7 @@ Evidence::Engine.routes.draw do
     member do
       get :activity_versions
       get :change_logs
-      get :invalid_highlights
+      get :invalid_related_texts
       put :increment_version
       get :rules
       get :topic_optimal_info
@@ -63,6 +63,7 @@ Evidence::Engine.routes.draw do
 
       resources :activities, only: [:new, :create, :show, :index] do
         resources :stem_vaults, only: [:new, :create, :show, :index], shallow: true
+        get :rag_time, on: :collection
       end
 
       resources :auto_chain_of_thoughts, only: [:new, :create]

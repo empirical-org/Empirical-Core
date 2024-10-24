@@ -282,7 +282,6 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
         Array [
           Object {
             "href": "/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics",
-            "standardButtonStyle": true,
             "target": "_blank",
             "text": "Learn more about Quill’s latest updates",
           },
@@ -300,7 +299,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
       primaryHeaderText="Four Big Updates for the 2024-2025 School Year"
     >
       <div
-        className="banner-container gold-secondary school-year-updates-card"
+        className="banner-container gold-secondary school-year-updates-card green"
       >
         <div
           className="left-side-container"
@@ -332,14 +331,13 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
             className="buttons-container"
           >
             <a
-              className="quill-button-archived fun primary contained focus-on-light"
+              className="quill-button green small contained focus-on-light"
               href="/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics"
               key="button-0"
               rel="noopener noreferrer"
               target="_blank"
             >
               Learn more about Quill’s latest updates
-               
             </a>
           </div>
         </div>
@@ -479,7 +477,6 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
         Array [
           Object {
             "href": "/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics",
-            "standardButtonStyle": true,
             "target": "_blank",
             "text": "Learn more about Quill’s latest updates",
           },
@@ -497,7 +494,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
       primaryHeaderText="Four Big Updates for the 2024-2025 School Year"
     >
       <div
-        className="banner-container gold-secondary school-year-updates-card"
+        className="banner-container gold-secondary school-year-updates-card green"
       >
         <div
           className="left-side-container"
@@ -529,14 +526,13 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
             className="buttons-container"
           >
             <a
-              className="quill-button-archived fun primary contained focus-on-light"
+              className="quill-button green small contained focus-on-light"
               href="/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics"
               key="button-0"
               rel="noopener noreferrer"
               target="_blank"
             >
               Learn more about Quill’s latest updates
-               
             </a>
           </div>
         </div>
@@ -844,7 +840,6 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
         Array [
           Object {
             "href": "/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics",
-            "standardButtonStyle": true,
             "target": "_blank",
             "text": "Learn more about Quill’s latest updates",
           },
@@ -862,7 +857,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
       primaryHeaderText="Four Big Updates for the 2024-2025 School Year"
     >
       <div
-        className="banner-container gold-secondary school-year-updates-card"
+        className="banner-container gold-secondary school-year-updates-card green"
       >
         <div
           className="left-side-container"
@@ -894,14 +889,13 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
             className="buttons-container"
           >
             <a
-              className="quill-button-archived fun primary contained focus-on-light"
+              className="quill-button green small contained focus-on-light"
               href="/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics"
               key="button-0"
               rel="noopener noreferrer"
               target="_blank"
             >
               Learn more about Quill’s latest updates
-               
             </a>
           </div>
         </div>
@@ -1041,7 +1035,6 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
         Array [
           Object {
             "href": "/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics",
-            "standardButtonStyle": true,
             "target": "_blank",
             "text": "Learn more about Quill’s latest updates",
           },
@@ -1059,7 +1052,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
       primaryHeaderText="Four Big Updates for the 2024-2025 School Year"
     >
       <div
-        className="banner-container gold-secondary school-year-updates-card"
+        className="banner-container gold-secondary school-year-updates-card green"
       >
         <div
           className="left-side-container"
@@ -1091,14 +1084,13 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
             className="buttons-container"
           >
             <a
-              className="quill-button-archived fun primary contained focus-on-light"
+              className="quill-button green small contained focus-on-light"
               href="/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics"
               key="button-0"
               rel="noopener noreferrer"
               target="_blank"
             >
               Learn more about Quill’s latest updates
-               
             </a>
           </div>
         </div>
@@ -1406,7 +1398,6 @@ exports[`PromotionalCard container SchoolYearUpdatesCard rendering behavior when
         Array [
           Object {
             "href": "/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics",
-            "standardButtonStyle": true,
             "target": "_blank",
             "text": "Learn more about Quill’s latest updates",
           },
@@ -1424,7 +1415,7 @@ exports[`PromotionalCard container SchoolYearUpdatesCard rendering behavior when
       primaryHeaderText="Four Big Updates for the 2024-2025 School Year"
     >
       <div
-        className="banner-container gold-secondary school-year-updates-card"
+        className="banner-container gold-secondary school-year-updates-card green"
       >
         <div
           className="left-side-container"
@@ -1456,14 +1447,13 @@ exports[`PromotionalCard container SchoolYearUpdatesCard rendering behavior when
             className="buttons-container"
           >
             <a
-              className="quill-button-archived fun primary contained focus-on-light"
+              className="quill-button green small contained focus-on-light"
               href="/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics"
               key="button-0"
               rel="noopener noreferrer"
               target="_blank"
             >
               Learn more about Quill’s latest updates
-               
             </a>
           </div>
         </div>

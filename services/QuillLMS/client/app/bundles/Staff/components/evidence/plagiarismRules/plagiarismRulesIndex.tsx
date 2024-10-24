@@ -98,10 +98,11 @@ const PlagiarismRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = 
     }
 
     return plagiarismTexts.map((plagiarismText, i) => {
-      const { text } = plagiarismText;
+      const { text, valid_in_all_targets, } = plagiarismText;
+      const strippedText = stripHtml(text).result
       return {
         label: `Plagiarism Text - Text String ${i + 1}`,
-        value: stripHtml(text).result
+        value: valid_in_all_targets ? strippedText : <span className="all-errors-message">{strippedText}</span>
       }
     })
   }
@@ -183,7 +184,7 @@ const PlagiarismRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = 
   const becauseDisabled = getButtonClass(BECAUSE);
   const butDisabled = getButtonClass(BUT);
   const soDisabled = getButtonClass(SO);
-  const oneRuleWarning = 'There can only be one plagiarism rule per conjunction. Please click "View" below if you would like to update the plagiarized text.'
+  const oneRuleWarning = 'There can only be one plagiarism rule per conjunction. Please click "View" below if you would like to update the plagiarized text. Red text means that the plagiarism text does not match the associated passage.'
 
   return(
     <div className="rules-container">

@@ -32,13 +32,12 @@ export default class FreeTrialBanner extends React.Component {
         buttons={[
           {
             onClick: this.beginTrial,
-            standardButtonStyle: true,
             text: "Try it free for 30 Days",
             target: ""
           },
           {
             href: "/premium",
-            standardButtonStyle: false,
+            className: 'small outlined',
             text: "Learn more about Premium",
             target: ""
           }

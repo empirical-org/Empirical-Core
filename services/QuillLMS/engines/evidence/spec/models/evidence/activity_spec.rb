@@ -222,25 +222,25 @@ module Evidence
       end
     end
 
-    context '#invalid_highlights' do
+    context '#invalid_related_texts' do
       let(:activity) { create(:evidence_activity, :with_prompt_and_passage) }
       let(:rule) { create(:evidence_rule, prompts: [activity.prompts.first]) }
       let(:feedback) { create(:evidence_feedback, rule: rule) }
       let(:highlight) { create(:evidence_highlight, feedback: feedback, highlight_type: 'passage', text: activity.passages.first.text) }
 
       it 'should return an empty array if there are no invalid highlights or plagiarism_texts at all' do
-        expect(activity.invalid_highlights).to eq([])
+        expect(activity.invalid_related_texts).to eq([])
       end
 
       it 'should return an empty array if all highlights and plagiarism_texts are valid' do
         expect(highlight.invalid_activity_ids).to be_nil
-        expect(activity.invalid_highlights).to eq([])
+        expect(activity.invalid_related_texts).to eq([])
       end
 
       it 'should return an array of rule_ids and rule_types for invalid highlights' do
         highlight.update(text: 'text that definitely is not in the passage')
-        expect(activity.invalid_highlights.length).to be(1)
-        expect(activity.invalid_highlights).to include({
+        expect(activity.invalid_related_texts.length).to be(1)
+        expect(activity.invalid_related_texts).to include({
           rule_id: rule.id,
           rule_type: rule.rule_type,
           prompt_id: rule.prompts.first.id

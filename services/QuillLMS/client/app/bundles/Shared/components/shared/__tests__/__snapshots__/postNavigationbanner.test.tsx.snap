@@ -3,7 +3,7 @@
 exports[`PostNavigationBanner it should render 1`] = `
 <DocumentFragment>
   <div
-    class="banner-container green"
+    class="banner-container green green"
   >
     <div
       class="left-side-container"
@@ -31,41 +31,33 @@ exports[`PostNavigationBanner it should render 1`] = `
         class="buttons-container"
       >
         <a
-          class="quill-button-archived fun primary contained focus-on-light"
+          class="quill-button green small contained focus-on-light"
           href="www.test1.com"
           rel="noopener noreferrer"
           target="_blank"
         >
-          Learn more 
+          Learn more
         </a>
         <button
-          class="quill-button-archived fun primary contained focus-on-light"
+          class="quill-button green small contained focus-on-light"
         >
           View activities
         </button>
         <a
-          class="nonstandard-banner-button focus-on-light"
+          class="quill-button green small outlined focus-on-light"
           href="www.test2.com"
           rel="noopener noreferrer"
           target="_blank"
         >
-          See tool demo 
-          <img
-            alt="Arrow pointing right icon"
-            src="undefined/images/icons/icons-arrow-back.svg"
-          />
+          See tool demo
         </a>
         <a
-          class="nonstandard-banner-button focus-on-light"
+          class="quill-button green small outlined focus-on-light"
           href="www.test3.com"
           rel="noopener noreferrer"
           target="_blank"
         >
-          Get the Teacher Handbook 
-          <img
-            alt="Arrow pointing right icon"
-            src="undefined/images/icons/icons-arrow-back.svg"
-          />
+          Get the Teacher Handbook
         </a>
       </div>
     </div>
@@ -81,7 +73,7 @@ exports[`PostNavigationBanner it should render 1`] = `
 exports[`PostNavigationBanner should render the buttons as expected 1`] = `
 <DocumentFragment>
   <div
-    class="banner-container green"
+    class="banner-container green green"
   >
     <div
       class="left-side-container"
@@ -109,41 +101,33 @@ exports[`PostNavigationBanner should render the buttons as expected 1`] = `
         class="buttons-container"
       >
         <a
-          class="quill-button-archived fun primary contained focus-on-light"
+          class="quill-button green small contained focus-on-light"
           href="www.test1.com"
           rel="noopener noreferrer"
           target="_blank"
         >
-          Learn more 
+          Learn more
         </a>
         <button
-          class="quill-button-archived fun primary contained focus-on-light"
+          class="quill-button green small contained focus-on-light"
         >
           View activities
         </button>
         <a
-          class="nonstandard-banner-button focus-on-light"
+          class="quill-button green small outlined focus-on-light"
           href="www.test2.com"
           rel="noopener noreferrer"
           target="_blank"
         >
-          See tool demo 
-          <img
-            alt="Arrow pointing right icon"
-            src="undefined/images/icons/icons-arrow-back.svg"
-          />
+          See tool demo
         </a>
         <a
-          class="nonstandard-banner-button focus-on-light"
+          class="quill-button green small outlined focus-on-light"
           href="www.test3.com"
           rel="noopener noreferrer"
           target="_blank"
         >
-          Get the Teacher Handbook 
-          <img
-            alt="Arrow pointing right icon"
-            src="undefined/images/icons/icons-arrow-back.svg"
-          />
+          Get the Teacher Handbook
         </a>
       </div>
     </div>

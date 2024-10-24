@@ -43,32 +43,10 @@
     .buttons-container {
       display: flex;
       margin-top: 24px;
-      .quill-button-archived {
-        margin-right: 16px;
-      }
-      .nonstandard-banner-button {
-        display: flex;
-        align-items: center;
-        color: $quill-grey-50;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 20px;
-        margin-right: 10px;
-        padding: 2px;
-        text-decoration: none;
-        border-radius: 4px;
-        &:hover {
-          color: $quill-grey-20;
-          img {
-            opacity: 0.4;
-          }
-        }
-        &:first-of-type {
-          margin-left: -2px;
-        }
-        img {
-          margin-left: 5px;
+      .quill-button {
+        margin-right: 8px;
+        &:focus {
+          outline-offset: 4px;
         }
       }
     }
@@ -78,14 +56,39 @@
     top: 20px;
     right: 20px;
   }
+  &.minimal {
+    align-items: center;
+    .buttons-container .quill-button {
+      margin-left: 8px;
+    }
+  }
+  &.dark-mode {
+    background-color: $quill-white-transparent-10 !important;
+    border: 1px solid $quill-white-transparent-30 !important;
+    .primary-header, .secondary-header {
+      color: $quill-white !important;
+    }
+    .tag {
+      border: 1px solid $quill-white-transparent-30 !important;
+    }
+    .body {
+      color: $quill-white-transparent-60;
+    }
+    .buttons-container {
+      .quill-button {
+        &.transparent {
+          color: $quill-white !important;
+          background-color: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+      }
+    }
+  }
   &.green {
     background-color: $quill-green-1;
     border: 1px solid $quill-green-20;
-    .tag, .quill-button-archived {
-      background-color: $quill-green !important;
-    }
-    .quill-button-archived:hover {
-      background-color: $quill-green-50 !important;
+    .tag {
+      background-color: $quill-green;
     }
     .secondary-header {
       color: $quill-green;
@@ -94,11 +97,8 @@
   &.gold {
     background-color: $quill-gold-1;
     border: 1px solid $quill-gold-dark-10;
-    .tag, .quill-button-archived {
-      background-color: $quill-gold-dark-50 !important;
-    }
-    .quill-button-archived:hover {
-      background-color: $quill-gold-dark-20 !important;
+    .tag {
+      background-color: $quill-gold-dark-50;
     }
     .secondary-header {
       color: $quill-gold-dark;
@@ -107,13 +107,10 @@
   &.gold-secondary {
     background-color: $quill-gold-1;
     border: 1px solid $quill-gold-dark-10;
-    .tag, .quill-button-archived {
+    .tag {
       background-color: $quill-white !important;
       color: $quill-gold-dark !important;
       border: 1px solid $quill-gold-dark-10;
-    }
-    .quill-button-archived:hover {
-      background-color: $quill-white !important;
     }
     .secondary-header {
       color: $quill-gold-dark;
@@ -123,11 +120,8 @@
     background-color: $quill-viridian-1;
     border: 1px solid $quill-viridian-20;
 
-    .tag, .quill-button-archived {
+    .tag {
       background-color: $quill-viridian !important;
-    }
-    .quill-button-archived:hover {
-      background-color: $quill-viridian-50 !important;
     }
     .secondary-header {
       color: $quill-viridian;
@@ -137,11 +131,8 @@
     background-color: $quill-teal-1;
     border: 1px solid $quill-teal-20;
 
-    .tag, .quill-button-archived {
+    .tag {
       background-color: $quill-teal !important;
-    }
-    .quill-button-archived:hover {
-      background-color: $quill-teal-50 !important;
     }
     .secondary-header {
       color: $quill-teal;
@@ -151,11 +142,8 @@
     background-color: $quill-blue-1;
     border: 1px solid $quill-blue-20;
 
-    .tag, .quill-button-archived {
+    .tag {
       background-color: $quill-blue !important;
-    }
-    .quill-button-archived:hover {
-      background-color: $quill-blue-50 !important;
     }
     .secondary-header {
       color: $quill-blue;
@@ -165,11 +153,8 @@
     background-color: $quill-purple-1;
     border: 1px solid $quill-purple-20;
 
-    .tag, .quill-button-archived {
+    .tag {
       background-color: $quill-purple !important;
-    }
-    .quill-button-archived:hover {
-      background-color: $quill-purple-50 !important;
     }
     .secondary-header {
       color: $quill-purple;
@@ -179,11 +164,8 @@
     background-color: $quill-violet-1;
     border: 1px solid $quill-violet-20;
 
-    .tag, .quill-button-archived {
+    .tag {
       background-color: $quill-violet !important;
-    }
-    .quill-button-archived:hover {
-      background-color: $quill-violet-50 !important;
     }
     .secondary-header {
       color: $quill-violet;
@@ -193,11 +175,8 @@
     background-color: $quill-red-1;
     border: 1px solid $quill-red-20;
 
-    .tag, .quill-button-archived {
+    .tag {
       background-color: $quill-red !important;
-    }
-    .quill-button-archived:hover {
-      background-color: $quill-red-50 !important;
     }
     .secondary-header {
       color: $quill-red;
@@ -207,11 +186,8 @@
     background-color: $quill-maroon-1;
     border: 1px solid $quill-maroon-20;
 
-    .tag, .quill-button-archived {
+    .tag {
       background-color: $quill-maroon !important;
-    }
-    .quill-button-archived:hover {
-      background-color: $quill-maroon-50 !important;
     }
     .secondary-header {
       color: $quill-maroon;
@@ -221,11 +197,8 @@
     background-color: $quill-grey-1;
     border: 1px solid $quill-grey-15;
 
-    .tag, .quill-button-archived {
+    .tag {
       background-color: $quill-grey-50 !important;
-    }
-    .quill-button-archived:hover {
-      background-color: $quill-grey-20 !important;
     }
     .secondary-header {
       color: $quill-grey-50;
@@ -235,15 +208,27 @@
     background-color: $quill-gold-1;
     border: 1px solid $quill-gold-dark-10;
 
-    .tag,
-    .quill-button-archived {
+    .tag {
       background-color: $quill-gold-dark-50 !important;
     }
 
-    .quill-button-archived:hover {
-      background-color: $quill-gold-20 !important;
+    .quill-button {
+      &.contained {
+        background-color: $quill-gold-dark-50;
+        color: $quill-white;
+        &:hover {
+          background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-gold-dark-50;
+        }
+      }
+      &.outlined {
+        border: 1px solid $quill-gold-dark-10;
+        background-color: $quill-white;
+        color: $quill-gold-dark;
+        &:hover {
+          background-color: $quill-gold-dark-1 !important;
+        }
+      }
     }
-
     .secondary-header {
       color: $quill-gold-dark-50;
     }
@@ -252,13 +237,27 @@
     background-color: $quill-maroon-1;
     border: 1px solid $quill-maroon-20;
 
-    .tag,
-    .quill-button-archived {
+    .tag {
       background-color: $quill-maroon !important;
     }
+    .quill-button {
+      &.contained {
+        background-color: $quill-maroon-50;
+        color: $quill-white;
+        &:hover {
+          background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-maroon-50;
+        }
+      }
 
-    .quill-button-archived:hover {
-      background-color: $quill-maroon-50 !important;
+      &.outlined {
+        border: 1px solid $quill-maroon-10;
+        background-color: $quill-white;
+        color: $quill-maroon;
+
+        &:hover {
+          background-color: $quill-maroon-1 !important;
+        }
+      }
     }
 
     .secondary-header {
@@ -282,5 +281,39 @@
         }
       }
     }
+  }
+}
+
+.shade-container {
+  padding: 24px;
+  &.green {
+    background-color: $quill-green;
+  }
+  &.gold {
+    background-color: $quill-gold;
+  }
+  &.viridian {
+    background-color: $quill-viridian;
+  }
+  &.teal {
+    background-color: $quill-teal;
+  }
+  &.blue {
+    background-color: $quill-blue;
+  }
+  &.purple {
+    background-color: $quill-purple;
+  }
+  &.violet {
+    background-color: $quill-violet;
+  }
+  &.red {
+    background-color: $quill-red;
+  }
+  &.maroon {
+    background-color: $quill-maroon;
+  }
+  &.grey {
+    background-color: $quill-grey-50;
   }
 }
