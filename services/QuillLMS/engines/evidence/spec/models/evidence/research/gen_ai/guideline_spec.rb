@@ -30,7 +30,7 @@ module Evidence
         it { should validate_presence_of(:dataset_id) }
         it { should validate_presence_of(:text) }
         it { should have_readonly_attribute(:curriculum_assigned_status) }
-        it { should have_readonly_attribute(:stem_vault_id) }
+        it { should have_readonly_attribute(:dataset_id) }
         it { should have_readonly_attribute(:text) }
 
         it { should belong_to(:dataset) }
