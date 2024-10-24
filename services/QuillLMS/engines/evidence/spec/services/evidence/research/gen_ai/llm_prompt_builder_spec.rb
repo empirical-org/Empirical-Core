@@ -22,8 +22,8 @@ module Evidence
         let(:full_text) { stem_vault.full_text }
         let(:llm_prompt_template_id) { create(:evidence_research_gen_ai_llm_prompt_template, contents:).id }
 
-        let(:optimal_guidelines) { create_list(:evidence_research_gen_ai_guideline, 3, :optimal, stem_vault:) }
-        let(:suboptimal_guidelines) { create_list(:evidence_research_gen_ai_guideline, 3, :suboptimal, stem_vault:) }
+        let(:optimal_guidelines) { create_list(:evidence_research_gen_ai_guideline, 3, :optimal, dataset:) }
+        let(:suboptimal_guidelines) { create_list(:evidence_research_gen_ai_guideline, 3, :suboptimal, dataset:) }
         let(:guidelines) { Guideline.where(id: (optimal_guidelines.map(&:id) + suboptimal_guidelines.map(&:id))) }
 
         let(:optimal_examples) { create_list(:evidence_research_gen_ai_prompt_example, 3, :optimal, dataset:) }

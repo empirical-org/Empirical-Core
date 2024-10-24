@@ -1,11 +1,12 @@
 <% content_for :all_activities_breadcrumbs do %>
-  / <%= link_to @stem_vault.activity.name, @stem_vault.activity %>
-  / <%= link_to "#{@stem_vault.conjunction.capitalize} Stem Vault", @stem_vault %>
+  / <%= link_to @dataset.stem_vault.activity.name, @dataset.stem_vault.activity %>
+  / <%= link_to "#{@dataset.stem_vault.conjunction.capitalize} Stem Vault", @dataset.stem_vault %>
+  / <%= link_to "#{@dataset} Trials", @dataset %>
 <% end %>
 
 <h1>New Guideline</h1>
 
-<%= form_for @guideline, url: research_gen_ai_stem_vault_guidelines_path(@stem_vault) do |f| %>
+<%= form_for @guideline, url: research_gen_ai_dataset_guidelines_path(@dataset) do |f| %>
   <%= render 'errors', object: @guideline %>
 
  <div class="field-spacing">

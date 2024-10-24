@@ -32,7 +32,6 @@ module Evidence
         belongs_to :activity
         belongs_to :prompt, class_name: 'Evidence::Prompt', optional: true
 
-        has_many :guidelines, dependent: :destroy
         has_many :datasets, dependent: :destroy
         has_many :trials, through: :datasets
 

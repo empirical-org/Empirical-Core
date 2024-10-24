@@ -11,8 +11,8 @@ module Evidence
           @llms = LLM.order(:order)
           @llm_prompt_templates = LLMPromptTemplate.order(:order)
           @g_evals = GEval.selectable
-          @optimal_guidelines = dataset.stem_vault.guidelines.optimal.visible
-          @suboptimal_guidelines = dataset.stem_vault.guidelines.suboptimal.visible
+          @optimal_guidelines = dataset.guidelines.optimal.visible
+          @suboptimal_guidelines = dataset.guidelines.suboptimal.visible
           @prompt_examples = dataset.prompt_examples
         end
 

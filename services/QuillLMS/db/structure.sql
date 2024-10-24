@@ -3156,8 +3156,8 @@ CREATE TABLE public.evidence_research_gen_ai_datasets (
     updated_at timestamp(6) without time zone NOT NULL,
     version integer NOT NULL,
     parent_id integer,
-    task_type character varying,
-    notes text
+    notes text,
+    task_type character varying
 );
 
 
@@ -3260,10 +3260,11 @@ CREATE TABLE public.evidence_research_gen_ai_guidelines (
     id bigint NOT NULL,
     curriculum_assigned_status character varying NOT NULL,
     text text NOT NULL,
-    stem_vault_id integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    visible boolean DEFAULT true NOT NULL
+    visible boolean DEFAULT true NOT NULL,
+    notes text,
+    dataset_id integer
 );
 
 
@@ -10145,6 +10146,13 @@ CREATE INDEX index_evidence_prompt_healths_on_evidence_activity_health_id ON pub
 
 
 --
+-- Name: index_evidence_research_gen_ai_guidelines_on_dataset_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_evidence_research_gen_ai_guidelines_on_dataset_id ON public.evidence_research_gen_ai_guidelines USING btree (dataset_id);
+
+
+--
 -- Name: index_feedback_histories_on_concept_uid; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -11875,6 +11883,7 @@ ALTER TABLE ONLY public.learn_worlds_account_course_events
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20241024190034'),
 ('20241024135021'),
 ('20241024133309'),
 ('20241022194332'),

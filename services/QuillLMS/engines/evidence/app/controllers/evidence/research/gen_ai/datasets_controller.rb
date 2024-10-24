@@ -21,6 +21,8 @@ module Evidence
           @data_subsets = @dataset.data_subsets.order(id: :desc)
           @stem_vault = @dataset.stem_vault
           @trials = @dataset.trials.order(id: :desc)
+          @optimal_guidelines = @dataset.guidelines.optimal.visible
+          @suboptimal_guidelines = @dataset.guidelines.suboptimal.visible
         end
 
         private def stem_vault = @stem_vault ||= StemVault.find(params[:stem_vault_id])

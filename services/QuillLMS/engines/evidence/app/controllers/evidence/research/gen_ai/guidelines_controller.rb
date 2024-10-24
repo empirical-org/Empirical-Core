@@ -5,15 +5,15 @@ module Evidence
     module GenAI
       class GuidelinesController < ApplicationController
         def new
-          @guideline = stem_vault.guidelines.new
+          @guideline = dataset.guidelines.new
           @curriculum_assigned_statuses = Guideline::ASSIGNED_STATUSES
         end
 
         def create
-          @guideline = stem_vault.guidelines.new(guideline_params)
+          @guideline = dataset.guidelines.new(guideline_params)
 
           if @guideline.save
-            redirect_to @guideline.stem_vault
+            redirect_to @guideline.dataset
           else
             render :new
           end
@@ -22,7 +22,7 @@ module Evidence
         def hide
           @guideline = Guideline.find(params[:id])
           @guideline.update(visible: false)
-          redirect_to @guideline.stem_vault
+          redirect_to @guideline.dataset
         end
 
         private def guideline_params
@@ -31,7 +31,7 @@ module Evidence
             .permit(:curriculum_assigned_status, :text)
         end
 
-        private def stem_vault = @stem_vault ||= StemVault.find(params[:stem_vault_id])
+        private def dataset = @dataset ||= Dataset.find(params[:dataset_id])
       end
     end
   end

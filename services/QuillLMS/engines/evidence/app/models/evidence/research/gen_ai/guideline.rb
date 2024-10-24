@@ -6,11 +6,16 @@
 #
 #  id                         :bigint           not null, primary key
 #  curriculum_assigned_status :string           not null
+#  notes                      :text
 #  text                       :text             not null
 #  visible                    :boolean          default(TRUE), not null
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
-#  stem_vault_id              :integer          not null
+#  dataset_id                 :integer
+#
+# Indexes
+#
+#  index_evidence_research_gen_ai_guidelines_on_dataset_id  (dataset_id)
 #
 module Evidence
   module Research
@@ -18,12 +23,12 @@ module Evidence
       class Guideline < ApplicationRecord
         include HasAssignedStatus
 
-        belongs_to :stem_vault
+        belongs_to :dataset
 
-        attr_readonly :curriculum_assigned_status, :stem_vault_id, :text
+        attr_readonly :curriculum_assigned_status, :dataset_id, :text
 
         validates :curriculum_assigned_status, presence: true
-        validates :stem_vault_id, presence: true
+        validates :dataset_id, presence: true
         validates :text, presence: true
 
         scope :visible, -> { where(visible: true) }
