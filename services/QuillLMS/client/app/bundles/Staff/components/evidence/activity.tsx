@@ -19,7 +19,8 @@ import SemanticLabelsIndex from './semanticRules/semanticLabelsIndex';
 import LabeledDataUploadForm from "./syntheticData/labeledDataUploadForm";
 import SeedDataForm from "./syntheticData/seedDataForm";
 import VersionHistory from "./versionHistory/versionHistory";
-import LLMPromptTrials from "./llmPromptTrials/llmPromptTrials";
+import LLMPromptDatasets from "./llmPromptDatasets/llmPromptDatasets";
+import Dataset from "./llmPromptDatasets/dataset"
 
 import { ActivityRouteProps } from '../../interfaces/evidenceInterfaces';
 
@@ -49,8 +50,9 @@ const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match, lo
           <Route component={VersionHistory} path='/activities/:activityId/version-history' />
           <Route component={SeedDataForm} path='/activities/:activityId/synthetic/seed-data' />
           <Route component={LabeledDataUploadForm} path='/activities/:activityId/synthetic/labeled-data-upload' />
-          <Route component={LLMPromptTrials} path='/activities/:activityId/llm-prompt-trials/:promptConjunction' />
-          <Route component={LLMPromptTrials} path='/activities/:activityId/llm-prompt-trials' />
+          <Route component={Dataset} path='/activities/:activityId/llm-prompt-datasets/:promptConjunction/dataset/:datasetId' />
+          <Route component={LLMPromptDatasets} path='/activities/:activityId/llm-prompt-datasets/:promptConjunction' />
+          <Route component={LLMPromptDatasets} path='/activities/:activityId/llm-prompt-datasets' />
         </Switch>
       </div>
     </React.Fragment>

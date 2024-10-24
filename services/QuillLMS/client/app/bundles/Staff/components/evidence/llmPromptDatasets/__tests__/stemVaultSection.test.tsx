@@ -34,7 +34,7 @@ const mockStemVault: StemVaultInterface = {
 
 const renderComponent = (stemVault: StemVaultInterface) => {
   return render(
-    <StemVaultSection stemVault={stemVault} />
+    <StemVaultSection individualDatasetLinkBase="/" stemVault={stemVault} />
   );
 };
 

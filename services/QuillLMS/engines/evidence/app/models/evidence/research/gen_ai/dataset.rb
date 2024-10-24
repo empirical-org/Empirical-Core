@@ -29,6 +29,9 @@ module Evidence
         has_many :prompt_examples, dependent: :destroy
         has_many :trials, dependent: :destroy
         has_many :comparisons, dependent: :destroy
+        has_many :dataset_relevant_texts, dependent: :destroy
+        has_many :relevant_texts, through: :dataset_relevant_texts
+
         has_many :data_subsets, class_name: 'Evidence::Research::GenAI::Dataset', foreign_key: 'parent_id'
 
         belongs_to :stem_vault
@@ -56,7 +59,7 @@ module Evidence
         def serializable_hash(options = nil)
           options ||= {}
           super(options.reverse_merge(
-            methods: [:trial_count]
+            methods: [:trial_count, :relevant_text_ids]
           ))
         end
 

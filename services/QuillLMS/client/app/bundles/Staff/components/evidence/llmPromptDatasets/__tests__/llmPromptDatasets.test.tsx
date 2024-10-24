@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter, Route } from 'react-router-dom';
 
-import LLMPromptTrials from '../llmPromptTrials';
+import LLMPromptDatasets from '../llmPromptDatasets';
 
 import { BECAUSE, BUT, SO } from '../../../../../../constants/evidence';
 
@@ -19,7 +19,7 @@ const defaultMatchProps = {
 const mockRouterProps = {
   history: {},
   location: {
-    pathname: 'llm-prompt-trials'
+    pathname: 'llm-prompt-datasets'
   }
 }
 
@@ -36,14 +36,14 @@ const renderComponent = (activityId = '1', promptConjunction = '') => {
     <QueryClientProvider client={queryClient}>
       <MemoryRouter initialEntries={[`/activity/${activityId}`]}>
         <Route path="/activity/:activityId">
-          <LLMPromptTrials {...mockRouterProps} match={matchProps} />
+          <LLMPromptDatasets {...mockRouterProps} match={matchProps} />
         </Route>
       </MemoryRouter>
     </QueryClientProvider>
   );
 };
 
-describe('LLMPromptTrials', () => {
+describe('LLMPromptDatasets', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
