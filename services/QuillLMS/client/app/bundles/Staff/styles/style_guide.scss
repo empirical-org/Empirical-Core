@@ -239,6 +239,48 @@
   }
 }
 
+#buttons {
+  .element-row {
+    width: 100%;
+    max-width: 650px;
+    .upper-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      pre {
+        text-align: center;
+        line-height: 0;
+        padding: 24px;
+      }
+      .left-side-container, .right-side-container {
+        min-width: 200px;
+        .dropdown-container:first-of-type {
+          margin-bottom: 16px;
+        }
+      }
+    }
+    .customization-options-container {
+      display: flex;
+      margin: 48px 0px;
+      .left-side-container {
+        margin-right: 24px;
+      }
+    }
+    .customizable-button-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100px;
+      margin-bottom: 48px;
+      width: 100%;
+      max-width: 650px;
+      &.dark {
+        background-color: $quill-grey-10;
+      }
+    }
+  }
+}
+
 #checkboxes, #radio-buttons, #lists, #buttons {
   h2 {
     font-weight: 700;
@@ -490,6 +532,13 @@
     border-bottom: 1px solid $quill-grey-10;
     border-right: 1px solid $quill-grey-10;
     position: relative;
+    &.white-transparent {
+      background-color: $quill-grey-90;
+      color: $quill-white;
+      code {
+        background-color: $quill-grey-90;
+      }
+    }
     div {
       width: 40px;
       height: 40px;
@@ -525,6 +574,7 @@
     quill-black-transparent-30: $quill-black-transparent-30,
     quill-black-transparent-20: $quill-black-transparent-20,
     quill-black-transparent-10: $quill-black-transparent-10,
+    quill-black-transparent-5: $quill-black-transparent-5,
     quill-white-transparent-90: $quill-white-transparent-90,
     quill-white-transparent-80: $quill-white-transparent-80,
     quill-white-transparent-70: $quill-white-transparent-70,
@@ -534,6 +584,7 @@
     quill-white-transparent-30: $quill-white-transparent-30,
     quill-white-transparent-20: $quill-white-transparent-20,
     quill-white-transparent-10: $quill-white-transparent-10,
+    quill-white-transparent-5: $quill-white-transparent-5,
     quill-green-transparent-90: $quill-green-transparent-90,
     quill-green-transparent-80: $quill-green-transparent-80,
     quill-green-transparent-70: $quill-green-transparent-70,
@@ -543,6 +594,7 @@
     quill-green-transparent-30: $quill-green-transparent-30,
     quill-green-transparent-20: $quill-green-transparent-20,
     quill-green-transparent-10: $quill-green-transparent-10,
+    quill-green-transparent-5: $quill-green-transparent-5,
 
     quill-green: $quill-green,
     quill-green-50: $quill-green-50,

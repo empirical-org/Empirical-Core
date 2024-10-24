@@ -29,9 +29,12 @@ module VitallySchoolStats
   end
 
   def activities_assigned_query
-    @activities_assigned ||= ClassroomUnit.joins(classroom_unscoped: { teachers: :school }, unit: :activities)
+    @activities_assigned ||= ClassroomUnit.joins(classroom_unscoped: { teachers: :school })
+      .joins('JOIN units on classroom_units.unit_id = units.id')
+      .joins('JOIN unit_activities on unit_activities.unit_id = units.id')
+      .joins('JOIN activities ON unit_activities.activity_id = activities.id')
       .where('schools.id = ?', school.id)
       .where('classrooms_teachers.role = ?', ClassroomsTeacher::ROLE_TYPES[:owner])
-      .select('assigned_student_ids', 'activities.id', 'unit_activities.created_at')
+      .select('assigned_student_ids', 'activities.id', 'classroom_units.created_at')
   end
 end

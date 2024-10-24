@@ -11,238 +11,364 @@ exports[`Buttons it should render 1`] = `
       Buttons (New)
     </h2>
     <div
+      class="element-row"
+    >
+      <div
+        class="upper-container"
+      >
+        <pre>
+          &lt;button className="quill-button extra-small green contained"&gt;Button&lt;/button&gt;
+        </pre>
+        <div
+          class="customization-options-container"
+        >
+          <div
+            class="left-side-container"
+          >
+            <div
+              class="dropdown-container input-container inactive has-text  undefined searchable "
+              role="button"
+              tabindex="0"
+            >
+              <label>
+                Size
+              </label>
+              <div
+                class="dropdown css-b62m3t-container"
+              >
+                <span
+                  class="css-1f43avz-a11yText-A11yText"
+                  id="react-select-2-live-region"
+                />
+                <span
+                  aria-atomic="false"
+                  aria-live="polite"
+                  aria-relevant="additions text"
+                  class="css-1f43avz-a11yText-A11yText"
+                />
+                <div
+                  class="dropdown__control css-13cymwt-control"
+                >
+                  <div
+                    class="dropdown__value-container dropdown__value-container--has-value css-1fdsijx-ValueContainer"
+                  >
+                    <div
+                      class="dropdown__single-value css-1dimb5e-singleValue"
+                    >
+                      Extra Small (XS)
+                    </div>
+                    <div
+                      class="dropdown__input-container css-qbdosj-Input"
+                      data-value=""
+                    >
+                      <input
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                        autocapitalize="none"
+                        autocomplete="off"
+                        autocorrect="off"
+                        class="dropdown__input"
+                        id="react-select-2-input"
+                        role="combobox"
+                        spellcheck="false"
+                        style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                        tabindex="0"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
+                  >
+                    <span
+                      class="dropdown__indicator-separator css-1u9des2-indicatorSeparator"
+                    />
+                    <div
+                      aria-hidden="true"
+                      class="dropdown__indicator dropdown__dropdown-indicator css-1xc3v61-indicatorContainer"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="css-tj5bde-Svg"
+                        focusable="false"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <path
+                          d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="dropdown-container input-container inactive has-text  undefined searchable "
+              role="button"
+              tabindex="0"
+            >
+              <label>
+                Color
+              </label>
+              <div
+                class="dropdown css-b62m3t-container"
+              >
+                <span
+                  class="css-1f43avz-a11yText-A11yText"
+                  id="react-select-3-live-region"
+                />
+                <span
+                  aria-atomic="false"
+                  aria-live="polite"
+                  aria-relevant="additions text"
+                  class="css-1f43avz-a11yText-A11yText"
+                />
+                <div
+                  class="dropdown__control css-13cymwt-control"
+                >
+                  <div
+                    class="dropdown__value-container dropdown__value-container--has-value css-1fdsijx-ValueContainer"
+                  >
+                    <div
+                      class="dropdown__single-value css-1dimb5e-singleValue"
+                    >
+                      Green
+                    </div>
+                    <div
+                      class="dropdown__input-container css-qbdosj-Input"
+                      data-value=""
+                    >
+                      <input
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                        autocapitalize="none"
+                        autocomplete="off"
+                        autocorrect="off"
+                        class="dropdown__input"
+                        id="react-select-3-input"
+                        role="combobox"
+                        spellcheck="false"
+                        style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                        tabindex="0"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
+                  >
+                    <span
+                      class="dropdown__indicator-separator css-1u9des2-indicatorSeparator"
+                    />
+                    <div
+                      aria-hidden="true"
+                      class="dropdown__indicator dropdown__dropdown-indicator css-1xc3v61-indicatorContainer"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="css-tj5bde-Svg"
+                        focusable="false"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <path
+                          d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="right-side-container"
+          >
+            <div
+              class="dropdown-container input-container inactive has-text  undefined searchable "
+              role="button"
+              tabindex="0"
+            >
+              <label>
+                Variant
+              </label>
+              <div
+                class="dropdown css-b62m3t-container"
+              >
+                <span
+                  class="css-1f43avz-a11yText-A11yText"
+                  id="react-select-4-live-region"
+                />
+                <span
+                  aria-atomic="false"
+                  aria-live="polite"
+                  aria-relevant="additions text"
+                  class="css-1f43avz-a11yText-A11yText"
+                />
+                <div
+                  class="dropdown__control css-13cymwt-control"
+                >
+                  <div
+                    class="dropdown__value-container dropdown__value-container--has-value css-1fdsijx-ValueContainer"
+                  >
+                    <div
+                      class="dropdown__single-value css-1dimb5e-singleValue"
+                    >
+                      Contained
+                    </div>
+                    <div
+                      class="dropdown__input-container css-qbdosj-Input"
+                      data-value=""
+                    >
+                      <input
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                        autocapitalize="none"
+                        autocomplete="off"
+                        autocorrect="off"
+                        class="dropdown__input"
+                        id="react-select-4-input"
+                        role="combobox"
+                        spellcheck="false"
+                        style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                        tabindex="0"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
+                  >
+                    <span
+                      class="dropdown__indicator-separator css-1u9des2-indicatorSeparator"
+                    />
+                    <div
+                      aria-hidden="true"
+                      class="dropdown__indicator dropdown__dropdown-indicator css-1xc3v61-indicatorContainer"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="css-tj5bde-Svg"
+                        focusable="false"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <path
+                          d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="dropdown-container input-container inactive has-text  undefined searchable "
+              role="button"
+              tabindex="0"
+            >
+              <label>
+                Disabled
+              </label>
+              <div
+                class="dropdown css-b62m3t-container"
+              >
+                <span
+                  class="css-1f43avz-a11yText-A11yText"
+                  id="react-select-5-live-region"
+                />
+                <span
+                  aria-atomic="false"
+                  aria-live="polite"
+                  aria-relevant="additions text"
+                  class="css-1f43avz-a11yText-A11yText"
+                />
+                <div
+                  class="dropdown__control css-13cymwt-control"
+                >
+                  <div
+                    class="dropdown__value-container dropdown__value-container--has-value css-1fdsijx-ValueContainer"
+                  >
+                    <div
+                      class="dropdown__single-value css-1dimb5e-singleValue"
+                    >
+                      False
+                    </div>
+                    <div
+                      class="dropdown__input-container css-qbdosj-Input"
+                      data-value=""
+                    >
+                      <input
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                        autocapitalize="none"
+                        autocomplete="off"
+                        autocorrect="off"
+                        class="dropdown__input"
+                        id="react-select-5-input"
+                        role="combobox"
+                        spellcheck="false"
+                        style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                        tabindex="0"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
+                  >
+                    <span
+                      class="dropdown__indicator-separator css-1u9des2-indicatorSeparator"
+                    />
+                    <div
+                      aria-hidden="true"
+                      class="dropdown__indicator dropdown__dropdown-indicator css-1xc3v61-indicatorContainer"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="css-tj5bde-Svg"
+                        focusable="false"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <path
+                          d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="customizable-button-container "
+      >
+        <button
+          class="quill-button extra-small green contained"
+        >
+          Button
+        </button>
+      </div>
+    </div>
+    <div
       class="variations-container"
     >
-      <h4
-        class="style-guide-h4"
-      >
-        Sizes
-      </h4>
-      <div
-        class="options-container"
-      >
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Extra Small (XS)
-          </p>
-          <div
-            class="quill-button-container"
-          >
-            <button
-              class="quill-button focus-on-light extra-small contained"
-            >
-              Button
-            </button>
-          </div>
-          <p
-            class="option-label"
-          >
-            quill-button extra-small contained
-          </p>
-        </div>
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Small
-          </p>
-          <div
-            class="quill-button-container"
-          >
-            <button
-              class="quill-button focus-on-light small contained"
-            >
-              Button
-            </button>
-          </div>
-          <p
-            class="option-label"
-          >
-            quill-button small contained
-          </p>
-        </div>
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Medium
-          </p>
-          <div
-            class="quill-button-container"
-          >
-            <button
-              class="quill-button focus-on-light medium contained"
-            >
-              Button
-            </button>
-          </div>
-          <p
-            class="option-label"
-          >
-            quill-button medium contained
-          </p>
-        </div>
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Large
-          </p>
-          <div
-            class="quill-button-container"
-          >
-            <button
-              class="quill-button focus-on-light large contained"
-            >
-              Button
-            </button>
-          </div>
-          <p
-            class="option-label"
-          >
-            quill-button large contained
-          </p>
-        </div>
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Extra Large (XL)
-          </p>
-          <div
-            class="quill-button-container"
-          >
-            <button
-              class="quill-button focus-on-light extra-large contained"
-            >
-              Button
-            </button>
-          </div>
-          <p
-            class="option-label"
-          >
-            quill-button extra-large contained
-          </p>
-        </div>
-      </div>
-      <h4
-        class="style-guide-h4"
-      >
-        States
-      </h4>
-      <div
-        class="options-container"
-      >
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Default
-          </p>
-          <div
-            class="quill-button-container states"
-          >
-            <button
-              class="quill-button focus-on-light small contained "
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small outlined "
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small outlined grey "
-            >
-              Button
-            </button>
-          </div>
-        </div>
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Hover
-          </p>
-          <div
-            class="quill-button-container states"
-          >
-            <button
-              class="quill-button focus-on-light small contained hover"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small outlined hover"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small outlined grey hover"
-            >
-              Button
-            </button>
-          </div>
-        </div>
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Disabled
-          </p>
-          <div
-            class="quill-button-container states"
-          >
-            <button
-              class="quill-button focus-on-light small contained disabled"
-              disabled=""
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small outlined disabled"
-              disabled=""
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small outlined grey disabled"
-              disabled=""
-            >
-              Button
-            </button>
-          </div>
-          <p
-            class="option-label"
-          >
-            quill-button small contained disabled
-          </p>
-        </div>
-      </div>
-      <h4
-        class="style-guide-h4"
-      >
-        Icon
-      </h4>
       <div
         class="options-container"
       >
@@ -280,463 +406,6 @@ exports[`Buttons it should render 1`] = `
             class="option-label"
           >
             quill-button small contained icon
-          </p>
-        </div>
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Without Icon
-          </p>
-          <div
-            class="quill-button-container states"
-          >
-            <button
-              class="quill-button focus-on-light small contained"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small outlined"
-            >
-              Button
-            </button>
-          </div>
-        </div>
-      </div>
-      <h4
-        class="style-guide-h4"
-      >
-        Variants
-      </h4>
-      <div
-        class="options-container"
-      >
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Contained
-          </p>
-          <div
-            class="quill-button-container variants"
-          >
-            <button
-              class="quill-button focus-on-light small contained green"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small contained gold"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small contained maroon"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small contained blue"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small contained teal"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small contained viridian"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small contained purple"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small contained violet"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small contained red"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small contained grey"
-            >
-              Button
-            </button>
-          </div>
-          <p
-            class="option-label"
-          >
-            quill-button small contained {color}
-          </p>
-        </div>
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Outlined
-          </p>
-          <div
-            class="quill-button-container variants"
-          >
-            <button
-              class="quill-button focus-on-light small outlined green"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small outlined gold"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small outlined maroon"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small outlined blue"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small outlined teal"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small outlined viridian"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small outlined purple"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small outlined violet"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small outlined red"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small outlined grey"
-            >
-              Button
-            </button>
-          </div>
-          <p
-            class="option-label"
-          >
-            quill-button small outlined {color}
-          </p>
-        </div>
-      </div>
-      <h4
-        class="style-guide-h4"
-      >
-        Colors
-      </h4>
-      <div
-        class="options-container"
-      >
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Default (Green)
-          </p>
-          <div
-            class="quill-button-container colors"
-          >
-            <button
-              class="quill-button focus-on-light small contained green"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small contained hover green"
-            >
-              Button
-            </button>
-          </div>
-          <p
-            class="option-label"
-          >
-            quill-button small contained green
-          </p>
-        </div>
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Gold
-          </p>
-          <div
-            class="quill-button-container colors"
-          >
-            <button
-              class="quill-button focus-on-light small contained gold"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small contained hover gold"
-            >
-              Button
-            </button>
-          </div>
-          <p
-            class="option-label"
-          >
-            quill-button small contained gold
-          </p>
-        </div>
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Maroon
-          </p>
-          <div
-            class="quill-button-container colors"
-          >
-            <button
-              class="quill-button focus-on-light small contained maroon"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small contained hover maroon"
-            >
-              Button
-            </button>
-          </div>
-          <p
-            class="option-label"
-          >
-            quill-button small contained maroon
-          </p>
-        </div>
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Blue
-          </p>
-          <div
-            class="quill-button-container colors"
-          >
-            <button
-              class="quill-button focus-on-light small contained blue"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small contained hover blue"
-            >
-              Button
-            </button>
-          </div>
-          <p
-            class="option-label"
-          >
-            quill-button small contained blue
-          </p>
-        </div>
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Teal
-          </p>
-          <div
-            class="quill-button-container colors"
-          >
-            <button
-              class="quill-button focus-on-light small contained teal"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small contained hover teal"
-            >
-              Button
-            </button>
-          </div>
-          <p
-            class="option-label"
-          >
-            quill-button small contained teal
-          </p>
-        </div>
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Viridian
-          </p>
-          <div
-            class="quill-button-container colors"
-          >
-            <button
-              class="quill-button focus-on-light small contained viridian"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small contained hover viridian"
-            >
-              Button
-            </button>
-          </div>
-          <p
-            class="option-label"
-          >
-            quill-button small contained viridian
-          </p>
-        </div>
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Purple
-          </p>
-          <div
-            class="quill-button-container colors"
-          >
-            <button
-              class="quill-button focus-on-light small contained purple"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small contained hover purple"
-            >
-              Button
-            </button>
-          </div>
-          <p
-            class="option-label"
-          >
-            quill-button small contained purple
-          </p>
-        </div>
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Violet
-          </p>
-          <div
-            class="quill-button-container colors"
-          >
-            <button
-              class="quill-button focus-on-light small contained violet"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small contained hover violet"
-            >
-              Button
-            </button>
-          </div>
-          <p
-            class="option-label"
-          >
-            quill-button small contained violet
-          </p>
-        </div>
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Red
-          </p>
-          <div
-            class="quill-button-container colors"
-          >
-            <button
-              class="quill-button focus-on-light small contained red"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small contained hover red"
-            >
-              Button
-            </button>
-          </div>
-          <p
-            class="option-label"
-          >
-            quill-button small contained red
-          </p>
-        </div>
-        <div
-          class="option-container"
-        >
-          <p
-            class="option-label"
-          >
-            Grey
-          </p>
-          <div
-            class="quill-button-container colors"
-          >
-            <button
-              class="quill-button focus-on-light small contained grey"
-            >
-              Button
-            </button>
-            <button
-              class="quill-button focus-on-light small contained hover grey"
-            >
-              Button
-            </button>
-          </div>
-          <p
-            class="option-label"
-          >
-            quill-button small contained grey
           </p>
         </div>
       </div>
