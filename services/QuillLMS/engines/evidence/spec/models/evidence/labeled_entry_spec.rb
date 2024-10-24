@@ -17,8 +17,8 @@
 #
 # Indexes
 #
-#  index_evidence_labeled_entries_on_prompt_id            (prompt_id)
-#  index_evidence_labeled_entries_on_prompt_id_and_entry  (prompt_id,entry) UNIQUE
+#  idx_on_prompt_id_entry_label_e61aa4cb93      (prompt_id,entry,label) UNIQUE
+#  index_evidence_labeled_entries_on_prompt_id  (prompt_id)
 #
 
 require 'rails_helper'
