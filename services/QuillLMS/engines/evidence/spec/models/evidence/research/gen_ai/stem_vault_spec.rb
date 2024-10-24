@@ -38,6 +38,20 @@ module Evidence
         it { have_many(:datasets).dependent(:destroy) }
         it { have_many(:trials).through(:datasets) }
 
+        describe '#serializable_hash' do
+          let(:stem_vault) { create(factory) }
+
+          it 'should fill out hash with all fields' do
+            json_hash = stem_vault.as_json
+            expect(stem_vault.id).to(eq(json_hash['id']))
+            expect(stem_vault.conjunction).to(eq(json_hash['conjunction']))
+            expect(stem_vault.stem).to(eq(json_hash['stem']))
+            expect(stem_vault.activity_id).to(eq(json_hash['activity_id']))
+            expect(stem_vault.prompt_id).to(eq(json_hash['prompt_id']))
+            expect(stem_vault.datasets).to(eq(json_hash['datasets']))
+          end
+        end
+
         describe '#relevant_text' do
           subject { stem_vault.relevant_text }
 

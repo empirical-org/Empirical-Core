@@ -6,7 +6,7 @@ import ActivityForm from './activityForm';
 
 import { Spinner } from '../../../../Shared/index';
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
-import { ActivityInterface } from '../../../interfaces/evidenceInterfaces';
+import { ActivityInterface, RelevantTextsInterface } from '../../../interfaces/evidenceInterfaces';
 import { createActivity, updateActivity } from '../../../utils/evidence/activityAPIs';
 import SubmissionModal from '../shared/submissionModal';
 

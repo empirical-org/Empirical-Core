@@ -70,6 +70,8 @@ module Evidence
     has_many :feedbacks, through: :rules
     has_many :highlights, through: :feedbacks
     has_many :plagiarism_texts, through: :rules
+    has_many :stem_vaults, through: :prompts
+    has_many :evidence_research_gen_ai_activities, class_name: 'Evidence::Research::GenAI::Activity', through: :stem_vaults, source: :activity
 
     belongs_to :parent_activity, class_name: Evidence.parent_activity_classname
 
@@ -107,9 +109,9 @@ module Evidence
     def serializable_hash(options = nil)
       options ||= {}
       super(options.reverse_merge(
-        only: [:id, :parent_activity_id, :title, :version, :notes, :target_level, :scored_level],
+        only: [:id, :parent_activity_id, :title, :version, :notes, :target_level, :scored_level, :ai_type],
         include: [:passages, :prompts],
-        methods: [:invalid_related_texts, :flag]
+        methods: [:invalid_related_texts, :flag, :relevant_texts, :invalid_relevant_text_keys]
       ))
     end
 
@@ -120,6 +122,15 @@ module Evidence
     def url
       "evidence/#/activities/#{id}/settings"
     end
+
+    def evidence_research_gen_ai_activity = evidence_research_gen_ai_activities&.first
+
+    def gen_ai? = ai_type == GEN_AI
+    def rag? = ai_type == RAG
+    def automl? = ai_type == AUTOML
+
+    def invalid_relevant_text_keys = evidence_research_gen_ai_activity&.invalid_relevant_text_keys
+    def relevant_texts = evidence_research_gen_ai_activity&.relevant_texts
 
     private def update_parent_activity_name
       parent_activity&.update(name: title)

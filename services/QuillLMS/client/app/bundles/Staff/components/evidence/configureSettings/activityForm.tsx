@@ -5,13 +5,13 @@ import MaxAttemptsEditor from "./maxAttemptsEditor";
 import PromptsForm from './promptsForm';
 import UpperFormSection from './upperFormSection';
 
-import { BECAUSE, BREAK_TAG, BUILDING_ESSENTIAL_KNOWLEDGE, BUT, HIGHLIGHTING_PROMPT, HIGHLIGHT_PROMPT, IMAGE, MAX_ATTEMPTS_FEEDBACK, PASSAGE, PROMPTS, SO, TEXT, activityFormKeys } from '../../../../../constants/evidence';
+import { BECAUSE, BREAK_TAG, BUILDING_ESSENTIAL_KNOWLEDGE, BUT, HIGHLIGHTING_PROMPT, HIGHLIGHT_PROMPT, IMAGE, MAX_ATTEMPTS_FEEDBACK, PASSAGE, STEMS, SO, TEXT, activityFormKeys, GEN_AI_AI_TYPE, } from '../../../../../constants/evidence';
 import { DataTable, Input, TextEditor, ToggleComponentSection, titleCase } from '../../../../Shared/index';
 import { DEFAULT_HIGHLIGHT_PROMPT } from '../../../../Shared/utils/constants';
 import { buildActivity, validateForm, validateFormSection } from '../../../helpers/evidence/miscHelpers';
 import { buildBlankPrompt, getActivityPrompt, getActivityPromptSetter, promptsByConjunction, trimmedPrompt } from '../../../helpers/evidence/promptHelpers';
 import { renderInvalidHighlightLinks } from '../../../helpers/evidence/renderHelpers';
-import { ActivityInterface, ClickEvent, InputEvent, PassagesInterface, PromptInterface, TextAreaEvent } from '../../../interfaces/evidenceInterfaces';
+import { ActivityInterface, ClickEvent, InputEvent, PassagesInterface, PromptInterface, RelevantTextsInterface, } from '../../../interfaces/evidenceInterfaces';
 
 interface ActivityFormProps {
   activity: ActivityInterface,
@@ -19,8 +19,10 @@ interface ActivityFormProps {
   submitActivity: (activity: object) => void
 }
 
+const relevantTextErrorMessage = <span className="all-errors-message">This text contains at least one sentence that is not the same as the text in the passage.</span>
+
 const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormProps) => {
-  const { id, parent_activity_id, invalid_related_texts, passages, prompts, title, notes, flag, } = activity;
+  const { id, parent_activity_id, invalid_related_texts, passages, prompts, title, notes, flag, ai_type, relevant_texts, invalid_relevant_text_keys, } = activity;
   const formattedPassage = passages && passages.length ? passages : [{ text: '', highlight_prompt: DEFAULT_HIGHLIGHT_PROMPT, essential_knowledge_text: '' }];
   const formattedPrompts = promptsByConjunction(prompts);
   const becausePrompt = formattedPrompts && formattedPrompts[BECAUSE] ? formattedPrompts[BECAUSE] : buildBlankPrompt(BECAUSE);
@@ -30,15 +32,18 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
   const [activityTitle, setActivityTitle] = React.useState<string>(title || '');
   const [activityNotes, setActivityNotes] = React.useState<string>(notes || '');
   const [activityFlag, setActivityFlag] = React.useState<string>(flag || 'alpha');
+  const [aiType, setAIType] = React.useState<string>(ai_type || GEN_AI_AI_TYPE);
   const [activityPassages, setActivityPassages] = React.useState<PassagesInterface[]>(formattedPassage);
   const [activityBecausePrompt, setActivityBecausePrompt] = React.useState<PromptInterface>(becausePrompt);
   const [activityButPrompt, setActivityButPrompt] = React.useState<PromptInterface>(butPrompt);
   const [activitySoPrompt, setActivitySoPrompt] = React.useState<PromptInterface>(soPrompt);
+  const [relevantTexts, setRelevantTexts] = React.useState<RelevantTextsInterface|{}>(relevant_texts || {})
   const [errors, setErrors] = React.useState<{}>({});
   const [showHighlights, setShowHighlights] = React.useState(true)
 
   function toggleShowHighlights(e: ClickEvent) { setShowHighlights(!showHighlights)}
   function handleSetActivityFlag(option: { value: string, label: string }) { setActivityFlag(option.value) };
+  function handleSetAIType(option: { value: string, label: string }) { setAIType(option.value) };
   function handleSetActivityTitle(e: InputEvent){ setActivityTitle(e.target.value) };
   function handleSetActivityNotes(e: InputEvent){ setActivityNotes(e.target.value) };
   function handleSetHighlightPrompt(e: InputEvent){ handleSetActivityPassages('highlight_prompt', e.target.value) };
@@ -48,6 +53,9 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
   function handleSetPassageEssentialKnowledgeText(text: string) { handleSetActivityPassages('essential_knowledge_text', text)}
   function handleSetImageAttribution(text: string) {handleSetActivityPassages('image_attribution', text) }
   function handleSetImageCaption(e: InputEvent) { handleSetActivityPassages('image_caption', e.target.value)}
+  function handleSetBecauseRelevantText(text: string){ setRelevantTexts({ ...relevantTexts, because_text: text, }) };
+  function handleSetButRelevantText(text: string){ setRelevantTexts({ ...relevantTexts, but_text: text, }) };
+  function handleSetSoRelevantText(text: string){ setRelevantTexts({ ...relevantTexts, so_text: text, }) };
 
   function handleSetActivityPassages(key, value){
     const updatedPassages = [...activityPassages];
@@ -75,6 +83,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
 
     const activityObject = buildActivity({
       activityFlag,
+      aiType,
       activityNotes,
       activityTitle,
       activityParentActivityId: parent_activity_id,
@@ -82,10 +91,12 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
       activityBecausePrompt: trimmedBecausePrompt,
       activityButPrompt: trimmedButPrompt,
       activitySoPrompt: trimmedSoPrompt,
-      highlightPrompt: activityPassages[0].highlight_prompt || DEFAULT_HIGHLIGHT_PROMPT
+      highlightPrompt: activityPassages[0].highlight_prompt || DEFAULT_HIGHLIGHT_PROMPT,
+      relevantTexts
     });
     const state = [
       activityFlag,
+      aiType,
       activityTitle,
       activityNotes,
       activityPassages[0].text,
@@ -134,6 +145,31 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
         />
       </div>
       {errors[PASSAGE] && <p className="error-message">{errors[PASSAGE]}</p>}
+      {aiType === GEN_AI_AI_TYPE && (
+        <React.Fragment>
+          <p className="text-editor-label">Relevant Text - Because</p>
+          <TextEditor
+            handleTextChange={handleSetBecauseRelevantText}
+            key="because-relevant-text"
+            text={relevantTexts.because_text}
+          />
+          {invalid_relevant_text_keys?.includes('because_text') && relevantTextErrorMessage}
+          <p className="text-editor-label">Relevant Text - But</p>
+          <TextEditor
+            handleTextChange={handleSetButRelevantText}
+            key="but-relevant-text"
+            text={relevantTexts.but_text}
+          />
+          {invalid_relevant_text_keys?.includes('but_text') && relevantTextErrorMessage}
+          <p className="text-editor-label">Relevant Text - So</p>
+          <TextEditor
+            handleTextChange={handleSetSoRelevantText}
+            key="so-relevant-text"
+            text={relevantTexts.so_text}
+          />
+          {invalid_relevant_text_keys?.includes('so_text') && relevantTextErrorMessage}
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 
@@ -160,7 +196,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
           handleSetPrompt={handleSetPrompt}
         />
       ]}
-      label={PROMPTS}
+      label={STEMS}
     />,
     <ToggleComponentSection
       components={[
@@ -199,7 +235,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
     return {
       id: i,
       component,
-      added: validateFormSection({ label, activityPassages, activityBecausePrompt, activityButPrompt, activitySoPrompt })
+      added: validateFormSection({ label, activityPassages, activityBecausePrompt, activityButPrompt, activitySoPrompt, aiType, relevantTexts, invalidRelevantTexts: invalid_relevant_text_keys })
     }
   });
 
@@ -215,11 +251,13 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
         activityFlag={activityFlag}
         activityNotes={activityNotes}
         activityTitle={activityTitle}
+        aiType={aiType}
         errors={errors}
         formErrorsPresent={formErrorsPresent}
         handleSetActivityFlag={handleSetActivityFlag}
         handleSetActivityNotes={handleSetActivityNotes}
         handleSetActivityTitle={handleSetActivityTitle}
+        handleSetAIType={handleSetAIType}
         handleSubmitActivity={handleSubmitActivity}
         parentActivityId={parent_activity_id}
         requestErrors={requestErrors}

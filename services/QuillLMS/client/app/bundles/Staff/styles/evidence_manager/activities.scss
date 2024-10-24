@@ -1,24 +1,60 @@
 .activities-container, .loading-spinner-container, .error-container {
   width: calc(100vw - 200px);
   padding: 20px;
+
+  .dropdowns-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+    .dropdown-container {
+      min-width: 200px;
+    }
+    .input-container .dropdown .dropdown__menu-list {
+      min-height: min-content;
+    }
+  }
+
   .activities-table, .tabs-container {
     width: 100%;
     align-self: flex-start;
+
+    .sort-arrow {
+      margin-right: 0px;
+    }
+
     .data-table-body{
       min-height: 30vh;
       max-height: 70vh;
       .data-table-row {
         span {
           text-align: left !important;
-          a {
-            color: #00c2a2;
-          }
           .a:hover {
             cursor: pointer;
             color: #19a08a;
           }
         }
       }
+    }
+  }
+
+  .activities-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  .ai-type-tag {
+    padding: 4px;
+    border-radius: 16px;
+    &.auto-ml {
+      background-color: $quill-blue-20;
+    }
+    &.gen-ai {
+      background-color: $quill-green-vibrant-20;
+    }
+    &.rag {
+      background-color: $quill-purple-20;
     }
   }
 }

@@ -44,6 +44,21 @@ module Evidence
 
         it { should belong_to(:stem_vault) }
 
+        describe '#serializable_hash' do
+          let(:dataset) { create(factory) }
+
+          it 'should fill out hash with all fields' do
+            json_hash = dataset.as_json
+            expect(dataset.id).to(eq(json_hash['id']))
+            expect(dataset.locked).to(eq(json_hash['locked']))
+            expect(dataset.optimal_count).to(eq(json_hash['optimal_count']))
+            expect(dataset.suboptimal_count).to(eq(json_hash['suboptimal_count']))
+            expect(dataset.version).to(eq(json_hash['version']))
+            expect(dataset.stem_vault_id).to(eq(json_hash['stem_vault_id']))
+            expect(dataset.trial_count).to(eq(json_hash['trial_count']))
+          end
+        end
+
         describe '#set_version' do
           let(:stem_vault) { create(:evidence_research_gen_ai_stem_vault) }
 

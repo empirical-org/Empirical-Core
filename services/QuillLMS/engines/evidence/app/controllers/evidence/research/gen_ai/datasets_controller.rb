@@ -9,10 +9,19 @@ module Evidence
         end
 
         def create
-          if data_subset?
-            redirect_to DataSubsetBuilder.run(parent_id:, test_example_ids:)
-          elsif file_upload?
-            create_dataset_from_file
+          # TODO: clean this up once we have full functionality in the Evidence CMS and no longer need the erb tool
+          respond_to do |format|
+            format.html do
+              if data_subset?
+                redirect_to DataSubsetBuilder.run(parent_id:, test_example_ids:)
+              elsif file_upload?
+                create_dataset_from_file_for_html_request
+              end
+            end
+
+            format.json do
+              create_dataset_from_file_for_json_request
+            end
           end
         end
 
@@ -25,7 +34,7 @@ module Evidence
 
         private def stem_vault = @stem_vault ||= StemVault.find(params[:stem_vault_id])
 
-        private def create_dataset_from_file
+        private def create_dataset_from_file_for_html_request
           @dataset = stem_vault.datasets.new(task_type: Dataset::GENERATIVE)
 
           if @dataset.save
@@ -36,9 +45,20 @@ module Evidence
           end
         end
 
+        private def create_dataset_from_file_for_json_request
+          @dataset = stem_vault.datasets.new(dataset_params.merge(task_type: Dataset::GENERATIVE))
+
+          if @dataset.save
+            DatasetImporter.run(dataset: @dataset, file:)
+            render json: { id: @dataset.id }
+          else
+            render json: { error: @dataset.errors }, status: 400
+          end
+        end
+
         private def file_upload? = file.present?
         private def file = dataset_params[:file]
-        private def dataset_params = params.require(:research_gen_ai_dataset).permit(:file)
+        private def dataset_params = params.require(:research_gen_ai_dataset).permit(:file, :notes)
 
         private def data_subset? = test_example_ids.present? && parent_id.present?
         private def test_example_ids = data_subset_params[:test_example_ids]

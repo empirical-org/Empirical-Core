@@ -6,6 +6,14 @@ module Evidence
   RSpec.describe(ActivitiesController, :type => :controller) do
     before { @routes = Engine.routes }
 
+    let(:relevant_texts) {
+      {
+        because_text: 'The earth is warming because of greenhouse gases.',
+        so_text: 'We must take action to reduce emissions.',
+        but_text: 'Not everyone agrees on the solution.'
+      }
+    }
+
     context '#increment_version' do
       it 'should increment version and persist new changelog with note' do
         changelog_note_text = 'a note'
@@ -88,6 +96,55 @@ module Evidence
         expect(parsed_response['notes']).to(eq('First Activity - Notes'))
         expect(parsed_response['version']).to(eq(1))
         expect(Activity.count).to(eq(1))
+      end
+
+      it 'should call the GenAiRecordBuilder when ai_type is GenAI, relevant_texts, and passage are provided' do
+        expect(GenAiRecordBuilder).to receive(:run)
+
+        post(:create, :params => {
+          :activity => {
+            :parent_activity_id => activity.parent_activity_id,
+            :scored_level => activity.scored_level,
+            :target_level => activity.target_level,
+            :title => activity.title,
+            :notes => activity.notes,
+            :ai_type => Evidence::Activity::GEN_AI,
+            :relevant_texts => relevant_texts,
+            :passages_attributes => [
+              { text: 'The climate is changing rapidly due to human activity.', image_link: 'climate.jpg', image_alt_text: 'Climate change graphic' }
+            ],
+            :prompts_attributes => [
+              { text: 'Greenhouse gases trap heat.', conjunction: 'because' },
+              { text: 'This leads to climate change.', conjunction: 'so' },
+              { text: 'But some deny this connection.', conjunction: 'but' }
+            ]
+          }
+        })
+      end
+
+      it 'should not create GenAI records when ai_type is not GenAI' do
+        expect {
+          post(:create, :params => {
+            :activity => {
+              :parent_activity_id => activity.parent_activity_id,
+              :scored_level => activity.scored_level,
+              :target_level => activity.target_level,
+              :title => activity.title,
+              :notes => activity.notes,
+              :ai_type => 'non-genai',
+              :relevant_texts => relevant_texts,
+              :passages_attributes => [
+                { text: 'The climate is changing rapidly due to human activity.', image_link: 'climate.jpg', image_alt_text: 'Climate change graphic' }
+              ],
+              :prompts_attributes => [
+                { text: 'Greenhouse gases trap heat.', conjunction: 'because' },
+                { text: 'This leads to climate change.', conjunction: 'so' },
+                { text: 'But some deny this connection.', conjunction: 'but' }
+              ]
+            }
+          })
+        }.to change(Evidence::Research::GenAI::Activity, :count).by(0)
+          .and change(Evidence::Research::GenAI::StemVault, :count).by(0)
       end
 
       it 'should make a change log record after creating the Activity record' do
@@ -255,6 +312,55 @@ module Evidence
         expect(activity.scored_level).to(eq('5th grade'))
         expect(activity.target_level).to(eq(9))
         expect(activity.title).to(eq('New title'))
+      end
+
+      it 'should call the GenAiRecordBuilder records when ai_type is GenAI, relevant_texts, and passage are provided' do
+        expect(GenAiRecordBuilder).to receive(:run)
+
+        put(:update, :params => {
+          :id => activity.id,
+          :activity => {
+            :parent_activity_id => 2,
+            :scored_level => '5th grade',
+            :target_level => 9,
+            :title => 'New title',
+            :ai_type => Evidence::Activity::GEN_AI,
+            :relevant_texts => relevant_texts,
+            :passages_attributes => [
+              { id: passage.id, text: 'Updated passage text about climate change. Multiple sentences. Many thoughts.', image_link: 'updated_climate.jpg', image_alt_text: 'Updated climate image' }
+            ],
+            :prompts_attributes => [
+              { id: prompt.id, text: 'Updated text because...', conjunction: 'because' },
+              { text: 'So we must...', conjunction: 'so' },
+              { text: 'But some still deny...', conjunction: 'but' }
+            ]
+          }
+        })
+      end
+
+      it 'should not update GenAI records when ai_type is not GenAI' do
+        expect {
+          put(:update, :params => {
+            :id => activity.id,
+            :activity => {
+              :parent_activity_id => 2,
+              :scored_level => '5th grade',
+              :target_level => 9,
+              :title => 'New title',
+              :ai_type => 'non-genai',
+              :relevant_texts => relevant_texts,
+              :passages_attributes => [
+                { id: passage.id, text: 'Updated passage text about climate change.', image_link: 'updated_climate.jpg', image_alt_text: 'Updated climate image' }
+              ],
+              :prompts_attributes => [
+                { id: prompt.id, text: 'Updated text because...', conjunction: 'because' },
+                { text: 'So we must...', conjunction: 'so' },
+                { text: 'But some still deny...', conjunction: 'but' }
+              ]
+            }
+          })
+        }.to change(Evidence::Research::GenAI::Activity, :count).by(0)
+          .and change(Evidence::Research::GenAI::StemVault, :count).by(0)
       end
 
       it 'should make a change log record after updating Passage text' do
@@ -613,6 +719,25 @@ module Evidence
 
       before do
         allow(activity).to receive(:invalid_related_texts).and_return(invalid_related_texts)
+        allow(Activity).to receive(:find).and_return(activity)
+      end
+
+      it do
+        subject
+        expect(parsed_response).to eq(expected_response)
+      end
+    end
+
+    context '#stem_vaults' do
+      subject { get :stem_vaults, params: { id: activity.id } }
+      let(:parsed_response) { JSON.parse(response.body) }
+
+      let(:activity) { create(:evidence_activity) }
+      let(:stem_vault) { create(:evidence_research_gen_ai_stem_vault) }
+      let(:expected_response) { [stem_vault.as_json] }
+
+      before do
+        allow(activity).to receive(:stem_vaults).and_return([stem_vault])
         allow(Activity).to receive(:find).and_return(activity)
       end
 

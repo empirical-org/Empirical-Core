@@ -80,8 +80,10 @@ exports[`Activity Form component should render Activities 1`] = `
     activityFlag="alpha"
     activityNotes="Could Capybaras Create Chaos? [student testing]"
     activityTitle="Could Capybaras Create Chaos?"
+    aiType="GenAI"
     errors={Object {}}
     formErrorsPresent={false}
+    handleSetAIType={[Function]}
     handleSetActivityFlag={[Function]}
     handleSetActivityNotes={[Function]}
     handleSetActivityTitle={[Function]}
@@ -113,7 +115,7 @@ exports[`Activity Form component should render Activities 1`] = `
         Object {
           "added": <img
             alt="quill-circle-checkmark"
-            src="/images/green_check.svg"
+            src="/images/red_x.svg"
           />,
           "component": <ToggleComponentSection
             components={
@@ -141,6 +143,32 @@ exports[`Activity Form component should render Activities 1`] = `
                       text="..."
                     />
                   </div>
+                  <React.Fragment>
+                    <p
+                      className="text-editor-label"
+                    >
+                      Relevant Text - Because
+                    </p>
+                    <TextEditor
+                      handleTextChange={[Function]}
+                    />
+                    <p
+                      className="text-editor-label"
+                    >
+                      Relevant Text - But
+                    </p>
+                    <TextEditor
+                      handleTextChange={[Function]}
+                    />
+                    <p
+                      className="text-editor-label"
+                    >
+                      Relevant Text - So
+                    </p>
+                    <TextEditor
+                      handleTextChange={[Function]}
+                    />
+                  </React.Fragment>
                 </React.Fragment>,
               ]
             }
@@ -195,7 +223,7 @@ exports[`Activity Form component should render Activities 1`] = `
                 />,
               ]
             }
-            label="Prompts"
+            label="Stems"
           />,
           "id": 1,
         },

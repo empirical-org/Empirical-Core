@@ -17,6 +17,8 @@ module Evidence
   module Research
     module GenAI
       class Activity < ApplicationRecord
+        include TextFormatter
+
         has_many :stem_vaults, dependent: :destroy
         has_many :trials, through: :stem_vaults
         has_many :datasets, through: :trials
@@ -24,9 +26,20 @@ module Evidence
         validates :name, presence: true
         validates :text, presence: true
 
-        attr_readonly :name, :text, :because_text, :but_text, :so_text
-
         def to_s = name
+
+        def invalid_relevant_text_keys
+          relevant_texts.each_with_object([]) do |(key, value), invalid_keys|
+            sentences = value.split(/(?<=[.!?])/).map(&:strip)
+            invalid_keys << key if sentences.any? { |sentence| !stripped_passage.include?(strip_and_downcase(sentence)) }
+          end.uniq
+        end
+
+        def relevant_texts = { because_text:, but_text:, so_text: }
+
+        private def strip_and_downcase(text) = unescape_html_strip_tags_and_punctuation_and_downcase(text)
+
+        private def stripped_passage = @stripped_passage ||= strip_and_downcase(text)
       end
     end
   end

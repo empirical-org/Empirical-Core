@@ -78,4 +78,3 @@ export {
   requestPost,
   requestPut
 };
-

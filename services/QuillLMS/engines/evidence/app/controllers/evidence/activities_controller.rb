@@ -2,7 +2,7 @@
 
 module Evidence
   class ActivitiesController < ApiController
-    before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :seed_data, :change_logs, :labeled_synthetic_data, :topic_optimal_info, :invalid_related_texts]
+    before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :seed_data, :change_logs, :labeled_synthetic_data, :topic_optimal_info, :invalid_related_texts, :stem_vaults]
     before_action :set_lms_user_id, only: [:create, :destroy, :update]
 
     # GET /activities.json
@@ -21,6 +21,7 @@ module Evidence
     def create
       if @activity.save
         @activity.create_default_regex_rules
+        Evidence::GenAiRecordBuilder.run(@activity, relevant_texts) if relevant_texts
 
         changelog_params = {
           action: Evidence.change_log_class::EVIDENCE_ACTIONS[:create],
@@ -42,6 +43,7 @@ module Evidence
     # PATCH/PUT /activities/1.json
     def update
       if @activity.update(activity_params)
+        Evidence::GenAiRecordBuilder.run(@activity, relevant_texts) if relevant_texts
         head :no_content
       else
         render json: @activity.errors, status: :unprocessable_entity
@@ -64,6 +66,10 @@ module Evidence
       }
       Evidence.change_log_class.create!(changelog_params)
       head :no_content
+    end
+
+    def stem_vaults
+      render json: @activity.stem_vaults
     end
 
     # DELETE /activities/1.json
@@ -198,6 +204,14 @@ module Evidence
         prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :first_strong_example, :second_strong_example]
       )
     end
+
+    private def relevant_text_params
+      params.require(:activity).permit(
+        [relevant_texts: [:because_text, :but_text, :so_text]]
+      )
+    end
+
+    private def relevant_texts = relevant_text_params['relevant_texts']&.to_h
 
     private def clean_label_configs(configs_hash)
       configs_hash.transform_values do |configs|
