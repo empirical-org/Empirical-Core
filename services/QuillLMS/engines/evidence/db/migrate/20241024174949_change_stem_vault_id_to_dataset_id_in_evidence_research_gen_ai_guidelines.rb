@@ -2,6 +2,7 @@
 
 class ChangeStemVaultIdToDatasetIdInEvidenceResearchGenAIGuidelines < ActiveRecord::Migration[7.1]
   def up
+    add_column :evidence_research_gen_ai_guidelines, :notes, :text
     add_column :evidence_research_gen_ai_guidelines, :dataset_id, :integer
 
     Evidence::Research::GenAI::Guideline.reset_column_information
@@ -48,5 +49,6 @@ class ChangeStemVaultIdToDatasetIdInEvidenceResearchGenAIGuidelines < ActiveReco
 
     remove_index :evidence_research_gen_ai_guidelines, :dataset_id
     remove_column :evidence_research_gen_ai_guidelines, :dataset_id
+    remove_column :evidence_research_gen_ai_guidelines, :notes
   end
 end

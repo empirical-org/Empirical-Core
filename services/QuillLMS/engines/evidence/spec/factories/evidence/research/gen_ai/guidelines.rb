@@ -6,6 +6,7 @@
 #
 #  id                         :bigint           not null, primary key
 #  curriculum_assigned_status :string           not null
+#  notes                      :text
 #  text                       :text             not null
 #  visible                    :boolean          default(TRUE), not null
 #  created_at                 :datetime         not null

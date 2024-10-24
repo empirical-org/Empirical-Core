@@ -145,7 +145,7 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
           item timestamp;
         BEGIN
           SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-
+          
           -- backward compatibility block
           IF as_created_at IS NULL OR as_created_at < timestamp '2013-08-25 00:00:00.000000' THEN
             SELECT SUM(
@@ -160,11 +160,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
                       'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
                     )
                 END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-
+                
                 RETURN COALESCE(time_spent,0);
           END IF;
-
-
+          
+          
           first_item := NULL;
           last_item := NULL;
           max_item := NULL;
@@ -188,11 +188,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
 
             END IF;
           END LOOP;
-
+          
           IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
             time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
           END IF;
-
+          
           RETURN time_spent;
         END;
       $$;
@@ -207,7 +207,7 @@ CREATE FUNCTION public.timespent_student(student integer) RETURNS bigint
     AS $$
         SELECT COALESCE(SUM(time_spent),0) FROM (
           SELECT id,timespent_activity_session(id) AS time_spent FROM activity_sessions
-          WHERE activity_sessions.user_id = student
+          WHERE activity_sessions.user_id = student 
           GROUP BY id) as as_ids;
 
       $$;
@@ -3156,8 +3156,8 @@ CREATE TABLE public.evidence_research_gen_ai_datasets (
     updated_at timestamp(6) without time zone NOT NULL,
     version integer NOT NULL,
     parent_id integer,
-    task_type character varying,
-    notes text
+    notes text,
+    task_type character varying
 );
 
 
@@ -3263,6 +3263,7 @@ CREATE TABLE public.evidence_research_gen_ai_guidelines (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     visible boolean DEFAULT true NOT NULL,
+    notes text,
     dataset_id integer
 );
 
@@ -11882,9 +11883,9 @@ ALTER TABLE ONLY public.learn_worlds_account_course_events
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20241024190034'),
 ('20241024135021'),
 ('20241024133309'),
-('20241024190034'),
 ('20241022194332'),
 ('20241022194331'),
 ('20241022194330'),

@@ -1047,8 +1047,8 @@ CREATE TABLE public.evidence_research_gen_ai_datasets (
     updated_at timestamp(6) without time zone NOT NULL,
     version integer NOT NULL,
     parent_id integer,
-    task_type character varying,
-    notes text
+    notes text,
+    task_type character varying
 );
 
 
@@ -1528,8 +1528,8 @@ CREATE TABLE public.evidence_research_gen_ai_stem_vaults (
     conjunction character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    automl_data jsonb DEFAULT '{}'::jsonb NOT NULL,
-    prompt_id integer
+    prompt_id integer,
+    automl_data jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -2728,9 +2728,9 @@ ALTER TABLE ONLY public.comprehension_regex_rules
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20241024174949'),
 ('20241024134904'),
 ('20241024133220'),
-('20241024174949'),
 ('20241022191816'),
 ('20241022191551'),
 ('20241022191503'),
