@@ -195,6 +195,33 @@
     <% end %>
   </div>
 
+  <br>
+  <div class="field-spacing">
+    <h3>Relevant Text</h3>
+    <div class="relevant-texts-section">
+      <table>
+        <thead>
+          <tr>
+            <th class="select-column">Select</th>
+            <th>Text</th>
+            <th class="created-column">Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @relevant_texts.each do |text| %>
+            <tr>
+              <td>
+                <%= f.radio_button :relevant_text_id, text.id, checked: text.default %>
+              </td>
+              <td><%= text.text %></td>
+              <td><%= text.created_at.strftime('%m/%d/%Y') %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <div class="actions">
     <%= f.submit "run" %>
   </div>

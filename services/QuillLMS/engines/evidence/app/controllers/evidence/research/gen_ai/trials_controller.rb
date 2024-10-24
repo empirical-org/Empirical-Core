@@ -14,10 +14,13 @@ module Evidence
           @optimal_guidelines = dataset.stem_vault.guidelines.optimal.visible
           @suboptimal_guidelines = dataset.stem_vault.guidelines.suboptimal.visible
           @prompt_examples = dataset.prompt_examples
+          @relevant_texts = dataset.relevant_texts
         end
 
         def create
-          llm_prompt = LLMPrompt.create_from_template!(dataset_id:, guideline_ids:, llm_prompt_template_id:, prompt_example_ids:)
+          llm_prompt = LLMPrompt.create_from_template!(
+            dataset_id:, guideline_ids:, llm_prompt_template_id:, prompt_example_ids:, relevant_text_id:
+          )
 
           trial = dataset.trials.new(llm_id:, llm_prompt:, temperature:)
           trial.results = { g_eval_ids: [g_eval_id] }
@@ -46,6 +49,7 @@ module Evidence
         private def llm_id = trial_params[:llm_id]
         private def llm_prompt_template_id = trial_params[:llm_prompt_template_id]
         private def prompt_example_ids = trial_params[:prompt_example_ids]&.reject(&:blank?)&.map(&:to_i) || []
+        private def relevant_text_id = trial_params[:relevant_text_id]
         private def temperature = trial_params[:temperature]
 
         private def trial_params
@@ -55,6 +59,7 @@ module Evidence
               :g_eval_id,
               :llm_id,
               :llm_prompt_template_id,
+              :relevant_text_id,
               :temperature,
               guideline_ids: [],
               prompt_example_ids: []

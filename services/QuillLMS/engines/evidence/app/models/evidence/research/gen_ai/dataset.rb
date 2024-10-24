@@ -30,6 +30,8 @@ module Evidence
         has_many :trials, dependent: :destroy
         has_many :comparisons, dependent: :destroy
         has_many :data_subsets, class_name: 'Evidence::Research::GenAI::Dataset', foreign_key: 'parent_id'
+        has_many :dataset_relevant_texts, dependent: :destroy
+        has_many :relevant_texts, through: :dataset_relevant_texts
 
         belongs_to :stem_vault
         belongs_to :parent, class_name: 'Evidence::Research::GenAI::Dataset', optional: true

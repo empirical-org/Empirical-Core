@@ -17,6 +17,8 @@ module Evidence
       class RelevantText < ApplicationRecord
         validates :text, presence: true
         attr_readonly :text
+
+        scope :default, -> { find_by(default: true) }
       end
     end
   end

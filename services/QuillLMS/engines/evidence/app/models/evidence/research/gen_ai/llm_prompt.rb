@@ -49,15 +49,16 @@ module Evidence
 
         delegate :name, to: :llm_prompt_template
 
-        def self.create_from_template!(dataset_id:, guideline_ids:, llm_prompt_template_id:, prompt_example_ids:)
+        def self.create_from_template!(dataset_id:, guideline_ids:, llm_prompt_template_id:, prompt_example_ids:, relevant_text_id:)
           guidelines = Guideline.where(id: guideline_ids)
           prompt_examples = PromptExample.where(id: prompt_example_ids)
+          relevant_text = RelevantText.find(relevant_text_id)
 
           ActiveRecord::Base.transaction do
             llm_prompt = create!(
               llm_prompt_template_id: llm_prompt_template_id,
               locked: false,
-              prompt: LLMPromptBuilder.run(dataset_id:, guidelines:, llm_prompt_template_id:, prompt_examples:),
+              prompt: LLMPromptBuilder.run(dataset_id:, guidelines:, llm_prompt_template_id:, prompt_examples:, relevant_text:),
               optimal_examples_count: prompt_examples.optimal.count,
               suboptimal_examples_count: prompt_examples.suboptimal.count,
               optimal_guidelines_count: guidelines.optimal.count,
@@ -66,6 +67,7 @@ module Evidence
 
             LLMPromptGuideline.create!(guideline_ids.map { |id| { llm_prompt:, guideline_id: id } })
             LLMPromptPromptExample.create!(prompt_example_ids.map { |id| { llm_prompt:, prompt_example_id: id } })
+            LLMPromptRelevantText.create!(llm_prompt:, relevant_text:)
 
             llm_prompt.update!(locked: true)
             llm_prompt

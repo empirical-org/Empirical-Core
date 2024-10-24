@@ -35,6 +35,7 @@ module Evidence
         has_many :guidelines, dependent: :destroy
         has_many :datasets, dependent: :destroy
         has_many :trials, through: :datasets
+        has_many :relevant_texts, dependent: :destroy
 
         validates :stem, presence: true
         validates :conjunction, presence: true, inclusion: { in: CONJUNCTIONS }

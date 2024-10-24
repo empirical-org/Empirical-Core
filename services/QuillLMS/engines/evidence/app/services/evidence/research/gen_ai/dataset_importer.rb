@@ -57,7 +57,9 @@ module Evidence
             end
           end
 
-          Dataset
+          stem_vault.
+
+            Dataset
             .where(id: dataset.id)
             .update_all(locked: true, optimal_count:, suboptimal_count:) # HACK: to get around attr_readonly
         end

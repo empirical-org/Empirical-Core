@@ -117,6 +117,36 @@
     <p>No trials found.</p>
   <% end %>
 </div>
+<br>
+<div class="field-spacing">
+  <h3>Relevant Text</h3>
+  <div class="relevant-texts-section">
+    <table>
+      <thead>
+        <tr>
+          <th class="select-column"></th>
+          <th>Relevant Text</th>
+          <th>Notes</th>
+          <th>Default</th>
+          <th class="created-column">Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @relevant_texts.each do |relevant_text| %>
+          <tr>
+            <td>
+              <%= f.radio_button :relevant_text_id, relevant_text.id, checked: relevant_text.default %>
+            </td>
+            <td><%= relevant_text.text %></td>
+            <td><%= relevant_text.notes %></td>
+            <td><%= relevant_text.default %></td>
+            <td><%= text.created_at.strftime('%m/%d/%Y') %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <style>
   .toggle-button {
@@ -130,6 +160,17 @@
 
   .expandable-content {
     transition: opacity 0.3s ease-out;
+  }
+  .relevant-texts-section {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .relevant-texts-section table {
+    background-color: white;
+    width: 100%;
   }
 </style>
 

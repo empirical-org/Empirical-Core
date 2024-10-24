@@ -42,7 +42,7 @@ module Evidence
 
         SUBSTITUTIONS = ACTIVITY_SUBSTITUTIONS.merge(GENERAL_SUBSTITUTIONS).freeze
 
-        attr_reader :dataset_id, :guidelines, :llm_prompt_template_id, :prompt_examples, :text
+        attr_reader :dataset_id, :guidelines, :llm_prompt_template_id, :prompt_examples, :relevant_text, :text
 
         validates :dataset_id, presence: true
         validates :guidelines, presence: true, allow_blank: true
@@ -51,7 +51,7 @@ module Evidence
 
         def self.activity_substitutions = ACTIVITY_SUBSTITUTIONS.keys.map { |key| "#{DELIMITER}#{key}#{DELIMITER}" }
 
-        def initialize(dataset_id:, guidelines:, llm_prompt_template_id:, prompt_examples:, text: nil)
+        def initialize(dataset_id:, guidelines:, llm_prompt_template_id:, prompt_examples:, relevant_text:, text: nil)
           @dataset_id = dataset_id
           @guidelines = guidelines
           @llm_prompt_template_id = llm_prompt_template_id

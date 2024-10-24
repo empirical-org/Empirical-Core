@@ -3156,8 +3156,8 @@ CREATE TABLE public.evidence_research_gen_ai_datasets (
     updated_at timestamp(6) without time zone NOT NULL,
     version integer NOT NULL,
     parent_id integer,
-    task_type character varying,
-    notes text
+    notes text,
+    task_type character varying
 );
 
 
@@ -3260,10 +3260,10 @@ CREATE TABLE public.evidence_research_gen_ai_guidelines (
     id bigint NOT NULL,
     curriculum_assigned_status character varying NOT NULL,
     text text NOT NULL,
-    stem_vault_id integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    visible boolean DEFAULT true NOT NULL
+    visible boolean DEFAULT true NOT NULL,
+    stem_vault_id integer NOT NULL
 );
 
 

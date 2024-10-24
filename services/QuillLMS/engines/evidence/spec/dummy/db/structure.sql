@@ -1047,8 +1047,8 @@ CREATE TABLE public.evidence_research_gen_ai_datasets (
     updated_at timestamp(6) without time zone NOT NULL,
     version integer NOT NULL,
     parent_id integer,
-    task_type character varying,
-    notes text
+    notes text,
+    task_type character varying
 );
 
 
@@ -1151,10 +1151,10 @@ CREATE TABLE public.evidence_research_gen_ai_guidelines (
     id bigint NOT NULL,
     curriculum_assigned_status character varying NOT NULL,
     text text NOT NULL,
-    stem_vault_id integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    visible boolean DEFAULT true NOT NULL
+    visible boolean DEFAULT true NOT NULL,
+    dataset_id integer
 );
 
 
@@ -1528,8 +1528,8 @@ CREATE TABLE public.evidence_research_gen_ai_stem_vaults (
     conjunction character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    automl_data jsonb DEFAULT '{}'::jsonb NOT NULL,
-    prompt_id integer
+    prompt_id integer,
+    automl_data jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -2659,6 +2659,13 @@ CREATE INDEX index_evidence_prompt_healths_on_evidence_activity_health_id ON pub
 
 
 --
+-- Name: index_evidence_research_gen_ai_guidelines_on_dataset_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_evidence_research_gen_ai_guidelines_on_dataset_id ON public.evidence_research_gen_ai_guidelines USING btree (dataset_id);
+
+
+--
 -- Name: evidence_prompt_healths fk_rails_2126b1922f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2721,6 +2728,7 @@ ALTER TABLE ONLY public.comprehension_regex_rules
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20241024174949'),
 ('20241024134904'),
 ('20241024133220'),
 ('20241022191816'),
