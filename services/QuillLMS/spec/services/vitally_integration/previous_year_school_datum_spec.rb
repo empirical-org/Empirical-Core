@@ -107,5 +107,34 @@ RSpec.describe VitallyIntegration::PreviousYearSchoolDatum, type: :model do
       teacher_data = described_class.new(school, year).calculate_data
       expect(teacher_data).to include(expected_data)
     end
+
+    it 'should include archived units' do
+      unit.update(visible: false)
+
+      create(:unit_activity, unit: unit, activity: post_diagnostic_activity, created_at: Date.new(year, 10, 1))
+      create(:unit_activity, unit: unit, activity: pre_diagnostic_activity, created_at: Date.new(year, 10, 1))
+      create(:activity_session,
+        user: student,
+        classroom_unit: classroom_unit1,
+        state: 'finished',
+        completed_at: Date.new(year, 10, 2),
+        updated_at: Date.new(year, 10, 2),
+        activity: pre_diagnostic_activity)
+      create(:activity_session,
+        user: student,
+        classroom_unit: classroom_unit1,
+        state: 'finished',
+        completed_at: Date.new(year, 10, 2),
+        updated_at: Date.new(year, 10, 2),
+        activity: post_diagnostic_activity)
+
+      expected_data = {
+        pre_diagnostics_assigned: 2,
+        pre_diagnostics_completed: 1,
+        post_diagnostics_assigned: 2,
+        post_diagnostics_completed: 1
+      }
+      expect(described_class.new(school, year).calculate_data).to include(expected_data)
+    end
   end
 end
