@@ -727,5 +727,24 @@ module Evidence
         expect(parsed_response).to eq(expected_response)
       end
     end
+
+    context '#stem_vaults' do
+      subject { get :stem_vaults, params: { id: activity.id } }
+      let(:parsed_response) { JSON.parse(response.body) }
+
+      let(:activity) { create(:evidence_activity) }
+      let(:stem_vault) { create(:evidence_research_gen_ai_stem_vault) }
+      let(:expected_response) { [stem_vault.as_json] }
+
+      before do
+        allow(activity).to receive(:stem_vaults).and_return([stem_vault])
+        allow(Activity).to receive(:find).and_return(activity)
+      end
+
+      it do
+        subject
+        expect(parsed_response).to eq(expected_response)
+      end
+    end
   end
 end
