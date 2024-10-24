@@ -3602,7 +3602,8 @@ CREATE TABLE public.evidence_research_gen_ai_relevant_texts (
     text text NOT NULL,
     notes text DEFAULT ''::text,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    stem_vault_id integer
 );
 
 
@@ -11874,6 +11875,7 @@ ALTER TABLE ONLY public.learn_worlds_account_course_events
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20241024135021'),
 ('20241024133309'),
 ('20241022194332'),
 ('20241022194331'),

@@ -1493,7 +1493,8 @@ CREATE TABLE public.evidence_research_gen_ai_relevant_texts (
     text text NOT NULL,
     notes text DEFAULT ''::text,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    stem_vault_id integer
 );
 
 
@@ -2720,6 +2721,7 @@ ALTER TABLE ONLY public.comprehension_regex_rules
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20241024134904'),
 ('20241024133220'),
 ('20241022191816'),
 ('20241022191551'),
