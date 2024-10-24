@@ -25,7 +25,6 @@ export default class NewSignUpBanner extends React.Component {
         buttons={[
           {
             href: "/teachers/progress_reports/concepts/students",
-            standardButtonStyle: true,
             text: "Check out Your Premium Student Results",
             target: ""
           }

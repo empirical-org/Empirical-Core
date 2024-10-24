@@ -705,7 +705,7 @@ module Teacher
       .joins('JOIN classrooms_teachers ON classrooms.id=classrooms_teachers.classroom_id')
       .joins('JOIN users on users.id = classrooms_teachers.user_id')
       .where('users.id = ?', id)
-      .select('assigned_student_ids, activities.id, unit_activities.created_at')
+      .select('assigned_student_ids, activities.id, classroom_units.created_at')
   end
 
   private def base_sql_for_teacher_classrooms(only_visible_classrooms: true)

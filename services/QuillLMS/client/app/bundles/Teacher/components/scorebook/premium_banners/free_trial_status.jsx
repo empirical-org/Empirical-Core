@@ -11,14 +11,12 @@ const FreeTrialStatus = ({ status, originPage, upgradeToPremiumNow, lastSubscrip
     if (originPage === 'premium') {
       return {
         onClick: upgradeToPremiumNow,
-        standardButtonStyle: true,
         text: "Upgrade to Premium Now",
         target: ""
       }
     } else {
       return {
         href: "/premium",
-        standardButtonStyle: true,
         text: "Upgrade to Premium Now",
         target: ""
       }
@@ -33,7 +31,7 @@ const FreeTrialStatus = ({ status, originPage, upgradeToPremiumNow, lastSubscrip
         upgradeButton(),
         {
           href: "/premium",
-          standardButtonStyle: false,
+          className: 'small outlined',
           text: "Check out our pricing plans.",
           target: ""
         }

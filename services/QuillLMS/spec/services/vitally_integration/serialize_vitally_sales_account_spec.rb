@@ -277,6 +277,25 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
       it { expect(results[:traits][:active_students]).to eq(2) }
     end
 
+    context 'archived units' do
+      before do
+        Unit.update_all(visible: false)
+      end
+
+      it do
+        expect(results[:traits]).to include(
+          active_students: 2,
+          active_students_this_year: 1,
+          total_students: 3,
+          total_students_this_year: 1,
+          activities_finished: 3,
+          activities_finished_this_year: 2,
+          activities_per_student: 1.5,
+          activities_per_student_this_year: 2.0
+        )
+      end
+    end
+
     context 'when teachers are merely coteachers and not owners of the classroom' do
       let!(:classroom_teachers) { create_list(:classrooms_teacher, 2, classroom:, role: 'coteacher') }
 

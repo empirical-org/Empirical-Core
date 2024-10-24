@@ -74,13 +74,11 @@ const PremiumHubContainer = ({ id, history, location, children, user, }) => {
           buttons={[
             {
               href: "https://calendly.com/alex-quill",
-              standardButtonStyle: true,
               text: "Contact sales",
               target: "_blank"
             },
             {
               href: "/premium",
-              standardButtonStyle: true,
               text: "Explore Premium",
               target: "_blank"
             }
@@ -100,7 +98,6 @@ const PremiumHubContainer = ({ id, history, location, children, user, }) => {
           buttons={[
             {
               href: "/teachers/my_account",
-              standardButtonStyle: true,
               text: "Select school",
               target: ""
             }
@@ -120,7 +117,6 @@ const PremiumHubContainer = ({ id, history, location, children, user, }) => {
           buttons={[
             {
               href: "mailto:hello@quill.org",
-              standardButtonStyle: true,
               text: "Contact us",
               target: "_blank"
             }
@@ -140,7 +136,6 @@ const PremiumHubContainer = ({ id, history, location, children, user, }) => {
           buttons={[
             {
               href: "mailto:hello@quill.org",
-              standardButtonStyle: true,
               text: "Contact us",
               target: ""
             }
@@ -160,7 +155,6 @@ const PremiumHubContainer = ({ id, history, location, children, user, }) => {
           buttons={[
             {
               href: "/sign-up/verify-school",
-              standardButtonStyle: true,
               text: "Begin verification",
               target: ""
             }
