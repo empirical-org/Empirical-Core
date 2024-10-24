@@ -46,8 +46,8 @@ module Evidence
         end
 
         private def create_dataset_from_file_for_json_request
-          @dataset = stem_vault.datasets.new(dataset_params)
-
+          @dataset = stem_vault.datasets.new(dataset_params.merge(task_type: Dataset::GENERATIVE))
+          
           if @dataset.save
             DatasetImporter.run(dataset: @dataset, file:)
             render json: { id: @dataset.id }
