@@ -16,12 +16,17 @@
     .header {
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
       p {
         font-size: 14px;
         line-height: 1.57;
         color: #646464;
       }
     }
+  }
+
+  .banner-container.archive-classrooms {
+    margin-bottom: 64px;
   }
 
   .name, .last-name, .first-name {
@@ -52,12 +57,14 @@
   h1, h2 {
     font-weight: bold;
     font-size: 24px;
-    line-height: 1.33;
+    line-height: 1.4;
   }
   .header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 56px;
+    min-height: 42px;
 
     .input-container {
       width: 250px;
@@ -91,6 +98,7 @@
       }
 
       &.import-classes-dropdown-input {
+        width: 174px;
         .dropdown__single-value::before {
           content: url('https://assets.quill.org/images/pages/activity_summary/students.svg');
           position: relative;
@@ -99,7 +107,7 @@
         .dropdown__single-value {
           margin-right: 4px;
           align-items: center;
-          font-size: 14px;
+          // font-size: 14px;
           justify-content: flex-end;
         }
         .dropdown__menu {
@@ -112,23 +120,25 @@
     display: flex;
     align-items: flex-end;
     .create-a-class-button {
-      margin-left: 24px;
+      margin-left: 8px;
     }
   }
-  .no-active-classes {
-    img {
-      margin: 32px 0px 16px;
-    }
+  .no-active-classes, .no-archived-classes {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 128px 0px;
     h2 {
       font-size: 20px;
-      font-weight: bold;
+      font-weight: 700;
       line-height: normal;
     }
     p {
-      margin: 8px 0px 32px;
-      font-size: 16px;
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 400;
       line-height: normal;
-      max-width: 460px;
+      color: $quill-grey-50;
     }
   }
 
@@ -150,21 +160,28 @@
 
   .coteacher-invitation {
     height: 122px;
-    border-radius: 6px;
-    border: solid 1px $quill-grey-5;
+    border-radius: 8px;
+    border: solid 1px $quill-grey-15;
     padding: 32px;
     margin-bottom: 24px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     background-color: $quill-white;
     .coteacher-invitation-content {
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
+      h2 {
+        font-size: 20px;
+        font-weight: 700;
+      }
       p {
         font-size: 14px;
-        line-height: 1.57;
-        color: #646464;
+        font-style: normal;
+        font-weight: 400;
+        color: $quill-grey-50;
       }
       span {
         font-size: 14px;
@@ -173,16 +190,16 @@
         cursor: pointer;
         margin-left: 40px;
       }
-      .accept-or-decline {
-        display: flex;
-        button:first-of-type {
-          margin-right: 16px;
-        }
-        .spinner-container {
-          margin: 0;
-          .spinner {
-            height: 24px;
-          }
+    }
+    .accept-or-decline {
+      display: flex;
+      button:first-of-type {
+        margin-right: 16px;
+      }
+      .spinner-container {
+        margin: 0;
+        .spinner {
+          height: 24px;
         }
       }
     }
@@ -193,34 +210,43 @@
   }
 
   .duplicate-account-pro-tip {
-    padding: 16px 24px;
+    padding: 20px;
     display: flex;
-    background: #F7F5F5;
+    background: $quill-grey-1;
     border-radius: 8px;
     align-items: flex-start;
     line-height: 20px;
-    color: #565656;
+    border: 1px solid $quill-grey-15;
     margin-top: 32px;
     img {
       margin-right: 18px;
     }
-    h4 {
-      font-weight: 700;
-      font-size: 14px;
-      line-height: 20px;
+    .duplicate-account-pro-tip-text {
+      color: $quill-grey-90;
+      h4 {
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 20px;
+        color: $quill-grey-90;
+        margin-bottom: 8px;
+      }
+      p {
+        font-size: 14px;
+        font-weight: 400;
+      }
     }
   }
 
   .provider-note-of-explanation {
-    padding: 32px 24px;
+    padding: 20px;
     display: flex;
     align-items: flex-start;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
     background: $quill-green-1;
     border: 1px solid $quill-green-20;
     border-radius: 8px;
     img {
-      margin-right: 18px;
+      margin-right: 16px;
     }
     .provider-note-of-explanation-text {
       h4 {
@@ -228,7 +254,7 @@
         font-size: 18px;
         line-height: 20px;
         color: $quill-green;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
       }
       p {
         font-weight: 400;
@@ -278,7 +304,7 @@
     }
   }
 
-  .quill-button-archived:focus, .quill-button-archived:hover {
+  .quill-button:focus, .quill-button:hover {
     text-decoration: none;
   }
 
@@ -326,7 +352,7 @@
     }
   }
 
-  .quill-button-archived.primary.outlined {
+  .quill-button.primary.outlined {
     &:hover, &:focus {
       font-weight: 600;
     }
@@ -343,12 +369,12 @@
 
 .dragged-sortable-classroom, .classrooms-page .list-item {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   width: calc(#{$sitewidepagewidth} + 38px); // to make up for negative margin left below
   margin-left: -38px;
   h2 {
-    font-weight: bold;
-    font-size: 24px;
+    font-weight: 700;
+    font-size: 20px;
   }
   .reorder-classroom-item {
     margin-right: 16px;
@@ -357,13 +383,13 @@
 
 .classroom {
   width: 100%;
+  max-width: 1198px;
   border-radius: 6px;
   border: solid 1px $quill-grey-5;
   background-color: $quill-white;
-  margin-bottom: 24px;
   h3 {
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
     margin-bottom: 24px;
   }
   .show-overflow {
@@ -384,7 +410,7 @@
     margin-top: 4px;
     .item {
       line-height: 1.57;
-      color: #646464;
+      color: $quill-grey-50;
       margin-right: 8px;
       .text-and-icon-wrapper {
         display: inline-flex;
@@ -416,8 +442,8 @@
   }
   .class-settings-buttons {
     display: flex;
-    .quill-button-archived {
-      margin-right: 16px;
+    .quill-button {
+      margin-right: 8px;
     }
   }
   .invite-provider-classroom-students {
@@ -436,29 +462,19 @@
     span {
       margin-top: 8px;
     }
-    .quill-button-archived {
+    .quill-button {
       width: 255px;
     }
   }
   .invite-quill-classroom-students {
-    margin-bottom: 40px;
-    .quill-button-archived {
-      width: 128px;
-    }
+    margin-bottom: 32px;
   }
   .no-students {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 58px;
-    p {
-      font-size: 14px;
-      line-height: 1.57;
-      margin-top: 24px;
-      color: #646464;
-      max-width: 528px;
-      text-align: center;
-    }
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    color: $quill-grey-50;
+    padding: 64px 0px;
   }
   .students-section-header, .teacher-section-header {
     display: flex;
@@ -467,7 +483,7 @@
   }
   .teacher-section-header {
     margin-bottom: 26px;
-    .quill-button-archived {
+    .quill-button {
       width: 148px;
     }
   }
@@ -484,8 +500,8 @@
         display: flex;
       }
       .login-pdf-and-view-as-student {
-        .quill-button-archived {
-          margin-right: 16px;
+        .quill-button {
+          margin-right: 8px;
         }
       }
     }
@@ -495,12 +511,13 @@
     align-items: center;
     margin-bottom: 32px;
     .quill-tooltip-trigger {
-      margin-top: 12px;
+      margin-top: 20px;
       margin-left: 10px;
     }
   }
   .student-actions-dropdown {
     width: 200px;
+    min-height: 56px !important;
     justify-content: flex-start;
     .dropdown {
       font-size: 16px;
@@ -522,6 +539,19 @@
   }
 }
 
+.data-table {
+  .data-table-headers {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  .data-table-headers .data-table-header:first-of-type {
+    padding-right: 24px;
+  }
+  .data-table-body .data-table-row td:first-of-type {
+    padding-right: 0px !important;
+  }
+}
+
 @media(max-width: 1200px) {
   .classrooms-page {
     .data-table {
@@ -533,7 +563,7 @@
 @media (min-width: 768px) and (max-width: 992px) {
   .dragged-sortable-classroom, .classrooms-page .list-item {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     width: 762px;
     margin-left: -38px;
   }
@@ -542,7 +572,7 @@
 @media (max-width: 768px) {
   .dragged-sortable-classroom, .classrooms-page .list-item {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     width: auto;
     margin-left: 0px;
   }

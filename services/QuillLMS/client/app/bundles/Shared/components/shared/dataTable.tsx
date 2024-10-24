@@ -264,7 +264,11 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   renderActions(row) {
-    if (!row.actions) { return }
+    if (!row.actions) {
+      return(
+        <td className="data-table-row-section actions-section" key={row.id}><p className="no-action">--</p></td>
+      )
+    }
 
     const { rowWithActionsOpen } = this.state
     const actionsIsOpen = rowWithActionsOpen === row.id;

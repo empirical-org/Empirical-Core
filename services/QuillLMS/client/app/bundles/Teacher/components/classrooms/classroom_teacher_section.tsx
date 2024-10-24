@@ -11,20 +11,20 @@ const OwnerDisplayName = 'Owner'
 
 const activeHeaders = [
   {
-    width: '370px',
+    width: '340px',
     name: 'Name',
     attribute: 'name'
   }, {
-    width: '72px',
+    width: '92px',
     name: 'Role',
     attribute: 'role'
   }, {
-    width: '445px',
+    width: '400px',
     name: 'Email',
     attribute: 'email'
   },
   {
-    width: '52px',
+    width: '72px',
     name: 'Status',
     attribute: 'status'
   }, {
@@ -205,6 +205,7 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     const rows = teachers.map(teacher => this.renderTeacherRow(teacher))
     return (
       <DataTable
+        className="reporting-format"
         headers={classroom.visible ? activeHeaders : archivedHeaders}
         rows={rows}
         showActions={classroom.visible}
@@ -266,7 +267,7 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     if (!classroom.visible) {
       return null
     } else {
-      return <button className="quill-button-archived primary outlined small" onClick={() => this.inviteCoteachers()}>Invite co-teachers</button>
+      return <button className="quill-button primary outlined small focus-on-light" onClick={() => this.inviteCoteachers()}>Invite co-teachers</button>
     }
   }
 

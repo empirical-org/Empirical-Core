@@ -45,7 +45,7 @@ const bookEmptySrc = `${process.env.CDN_URL}/images/illustrations/book-empty.svg
 const canvasIconSrc = `${process.env.CDN_URL}/images/icons/canvas.svg`
 const cleverIconSrc = `${process.env.CDN_URL}/images/icons/clever.svg`
 const googleClassroomIconSrc = `${process.env.CDN_URL}/images/icons/google-classroom.svg`
-const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
+const reorderSrc = `${process.env.CDN_URL}/images/icons/s/reorder.svg`
 
 interface ActiveClassroomsProps {
   canvasLink: string
@@ -348,7 +348,7 @@ const ActiveClassrooms = ({
   const renderCreateAClassButton = () => {
     return (
       <button
-        className="quill-button-archived medium primary contained create-a-class-button"
+        className="quill-button medium primary contained create-a-class-button focus-on-light"
         onClick={() => openModal(createAClassModal)}
         type="button"
       >
@@ -463,7 +463,7 @@ const ActiveClassrooms = ({
 
     return (
       <DropdownInput
-        className="import-classes-dropdown-input"
+        className="import-classes-dropdown-input medium bordered icon"
         handleChange={handleImportClassesClick}
         options={options}
         value={{ label: 'Import Classes', value: null }}
@@ -534,7 +534,6 @@ const ActiveClassrooms = ({
 
       return (
         <div className="no-active-classes">
-          <img alt="Gray book, open and blank" src={bookEmptySrc} />
           <h2>Add your first class</h2>
           <p>All teachers need a class! Choose to create or import your classes. </p>
         </div>

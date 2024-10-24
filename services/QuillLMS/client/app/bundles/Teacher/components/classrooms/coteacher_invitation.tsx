@@ -48,26 +48,26 @@ export const CoteacherInvitation = ({ getClassroomsAndCoteacherInvitations, show
       const declineElement = !isAccepting ? <Spinner /> : 'Decline'
       return(
         <div className="accept-or-decline">
-          <button className="quill-button-archived secondary outlined small disabled" disabled={true} onClick={rejectInvitation}>{declineElement}</button>
-          <button className="quill-button-archived primary contained small disabled" disabled={true} onClick={acceptInvitation}>{acceptElement}</button>
+          <button className="quill-button secondary contained small red disabled" disabled={true} onClick={rejectInvitation}>{declineElement}</button>
+          <button className="quill-button primary contained small disabled" disabled={true} onClick={acceptInvitation}>{acceptElement}</button>
         </div>
       )
     }
     return(
       <div className="accept-or-decline">
-        <button className="quill-button-archived secondary outlined small focus-on-light" onClick={rejectInvitation}>Decline</button>
-        <button className="quill-button-archived primary contained small focus-on-light" onClick={acceptInvitation}>Accept</button>
+        <button className="quill-button secondary contained small red focus-on-light" onClick={rejectInvitation}>Decline</button>
+        <button className="quill-button primary contained small focus-on-light" onClick={acceptInvitation}>Accept</button>
       </div>
     )
   }
 
   return (
     <div className="coteacher-invitation">
-      <h2>Invitation to co-teach "{coteacherInvitation.classroom_name}"</h2>
       <div className="coteacher-invitation-content">
+        <h2>Invitation to co-teach "{coteacherInvitation.classroom_name}"</h2>
         <p>{coteacherInvitation.inviter_name} ({coteacherInvitation.inviter_email}) invited you to co-teach.</p>
-        {renderButtons()}
       </div>
+      {renderButtons()}
     </div>
   )
 }
