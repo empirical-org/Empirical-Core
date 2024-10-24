@@ -1,7 +1,4 @@
-import { apiFetch, handleApiError, evidenceBaseUrl, } from '../../helpers/evidence/routingHelpers';
-import { requestPost, } from '../../../../modules/request'
-
-const researchGenAIBaseUrl = `${evidenceBaseUrl}research/gen_ai`
+import { apiFetch, handleApiError, researchGenAIBaseUrl, researchGenAiApiFetch } from '../../helpers/evidence/routingHelpers';
 
 export const fetchStemVaultsForEvidenceActivity = async ({ queryKey }) => {
   const [key, activityId]: [string, string] = queryKey
@@ -20,6 +17,19 @@ export const fetchStemVaultsForEvidenceActivity = async ({ queryKey }) => {
   };
 }
 
+export const fetchDatasetAndAssociatedRecords = async ({ queryKey }) => {
+  const [key, datasetId]: [string, string] = queryKey
+
+  const response = await researchGenAiApiFetch(`datasets/${datasetId}/`);
+
+  let data = await response.json();
+
+  return {
+    error: handleApiError('Failed to fetch dataset, please refresh the page.', response),
+    data
+  };
+}
+
 // we have to use a custom fetch request here because we need to use formData to submit the CSV, which requires non-standard headers (automatically formatted by formData)
 export const uploadDataset = async (stemVault, file, notes, successFunction, errorFunction) => {
   const formData = new FormData();
@@ -28,7 +38,7 @@ export const uploadDataset = async (stemVault, file, notes, successFunction, err
 
   try {
     const response = await fetch(
-      `${researchGenAIBaseUrl}/stem_vaults/${stemVault.id}/datasets`,
+      `${researchGenAIBaseUrl}stem_vaults/${stemVault.id}/datasets`,
       {
         method: 'POST',
         body: formData,

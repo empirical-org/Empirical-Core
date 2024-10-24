@@ -10,7 +10,7 @@ const NEW = "new";
 const RULES_ANALYSIS_PATH = "rules-analysis"
 const SEMANTIC_LABELS_PATH = "semantic-labels"
 const RULES_INDEX_PATH = "rules-index"
-const LLM_PROMPT_TRIALS_PATH = "llm-prompt-trials"
+const LLM_PROMPT_TRIALS_PATH = "llm-prompt-datasets"
 
 const subLinkPaths = [BECAUSE, BUT, SO];
 

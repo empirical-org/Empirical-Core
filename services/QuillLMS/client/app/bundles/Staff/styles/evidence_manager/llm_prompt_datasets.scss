@@ -1,0 +1,77 @@
+.llm-prompt-datasets-container {
+  h5 {
+    margin-bottom: 16px;
+    span {
+      font-weight: 600;
+      margin-right: 8px;
+      font-size: 16px;
+    }
+    .quill-button {
+      min-width: min-content;
+    }
+  }
+
+  .stem-vault-section {
+    padding: 0px;
+    margin-top: 32px;
+    &:last-of-type {
+      border-bottom: none;
+      margin-bottom: 32px;
+    }
+  }
+
+  .modal-background {
+    z-index: 2;
+  }
+
+  .new-dataset-modal {
+    width: 500px;
+    h3 {
+      font-weight: 600;
+      margin-top: 0px;
+      margin-bottom: 16px;
+      font-size: 20px;
+    }
+
+    input {
+      margin: 12px 0px;
+    }
+
+    .button-section {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      gap: 12px;
+    }
+  }
+}
+
+.llm-prompt-dataset-container {
+  .comprehension-page-header-container {
+    margin-bottom: 0px;
+  }
+  .top-level-dataset-info {
+    display: flex;
+    span {
+      flex: 1;
+      font-size: 16px;
+    }
+  }
+  .backlink {
+    display: block;
+    margin-top: 16px;
+    color: $quill-green-50;
+  }
+  h5 {
+    margin-bottom: 8px;
+    span {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .quill-button {
+      margin-left: 8px;
+      min-width: min-content;
+      font-size: 16px;
+    }
+  }
+}

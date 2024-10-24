@@ -2,6 +2,7 @@ import fetchDefaults from "fetch-defaults";
 
 const mainApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/`;
 export const evidenceBaseUrl = `${mainApiBaseUrl}evidence/`;
+export const researchGenAIBaseUrl = `${evidenceBaseUrl}research/gen_ai/`
 
 const headerHash = {
   headers: {
@@ -11,6 +12,8 @@ const headerHash = {
 }
 
 export const apiFetch = fetchDefaults(fetch, evidenceBaseUrl, headerHash)
+
+export const researchGenAiApiFetch = fetchDefaults(fetch, researchGenAIBaseUrl, headerHash)
 
 export const mainApiFetch = fetchDefaults(fetch, mainApiBaseUrl, headerHash)
 
