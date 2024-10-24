@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import { arrowPointingRightIcon } from '../../images';
-
 interface BannerProps {
   tagText?: string,
   primaryHeaderText: string,
@@ -18,7 +16,6 @@ interface BannerProps {
     className?: string
     onClick?: () => void,
     href?: string,
-    standardButtonStyle: boolean,
     text: string,
     target?: string
   }[],
@@ -28,6 +25,9 @@ interface BannerProps {
 
 export const PostNavigationBanner = ({ tagText, primaryHeaderText, secondaryHeaderText, bodyText, icon, buttons, bannerStyle, bannerColor, closeIconSrc, handleCloseCard, closeAria }: BannerProps) => {
   const color = bannerColor ? bannerColor : 'green'
+  const isPremium = bannerStyle && bannerStyle.includes('premium')
+  const focusClass = bannerStyle && bannerStyle.includes('dark-mode') ? 'focus-on-dark' : 'focus-on-light'
+
   if(bannerStyle && bannerStyle.includes('minimal')) {
     return(
       <div className={`banner-container ${bannerStyle} ${color}`}>
@@ -38,17 +38,17 @@ export const PostNavigationBanner = ({ tagText, primaryHeaderText, secondaryHead
         </div>
         <div className="buttons-container">
           {buttons.map((button, i) => {
-            const { className, onClick, href, standardButtonStyle, text, target } = button
-            let buttonClass = standardButtonStyle ? `quill-button ${color} ` : "nonstandard-banner-button "
+            const { className, onClick, href, text, target } = button
+            let buttonClass = `quill-button ${isPremium ? '' : color} `
             if(className) {
               buttonClass += className
             } else {
-              buttonClass += "extra-small contained"
+              buttonClass += "small contained"
             }
-            if (button.onClick) {
-              return <button className={`${buttonClass} focus-on-light`} key={`button-${i}`} onClick={onClick}>{text}</button>
+            if(button.onClick) {
+              return <button className={`${buttonClass} ${focusClass}`} key={`button-${i}`} onClick={onClick}>{text}</button>
             } else {
-              return <a className={`${buttonClass} focus-on-light`} href={href} key={`button-${i}`} rel="noopener noreferrer" target={target}>{text} {!standardButtonStyle && <img alt={arrowPointingRightIcon.alt} src={arrowPointingRightIcon.src} />}</a>
+              return <a className={`${buttonClass} ${focusClass}`} href={href} key={`button-${i}`} rel="noopener noreferrer" target={target}>{text}</a>
             }
           })}
         </div>
@@ -66,17 +66,17 @@ export const PostNavigationBanner = ({ tagText, primaryHeaderText, secondaryHead
         <p className="body">{bodyText}</p>
         <div className="buttons-container">
           {buttons.map((button, i) => {
-            const { className, onClick, href, standardButtonStyle, text, target } = button
-            let buttonClass = standardButtonStyle ? `quill-button ${color} ` : "nonstandard-banner-button "
+            const { className, onClick, href, text, target } = button
+            let buttonClass = `quill-button ${isPremium ? '' : color} `
             if (className) {
               buttonClass += className
             } else {
-              buttonClass += "extra-small contained"
+              buttonClass += "small contained"
             }
             if(button.onClick) {
-              return <button className={`${buttonClass} focus-on-light`} key={`button-${i}`} onClick={onClick}>{text}</button>
+              return <button className={`${buttonClass} ${focusClass}`} key={`button-${i}`} onClick={onClick}>{text}</button>
             } else {
-              return <a className={`${buttonClass} focus-on-light`} href={href} key={`button-${i}`} rel="noopener noreferrer" target={target}>{text} {!standardButtonStyle && <img alt={arrowPointingRightIcon.alt} src={arrowPointingRightIcon.src} />}</a>
+              return <a className={`${buttonClass} ${focusClass}`} href={href} key={`button-${i}`} rel="noopener noreferrer" target={target}>{text}</a>
             }
           })}
         </div>
