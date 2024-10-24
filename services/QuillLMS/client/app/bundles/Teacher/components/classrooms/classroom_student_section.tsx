@@ -32,7 +32,7 @@ function activeHeaders(hasClassroomProvider: boolean) {
   }
 
   const logInMethod = {
-    width: '135px',
+    width: '100px',
     name: 'Log-in Method',
     attribute: 'logInMethod'
   }
