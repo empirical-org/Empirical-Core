@@ -2,7 +2,7 @@
 
 ## 1. Data Importing
 
-`Activity`, `StemVault`, `Dataset`, `TestExample`, and `PromptExample` records are imported with the following structure
+`Activity`, `StemVault`, `Dataset`, `Guideline`, `TestExample`, and `PromptExample` records are imported with the following structure
 
 ```mermaid
 classDiagram
@@ -36,8 +36,8 @@ classDiagram
           curriculum_proposed_feedback
     }
     Activity --|> StemVault
-    StemVault --|> Guideline
     StemVault --|> Dataset
+    Dataset --|> Guideline
     Dataset --|> TestExample
     Dataset --|> PromptExample
 ```
@@ -78,13 +78,12 @@ Within the UI, the user can select `PromptExample` and `Guideline` records for t
 
 ```mermaid
 classDiagram
-    StemVault --|> Guideline
     Guideline --|> LLMPromptGuideline
     LLMPrompt --|> LLMPromptGuideline
     LLMPrompt --|> LLMPromptPromptExample
-    Dataset --|> PromptExample
     PromptExample --|> LLMPromptPromptExample
     Trial --|> LLMPrompt
+
 ```
 
 ## 4. Trial Ouptut

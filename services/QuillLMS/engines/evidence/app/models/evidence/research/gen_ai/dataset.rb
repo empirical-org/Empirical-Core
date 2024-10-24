@@ -28,6 +28,7 @@ module Evidence
         has_many :test_examples, dependent: :destroy
         has_many :prompt_examples, dependent: :destroy
         has_many :trials, dependent: :destroy
+        has_many :guidelines, dependent: :destroy
         has_many :comparisons, dependent: :destroy
         has_many :data_subsets, class_name: 'Evidence::Research::GenAI::Dataset', foreign_key: 'parent_id'
 

@@ -14,7 +14,7 @@ module Evidence
         def run
           LLMPromptBuilder.run(
             dataset_id: dataset.id,
-            guidelines: dataset.stem_vault.guidelines,
+            guidelines: dataset.guidelines,
             llm_prompt_template_id: llm_prompt_template.id,
             prompt_examples: dataset.prompt_examples,
             text: colored_contents

@@ -48,10 +48,6 @@ Evidence::Engine.routes.draw do
       resources :llm_prompt_templates, only: [:new, :create, :show, :index, :edit, :update]
 
       resources :stem_vaults, only: [] do
-        resources :guidelines, only: [:new, :create] do
-          member { patch :hide }
-        end
-
         resources :datasets, only: [:new, :create, :show], shallow: true
       end
 
@@ -59,6 +55,10 @@ Evidence::Engine.routes.draw do
         resources :trials, only: [:new, :create, :show]
         resources :comparisons, only: [:create, :show]
         resources :prompt_examples, only: [:new, :create]
+
+        resources :guidelines, only: [:new, :create] do
+          member { patch :hide }
+        end
       end
 
       resources :activities, only: [:new, :create, :show, :index] do

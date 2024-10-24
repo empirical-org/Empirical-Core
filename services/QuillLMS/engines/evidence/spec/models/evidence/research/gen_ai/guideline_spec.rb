@@ -10,9 +10,12 @@
 #  visible                    :boolean          default(TRUE), not null
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
-#  stem_vault_id              :integer          not null
+#  dataset_id                 :integer
 #
-
+# Indexes
+#
+#  index_evidence_research_gen_ai_guidelines_on_dataset_id  (dataset_id)
+#
 require 'rails_helper'
 
 module Evidence
@@ -24,13 +27,13 @@ module Evidence
         it { expect(build(factory)).to be_valid }
 
         it { should validate_presence_of(:curriculum_assigned_status) }
-        it { should validate_presence_of(:stem_vault_id) }
+        it { should validate_presence_of(:dataset_id) }
         it { should validate_presence_of(:text) }
         it { should have_readonly_attribute(:curriculum_assigned_status) }
         it { should have_readonly_attribute(:stem_vault_id) }
         it { should have_readonly_attribute(:text) }
 
-        it { should belong_to(:stem_vault) }
+        it { should belong_to(:dataset) }
 
         it_behaves_like 'has_assigned_status'
       end
